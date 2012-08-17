@@ -156,9 +156,11 @@ namespace OpenTween
             {
                 foreach (UserAccount u in this.UserAccounts)
                 {
-                    if (u.Username.ToLower() == ((UserAccount)this.AuthUserCombo.SelectedItem).Username.ToLower())
+                    if (u.Username.ToLower() == ((UserAccount)this.AuthUserCombo.SelectedItem).Username.ToLower() &&
+                        u.Tag == ((UserAccount)this.AuthUserCombo.SelectedItem).Tag)
                     {
-                        tw.Initialize(u.Token, u.TokenSecret, u.Username, u.UserId);
+                        tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
+                        tw.Tag = u.Tag;
                         if (u.UserId == 0)
                         {
                             tw.VerifyCredentials();
@@ -171,7 +173,7 @@ namespace OpenTween
             else
             {
                 tw.ClearAuthInfo();
-                tw.Initialize("", "", "", 0);
+                tw.Initialize("", "", "", "", "", 0);
             }
 
 #if UA
@@ -521,7 +523,8 @@ namespace OpenTween
                     {
                         if (u.UserId == this.InitialUserId)
                         {
-                            tw.Initialize(u.Token, u.TokenSecret, u.Username, u.UserId);
+                            tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
+                            tw.Tag = u.Tag;
                             userSet = true;
                             break;
                         }
@@ -532,7 +535,7 @@ namespace OpenTween
                 if (!userSet)
                 {
                     tw.ClearAuthInfo();
-                    tw.Initialize("", "", "", 0);
+                    tw.Initialize("", "", "", "", "", 0);
                 }
             }
 
@@ -598,7 +601,7 @@ namespace OpenTween
                 this.AuthUserCombo.Items.AddRange(this.UserAccounts.ToArray());
                 foreach (UserAccount u in this.UserAccounts)
                 {
-                    if (u.UserId == tw.UserId)
+                    if (u.UserId == tw.UserId && u.Tag == tw.Tag)
                     {
                         this.AuthUserCombo.SelectedItem = u;
                         this.InitialUserId = u.UserId;
@@ -1695,11 +1698,21 @@ namespace OpenTween
             string pusr = TextProxyUser.Text.Trim();
             string ppw = TextProxyPassword.Text.Trim();
 
+            string consumerKey = TextBoxConsumerKey.Text.Trim();
+            string consumerSecret = TextBoxConsumerSecret.Text.Trim();
+            string tag = TextBoxTag.Text;
+            if (consumerKey == "" || consumerSecret == "")
+            {
+                consumerKey = ApplicationSettings.TwitterDefaultConsumerKey;
+                consumerSecret = ApplicationSettings.TwitterDefaultConsumerSecret;
+            }
+
             //通信基底クラス初期化
             HttpConnection.InitializeConnection(20, ptype, padr, pport, pusr, ppw);
             HttpTwitter.TwitterUrl = TwitterAPIText.Text.Trim();
             HttpTwitter.TwitterSearchUrl = TwitterSearchAPIText.Text.Trim();
-            tw.Initialize("", "", "", 0);
+            tw.Initialize("", "", consumerKey, consumerSecret, "", 0);
+            tw.Tag = tag;
             //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
             //this.AuthUserLabel.Text = "";
             string pinPageUrl = "";
@@ -1738,12 +1751,15 @@ namespace OpenTween
                 UserAccount user = new UserAccount();
                 user.Username = tw.Username;
                 user.UserId = tw.UserId;
+                user.ConsumerKey = tw.ConsumerKey;
+                user.ConsumerSecret = tw.ConsumerSecret;
                 user.Token = tw.AccessToken;
                 user.TokenSecret = tw.AccessTokenSecret;
 
                 foreach (object u in this.AuthUserCombo.Items)
                 {
-                    if (((UserAccount)u).Username.ToLower() == tw.Username.ToLower())
+                    if (((UserAccount)u).Username.ToLower() == tw.Username.ToLower() &&
+                        ((UserAccount)u).Tag == tw.Tag)
                     {
                         idx = this.AuthUserCombo.Items.IndexOf(u);
                         break;

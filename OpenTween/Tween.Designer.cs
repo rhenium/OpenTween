@@ -35,6 +35,7 @@
             this.StatusLabelUrl = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusLabel = new OpenTween.OpenTweenCustomControl.ToolStripLabelHistory();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ChangeAccountSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.HashStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.ContextMenuPostMode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItemUrlMultibyteSplit = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,11 +44,15 @@
             this.IdeographicSpaceToSpaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MultiLineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripFocusLockMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripSpaceToFocusTimelineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator35 = new System.Windows.Forms.ToolStripSeparator();
             this.ImageSelectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.HashToggleMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.HashManageMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolStripAutoAddZenkakuSpaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripAutoCutTweetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TimelinePanel = new System.Windows.Forms.Panel();
             this.ListTab = new System.Windows.Forms.TabControl();
@@ -144,12 +149,16 @@
             this.ToolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
             this.TweenRestartMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EndFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeAccountMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.UndoRemoveTabMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.CopySTOTMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CopyURLMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CopyUserIdStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyTweetStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SuddenlyDeathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuItemSubSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemSearchNext = new System.Windows.Forms.ToolStripMenuItem();
@@ -373,6 +382,7 @@
             this.StatusLabelUrl,
             this.StatusLabel,
             this.ToolStripStatusLabel1,
+            this.ChangeAccountSplitButton,
             this.HashStripSplitButton});
             this.StatusStrip1.Name = "StatusStrip1";
             this.StatusStrip1.ShowItemToolTips = true;
@@ -402,6 +412,13 @@
             this.ToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
             // 
+            // ChangeAccountSplitButton
+            // 
+            this.ChangeAccountSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.ChangeAccountSplitButton, "ChangeAccountSplitButton");
+            this.ChangeAccountSplitButton.Name = "ChangeAccountSplitButton";
+            this.ChangeAccountSplitButton.DropDownOpening += new System.EventHandler(this.ChangeAccountSplitButton_DropDownOpening);
+            // 
             // HashStripSplitButton
             // 
             this.HashStripSplitButton.AutoToolTip = false;
@@ -421,11 +438,15 @@
             this.IdeographicSpaceToSpaceToolStripMenuItem,
             this.MultiLineMenuItem,
             this.ToolStripFocusLockMenuItem,
+            this.ToolStripSpaceToFocusTimelineMenuItem,
             this.ToolStripSeparator35,
             this.ImageSelectMenuItem,
             this.ToolStripSeparator8,
             this.HashToggleMenuItem,
-            this.HashManageMenuItem});
+            this.HashManageMenuItem,
+            this.toolStripSeparator44,
+            this.ToolStripAutoAddZenkakuSpaceMenuItem,
+            this.ToolStripAutoCutTweetMenuItem});
             this.ContextMenuPostMode.Name = "ContextMenuStripPostMode";
             this.ContextMenuPostMode.OwnerItem = this.HashStripSplitButton;
             resources.ApplyResources(this.ContextMenuPostMode, "ContextMenuPostMode");
@@ -475,6 +496,13 @@
             resources.ApplyResources(this.ToolStripFocusLockMenuItem, "ToolStripFocusLockMenuItem");
             this.ToolStripFocusLockMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripFocusLockMenuItem_CheckedChanged);
             // 
+            // ToolStripSpaceToFocusTimelineMenuItem
+            // 
+            this.ToolStripSpaceToFocusTimelineMenuItem.CheckOnClick = true;
+            this.ToolStripSpaceToFocusTimelineMenuItem.Name = "ToolStripSpaceToFocusTimelineMenuItem";
+            resources.ApplyResources(this.ToolStripSpaceToFocusTimelineMenuItem, "ToolStripSpaceToFocusTimelineMenuItem");
+            this.ToolStripSpaceToFocusTimelineMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripSpaceToFocusTimelineMenuItem_CheckedChanged);
+            // 
             // ToolStripSeparator35
             // 
             this.ToolStripSeparator35.Name = "ToolStripSeparator35";
@@ -503,6 +531,23 @@
             this.HashManageMenuItem.Name = "HashManageMenuItem";
             resources.ApplyResources(this.HashManageMenuItem, "HashManageMenuItem");
             this.HashManageMenuItem.Click += new System.EventHandler(this.HashManageMenuItem_Click);
+            // 
+            // toolStripSeparator44
+            // 
+            this.toolStripSeparator44.Name = "toolStripSeparator44";
+            resources.ApplyResources(this.toolStripSeparator44, "toolStripSeparator44");
+            // 
+            // ToolStripAutoAddZenkakuSpaceMenuItem
+            // 
+            this.ToolStripAutoAddZenkakuSpaceMenuItem.Name = "ToolStripAutoAddZenkakuSpaceMenuItem";
+            resources.ApplyResources(this.ToolStripAutoAddZenkakuSpaceMenuItem, "ToolStripAutoAddZenkakuSpaceMenuItem");
+            this.ToolStripAutoAddZenkakuSpaceMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripAutoAddZenkakuSpaceMenuItem_CheckedChanged);
+            // 
+            // ToolStripAutoCutTweetMenuItem
+            // 
+            this.ToolStripAutoCutTweetMenuItem.Name = "ToolStripAutoCutTweetMenuItem";
+            resources.ApplyResources(this.ToolStripAutoCutTweetMenuItem, "ToolStripAutoCutTweetMenuItem");
+            this.ToolStripAutoCutTweetMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripAutoCutTweetMenuItem_CheckedChanged);
             // 
             // SplitContainer1
             // 
@@ -1185,7 +1230,8 @@
             this.StopRefreshAllMenuItem,
             this.ToolStripSeparator24,
             this.TweenRestartMenuItem,
-            this.EndFileMenuItem});
+            this.EndFileMenuItem,
+            this.ChangeAccountMenuItem});
             this.MenuItemFile.Name = "MenuItemFile";
             resources.ApplyResources(this.MenuItemFile, "MenuItemFile");
             // 
@@ -1261,6 +1307,11 @@
             resources.ApplyResources(this.EndFileMenuItem, "EndFileMenuItem");
             this.EndFileMenuItem.Click += new System.EventHandler(this.EndToolStripMenuItem_Click);
             // 
+            // ChangeAccountMenuItem
+            // 
+            this.ChangeAccountMenuItem.Name = "ChangeAccountMenuItem";
+            resources.ApplyResources(this.ChangeAccountMenuItem, "ChangeAccountMenuItem");
+            // 
             // MenuItemEdit
             // 
             this.MenuItemEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1269,6 +1320,9 @@
             this.CopySTOTMenuItem,
             this.CopyURLMenuItem,
             this.CopyUserIdStripMenuItem,
+            this.CopyTweetStripMenuItem,
+            this.PasteToolStripMenuItem,
+            this.SuddenlyDeathToolStripMenuItem,
             this.ToolStripSeparator6,
             this.MenuItemSubSearch,
             this.MenuItemSearchNext,
@@ -1307,6 +1361,24 @@
             this.CopyUserIdStripMenuItem.Name = "CopyUserIdStripMenuItem";
             resources.ApplyResources(this.CopyUserIdStripMenuItem, "CopyUserIdStripMenuItem");
             this.CopyUserIdStripMenuItem.Click += new System.EventHandler(this.CopyUserIdStripMenuItem_Click);
+            // 
+            // CopyTweetStripMenuItem
+            // 
+            this.CopyTweetStripMenuItem.Name = "CopyTweetStripMenuItem";
+            resources.ApplyResources(this.CopyTweetStripMenuItem, "CopyTweetStripMenuItem");
+            this.CopyTweetStripMenuItem.Click += new System.EventHandler(this.CopyTweetStripMenuItem_Click);
+            // 
+            // PasteToolStripMenuItem
+            // 
+            this.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem";
+            resources.ApplyResources(this.PasteToolStripMenuItem, "PasteToolStripMenuItem");
+            this.PasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
+            // 
+            // SuddenlyDeathToolStripMenuItem
+            // 
+            this.SuddenlyDeathToolStripMenuItem.Name = "SuddenlyDeathToolStripMenuItem";
+            resources.ApplyResources(this.SuddenlyDeathToolStripMenuItem, "SuddenlyDeathToolStripMenuItem");
+            this.SuddenlyDeathToolStripMenuItem.Click += new System.EventHandler(this.SuddenlyDeathToolStripMenuItem_Click);
             // 
             // ToolStripSeparator6
             // 
@@ -2764,8 +2836,16 @@
         internal System.Windows.Forms.ToolTip ToolTip1;
         internal System.Windows.Forms.Timer TimerRefreshIcon;
         internal System.Windows.Forms.ImageList PostStateImageList;
-        private System.Windows.Forms.ToolStripMenuItem ProtectTabMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ProtectTbMenuItem;
-
+        internal System.Windows.Forms.ToolStripMenuItem CopyTweetStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem PasteToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem ProtectTabMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem ProtectTbMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem ChangeAccountMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem ToolStripSpaceToFocusTimelineMenuItem;
+        internal System.Windows.Forms.ToolStripSplitButton ChangeAccountSplitButton;
+        internal System.Windows.Forms.ToolStripMenuItem SuddenlyDeathToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoCutTweetMenuItem;
+        internal System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
+        internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoAddZenkakuSpaceMenuItem;
     }
 }

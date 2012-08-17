@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
+//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -67,6 +68,10 @@ namespace OpenTween
             set { TokenSecret = Decrypt(value); }
         }
 
+        public string ConsumerKey = "";
+        public string ConsumerSecret = "";
+        public string Tag = "";
+        
         private string Encrypt(string password)
         {
             if (String.IsNullOrEmpty(password)) password = "";
@@ -219,6 +224,13 @@ namespace OpenTween
         public bool TabMouseLock = false;
         public bool IsRemoveSameEvent = false;
         public bool IsUseNotifyGrowl = false;
+
+        public bool SpaceToFocusTimeline = true;
+        public bool AutoCutTweet = false;
+        public bool AutoAddZenkakuSpace = false;
+
+        // 隠し
+        public bool ShowDeleted = false;
     }
 
     public class UserAccount
@@ -235,6 +247,9 @@ namespace OpenTween
             get { return Encrypt(TokenSecret); }
             set { TokenSecret = Decrypt(value); }
         }
+        public string ConsumerKey = "";
+        public string ConsumerSecret = "";
+        public string Tag = "";
         private string Encrypt(string password)
         {
             if (String.IsNullOrEmpty(password)) password = "";
@@ -272,7 +287,14 @@ namespace OpenTween
         }
         public override string ToString()
         {
-            return this.Username;
+            if (string.IsNullOrEmpty(this.Tag))
+            {
+                return this.Username;
+            }
+            else
+            {
+                return this.Username + " - " + this.Tag;
+            }
         }
     }
 }

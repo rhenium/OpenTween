@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      spinor (@tplantd) <http://d.hatena.ne.jp/spinor/>
+//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -582,6 +583,22 @@ namespace OpenTween
 			this.authorizedUsername = username;
 			this.authorizedUserId = userId;
 		}
+
+        /// <summary>
+        /// コンシューマー鍵
+        /// </summary>
+        public string ConsumerKey
+        {
+            get { return this.consumerKey; }
+        }
+
+        /// <summary>
+        /// コンシューマー秘密鍵
+        /// </summary>
+        public string ConsumerSecret
+        {
+            get { return this.consumerSecret; }
+        }
 
 		/// <summary>
 		/// アクセストークン

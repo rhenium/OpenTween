@@ -983,8 +983,8 @@ namespace OpenTween
                             {
                                 lock (LockUnread)
                                 {
-                                    tab.UnreadCount--;
-                                    this.SetNextUnreadId(Id, tab);
+                                    //tab.UnreadCount--;
+                                    //this.SetNextUnreadId(Id, tab);
                                 }
                             }
                         }
@@ -994,15 +994,15 @@ namespace OpenTween
                             {
                                 lock (LockUnread)
                                 {
-                                    tab.UnreadCount--;
-                                    this.SetNextUnreadId(Id, tab);
+                                    //tab.UnreadCount--;
+                                    //this.SetNextUnreadId(Id, tab);
                                 }
                             }
                         }
-                        tab.Remove(Id);
+                        //tab.Remove(Id);
                     }
                 }
-                if (_statuses.ContainsKey(Id)) _statuses.Remove(Id);
+                //if (_statuses.ContainsKey(Id)) _statuses.Remove(Id);
             }
         }
 

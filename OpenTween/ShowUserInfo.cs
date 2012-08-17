@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
+//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -55,11 +56,13 @@ namespace OpenTween
         private const string Followingpath = "/following";
         private const string Followerspath = "/followers";
         private const string Favpath = "/favorites";
+        private const string Listedpath = "/lists/memberships";
 
         private string Home;
         private string Following;
         private string Followers;
         private string Favorites;
+        private string Listed;
         private TweenMain MyOwner;
         private string FriendshipResult = "";
 
@@ -69,6 +72,7 @@ namespace OpenTween
             Following = Home + Followingpath;
             Followers = Home + Followerspath;
             Favorites = Home + Favpath;
+            Listed = Home + Listedpath;
         }
 
         private void InitTooltip()
@@ -99,6 +103,8 @@ namespace OpenTween
                 _info.CreatedAt = MyCommon.DateTimeParse(user.CreatedAt);
                 _info.StatusesCount = user.StatusesCount;
                 _info.Verified = user.Verified;
+
+                _info.ListedCount = user.ListedCount;
                 try
                 {
                     _info.RecentPost = user.Status.Text;
@@ -189,6 +195,8 @@ namespace OpenTween
             LinkLabelFav.Text = _info.FavoriteCount.ToString();
             LinkLabelTweet.Text = _info.StatusesCount.ToString();
 
+            LinkLabelListed.Text = _info.ListedCount.ToString();
+
             LabelCreatedAt.Text = _info.CreatedAt.ToString();
 
             if (_info.Protect)
@@ -253,6 +261,11 @@ namespace OpenTween
         private void LinkLabelFav_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MyOwner.OpenUriAsync(Favorites);
+        }
+
+        private void LinkLabelListed_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MyOwner.OpenUriAsync(Listed);
         }
 
         private void ButtonFollow_Click(object sender, EventArgs e)
@@ -840,5 +853,17 @@ namespace OpenTween
                 doChangeIcon(filename);
             }
         }
+
+        private void LinkLabelTwilog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MyOwner.OpenUriAsync("http://twilog.org/" + _info.ScreenName);
+        }
+
+        private void LinkLabelFavstar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MyOwner.OpenUriAsync("http://ja.favstar.fm/users/" + _info.ScreenName);
+        }
+
+        
     }
 }

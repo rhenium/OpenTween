@@ -56,6 +56,7 @@ namespace OpenTween
             this.CreatedAt = MyCommon.DateTimeParse(user.CreatedAt);
             this.StatusesCount = user.StatusesCount;
             this.Verified = user.Verified;
+            this.ListedCount = user.ListedCount;
             if (user.Status != null)
             {
                 this.RecentPost = user.Status.Text;
@@ -82,6 +83,7 @@ namespace OpenTween
         public string PostSource = "";        // html形式　"<a href="http://sourceforge.jp/projects/tween/wiki/FrontPage" rel="nofollow">Tween</a>"
         public bool isFollowing = false;
         public bool isFollowed = false;
+        public int ListedCount = 0;
 
         public override string ToString()
         {

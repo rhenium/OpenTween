@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      spinor (@tplantd) <http://d.hatena.ne.jp/spinor/>
+//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -48,7 +49,7 @@ namespace OpenTween
 
 		private Twitter tw;
 
-		public string Upload( ref string filePath, ref string message, long reply_to )
+        public string Upload(ref string filePath, ref string message, long reply_to, bool isDraft, TweenMain owner)
 		{
 			if ( string.IsNullOrEmpty( filePath ) )
 				return "Err:File isn't exists.";
@@ -114,7 +115,7 @@ namespace OpenTween
 			else
 				message += " " + url;
 
-			return this.tw.PostStatus( message, 0 );
+            return this.tw.PostStatusRetry(message, reply_to, isDraft, owner);
 		}
 
 		private HttpStatusCode UploadFile( FileInfo mediaFile, string message, ref string content )
@@ -176,7 +177,7 @@ namespace OpenTween
 			: base( new Uri( "http://api.twitter.com/" ), new Uri( "https://api.twitter.com/1/account/verify_credentials.xml" ) )
 		{
 			this.tw = twitter;
-            this.Initialize( ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, this.tw.AccessToken, this.tw.AccessTokenSecret, "", "" );
+            this.Initialize(tw.ConsumerKey, tw.ConsumerSecret, tw.AccessToken, tw.AccessTokenSecret, "", "");
 		}
 
 		public bool Configuration( string key, object value )

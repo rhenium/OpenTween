@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      Egtra (@egtra) <http://dev.activebasic.com/egtra/>
+//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 //
 // This file is part of OpenTween.
@@ -149,6 +150,8 @@ namespace OpenTween
         private HttpTwitter twCon = new HttpTwitter();
 
         //private List<PostClass> _deletemessages = new List<PostClass>();
+
+        private List<Thread> listRetry = new List<Thread>();
 
         public string Authenticate(string username, string password)
         {
@@ -339,7 +342,7 @@ namespace OpenTween
             }
         }
 
-        public void Initialize(string token, string tokenSecret, string username, long userId)
+        public void Initialize(string token, string tokenSecret, string consumerKey, string consumerSecret, string username, long userId)
         {
             //OAuth認証
             if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(tokenSecret) || string.IsNullOrEmpty(username))
@@ -347,7 +350,7 @@ namespace OpenTween
                 Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
             }
             MyCommon.TwitterApiInfo.Initialize();
-            twCon.Initialize(token, tokenSecret, username, userId);
+            twCon.Initialize(token, tokenSecret, consumerKey, consumerSecret, username, userId);
             _uname = username.ToLower();
             if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
         }
@@ -522,7 +525,7 @@ namespace OpenTween
 
             if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
-            postStr = postStr.Trim();
+            //postStr = postStr.Trim();
 
             if (Regex.Match(postStr, "^DM? +(?<id>[a-zA-Z0-9_]+) +(?<body>.+)", RegexOptions.IgnoreCase | RegexOptions.Singleline).Success)
             {
@@ -580,6 +583,21 @@ namespace OpenTween
             case HttpStatusCode.NotFound:
                 return "";
             case HttpStatusCode.Forbidden:
+                {
+                    var errMsg = GetErrorMessageJson(content);
+                    if (string.IsNullOrEmpty(errMsg))
+                    {
+                        return "Warn:" + res.ToString();
+                    }
+                    else if (errMsg == "Status is a duplicate." ||
+                             errMsg == "Status is over 140 characters." ||
+                             errMsg == "User is over daily status update limit.")
+                    {
+                        return "Skip:" + errMsg;
+                    }
+
+                    return "Warn:" + errMsg;
+                }
             case HttpStatusCode.BadRequest:
                 {
                     var errMsg = GetErrorMessageJson(content);
@@ -630,7 +648,7 @@ namespace OpenTween
 
             if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
-            postStr = postStr.Trim();
+            //postStr = postStr.Trim();
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -683,6 +701,22 @@ namespace OpenTween
             case HttpStatusCode.NotFound:
                 return "";
             case HttpStatusCode.Forbidden:
+                {
+                    var errMsg = GetErrorMessageJson(content);
+                    if (string.IsNullOrEmpty(errMsg))
+                    {
+                        return "Warn:" + res.ToString();
+                    }
+                    else if (errMsg == "Status is a duplicate." ||
+                             errMsg == "Status is over 140 characters." ||
+                             errMsg == "User is over daily status update limit." ||
+                             errMsg == "ツイートが長すぎます.")
+                    {
+                        return "Skip:" + errMsg;
+                    }
+
+                    return "Warn:" + errMsg;
+                }
             case HttpStatusCode.BadRequest:
                 {
                     var errMsg = GetErrorMessageJson(content);
@@ -737,7 +771,7 @@ namespace OpenTween
                 if (!MyCommon.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
             }
 
-            postStr = postStr.Trim();
+            //postStr = postStr.Trim();
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -4192,6 +4226,28 @@ namespace OpenTween
             }
         }
 
+        public string ConsumerKey
+        {
+            get
+            {
+                return twCon.ConsumerKey;
+            }
+        }
+
+        public string ConsumerSecret
+        {
+            get
+            {
+                return twCon.ConsumerSecret;
+            }
+        }
+
+        public string Tag
+        {
+            get;
+            set;
+        }
+
         public event EventHandler<ApiInformationChangedEventArgs> ApiInformationChanged;
 
         private void Twitter_ApiInformationChanged(object sender, ApiInformationChangedEventArgs e)
@@ -4201,6 +4257,52 @@ namespace OpenTween
         public Twitter()
         {
             ApiInformationChanged += Twitter_ApiInformationChanged;
+        }
+
+        public string PostStatusRetry(string tweet, long reply_to, bool isDraft, TweenMain owner, FileInfo mediaFile = null)
+        {
+            if (isDraft)
+            {
+                ShowDraftWindow("ツイートは保留されています", tweet, reply_to, mediaFile, owner);
+                return "Skip: ツイートは保留されています";
+            }
+            string ret;
+            if (mediaFile == null)
+            {
+                ret = this.PostStatus(tweet, reply_to);
+            }
+            else
+            {
+                ret = this.PostStatusWithMedia(tweet, reply_to, mediaFile);
+            }
+
+            if (ret.StartsWith("Skip:"))
+            {
+                if (ret.Contains("Status is a duplicate.")
+                    && owner._cfgCommon.AutoAddZenkakuSpace
+                    && (tweet + "　").Length <= 140 - (mediaFile == null ? 0 : 21))
+                {
+                    // 自動リトライ
+                    return this.PostStatusRetry(tweet + "　", reply_to, false, owner, mediaFile);
+                }
+                else
+                {
+                    ShowDraftWindow(ret, tweet, reply_to, mediaFile, owner);
+                }
+            }
+            return ret;
+        }
+
+        public void ShowDraftWindow(string msg, string tweet, long reply_to, FileInfo mediaFile, TweenMain owner)
+        {
+            Thread m = new Thread(() =>
+            {
+                TweetPool tweetRetry = new TweetPool();
+                tweetRetry.Set(msg, tweet, reply_to, mediaFile, this);
+                tweetRetry.mainForm = owner;
+                tweetRetry.ShowDialog();
+            });
+            m.Start();
         }
 
 #region "UserStream"

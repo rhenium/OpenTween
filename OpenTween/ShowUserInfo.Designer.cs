@@ -80,6 +80,10 @@
             this.Label1 = new System.Windows.Forms.Label();
             this.Label3 = new System.Windows.Forms.Label();
             this.Label2 = new System.Windows.Forms.Label();
+            this.LinkLabelListed = new System.Windows.Forms.LinkLabel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.LinkLabelFavstar = new System.Windows.Forms.LinkLabel();
+            this.LinkLabelTwilog = new System.Windows.Forms.LinkLabel();
             this.ContextMenuRecentPostBrowser.SuspendLayout();
             this.ContextMenuUserPicture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UserPicture)).BeginInit();
@@ -416,12 +420,42 @@
             resources.ApplyResources(this.Label2, "Label2");
             this.Label2.Name = "Label2";
             // 
+            // LinkLabelListed
+            // 
+            resources.ApplyResources(this.LinkLabelListed, "LinkLabelListed");
+            this.LinkLabelListed.Name = "LinkLabelListed";
+            this.LinkLabelListed.TabStop = true;
+            this.LinkLabelListed.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelListed_LinkClicked);
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // LinkLabelFavstar
+            // 
+            resources.ApplyResources(this.LinkLabelFavstar, "LinkLabelFavstar");
+            this.LinkLabelFavstar.Name = "LinkLabelFavstar";
+            this.LinkLabelFavstar.TabStop = true;
+            this.LinkLabelFavstar.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelFavstar_LinkClicked);
+            // 
+            // LinkLabelTwilog
+            // 
+            resources.ApplyResources(this.LinkLabelTwilog, "LinkLabelTwilog");
+            this.LinkLabelTwilog.Name = "LinkLabelTwilog";
+            this.LinkLabelTwilog.TabStop = true;
+            this.LinkLabelTwilog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabelTwilog_LinkClicked);
+            // 
             // ShowUserInfo
             // 
             this.AllowDrop = true;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.ButtonClose;
+            this.Controls.Add(this.LinkLabelTwilog);
+            this.Controls.Add(this.LinkLabelFavstar);
+            this.Controls.Add(this.LinkLabelListed);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.LinkLabel2);
             this.Controls.Add(this.ButtonBlockDestroy);
             this.Controls.Add(this.ButtonReportSpam);
@@ -539,5 +573,9 @@
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.Label Label3;
         internal System.Windows.Forms.Label Label2;
+        internal System.Windows.Forms.LinkLabel LinkLabelListed;
+        internal System.Windows.Forms.Label label11;
+        private System.Windows.Forms.LinkLabel LinkLabelFavstar;
+        private System.Windows.Forms.LinkLabel LinkLabelTwilog;
     }
 }

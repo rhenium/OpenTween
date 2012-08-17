@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
+//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -63,16 +64,21 @@ namespace OpenTween
 
         private static string tk = "";
         private static string tks = "";
+        private static string ck = "";
+        private static string cks = "";
         private static string un = "";
 
         public void Initialize(string accessToken,
                                         string accessTokenSecret,
+                                        string twitterConsumerKey,
+                                        string twitterConsumerSecret,
                                         string username,
                                         long userId)
         {
             //for OAuth
             HttpOAuthApiProxy con = new HttpOAuthApiProxy();
             if (tk != accessToken || tks != accessTokenSecret ||
+                    ck != twitterConsumerKey || cks != twitterConsumerSecret ||
                     un != username || connectionType != AuthMethod.OAuth)
             {
                 // 以前の認証状態よりひとつでも変化があったらhttpヘッダより読み取ったカウントは初期化
@@ -80,7 +86,7 @@ namespace OpenTween
                 tks = accessTokenSecret;
                 un = username;
             }
-            con.Initialize(ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, accessToken, accessTokenSecret, username, userId, "screen_name", "user_id");
+            con.Initialize(twitterConsumerKey, twitterConsumerSecret, accessToken, accessTokenSecret, username, userId, "screen_name", "user_id");
             httpCon = con;
             connectionType = AuthMethod.OAuth;
             requestToken = "";
@@ -103,6 +109,28 @@ namespace OpenTween
             {
                 if (httpCon != null)
                     return ((HttpConnectionOAuth)httpCon).AccessTokenSecret;
+                else
+                    return "";
+            }
+        }
+
+        public string ConsumerKey
+        {
+            get
+            {
+                if (httpCon != null)
+                    return ((HttpConnectionOAuth)httpCon).ConsumerKey;
+                else
+                    return "";
+            }
+        }
+
+        public string ConsumerSecret
+        {
+            get
+            {
+                if (httpCon != null)
+                    return ((HttpConnectionOAuth)httpCon).ConsumerSecret;
                 else
                     return "";
             }
@@ -163,7 +191,7 @@ namespace OpenTween
 
         public void ClearAuthInfo()
         {
-            this.Initialize("", "", "", 0);
+            this.Initialize("", "", "", "", "", 0);
         }
 
         public static bool UseSsl
@@ -1047,7 +1075,7 @@ namespace OpenTween
         public object Clone()
         {
             HttpTwitter myCopy = new HttpTwitter();
-            myCopy.Initialize(this.AccessToken, this.AccessTokenSecret, this.AuthenticatedUsername, this.AuthenticatedUserId);
+            myCopy.Initialize(this.AccessToken, this.AccessTokenSecret, this.ConsumerKey, this.ConsumerSecret, this.AuthenticatedUsername, this.AuthenticatedUserId);
             return myCopy;
         }
     }

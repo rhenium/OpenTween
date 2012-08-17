@@ -26,7 +26,9 @@ namespace OpenTween
     {
         string Upload(ref string filePath,
                         ref string message,
-                        long reply_to);
+                        long reply_to,
+                        bool isDraft,
+                        TweenMain owner);
         bool CheckValidExtension(string ext) ;
         string GetFileOpenDialogFilter();
         MyCommon.UploadFileType GetFileType(string ext);
