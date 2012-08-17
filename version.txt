@@ -1,0 +1,7 @@
+1.0.6-beta1:2-1.0b
+https://github.com/re4k/OpenTween/downloads
+
+==== Ver 1.0.6-beta1:2-1.0b(2012/08/17 20:40)
+ * FIX: アイコンのPictureBoxが縦に潰れていたのを修正
+ * FIX: 140文字自動カット・連投モードが使用できなかったのを修正
+ * NEW: version.txtを使ってみた

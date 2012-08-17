@@ -6095,7 +6095,7 @@ namespace OpenTween
                 {
                     try
                     {
-                        UserPicture.Image = new Bitmap(displayItem.Image);
+                        UserPicture.Image = displayItem.Image;
                     }
                     catch (Exception)
                     {
@@ -11499,11 +11499,11 @@ namespace OpenTween
                 if (_curPost.IsDm ||
                     !StatusText.Enabled) return;
 
-                if (_curPost.IsProtect)
+                /*if (_curPost.IsProtect)
                 {
                     MessageBox.Show("Protected.");
                     return;
-                }
+                }*/
                 string rtdata = _curPost.Text;
                 rtdata = CreateRetweetUnofficial(rtdata);
 

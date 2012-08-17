@@ -539,12 +539,14 @@
             // 
             // ToolStripAutoAddZenkakuSpaceMenuItem
             // 
+            this.ToolStripAutoAddZenkakuSpaceMenuItem.CheckOnClick = true;
             this.ToolStripAutoAddZenkakuSpaceMenuItem.Name = "ToolStripAutoAddZenkakuSpaceMenuItem";
             resources.ApplyResources(this.ToolStripAutoAddZenkakuSpaceMenuItem, "ToolStripAutoAddZenkakuSpaceMenuItem");
             this.ToolStripAutoAddZenkakuSpaceMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripAutoAddZenkakuSpaceMenuItem_CheckedChanged);
             // 
             // ToolStripAutoCutTweetMenuItem
             // 
+            this.ToolStripAutoCutTweetMenuItem.CheckOnClick = true;
             this.ToolStripAutoCutTweetMenuItem.Name = "ToolStripAutoCutTweetMenuItem";
             resources.ApplyResources(this.ToolStripAutoCutTweetMenuItem, "ToolStripAutoCutTweetMenuItem");
             this.ToolStripAutoCutTweetMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripAutoCutTweetMenuItem_CheckedChanged);
