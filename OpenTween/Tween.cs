@@ -6133,7 +6133,7 @@ namespace OpenTween
             displayItem = (ImageListViewItem)_curList.Items[_curList.SelectedIndices[0]];
             displayItem.ImageDownloaded += this.DisplayItemImage_Downloaded;
 
-            string dTxt = createDetailHtml(_curPost.IsDeleted ? "<s>" + _curPost.Text + "</s>" : _curPost.Text);
+            string dTxt = createDetailHtml(_curPost.IsDeleted ? (this._cfgCommon.ShowDeleted ? "<s>" + _curPost.Text + "</s>" : "(DELETED)") : _curPost.Text);
             if (_curPost.IsDm)
             {
                 SourceLinkLabel.Tag = null;
@@ -13384,6 +13384,35 @@ namespace OpenTween
         private void ToolStripAutoCutTweetMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             _modifySettingCommon = true;
+        }
+
+        private void ChangeAccountMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this._cfgCommon.UserAccounts.Count > 0)
+            {
+                var m = this._cfgCommon.UserAccounts.Select(_ => _.UserId + _.Tag);
+                var nPoint = m.TakeWhile(x => x != tw.UserId + tw.Tag).Count();
+                if (nPoint == m.Count() - 1)
+                {
+                    nPoint = 0;
+                }
+                else
+                {
+                    nPoint++;
+                }
+                tw.Initialize(this._cfgCommon.UserAccounts[nPoint].Token,
+                            this._cfgCommon.UserAccounts[nPoint].TokenSecret,
+                            this._cfgCommon.UserAccounts[nPoint].ConsumerKey,
+                        this._cfgCommon.UserAccounts[nPoint].ConsumerSecret,
+                        this._cfgCommon.UserAccounts[nPoint].Username,
+                        this._cfgCommon.UserAccounts[nPoint].UserId);
+                tw.Tag = this._cfgCommon.UserAccounts[nPoint].Tag;
+                ((ToolStripMenuItem)(ChangeAccountSplitButton.DropDown.Items[nPoint])).Checked = true;
+                this.ChangeAccountSplitButton.Text = tw.Username;
+                this.CreatePictureServices();
+                this.SetImageServiceCombo();
+                this.doGetFollowersMenu();
+            }
         }
     }
 }

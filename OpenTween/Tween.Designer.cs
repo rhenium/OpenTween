@@ -1313,6 +1313,7 @@
             // 
             this.ChangeAccountMenuItem.Name = "ChangeAccountMenuItem";
             resources.ApplyResources(this.ChangeAccountMenuItem, "ChangeAccountMenuItem");
+            this.ChangeAccountMenuItem.Click += new System.EventHandler(this.ChangeAccountMenuItem_Click);
             // 
             // MenuItemEdit
             // 
