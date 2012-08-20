@@ -2,7 +2,10 @@
 // Copyright (c) 2007-2011 kiri_feather (@kiri_feather) <kiri.feather@gmail.com>
 //           (c) 2008-2011 Moz (@syo68k)
 //           (c) 2008-2011 takeshik (@takeshik) <http://www.takeshik.org/>
-//           (c) 2011      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
+//           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
+//           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
+//           (c) 2012      tigree4th <crerish@gmail.com>
+//           (c) 2012      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -24,56 +27,51 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace OpenTween
 {
-    [Serializable]
-    public class SettingTab : SettingBase<SettingTab>
+    public partial class UpdateDialog : Form
     {
-#region Settingクラス基本
-        public static SettingTab Load(string tabName)
+        public string SummaryText
         {
-            SettingTab setting = LoadSettings(tabName);
-            setting.Tab.TabName = tabName;
-            return setting;
+            get { return this.LabelSummary.Text; }
+            set { this.LabelSummary.Text = value; }
         }
 
-        public void Save()
+        public string DetailsText
         {
-            SaveSettings(this, this.Tab.TabName);
+            get { return this.TextDetail.Text; }
+            set { this.TextDetail.Text = value; }
         }
 
-        public SettingTab()
+        public UpdateDialog()
         {
-            Tab = new TabClass();
+            InitializeComponent();
+
+            this.PictureBox1.Image = SystemIcons.Question.ToBitmap();
+            this.Text = MyCommon.ReplaceAppName(this.Text);
         }
 
-        public SettingTab(string TabName)
+        private void YesButton_Click(object sender, EventArgs e)
         {
-            this.Tab = new TabClass();
-            Tab.TabName = TabName;
-        }
-#endregion
-
-        public static void DeleteConfigFile()
-        {
-            foreach (FileInfo file in (new DirectoryInfo(Application.StartupPath + Path.DirectorySeparatorChar)).GetFiles("SettingTab*.xml"))
-            {
-                try
-                {
-                    file.Delete();
-                }
-                catch (Exception)
-                {
-                    //削除権限がない場合
-                }
-            }
+            this.Close();
         }
 
-        public TabClass Tab;
+        private void NoButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void UpdateDialog_Shown(object sender, EventArgs e)
+        {
+            // デフォルトではテキストが全選択されるため抑制
+            this.TextDetail.SelectionLength = 0;
+        }
     }
 }

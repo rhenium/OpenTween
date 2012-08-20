@@ -47,6 +47,7 @@ using System.Web;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
+using OpenTween.Thumbnail;
 
 namespace OpenTween
 {
@@ -200,9 +201,8 @@ namespace OpenTween
         private bool _waitLists = false;
         private BackgroundWorker[] _bw = new BackgroundWorker[20];
         private BackgroundWorker _bwFollower;
-        private ShieldIcon shield = new ShieldIcon();
         private InternetSecurityManager SecurityManager;
-        private Thumbnail Thumbnail;
+        private ThumbnailGenerator Thumbnail;
 
         private int UnreadCounter = -1;
         private int UnreadAtCounter = -1;
@@ -381,7 +381,6 @@ namespace OpenTween
             if (_brsBackColorAtTo != null) _brsBackColorAtTo.Dispose();
             if (_brsBackColorNone != null) _brsBackColorNone.Dispose();
             if (_brsDeactiveSelection != null) _brsDeactiveSelection.Dispose();
-            shield.Dispose();
             //sf.Dispose();
             sfTab.Dispose();
             foreach (BackgroundWorker bw in _bw)
@@ -557,12 +556,11 @@ namespace OpenTween
             //Win32Api.SetProxy(HttpConnection.ProxyType.Specified, "127.0.0.1", 8080, "user", "pass")
 
             SecurityManager = new InternetSecurityManager(PostBrowser);
-            Thumbnail = new Thumbnail(this);
+            this.Thumbnail = new ThumbnailGenerator(this);
 
             MyCommon.TwitterApiInfo.Changed += SetStatusLabelApiHandler;
             Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
-            VerUpMenuItem.Image = shield.Icon;
             string[] cmdArgs = Environment.GetCommandLineArgs();
             if (cmdArgs.Length != 0 && cmdArgs.Contains("/d")) MyCommon.TraceFlag = true;
 
@@ -859,9 +857,10 @@ namespace OpenTween
             SettingDialog.HideDuplicatedRetweets = _cfgCommon.HideDuplicatedRetweets;
 
             SettingDialog.IsPreviewFoursquare = _cfgCommon.IsPreviewFoursquare;
-            SettingDialog.FoursquarePreviewHeight = _cfgCommon.FoursquarePreviewHeight;
-            SettingDialog.FoursquarePreviewWidth = _cfgCommon.FoursquarePreviewWidth;
-            SettingDialog.FoursquarePreviewZoom = _cfgCommon.FoursquarePreviewZoom;
+            SettingDialog.MapThumbnailProvider = _cfgCommon.MapThumbnailProvider;
+            SettingDialog.MapThumbnailHeight = _cfgCommon.MapThumbnailHeight;
+            SettingDialog.MapThumbnailWidth = _cfgCommon.MapThumbnailWidth;
+            SettingDialog.MapThumbnailZoom = _cfgCommon.MapThumbnailZoom;
             SettingDialog.IsListStatusesIncludeRts = _cfgCommon.IsListsIncludeRts;
             SettingDialog.TabMouseLock = _cfgCommon.TabMouseLock;
             SettingDialog.IsRemoveSameEvent = _cfgCommon.IsRemoveSameEvent;
@@ -3436,15 +3435,15 @@ namespace OpenTween
         private void MoveToHomeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_curList.SelectedIndices.Count > 0)
-                OpenUriAsync("http://twitter.com/" + GetCurTabPost(_curList.SelectedIndices[0]).ScreenName);
+                OpenUriAsync(MyCommon.TwitterUrl + GetCurTabPost(_curList.SelectedIndices[0]).ScreenName);
             else if (_curList.SelectedIndices.Count == 0)
-                OpenUriAsync("http://twitter.com/");
+                OpenUriAsync(MyCommon.TwitterUrl);
         }
 
         private void MoveToFavToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_curList.SelectedIndices.Count > 0)
-                OpenUriAsync("http://twitter.com/" + GetCurTabPost(_curList.SelectedIndices[0]).ScreenName + "/favorites");
+                OpenUriAsync(MyCommon.TwitterUrl + "#!/" + GetCurTabPost(_curList.SelectedIndices[0]).ScreenName + "/favorites");
         }
 
         private void Tween_ClientSizeChanged(object sender, EventArgs e)
@@ -5959,11 +5958,8 @@ namespace OpenTween
         {
             if (_curList.SelectedIndices.Count > 0 && _statuses.Tabs[_curTab.Text].TabType != MyCommon.TabUsageType.DirectMessage)
             {
-                PostClass post = _statuses[_curTab.Text, _curList.SelectedIndices[0]];
-                if (post.RetweetedId == 0)
-                    OpenUriAsync("http://twitter.com/" + post.ScreenName + "/status/" + post.StatusId.ToString());
-                else
-                    OpenUriAsync("http://twitter.com/" + post.ScreenName + "/status/" + post.RetweetedId.ToString());
+                var post = _statuses[_curTab.Text, _curList.SelectedIndices[0]];
+                OpenUriAsync(MyCommon.GetStatusUrl(post));
             }
         }
 
@@ -6035,11 +6031,11 @@ namespace OpenTween
 
             if (currentVersion.Replace(".", "").CompareTo(MyCommon.fileVersion.Replace(".", "")) > 0)
             {
-                string dialogText = string.Format(Properties.Resources.CheckNewVersionText3, MyCommon.GetReadableVersion(currentVersion));
-                using (DialogAsShieldIcon dialog = new DialogAsShieldIcon())
+                using (var dialog = new UpdateDialog())
                 {
-                    DialogResult ret = dialog.ShowDialog(this, dialogText, msgBody, MyCommon.ReplaceAppName(Properties.Resources.CheckNewVersionText1), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (ret == DialogResult.Yes)
+                    dialog.SummaryText = string.Format(Properties.Resources.CheckNewVersionText3, MyCommon.GetReadableVersion(currentVersion));
+                    dialog.DetailsText = msgBody;
+                    if (dialog.ShowDialog(this) == DialogResult.Yes)
                     {
                         this.OpenUriAsync(downloadUrl);
                     }
@@ -6548,15 +6544,11 @@ namespace OpenTween
                             return true;
                         case Keys.H:
                             // Webページを開く動作
-                            if (_curList.SelectedIndices.Count > 0)
-                                OpenUriAsync("http://twitter.com/" + GetCurTabPost(_curList.SelectedIndices[0]).ScreenName);
-                            else if (_curList.SelectedIndices.Count == 0)
-                                OpenUriAsync("http://twitter.com/");
+                            MoveToHomeToolStripMenuItem_Click(null, null);
                             return true;
                         case Keys.G:
                             // Webページを開く動作
-                            if (_curList.SelectedIndices.Count > 0)
-                                OpenUriAsync("http://twitter.com/" + GetCurTabPost(_curList.SelectedIndices[0]).ScreenName + "/favorites");
+                            MoveToFavToolStripMenuItem_Click(null, null);
                             return true;
                         case Keys.O:
                             // Webページを開く動作
@@ -7106,11 +7098,7 @@ namespace OpenTween
             }
             if (IsProtected)
             {
-                //MessageBox.Show(Properties.Resources.CopyStotText1);
-                using (MessageForm w = new MessageForm())
-                {
-                    w.ShowDialog(Properties.Resources.CopyStotText1);
-                }
+                MessageBox.Show(Properties.Resources.CopyStotText1);
             }
             if (sb.Length > 0)
             {
@@ -7135,11 +7123,8 @@ namespace OpenTween
             if (this._statuses.GetTabByName(this._curTab.Text).TabType == MyCommon.TabUsageType.DirectMessage) return;
             foreach (int idx in _curList.SelectedIndices)
             {
-                PostClass post = _statuses[_curTab.Text, idx];
-                if (post.RetweetedId > 0)
-                    sb.AppendFormat("http://twitter.com/{0}/status/{1}{2}", post.ScreenName, post.RetweetedId, Environment.NewLine);
-                else
-                    sb.AppendFormat("http://twitter.com/{0}/status/{1}{2}", post.ScreenName, post.StatusId, Environment.NewLine);
+                var post = _statuses[_curTab.Text, idx];
+                sb.Append(MyCommon.GetStatusUrl(post));
             }
             if (sb.Length > 0)
             {
@@ -7970,9 +7955,10 @@ namespace OpenTween
                 _cfgCommon.UserAppointUrl = SettingDialog.UserAppointUrl;
                 _cfgCommon.HideDuplicatedRetweets = SettingDialog.HideDuplicatedRetweets;
                 _cfgCommon.IsPreviewFoursquare = SettingDialog.IsPreviewFoursquare;
-                _cfgCommon.FoursquarePreviewHeight = SettingDialog.FoursquarePreviewHeight;
-                _cfgCommon.FoursquarePreviewWidth = SettingDialog.FoursquarePreviewWidth;
-                _cfgCommon.FoursquarePreviewZoom = SettingDialog.FoursquarePreviewZoom;
+                _cfgCommon.MapThumbnailProvider = SettingDialog.MapThumbnailProvider;
+                _cfgCommon.MapThumbnailHeight = SettingDialog.MapThumbnailHeight;
+                _cfgCommon.MapThumbnailWidth = SettingDialog.MapThumbnailWidth;
+                _cfgCommon.MapThumbnailZoom = SettingDialog.MapThumbnailZoom;
                 _cfgCommon.IsListsIncludeRts = SettingDialog.IsListStatusesIncludeRts;
                 _cfgCommon.TabMouseLock = SettingDialog.TabMouseLock;
                 _cfgCommon.IsRemoveSameEvent = SettingDialog.IsRemoveSameEvent;
@@ -9785,7 +9771,7 @@ namespace OpenTween
             {
                 if (MyCommon.IsKeyDown(Keys.Shift))
                 {
-                    OpenUriAsync("http://twitter.com/" + _curPost.InReplyToUser + "/status/" + _curPost.InReplyToStatusId.ToString());
+                    OpenUriAsync(MyCommon.GetStatusUrl(_curPost.InReplyToUser, _curPost.InReplyToStatusId));
                     return;
                 }
                 if (_statuses.ContainsKey(_curPost.InReplyToStatusId))
@@ -9802,7 +9788,7 @@ namespace OpenTween
                         MessageBox.Show(repPost.ScreenName + " / " + repPost.Nickname + "   (" + repPost.CreatedAt.ToString() + ")" + Environment.NewLine + repPost.TextFromApi);
                         return;
                     }
-                    OpenUriAsync("http://twitter.com/" + _curPost.InReplyToUser + "/status/" + _curPost.InReplyToStatusId.ToString());
+                    OpenUriAsync(MyCommon.GetStatusUrl(_curPost.InReplyToUser, _curPost.InReplyToStatusId));
                 }
             }
         }
@@ -12289,7 +12275,7 @@ namespace OpenTween
         {
             if (NameLabel.Tag != null)
             {
-                OpenUriAsync("http://twitter.com/" + NameLabel.Tag.ToString());
+                OpenUriAsync(MyCommon.TwitterUrl + NameLabel.Tag.ToString());
             }
         }
 
@@ -13066,7 +13052,7 @@ namespace OpenTween
 
         private void OpenOwnHomeMenuItem_Click(object sender, EventArgs e)
         {
-            OpenUriAsync("http://twitter.com/" + tw.Username);
+            OpenUriAsync(MyCommon.TwitterUrl + tw.Username);
         }
 
         private void doTranslation(string str)

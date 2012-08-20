@@ -56,9 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdsBrowser.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ApiInformation.cs" />
     <Compile Include="ApplicationEvents.cs">
       <SubType>Code</SubType>
@@ -132,15 +129,14 @@
     <Compile Include="DetailsListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DialogAsShieldIcon.cs">
+    <Compile Include="Thumbnail\ThumbnailGenerator.cs" />
+    <Compile Include="UpdateDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DialogAsShieldIcon.Designer.cs">
-      <DependentUpon>DialogAsShieldIcon.cs</DependentUpon>
+    <Compile Include="UpdateDialog.Designer.cs">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="DoubleClickCopyCanceller.cs" />
     <Compile Include="Foursquare.cs" />
-    <Compile Include="Google.cs" />
     <Compile Include="FormInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,12 +151,9 @@
     <Compile Include="InputTabName.Designer.cs">
       <DependentUpon>InputTabName.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MessageForm.Designer.cs">
-      <DependentUpon>MessageForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Thumbnail\MapThumbGoogle.cs" />
+    <Compile Include="Thumbnail\MapThumb.cs" />
+    <Compile Include="Thumbnail\MapThumbOSM.cs" />
     <Compile Include="ListElement.cs" />
     <Compile Include="ImageDictionary.cs" />
     <Compile Include="ImageListViewItem.cs" />
@@ -199,10 +192,8 @@
     <Compile Include="Setting\SettingAtIdList.cs" />
     <Compile Include="Setting\SettingBase.cs" />
     <Compile Include="Setting\SettingCommon.cs" />
-    <Compile Include="Setting\SettingFollower.cs" />
     <Compile Include="Setting\SettingTabs.cs" />
     <Compile Include="Setting\SettingLocal.cs" />
-    <Compile Include="ShieldIcon.cs" />
     <Compile Include="ShortUrl.cs" />
     <Compile Include="TabsDialog.cs">
       <SubType>Form</SubType>
@@ -217,7 +208,6 @@
       <DependentUpon>ShowUserInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="StatusDictionary.cs" />
-    <Compile Include="Thumbnail.cs" />
     <Compile Include="ToolStripAPIGauge.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -314,11 +304,14 @@
     <EmbeddedResource Include="AppendSettingDialog.zh-CHS.resx">
       <DependentUpon>AppendSettingDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogAsShieldIcon.resx">
-      <DependentUpon>DialogAsShieldIcon.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateDialog.en.resx">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DialogAsShieldIcon.zh-CHS.resx">
-      <DependentUpon>DialogAsShieldIcon.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateDialog.resx">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateDialog.zh-CHS.resx">
+      <DependentUpon>UpdateDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInfo.resx">
       <DependentUpon>FormInfo.cs</DependentUpon>
@@ -331,9 +324,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InputTabName.zh-CHS.resx">
       <DependentUpon>InputTabName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MessageForm.resx">
-      <DependentUpon>MessageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyLists.en.resx">
       <DependentUpon>MyLists.cs</DependentUpon>
@@ -428,7 +418,6 @@
       <Link>LICENSE.LGPL-3</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\3b.ico" />
@@ -439,10 +428,7 @@
     <Content Include="Resources\5y.ico" />
     <Content Include="Resources\6b.ico" />
     <Content Include="Resources\6g.ico" />
-    <Content Include="Resources\ads.txt" />
-    <Content Include="Resources\ChangeLog.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Resources\ChangeLog.txt" />
     <Content Include="Resources\Description.txt" />
     <Content Include="Resources\InitialImage.png" />
     <Content Include="Resources\LogoImage.png" />
@@ -451,7 +437,6 @@
     <Content Include="Resources\re2.ico" />
     <Content Include="Resources\re3.ico" />
     <Content Include="Resources\re4.ico" />
-    <Content Include="tips.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

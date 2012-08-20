@@ -133,30 +133,6 @@ namespace OpenTween.Properties {
         }
         
         /// <summary>
-        ///   &lt;html&gt;&lt;head&gt;
-        ///&lt;script type=&apos;text/javascript&apos; src=&apos;http://partner.googleadservices.com/gampad/google_service.js&apos;&gt;
-        ///&lt;/script&gt;
-        ///&lt;script type=&apos;text/javascript&apos;&gt;
-        ///GS_googleAddAdSenseService(&quot;ca-pub-6759700347268706&quot;);
-        ///GS_googleEnableAllServices();
-        ///&lt;/script&gt;
-        ///&lt;script type=&apos;text/javascript&apos;&gt;
-        ///GA_googleAddSlot(&quot;ca-pub-6759700347268706&quot;, &quot;Tween_HomePage_728x90&quot;);
-        ///&lt;/script&gt;
-        ///&lt;script type=&apos;text/javascript&apos;&gt;
-        ///GA_googleFetchAds();
-        ///&lt;/script&gt;
-        ///&lt;!-- &lt;meta http-equiv=&quot;refresh&quot; content=&quot;45&quot;&gt; --&gt;
-        ///&lt;/head&gt;
-        ///&lt;body style=&quot;te [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string ads {
-            get {
-                return ResourceManager.GetString("ads", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   REST API上限 :  に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ApiInfo1 {
@@ -637,7 +613,15 @@ namespace OpenTween.Properties {
         /// <summary>
         ///   更新履歴
         ///
-        ///==== Ver 1.0.5-beta1(2012/xx/xx)
+        ///==== Ver 1.0.6-beta1(2012/xx/xx)
+        /// * NEW: TUNA.BE のサムネイル表示に対応
+        /// * NEW: 地図のサムネイルに使用するサービスを選択可能に（OpenStreetMap/Google Maps）
+        /// * CHG: デフォルトの地図サムネイル表示をOpenStreetMapに変更
+        /// * CHG: アップデート通知画面をちょっと変更
+        /// * FIX: 発言詳細部のアイコンの縦幅が狭くなっていたのを修正
+        /// * FIX: Pcklesのサムネイルが表示できなくなっていたのを修正
+        ///
+        ///==== Ver 1.0.5(2012/08/17)
         /// * CHG: 「タブを固定」機能を「タブを保護」に名称変更
         /// * CHG: 閉鎖された画像共有サービスbrightkite・picplzのサムネイル対応を終了
         /// * FIX: UserStreamsの &gt;突然の仕様変更&lt; に対応
@@ -645,13 +629,7 @@ namespace OpenTween.Properties {
         ///==== Ver 1.0.4(2012/08/13)
         /// * NEW: 「タブを固定」機能を追加
         /// * CHG: OAuth認証に内部ブラウザを使用する方法を廃止
-        /// * CHG: Instagramのサムネイル画像を正式に提供されているURLに更新
-        /// * FIX: プロフィール編集中に編集画面を閉じると次回編集時の挙動がおかしくなる問題を修正 (thanks @miracleflyer!)
-        /// * FIX: ツイートのRT回数が正常に表示されない問題を修正 (thanks @re4k!)
-        /// * FIX: ついっぷるフォト・imgur・pixivのサムネイルが正常に取得できない問題を修正
-        /// * FIX: Bing翻訳のAPI仕様変更に対応
-        ///
-        ///==== Ver 1.0.3(201 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// * C [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ChangeLog {
             get {

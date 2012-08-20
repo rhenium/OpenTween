@@ -424,7 +424,7 @@ namespace OpenTween
             //    }
             //    m = m.NextMatch;
             //}
-            retStr = Regex.Replace(retStr, "<a [^>]*href=\"/", "<a href=\"" + _protocol + "twitter.com/");
+            retStr = Regex.Replace(retStr, "<a [^>]*href=\"/", "<a href=\"https://twitter.com/");
             retStr = retStr.Replace("<a href=", "<a target=\"_self\" href=");
             retStr = retStr.Replace("\n", "<br>");
 

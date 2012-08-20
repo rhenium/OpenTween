@@ -39,9 +39,9 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Linq;
 
-namespace OpenTween
+namespace OpenTween.Thumbnail
 {
-    public class Thumbnail
+    public class ThumbnailGenerator
     {
         private object lckPrev = new object();
         private PreviewData _prev;
@@ -103,7 +103,7 @@ namespace OpenTween
             public string url;
             public string extended;
             public List<KeyValuePair<string, string>> imglist;
-            public Google.GlobalLocation geoInfo;
+            public GlobalLocation geoInfo;
         }
 
         private class CreateImageArgs
@@ -130,7 +130,7 @@ namespace OpenTween
 
         private ThumbnailService[] ThumbnailServices;
 
-        public Thumbnail(TweenMain Owner)
+        public ThumbnailGenerator(TweenMain Owner)
         {
             this.Owner = Owner;
 
@@ -172,6 +172,7 @@ namespace OpenTween
                 new ThumbnailService("TwitrPix", TwitrPix_GetUrl, TwitrPix_CreateImage),
                 new ThumbnailService("Pckles", Pckles_GetUrl, Pckles_CreateImage),
                 new ThumbnailService("via.me", ViaMe_GetUrl, ViaMe_CreateImage),
+                new ThumbnailService("tuna.be", TunaBe_GetUrl, TunaBe_CreateImage),
             };
         }
 
@@ -268,7 +269,7 @@ namespace OpenTween
                 var args = new GetUrlArgs();
                 args.url = "";
                 args.imglist = imglist;
-                args.geoInfo = new Google.GlobalLocation{ Latitude = geo.Lat, Longitude = geo.Lng };
+                args.geoInfo = new GlobalLocation{ Latitude = geo.Lat, Longitude = geo.Lng };
                 if (TwitterGeo_GetUrl(args))
                 {
                     // URLに対応したサムネイル作成処理デリゲートをリストに登録
@@ -2625,7 +2626,7 @@ namespace OpenTween
             // TODO URL判定処理を記述
             if (args.geoInfo != null && (args.geoInfo.Latitude != 0 || args.geoInfo.Longitude != 0))
             {
-                var url = (new Google()).CreateGoogleStaticMapsUri(args.geoInfo);
+                var url = MapThumb.GetDefaultInstance().CreateStaticMapUrl(args.geoInfo);
                 args.imglist.Add(new KeyValuePair<string, string>(url, url));
                 return true;
             }
@@ -2657,16 +2658,13 @@ namespace OpenTween
             try
             {
                 // URLをStaticMapAPIから通常のURLへ変換
-                // 仕様：ズーム率、サムネイルサイズの設定は無視する
-                // 参考：http://imakoko.didit.jp/imakoko_html/memo/parameters_google.html
-                // サンプル
-                // static版 http://maps.google.com/maps/api/staticmap?center=35.16959869,136.93813205&size=300x300&zoom=15&markers=35.16959869,136.93813205&sensor=false
-                // 通常URL  http://maps.google.com/maps?ll=35.16959869,136.93813205&size=300x300&zoom=15&markers=35.16959869,136.93813205&sensor=false
-
-                url = url.Replace("/maps/api/staticmap?center=", "?ll=");
-                url = url.Replace("&markers=", "&q=");
-                url = Regex.Replace(url, @"&size=\d+x\d+&zoom=\d+", "");
-                url = url.Replace("&sensor=false", "");
+                var m = Regex.Match(url, @"^.+=(?<lat>\d+(\.\d+)?),(?<lon>\d+(\.\d+)?)(&.+)?$");
+                if (m.Success)
+                {
+                    var lat = double.Parse(m.Groups["lat"].Value);
+                    var lon = double.Parse(m.Groups["lon"].Value);
+                    url = MapThumb.GetDefaultInstance().CreateMapLinkUrl(lat, lon);
+                }
             }
             catch(Exception)
             {
@@ -2925,11 +2923,11 @@ namespace OpenTween
         {
             // TODO URL判定処理を記述
             var mc = Regex.Match(string.IsNullOrEmpty(args.extended) ? args.url : args.extended,
-                                 @"^https?://pckles\.com/(\w+)/(\w+)$", RegexOptions.IgnoreCase);
+                                 @"^https?://pckles\.com/\w+/\w+$", RegexOptions.IgnoreCase);
             if (mc.Success)
             {
                 // TODO 成功時はサムネイルURLを作成しimglist.Addする
-                args.imglist.Add(new KeyValuePair<string, string>(args.url, mc.Result("http://pckles.com/api/data.get?userid=$1&fileid=$2&type=raw")));
+                args.imglist.Add(new KeyValuePair<string, string>(args.url, mc.Result("$0.resize.jpg")));
                 return true;
             }
             return false;
@@ -3034,6 +3032,64 @@ namespace OpenTween
             }
 
             return false;
+        }
+
+        #endregion
+
+        #region tuna.be
+
+        /// <summary>
+        /// URL解析部で呼び出されるサムネイル画像URL作成デリゲート
+        /// </summary>
+        /// <param name="args">class GetUrlArgs
+        ///                                 args.url        URL文字列
+        ///                                 args.imglist    解析成功した際にこのリストに元URL、サムネイルURLの形で作成するKeyValuePair
+        /// </param>
+        /// <returns>成功した場合True,失敗の場合False</returns>
+        /// <remarks>args.imglistには呼び出しもとで使用しているimglistをそのまま渡すこと</remarks>
+
+        private bool TunaBe_GetUrl(GetUrlArgs args)
+        {
+            // TODO URL判定処理を記述
+            var mc = Regex.Match(string.IsNullOrEmpty(args.extended) ? args.url : args.extended,
+                                 @"^http://tuna\.be/t/(?<entryId>[a-zA-Z0-9\.\-_]+)$", RegexOptions.IgnoreCase);
+            if (mc.Success)
+            {
+                // TODO 成功時はサムネイルURLを作成しimglist.Addする
+                // http://tuna.be/api/
+                args.imglist.Add(new KeyValuePair<string, string>(args.url, mc.Result("http://tuna.be/show/thumb/${entryId}")));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// BackgroundWorkerから呼び出されるサムネイル画像作成デリゲート
+        /// </summary>
+        /// <param name="args">class CreateImageArgs
+        ///                                 KeyValuePair<string, string> url                  元URLとサムネイルURLのKeyValuePair
+        ///                                 List<KeyValuePair<string, Image>> pics         元URLとサムネイル画像のKeyValuePair
+        ///                                 List<KeyValuePair<string, string>> tooltiptext 元URLとツールチップテキストのKeyValuePair
+        ///                                 string errmsg                                        取得に失敗した際のエラーメッセージ
+        /// </param>
+        /// <returns>サムネイル画像作成に成功した場合はTrue,失敗した場合はFalse
+        /// なお失敗した場合はargs.errmsgにエラーを表す文字列がセットされる</returns>
+        /// <remarks></remarks>
+
+        private bool TunaBe_CreateImage(CreateImageArgs args)
+        {
+            // TODO: サムネイル画像読み込み処理を記述します
+            var image = new HttpVarious().GetImage(args.url.Value, args.url.Key, 10000, out args.errmsg);
+            if (image == null)
+                return false;
+
+            // 成功した場合はURLに対応する画像、ツールチップテキストを登録
+            args.pics.Add(new KeyValuePair<string, Image>(args.url.Key, image));
+            args.tooltipText.Add(new KeyValuePair<string, string>(args.url.Key, ""));
+            return true;
         }
 
         #endregion

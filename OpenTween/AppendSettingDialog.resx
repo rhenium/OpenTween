@@ -255,31 +255,34 @@
   <data name="&gt;&gt;SplitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label48.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label50.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="label50.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label50.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 18</value>
   </data>
-  <data name="label48.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="label50.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 12</value>
   </data>
-  <data name="label48.TabIndex" type="System.Int32, mscorlib">
+  <data name="label50.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="label48.Text" xml:space="preserve">
+  <data name="label50.Text" xml:space="preserve">
     <value>Consumer Key</value>
   </data>
-  <data name="&gt;&gt;label48.Name" xml:space="preserve">
-    <value>label48</value>
+  <data name="&gt;&gt;label50.Name" xml:space="preserve">
+    <value>label50</value>
   </data>
-  <data name="&gt;&gt;label48.Type" xml:space="preserve">
+  <data name="&gt;&gt;label50.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label48.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label50.Parent" xml:space="preserve">
     <value>groupBox4</value>
   </data>
-  <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label50.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="TextBoxTag.Location" type="System.Drawing.Point, System.Drawing">
@@ -303,31 +306,34 @@
   <data name="&gt;&gt;TextBoxTag.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label50.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label51.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label50.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="label51.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label51.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 43</value>
   </data>
-  <data name="label50.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="label51.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 12</value>
   </data>
-  <data name="label50.TabIndex" type="System.Int32, mscorlib">
+  <data name="label51.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="label50.Text" xml:space="preserve">
+  <data name="label51.Text" xml:space="preserve">
     <value>Consumer secret</value>
   </data>
-  <data name="&gt;&gt;label50.Name" xml:space="preserve">
-    <value>label50</value>
+  <data name="&gt;&gt;label51.Name" xml:space="preserve">
+    <value>label51</value>
   </data>
-  <data name="&gt;&gt;label50.Type" xml:space="preserve">
+  <data name="&gt;&gt;label51.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label50.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label51.Parent" xml:space="preserve">
     <value>groupBox4</value>
   </data>
-  <data name="&gt;&gt;label50.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label51.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="TextBoxConsumerSecret.Location" type="System.Drawing.Point, System.Drawing">
@@ -351,31 +357,34 @@
   <data name="&gt;&gt;TextBoxConsumerSecret.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="label51.AutoSize" type="System.Boolean, mscorlib">
+  <data name="label54.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label51.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="label54.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label54.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 68</value>
   </data>
-  <data name="label51.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="label54.Size" type="System.Drawing.Size, System.Drawing">
     <value>24, 12</value>
   </data>
-  <data name="label51.TabIndex" type="System.Int32, mscorlib">
+  <data name="label54.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="label51.Text" xml:space="preserve">
+  <data name="label54.Text" xml:space="preserve">
     <value>Tag</value>
   </data>
-  <data name="&gt;&gt;label51.Name" xml:space="preserve">
-    <value>label51</value>
+  <data name="&gt;&gt;label54.Name" xml:space="preserve">
+    <value>label54</value>
   </data>
-  <data name="&gt;&gt;label51.Type" xml:space="preserve">
+  <data name="&gt;&gt;label54.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label51.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label54.Parent" xml:space="preserve">
     <value>groupBox4</value>
   </data>
-  <data name="&gt;&gt;label51.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label54.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="TextBoxConsumerKey.Location" type="System.Drawing.Point, System.Drawing">
@@ -406,7 +415,7 @@
     <value>395, 92</value>
   </data>
   <data name="groupBox4.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="groupBox4.Text" xml:space="preserve">
     <value>Custom consumer key</value>
@@ -3519,11 +3528,68 @@ Growl.CoreLibrary.DLL</value>
   <data name="&gt;&gt;IsPreviewFoursquareCheckBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="MapThumbnailProviderComboBox.Items" xml:space="preserve">
+    <value>OpenStreetMap</value>
+  </data>
+  <data name="MapThumbnailProviderComboBox.Items1" xml:space="preserve">
+    <value>Google Maps</value>
+  </data>
+  <data name="MapThumbnailProviderComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 19</value>
+  </data>
+  <data name="MapThumbnailProviderComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 20</value>
+  </data>
+  <data name="MapThumbnailProviderComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;MapThumbnailProviderComboBox.Name" xml:space="preserve">
+    <value>MapThumbnailProviderComboBox</value>
+  </data>
+  <data name="&gt;&gt;MapThumbnailProviderComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MapThumbnailProviderComboBox.Parent" xml:space="preserve">
+    <value>MapThumbnailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;MapThumbnailProviderComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label48.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label48.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 22</value>
+  </data>
+  <data name="label48.Size" type="System.Drawing.Size, System.Drawing">
+    <value>66, 12</value>
+  </data>
+  <data name="label48.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="label48.Text" xml:space="preserve">
+    <value>地図サービス</value>
+  </data>
+  <data name="&gt;&gt;label48.Name" xml:space="preserve">
+    <value>label48</value>
+  </data>
+  <data name="&gt;&gt;label48.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label48.Parent" xml:space="preserve">
+    <value>MapThumbnailGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="Label42.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label42.Location" type="System.Drawing.Point, System.Drawing">
-    <value>169, 17</value>
+    <value>168, 49</value>
+  </data>
+  <data name="Label42.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 0, 5, 0</value>
   </data>
   <data name="Label42.Size" type="System.Drawing.Size, System.Drawing">
     <value>11, 12</value>
@@ -3541,88 +3607,88 @@ Growl.CoreLibrary.DLL</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Label42.Parent" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
+    <value>MapThumbnailGroupBox</value>
   </data>
   <data name="&gt;&gt;Label42.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
-  <data name="FoursquarePreviewWidthTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 15</value>
+  <data name="MapThumbnailWidthTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 46</value>
   </data>
-  <data name="FoursquarePreviewWidthTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MapThumbnailWidthTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 19</value>
   </data>
-  <data name="FoursquarePreviewWidthTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="MapThumbnailWidthTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewWidthTextBox.Name" xml:space="preserve">
-    <value>FoursquarePreviewWidthTextBox</value>
+  <data name="&gt;&gt;MapThumbnailWidthTextBox.Name" xml:space="preserve">
+    <value>MapThumbnailWidthTextBox</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewWidthTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;MapThumbnailWidthTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewWidthTextBox.Parent" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
+  <data name="&gt;&gt;MapThumbnailWidthTextBox.Parent" xml:space="preserve">
+    <value>MapThumbnailGroupBox</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewWidthTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;MapThumbnailWidthTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="FoursquarePreviewZoomTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 16</value>
+  <data name="MapThumbnailZoomTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 46</value>
   </data>
-  <data name="FoursquarePreviewZoomTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MapThumbnailZoomTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 19</value>
   </data>
-  <data name="FoursquarePreviewZoomTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="MapThumbnailZoomTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewZoomTextBox.Name" xml:space="preserve">
-    <value>FoursquarePreviewZoomTextBox</value>
+  <data name="&gt;&gt;MapThumbnailZoomTextBox.Name" xml:space="preserve">
+    <value>MapThumbnailZoomTextBox</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewZoomTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;MapThumbnailZoomTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewZoomTextBox.Parent" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
+  <data name="&gt;&gt;MapThumbnailZoomTextBox.Parent" xml:space="preserve">
+    <value>MapThumbnailGroupBox</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewZoomTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;MapThumbnailZoomTextBox.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
-  <data name="FoursquarePreviewHeightTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 15</value>
+  <data name="MapThumbnailHeightTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 46</value>
   </data>
-  <data name="FoursquarePreviewHeightTextBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MapThumbnailHeightTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 19</value>
   </data>
-  <data name="FoursquarePreviewHeightTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="MapThumbnailHeightTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewHeightTextBox.Name" xml:space="preserve">
-    <value>FoursquarePreviewHeightTextBox</value>
+  <data name="&gt;&gt;MapThumbnailHeightTextBox.Name" xml:space="preserve">
+    <value>MapThumbnailHeightTextBox</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewHeightTextBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;MapThumbnailHeightTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewHeightTextBox.Parent" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
+  <data name="&gt;&gt;MapThumbnailHeightTextBox.Parent" xml:space="preserve">
+    <value>MapThumbnailGroupBox</value>
   </data>
-  <data name="&gt;&gt;FoursquarePreviewHeightTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;MapThumbnailHeightTextBox.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="Label41.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label41.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 21</value>
+    <value>270, 49</value>
   </data>
   <data name="Label41.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 12</value>
+    <value>64, 12</value>
   </data>
   <data name="Label41.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="Label41.Text" xml:space="preserve">
-    <value>プレビューズーム</value>
+    <value>ズームレベル</value>
   </data>
   <data name="&gt;&gt;Label41.Name" xml:space="preserve">
     <value>Label41</value>
@@ -3631,25 +3697,25 @@ Growl.CoreLibrary.DLL</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Label41.Parent" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
+    <value>MapThumbnailGroupBox</value>
   </data>
   <data name="&gt;&gt;Label41.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="Label40.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label40.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 21</value>
+    <value>11, 49</value>
   </data>
   <data name="Label40.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 12</value>
+    <value>83, 12</value>
   </data>
   <data name="Label40.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="Label40.Text" xml:space="preserve">
-    <value>プレビューサイズ</value>
+    <value>サムネイルサイズ</value>
   </data>
   <data name="&gt;&gt;Label40.Name" xml:space="preserve">
     <value>Label40</value>
@@ -3658,39 +3724,33 @@ Growl.CoreLibrary.DLL</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Label40.Parent" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
+    <value>MapThumbnailGroupBox</value>
   </data>
   <data name="&gt;&gt;Label40.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
-  <data name="FoursquareGroupBox.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="MapThumbnailGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 285</value>
   </data>
-  <data name="FoursquareGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 277</value>
-  </data>
-  <data name="FoursquareGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="MapThumbnailGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>485, 71</value>
   </data>
-  <data name="FoursquareGroupBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="MapThumbnailGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
-  <data name="FoursquareGroupBox.Text" xml:space="preserve">
-    <value>FourSquare</value>
+  <data name="MapThumbnailGroupBox.Text" xml:space="preserve">
+    <value>地図サムネイル</value>
   </data>
-  <data name="FoursquareGroupBox.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;MapThumbnailGroupBox.Name" xml:space="preserve">
+    <value>MapThumbnailGroupBox</value>
   </data>
-  <data name="&gt;&gt;FoursquareGroupBox.Name" xml:space="preserve">
-    <value>FoursquareGroupBox</value>
-  </data>
-  <data name="&gt;&gt;FoursquareGroupBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;MapThumbnailGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;FoursquareGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;MapThumbnailGroupBox.Parent" xml:space="preserve">
     <value>CooperatePanel</value>
   </data>
-  <data name="&gt;&gt;FoursquareGroupBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;MapThumbnailGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="Label39.AutoSize" type="System.Boolean, mscorlib">

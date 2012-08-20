@@ -1,7 +1,14 @@
-1.0.6-beta1:2-1.0b
+1.0.6-beta1:2-1.0c
 https://github.com/re4k/OpenTween/downloads
 
-==== Ver 1.0.6-beta1:2-1.0b(2012/08/17 20:40)
- * FIX: アイコンのPictureBoxが縦に潰れていたのを修正
- * FIX: 140文字自動カット・連投モードが使用できなかったのを修正
- * NEW: version.txtを使ってみた
+==== Ver 1.0.6-beta1:2-1.0c(2012/08/20)
+ * OpenTweenの変更を ef73f80ab3 までマージ
+ * FIX: Ctrl+Shift+A, ファイルメニューからのアカウント切り替えが機能していなかったのを修正
+
+ ==== Ver 1.0.6-beta1(2012/xx/xx)
+ * NEW: TUNA.BE のサムネイル表示に対応
+ * NEW: 地図のサムネイルに使用するサービスを選択可能に（OpenStreetMap/Google Maps）
+ * CHG: デフォルトの地図サムネイル表示をOpenStreetMapに変更
+ * CHG: アップデート通知画面をちょっと変更
+ * FIX: 発言詳細部のアイコンの縦幅が狭くなっていたのを修正
+ * FIX: Pcklesのサムネイルが表示できなくなっていたのを修正

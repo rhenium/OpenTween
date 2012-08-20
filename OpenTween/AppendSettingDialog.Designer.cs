@@ -139,11 +139,13 @@
             this.CheckEventNotify = new System.Windows.Forms.CheckBox();
             this.CooperatePanel = new System.Windows.Forms.Panel();
             this.IsPreviewFoursquareCheckBox = new System.Windows.Forms.CheckBox();
-            this.FoursquareGroupBox = new System.Windows.Forms.GroupBox();
+            this.MapThumbnailGroupBox = new System.Windows.Forms.GroupBox();
+            this.MapThumbnailProviderComboBox = new System.Windows.Forms.ComboBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.Label42 = new System.Windows.Forms.Label();
-            this.FoursquarePreviewWidthTextBox = new System.Windows.Forms.TextBox();
-            this.FoursquarePreviewZoomTextBox = new System.Windows.Forms.TextBox();
-            this.FoursquarePreviewHeightTextBox = new System.Windows.Forms.TextBox();
+            this.MapThumbnailWidthTextBox = new System.Windows.Forms.TextBox();
+            this.MapThumbnailZoomTextBox = new System.Windows.Forms.TextBox();
+            this.MapThumbnailHeightTextBox = new System.Windows.Forms.TextBox();
             this.Label41 = new System.Windows.Forms.Label();
             this.Label40 = new System.Windows.Forms.Label();
             this.Label39 = new System.Windows.Forms.Label();
@@ -288,13 +290,13 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label48 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.TextBoxConsumerKey = new System.Windows.Forms.TextBox();
-            this.TextBoxConsumerSecret = new System.Windows.Forms.TextBox();
-            this.TextBoxTag = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.TextBoxTag = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.TextBoxConsumerSecret = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.TextBoxConsumerKey = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
@@ -309,7 +311,7 @@
             this.TweetPrvPanel.SuspendLayout();
             this.NotifyPanel.SuspendLayout();
             this.CooperatePanel.SuspendLayout();
-            this.FoursquareGroupBox.SuspendLayout();
+            this.MapThumbnailGroupBox.SuspendLayout();
             this.ProxyPanel.SuspendLayout();
             this.ConnectionPanel.SuspendLayout();
             this.GetPeriodPanel.SuspendLayout();
@@ -1172,7 +1174,7 @@
             // CooperatePanel
             // 
             this.CooperatePanel.Controls.Add(this.IsPreviewFoursquareCheckBox);
-            this.CooperatePanel.Controls.Add(this.FoursquareGroupBox);
+            this.CooperatePanel.Controls.Add(this.MapThumbnailGroupBox);
             this.CooperatePanel.Controls.Add(this.Label39);
             this.CooperatePanel.Controls.Add(this.UserAppointUrlText);
             this.CooperatePanel.Controls.Add(this.ComboBoxTranslateLanguage);
@@ -1191,39 +1193,55 @@
             resources.ApplyResources(this.IsPreviewFoursquareCheckBox, "IsPreviewFoursquareCheckBox");
             this.IsPreviewFoursquareCheckBox.Name = "IsPreviewFoursquareCheckBox";
             this.IsPreviewFoursquareCheckBox.UseVisualStyleBackColor = true;
-            this.IsPreviewFoursquareCheckBox.CheckedChanged += new System.EventHandler(this.IsPreviewFoursquareCheckBox_CheckedChanged);
             // 
-            // FoursquareGroupBox
+            // MapThumbnailGroupBox
             // 
-            this.FoursquareGroupBox.Controls.Add(this.Label42);
-            this.FoursquareGroupBox.Controls.Add(this.FoursquarePreviewWidthTextBox);
-            this.FoursquareGroupBox.Controls.Add(this.FoursquarePreviewZoomTextBox);
-            this.FoursquareGroupBox.Controls.Add(this.FoursquarePreviewHeightTextBox);
-            this.FoursquareGroupBox.Controls.Add(this.Label41);
-            this.FoursquareGroupBox.Controls.Add(this.Label40);
-            resources.ApplyResources(this.FoursquareGroupBox, "FoursquareGroupBox");
-            this.FoursquareGroupBox.Name = "FoursquareGroupBox";
-            this.FoursquareGroupBox.TabStop = false;
+            this.MapThumbnailGroupBox.Controls.Add(this.MapThumbnailProviderComboBox);
+            this.MapThumbnailGroupBox.Controls.Add(this.label48);
+            this.MapThumbnailGroupBox.Controls.Add(this.Label42);
+            this.MapThumbnailGroupBox.Controls.Add(this.MapThumbnailWidthTextBox);
+            this.MapThumbnailGroupBox.Controls.Add(this.MapThumbnailZoomTextBox);
+            this.MapThumbnailGroupBox.Controls.Add(this.MapThumbnailHeightTextBox);
+            this.MapThumbnailGroupBox.Controls.Add(this.Label41);
+            this.MapThumbnailGroupBox.Controls.Add(this.Label40);
+            resources.ApplyResources(this.MapThumbnailGroupBox, "MapThumbnailGroupBox");
+            this.MapThumbnailGroupBox.Name = "MapThumbnailGroupBox";
+            this.MapThumbnailGroupBox.TabStop = false;
+            // 
+            // MapThumbnailProviderComboBox
+            // 
+            this.MapThumbnailProviderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MapThumbnailProviderComboBox.FormattingEnabled = true;
+            this.MapThumbnailProviderComboBox.Items.AddRange(new object[] {
+            resources.GetString("MapThumbnailProviderComboBox.Items"),
+            resources.GetString("MapThumbnailProviderComboBox.Items1")});
+            resources.ApplyResources(this.MapThumbnailProviderComboBox, "MapThumbnailProviderComboBox");
+            this.MapThumbnailProviderComboBox.Name = "MapThumbnailProviderComboBox";
+            // 
+            // label48
+            // 
+            resources.ApplyResources(this.label48, "label48");
+            this.label48.Name = "label48";
             // 
             // Label42
             // 
             resources.ApplyResources(this.Label42, "Label42");
             this.Label42.Name = "Label42";
             // 
-            // FoursquarePreviewWidthTextBox
+            // MapThumbnailWidthTextBox
             // 
-            resources.ApplyResources(this.FoursquarePreviewWidthTextBox, "FoursquarePreviewWidthTextBox");
-            this.FoursquarePreviewWidthTextBox.Name = "FoursquarePreviewWidthTextBox";
+            resources.ApplyResources(this.MapThumbnailWidthTextBox, "MapThumbnailWidthTextBox");
+            this.MapThumbnailWidthTextBox.Name = "MapThumbnailWidthTextBox";
             // 
-            // FoursquarePreviewZoomTextBox
+            // MapThumbnailZoomTextBox
             // 
-            resources.ApplyResources(this.FoursquarePreviewZoomTextBox, "FoursquarePreviewZoomTextBox");
-            this.FoursquarePreviewZoomTextBox.Name = "FoursquarePreviewZoomTextBox";
+            resources.ApplyResources(this.MapThumbnailZoomTextBox, "MapThumbnailZoomTextBox");
+            this.MapThumbnailZoomTextBox.Name = "MapThumbnailZoomTextBox";
             // 
-            // FoursquarePreviewHeightTextBox
+            // MapThumbnailHeightTextBox
             // 
-            resources.ApplyResources(this.FoursquarePreviewHeightTextBox, "FoursquarePreviewHeightTextBox");
-            this.FoursquarePreviewHeightTextBox.Name = "FoursquarePreviewHeightTextBox";
+            resources.ApplyResources(this.MapThumbnailHeightTextBox, "MapThumbnailHeightTextBox");
+            this.MapThumbnailHeightTextBox.Name = "MapThumbnailHeightTextBox";
             // 
             // Label41
             // 
@@ -2316,47 +2334,47 @@
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
-            // label48
+            // groupBox4
             // 
-            resources.ApplyResources(this.label48, "label48");
-            this.label48.Name = "label48";
+            this.groupBox4.Controls.Add(this.label50);
+            this.groupBox4.Controls.Add(this.TextBoxTag);
+            this.groupBox4.Controls.Add(this.label51);
+            this.groupBox4.Controls.Add(this.TextBoxConsumerSecret);
+            this.groupBox4.Controls.Add(this.label54);
+            this.groupBox4.Controls.Add(this.TextBoxConsumerKey);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
             // 
             // label50
             // 
             resources.ApplyResources(this.label50, "label50");
             this.label50.Name = "label50";
             // 
+            // TextBoxTag
+            // 
+            resources.ApplyResources(this.TextBoxTag, "TextBoxTag");
+            this.TextBoxTag.Name = "TextBoxTag";
+            // 
             // label51
             // 
             resources.ApplyResources(this.label51, "label51");
             this.label51.Name = "label51";
-            // 
-            // TextBoxConsumerKey
-            // 
-            resources.ApplyResources(this.TextBoxConsumerKey, "TextBoxConsumerKey");
-            this.TextBoxConsumerKey.Name = "TextBoxConsumerKey";
             // 
             // TextBoxConsumerSecret
             // 
             resources.ApplyResources(this.TextBoxConsumerSecret, "TextBoxConsumerSecret");
             this.TextBoxConsumerSecret.Name = "TextBoxConsumerSecret";
             // 
-            // TextBoxTag
+            // label54
             // 
-            resources.ApplyResources(this.TextBoxTag, "TextBoxTag");
-            this.TextBoxTag.Name = "TextBoxTag";
+            resources.ApplyResources(this.label54, "label54");
+            this.label54.Name = "label54";
             // 
-            // groupBox4
+            // TextBoxConsumerKey
             // 
-            this.groupBox4.Controls.Add(this.label48);
-            this.groupBox4.Controls.Add(this.TextBoxTag);
-            this.groupBox4.Controls.Add(this.label50);
-            this.groupBox4.Controls.Add(this.TextBoxConsumerSecret);
-            this.groupBox4.Controls.Add(this.label51);
-            this.groupBox4.Controls.Add(this.TextBoxConsumerKey);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
+            resources.ApplyResources(this.TextBoxConsumerKey, "TextBoxConsumerKey");
+            this.TextBoxConsumerKey.Name = "TextBoxConsumerKey";
             // 
             // AppendSettingDialog
             // 
@@ -2369,6 +2387,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AppendSettingDialog";
+            this.ShowInTaskbar = false;
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Setting_FormClosing);
             this.Load += new System.EventHandler(this.Setting_Load);
@@ -2397,8 +2416,8 @@
             this.NotifyPanel.PerformLayout();
             this.CooperatePanel.ResumeLayout(false);
             this.CooperatePanel.PerformLayout();
-            this.FoursquareGroupBox.ResumeLayout(false);
-            this.FoursquareGroupBox.PerformLayout();
+            this.MapThumbnailGroupBox.ResumeLayout(false);
+            this.MapThumbnailGroupBox.PerformLayout();
             this.ProxyPanel.ResumeLayout(false);
             this.ProxyPanel.PerformLayout();
             this.ConnectionPanel.ResumeLayout(false);
@@ -2540,11 +2559,11 @@
         internal System.Windows.Forms.CheckBox CheckEventNotify;
         internal System.Windows.Forms.Panel CooperatePanel;
         internal System.Windows.Forms.CheckBox IsPreviewFoursquareCheckBox;
-        internal System.Windows.Forms.GroupBox FoursquareGroupBox;
+        internal System.Windows.Forms.GroupBox MapThumbnailGroupBox;
         internal System.Windows.Forms.Label Label42;
-        internal System.Windows.Forms.TextBox FoursquarePreviewWidthTextBox;
-        internal System.Windows.Forms.TextBox FoursquarePreviewZoomTextBox;
-        internal System.Windows.Forms.TextBox FoursquarePreviewHeightTextBox;
+        internal System.Windows.Forms.TextBox MapThumbnailWidthTextBox;
+        internal System.Windows.Forms.TextBox MapThumbnailZoomTextBox;
+        internal System.Windows.Forms.TextBox MapThumbnailHeightTextBox;
         internal System.Windows.Forms.Label Label41;
         internal System.Windows.Forms.Label Label40;
         internal System.Windows.Forms.Label Label39;
@@ -2681,12 +2700,14 @@
         internal System.Windows.Forms.Button Cancel;
         internal System.Windows.Forms.ColorDialog ColorDialog1;
         internal System.Windows.Forms.FontDialog FontDialog1;
-        private System.Windows.Forms.TextBox TextBoxTag;
-        private System.Windows.Forms.TextBox TextBoxConsumerSecret;
-        private System.Windows.Forms.TextBox TextBoxConsumerKey;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.ComboBox MapThumbnailProviderComboBox;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox TextBoxTag;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TextBox TextBoxConsumerSecret;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.TextBox TextBoxConsumerKey;
     }
 }
