@@ -90,6 +90,8 @@
             this.UnFollowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowFriendShipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListManageUserContextToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.BlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UnBlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowUserStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SearchPostsDetailNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -849,6 +851,8 @@
             this.ContextMenuUserPicture.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FollowToolStripMenuItem,
             this.UnFollowToolStripMenuItem,
+            this.BlockToolStripMenuItem,
+            this.UnBlockToolStripMenuItem,
             this.ShowFriendShipToolStripMenuItem,
             this.ListManageUserContextToolStripMenuItem3,
             this.ToolStripSeparator37,
@@ -886,6 +890,18 @@
             this.ListManageUserContextToolStripMenuItem3.Name = "ListManageUserContextToolStripMenuItem3";
             resources.ApplyResources(this.ListManageUserContextToolStripMenuItem3, "ListManageUserContextToolStripMenuItem3");
             this.ListManageUserContextToolStripMenuItem3.Click += new System.EventHandler(this.ListManageUserContextToolStripMenuItem_Click);
+            // 
+            // BlockToolStripMenuItem
+            // 
+            this.BlockToolStripMenuItem.Name = "BlockToolStripMenuItem";
+            resources.ApplyResources(this.BlockToolStripMenuItem, "BlockToolStripMenuItem");
+            this.BlockToolStripMenuItem.Click += new System.EventHandler(this.BlockToolStripMenuItem_Click);
+            // 
+            // UnBlockToolStripMenuItem
+            // 
+            this.UnBlockToolStripMenuItem.Name = "UnBlockToolStripMenuItem";
+            resources.ApplyResources(this.UnBlockToolStripMenuItem, "UnBlockToolStripMenuItem");
+            this.UnBlockToolStripMenuItem.Click += new System.EventHandler(this.UnBlockToolStripMenuItem_Click);
             // 
             // ToolStripSeparator37
             // 
@@ -2850,5 +2866,7 @@
         internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoCutTweetMenuItem;
         internal System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
         internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoAddZenkakuSpaceMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BlockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem UnBlockToolStripMenuItem;
     }
 }

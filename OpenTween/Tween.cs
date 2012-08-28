@@ -6957,7 +6957,7 @@ namespace OpenTween
                     switch (KeyCode)
                     {
                         case Keys.T:
-                            if (!this.ExistCurrentPost) return false;
+                            if (!this.ExistCurrentPost && !_cfgCommon.ShowDeleted) return false;
                             doTranslation(_curPost.TextFromApi);
                             return true;
                         case Keys.R:
@@ -7083,7 +7083,7 @@ namespace OpenTween
                     IsProtected = true;
                     continue;
                 }
-                //if (post.IsDeleted) continue;
+                if (post.IsDeleted && !_cfgCommon.ShowDeleted) continue;
                 if (!isDm)
                 {
                     if (post.RetweetedId > 0)
@@ -7475,7 +7475,7 @@ namespace OpenTween
                 }
             }
 
-            if (!(this.ExistCurrentPost && _curPost.InReplyToUser != null && _curPost.InReplyToStatusId > 0)) return;
+            if (!(_curPost.InReplyToUser != null && _curPost.InReplyToStatusId > 0)) return;
 
             if (replyChains == null || (replyChains.Count > 0 && replyChains.Peek().InReplyToId != _curPost.StatusId))
             {
@@ -8287,7 +8287,7 @@ namespace OpenTween
             if (!StatusText.Enabled) return;
             if (_curList == null) return;
             if (_curTab == null) return;
-            if (!this.ExistCurrentPost) return;
+            if (!this.ExistCurrentPost && !_cfgCommon.ShowDeleted) return;
 
             // 複数あてリプライはReplyではなく通常ポスト
             //↑仕様変更で全部リプライ扱いでＯＫ（先頭ドット付加しない）
@@ -8297,7 +8297,7 @@ namespace OpenTween
             if (_curList.SelectedIndices.Count > 0)
             {
                 // アイテムが1件以上選択されている
-                if (_curList.SelectedIndices.Count == 1 && !isAll && this.ExistCurrentPost)
+                if (_curList.SelectedIndices.Count == 1 && !isAll && (this.ExistCurrentPost || _cfgCommon.ShowDeleted))
                 {
                     // 単独ユーザー宛リプライまたはDM
                     if ((_statuses.Tabs[ListTab.SelectedTab.Text].TabType == MyCommon.TabUsageType.DirectMessage && isAuto) || (!isAuto && !isReply))
@@ -9767,7 +9767,7 @@ namespace OpenTween
 
         private void doRepliedStatusOpen()
         {
-            if (this.ExistCurrentPost && _curPost.InReplyToUser != null && _curPost.InReplyToStatusId > 0)
+            if (_curPost.InReplyToUser != null && _curPost.InReplyToStatusId > 0)
             {
                 if (MyCommon.IsKeyDown(Keys.Shift))
                 {
@@ -10884,8 +10884,8 @@ namespace OpenTween
         private void doReTweetUnofficial()
         {
             //RT @id:内容
-            /*if (this.ExistCurrentPost)
-            {*/
+            if (this.ExistCurrentPost || _cfgCommon.ShowDeleted)
+            {
                 if (_curPost.IsDm ||
                     !StatusText.Enabled) return;
 
@@ -10901,7 +10901,7 @@ namespace OpenTween
 
                 StatusText.SelectionStart = 0;
                 StatusText.Focus();
-            /*}*/
+            }
         }
 
         private void ReTweetStripMenuItem_Click(object sender, EventArgs e)
@@ -11480,8 +11480,8 @@ namespace OpenTween
         {
             //QT @id:内容
             //返信先情報付加
-            /*if (this.ExistCurrentPost)
-            {*/
+            if (this.ExistCurrentPost || _cfgCommon.ShowDeleted)
+            {
                 if (_curPost.IsDm ||
                     !StatusText.Enabled) return;
 
@@ -11506,7 +11506,7 @@ namespace OpenTween
 
                 StatusText.SelectionStart = 0;
                 StatusText.Focus();
-            /*}*/
+            }
         }
 
         private void QuoteStripMenuItem_Click(object sender, EventArgs e) // Handles QuoteStripMenuItem.Click, QtOpMenuItem.Click
@@ -12128,6 +12128,51 @@ namespace OpenTween
                 if (id != tw.Username)
                 {
                     RemoveCommand(id, false);
+                }
+            }
+        }
+
+        private void BlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (NameLabel.Tag != null)
+            {
+                string id = (string)NameLabel.Tag;
+                if (id != tw.Username)
+                {
+                    if (MessageBox.Show(_curPost.ScreenName + Properties.Resources.ButtonBlock_ClickText1,
+                                Properties.Resources.ButtonBlock_ClickText2,
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        string ret = this.tw.PostCreateBlock(_curPost.ScreenName);
+                        if (!string.IsNullOrEmpty(ret))
+                        {
+                            MessageBox.Show(Properties.Resources.FRMessage2 + ret);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Properties.Resources.FRMessage3);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void UnBlockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (NameLabel.Tag != null)
+            {
+                string id = (string)NameLabel.Tag;
+                if (id != tw.Username)
+                {
+                    string ret = this.tw.PostDestroyBlock(_curPost.ScreenName);
+                    if (!string.IsNullOrEmpty(ret))
+                    {
+                        MessageBox.Show(Properties.Resources.FRMessage2 + ret);
+                    }
+                    else
+                    {
+                        MessageBox.Show(Properties.Resources.FRMessage3);
+                    }
                 }
             }
         }
@@ -13284,7 +13329,7 @@ namespace OpenTween
 
         private void CopyTweet()
         {
-            if (_curPost == null) return;
+            if (_curPost == null || (_curPost.IsDeleted && !_cfgCommon.ShowDeleted)) return;
             string clstr = _curPost.TextFromApi;
             try
             {
@@ -13394,5 +13439,6 @@ namespace OpenTween
                 }
             } 
         }
+
     }
 }
