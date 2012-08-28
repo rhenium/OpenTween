@@ -9856,6 +9856,8 @@ namespace OpenTween
                 {
                     FollowToolStripMenuItem.Enabled = false;
                     UnFollowToolStripMenuItem.Enabled = false;
+                    BlockToolStripMenuItem.Enabled = false;
+                    UnBlockToolStripMenuItem.Enabled = false;
                     ShowFriendShipToolStripMenuItem.Enabled = false;
                     ShowUserStatusToolStripMenuItem.Enabled = true;
                     SearchPostsDetailNameToolStripMenuItem.Enabled = true;
@@ -9866,6 +9868,8 @@ namespace OpenTween
                 {
                     FollowToolStripMenuItem.Enabled = true;
                     UnFollowToolStripMenuItem.Enabled = true;
+                    BlockToolStripMenuItem.Enabled = true;
+                    UnBlockToolStripMenuItem.Enabled = true;
                     ShowFriendShipToolStripMenuItem.Enabled = true;
                     ShowUserStatusToolStripMenuItem.Enabled = true;
                     SearchPostsDetailNameToolStripMenuItem.Enabled = true;
@@ -9877,6 +9881,8 @@ namespace OpenTween
             {
                 FollowToolStripMenuItem.Enabled = false;
                 UnFollowToolStripMenuItem.Enabled = false;
+                BlockToolStripMenuItem.Enabled = false;
+                UnBlockToolStripMenuItem.Enabled = false;
                 ShowFriendShipToolStripMenuItem.Enabled = false;
                 ShowUserStatusToolStripMenuItem.Enabled = false;
                 SearchPostsDetailNameToolStripMenuItem.Enabled = false;
