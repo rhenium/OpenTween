@@ -2645,6 +2645,8 @@ namespace OpenTween
 
             if (!TabInformations.GetInstance().ContainsTab(tab)) return "";
             content = Regex.Replace(content, @"[\x00-\x1f-[\x0a\x0d]]+", " ");
+            content = content.Replace("<georss:", "<");
+            content = content.Replace("</georss:", "</");
             var xdoc = new XmlDocument();
             try
             {
