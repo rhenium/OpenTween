@@ -100,7 +100,6 @@ namespace OpenTween
 
         //twitter解析部
         private Twitter tw = new Twitter();
-        private Twitter tltw = new Twitter();
 
         //Growl呼び出し部
         private GrowlHelper gh = new GrowlHelper(Application.ProductName);
@@ -1002,19 +1001,16 @@ namespace OpenTween
             tw.RestrictFavCheck = SettingDialog.RestrictFavCheck;
             tw.ReadOwnPost = SettingDialog.ReadOwnPost;
             tw.UseSsl = SettingDialog.UseSsl;
-            tltw.RestrictFavCheck = SettingDialog.RestrictFavCheck;
-            tltw.ReadOwnPost = SettingDialog.ReadOwnPost;
-            tltw.UseSsl = SettingDialog.UseSsl;
             ShortUrl.IsResolve = SettingDialog.TinyUrlResolve;
             ShortUrl.IsForceResolve = SettingDialog.ShortUrlForceResolve;
             ShortUrl.BitlyId = SettingDialog.BitlyUser;
             ShortUrl.BitlyKey = SettingDialog.BitlyPwd;
             HttpTwitter.TwitterUrl = _cfgCommon.TwitterUrl;
             HttpTwitter.TwitterSearchUrl = _cfgCommon.TwitterSearchUrl;
-            tltw.TrackWord = _cfgCommon.TrackWord;
-            TrackToolStripMenuItem.Checked = !String.IsNullOrEmpty(tltw.TrackWord);
-            tltw.AllAtReply = _cfgCommon.AllAtReply;
-            AllrepliesToolStripMenuItem.Checked = tltw.AllAtReply;
+            tw.TrackWord = _cfgCommon.TrackWord;
+            TrackToolStripMenuItem.Checked = !String.IsNullOrEmpty(tw.TrackWord);
+            tw.AllAtReply = _cfgCommon.AllAtReply;
+            AllrepliesToolStripMenuItem.Checked = tw.AllAtReply;
 
             Outputz.Key = SettingDialog.OutputzKey;
             Outputz.Enabled = SettingDialog.OutputzEnabled;
@@ -1159,14 +1155,14 @@ namespace OpenTween
             }
             if (_iconSz == 0)
             {
-                tltw.GetIcon = false;
+                tw.GetIcon = false;
             }
             else
             {
-                tltw.GetIcon = true;
-                tltw.IconSize = _iconSz;
+                tw.GetIcon = true;
+                tw.IconSize = _iconSz;
             }
-            tltw.TinyUrlResolve = SettingDialog.TinyUrlResolve;
+            tw.TinyUrlResolve = SettingDialog.TinyUrlResolve;
             ShortUrl.IsForceResolve = SettingDialog.ShortUrlForceResolve;
 
             //発言詳細部アイコンをリストアイコンにサイズ変更
@@ -1176,7 +1172,7 @@ namespace OpenTween
                 sz = 16;
             }
 
-            tltw.DetailIcon = TIconDic;
+            tw.DetailIcon = TIconDic;
 
             StatusLabel.Text = Properties.Resources.Form1_LoadText1;       //画面右下の状態表示を変更
             StatusLabelUrl.Text = "";            //画面左下のリンク先URL表示部を初期化
@@ -1270,21 +1266,15 @@ namespace OpenTween
             this.TweenMain_Resize(null, null);
             if (saveRequired) SaveConfigsAll(false);
 
-            if (tw.UserId == 0 || tltw.UserId == 0)
+            if (tw.UserId == 0)
             {
                 tw.VerifyCredentials();
-                tltw.VerifyCredentials();
                 foreach (UserAccount ua in _cfgCommon.UserAccounts)
                 {
                     if (ua.Username.ToLower() == tw.Username.ToLower())
                     {
                         ua.UserId = tw.UserId;
-                        //break;
-                    }
-                    if (ua.Username.ToLower() == tltw.Username.ToLower())
-                    {
-                        ua.UserId = tltw.UserId;
-                        //break;
+                        break;
                     }
                 }
             }
@@ -1293,12 +1283,7 @@ namespace OpenTween
                 if (ua.UserId == 0 && ua.Username.ToLower() == tw.Username.ToLower())
                 {
                     ua.UserId = tw.UserId;
-                    //break;
-                }
-                if (ua.UserId == 0 && ua.Username.ToLower() == tltw.Username.ToLower())
-                {
-                    ua.UserId = tltw.UserId;
-                    //break;
+                    break;
                 }
             }
             this.ChangeAccountSplitButton.Text = this.tw.Username;
@@ -1309,11 +1294,11 @@ namespace OpenTween
             if (this.pictureService != null) this.pictureService.Clear();
             this.pictureService = null;
             this.pictureService = new Dictionary<string, IMultimediaShareService> {
-                {"TwitPic", new TwitPic(tltw)},
-                {"img.ly", new imgly(tltw)},
-                {"yfrog", new yfrog(tltw)},
-                {"lockerz", new Plixi(tltw)},
-                {"Twitter", new TwitterPhoto(tltw)}
+                {"TwitPic", new TwitPic(tw)},
+                {"img.ly", new imgly(tw)},
+                {"yfrog", new yfrog(tw)},
+                {"lockerz", new Plixi(tw)},
+                {"Twitter", new TwitterPhoto(tw)}
             };
         }
 
@@ -1430,19 +1415,19 @@ namespace OpenTween
             if (ResetTimers.Timeline || homeCounter <= 0 && SettingDialog.TimelinePeriodInt > 0)
             {
                 Interlocked.Exchange(ref homeCounter, SettingDialog.TimelinePeriodInt);
-                if (!tltw.IsUserstreamDataReceived && !ResetTimers.Timeline) GetTimeline(MyCommon.WORKERTYPE.Timeline, 1, 0, "");
+                if (!tw.IsUserstreamDataReceived && !ResetTimers.Timeline) GetTimeline(MyCommon.WORKERTYPE.Timeline, 1, 0, "");
                 ResetTimers.Timeline = false;
             }
             if (ResetTimers.Reply || mentionCounter <= 0 && SettingDialog.ReplyPeriodInt > 0)
             {
                 Interlocked.Exchange(ref mentionCounter, SettingDialog.ReplyPeriodInt);
-                if (!tltw.IsUserstreamDataReceived && !ResetTimers.Reply) GetTimeline(MyCommon.WORKERTYPE.Reply, 1, 0, "");
+                if (!tw.IsUserstreamDataReceived && !ResetTimers.Reply) GetTimeline(MyCommon.WORKERTYPE.Reply, 1, 0, "");
                 ResetTimers.Reply = false;
             }
             if (ResetTimers.DirectMessage || dmCounter <= 0 && SettingDialog.DMPeriodInt > 0)
             {
                 Interlocked.Exchange(ref dmCounter, SettingDialog.DMPeriodInt);
-                if (!tltw.IsUserstreamDataReceived && !ResetTimers.DirectMessage) GetTimeline(MyCommon.WORKERTYPE.DirectMessegeRcv, 1, 0, "");
+                if (!tw.IsUserstreamDataReceived && !ResetTimers.DirectMessage) GetTimeline(MyCommon.WORKERTYPE.DirectMessegeRcv, 1, 0, "");
                 ResetTimers.DirectMessage = false;
             }
             if (ResetTimers.PublicSearch || pubSearchCounter <= 0 && SettingDialog.PubSearchPeriodInt > 0)
@@ -1609,7 +1594,7 @@ namespace OpenTween
             SetMainWindowTitle();
             if (!StatusLabelUrl.Text.StartsWith("http")) SetStatusLabelUrl();
 
-            HashSupl.AddRangeItem(tltw.GetHashList());
+            HashSupl.AddRangeItem(tw.GetHashList());
 
         }
 
@@ -1811,7 +1796,7 @@ namespace OpenTween
                             GrowlHelper.NotifyType nt;
                             if (SettingDialog.DispUsername)
                             {
-                                title.Append(tltw.Username);
+                                title.Append(tw.Username);
                                 title.Append(" - ");
                             }
                             else
@@ -1887,7 +1872,7 @@ namespace OpenTween
                         ToolTipIcon ntIcon;
                         if (SettingDialog.DispUsername)
                         {
-                            title.Append(tltw.Username);
+                            title.Append(tw.Username);
                             title.Append(" - ");
                         }
                         else
@@ -2478,7 +2463,7 @@ namespace OpenTween
                 case MyCommon.WORKERTYPE.Timeline:
                 case MyCommon.WORKERTYPE.Reply:
                     bw.ReportProgress(50, MakeStatusMessage(args, false));
-                    ret = tltw.GetTimelineApi(read, args.type, args.page == -1, _initial);
+                    ret = tw.GetTimelineApi(read, args.type, args.page == -1, _initial);
                     //新着時未読クリア
                     if (string.IsNullOrEmpty(ret) && args.type == MyCommon.WORKERTYPE.Timeline && SettingDialog.ReadOldPosts)
                         _statuses.SetRead();
@@ -10789,17 +10774,17 @@ namespace OpenTween
 
         private void StartUserStream()
         {
-            tltw.NewPostFromStream += tltw_NewPostFromStream;
-            tltw.UserStreamStarted += tltw_UserStreamStarted;
-            tltw.UserStreamStopped += tltw_UserStreamStopped;
-            tltw.PostDeleted += tltw_PostDeleted;
-            tltw.UserStreamEventReceived += tltw_UserStreamEventArrived;
+            tw.NewPostFromStream += tw_NewPostFromStream;
+            tw.UserStreamStarted += tw_UserStreamStarted;
+            tw.UserStreamStopped += tw_UserStreamStopped;
+            tw.PostDeleted += tw_PostDeleted;
+            tw.UserStreamEventReceived += tw_UserStreamEventArrived;
 
             MenuItemUserStream.Text = "&UserStream ■";
             MenuItemUserStream.Enabled = true;
             StopToolStripMenuItem.Text = "&Start";
             StopToolStripMenuItem.Enabled = true;
-            if (SettingDialog.UserstreamStartup) tltw.StartUserStream();
+            if (SettingDialog.UserstreamStartup) tw.StartUserStream();
         }
 
         private void TweenMain_Shown(object sender, EventArgs e)
@@ -11125,7 +11110,7 @@ namespace OpenTween
                     tmp.AppendLine(Properties.Resources.ApiInfo1 + args.info.MaxCount.ToString());
                     tmp.AppendLine(Properties.Resources.ApiInfo2 + args.info.RemainCount.ToString());
                     tmp.AppendLine(Properties.Resources.ApiInfo3 + args.info.ResetTime.ToString());
-                    tmp.AppendLine(Properties.Resources.ApiInfo7 + (tltw.UserStreamEnabled ? Properties.Resources.Enable : Properties.Resources.Disable).ToString());
+                    tmp.AppendLine(Properties.Resources.ApiInfo7 + (tw.UserStreamEnabled ? Properties.Resources.Enable : Properties.Resources.Disable).ToString());
 
                     tmp.AppendLine();
                     tmp.AppendLine(Properties.Resources.ApiInfo8 + args.info.AccessLevel.ToString());
@@ -11727,7 +11712,7 @@ namespace OpenTween
 
             if (TabInformations.GetInstance().SubscribableLists.Count == 0)
             {
-                string res = this.tltw.GetListsApi();
+                string res = this.tw.GetListsApi();
 
                 if (!string.IsNullOrEmpty(res))
                 {
@@ -11736,7 +11721,7 @@ namespace OpenTween
                 }
             }
 
-            using (MyLists listSelectForm = new MyLists(user, this.tltw))
+            using (MyLists listSelectForm = new MyLists(user, this.tw))
             {
                 listSelectForm.ShowDialog(this);
             }
@@ -11974,11 +11959,6 @@ namespace OpenTween
         public Twitter TwitterInstance
         {
             get { return tw; }
-        }
-
-        public Twitter TLTwitterInstance
-        {
-            get { return tltw; }
         }
 
         private void SplitContainer3_SplitterMoved(object sender, SplitterEventArgs e)
@@ -12608,7 +12588,7 @@ namespace OpenTween
 
         private void ListManageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (ListManage form = new ListManage(tltw))
+            using (ListManage form = new ListManage(tw))
             {
                 form.ShowDialog(this);
             }
@@ -13027,11 +13007,11 @@ namespace OpenTween
             }
             if (this._isActiveUserstream)
             {
-                tltw.StopUserStream();
+                tw.StopUserStream();
             }
             else
             {
-                tltw.StartUserStream();
+                tw.StartUserStream();
             }
         }
 
@@ -13053,27 +13033,27 @@ namespace OpenTween
                     }
                     inputTrack = inputForm.TabName.Trim();
                 }
-                if (!inputTrack.Equals(tltw.TrackWord))
+                if (!inputTrack.Equals(tw.TrackWord))
                 {
-                    tltw.TrackWord = inputTrack;
+                    tw.TrackWord = inputTrack;
                     this._modifySettingCommon = true;
                     TrackToolStripMenuItem.Checked = !string.IsNullOrEmpty(inputTrack);
-                    tltw.ReconnectUserStream();
+                    tw.ReconnectUserStream();
                 }
             }
             else
             {
-                tltw.TrackWord = "";
-                tltw.ReconnectUserStream();
+                tw.TrackWord = "";
+                tw.ReconnectUserStream();
             }
             this._modifySettingCommon = true;
         }
 
         private void AllrepliesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            tltw.AllAtReply = AllrepliesToolStripMenuItem.Checked;
+            tw.AllAtReply = AllrepliesToolStripMenuItem.Checked;
             this._modifySettingCommon = true;
-            tltw.ReconnectUserStream();
+            tw.ReconnectUserStream();
         }
 
         private void EventViewerMenuItem_Click(object sender, EventArgs e)
@@ -13228,11 +13208,11 @@ namespace OpenTween
         {
             if (isEnable)
             {
-                tltw.StartUserStream();
+                tw.StartUserStream();
             }
             else
             {
-                tltw.StopUserStream();
+                tw.StopUserStream();
             }
             TimerTimeline.Enabled = isEnable;
         }

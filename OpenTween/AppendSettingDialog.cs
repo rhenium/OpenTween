@@ -5,7 +5,6 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
-//           (c) 2012      re4k (@re4k) <http://re4k.info/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -44,7 +43,6 @@ namespace OpenTween
     {
         private static AppendSettingDialog _instance = new AppendSettingDialog();
         private Twitter tw;
-        private Twitter tltw;
         private HttpConnection.ProxyType _MyProxyType;
 
         private bool _ValidationError = false;
@@ -62,7 +60,6 @@ namespace OpenTween
         public bool IsListStatusesIncludeRts;
         public List<UserAccount> UserAccounts;
         private long InitialUserId;
-        private long TLInitialUserId;
         public bool TabMouseLock;
         public bool IsRemoveSameEvent;
         public bool IsNotifyUseGrowl;
@@ -171,19 +168,7 @@ namespace OpenTween
                             tw.VerifyCredentials();
                             u.UserId = tw.UserId;
                         }
-                        //break;
-                    }
-                    if (u.Username.ToLower() == ((UserAccount)this.TLAuthUserCombo.SelectedItem).Username.ToLower() &&
-                        u.Tag == ((UserAccount)this.TLAuthUserCombo.SelectedItem).Tag)
-                    {
-                        tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
-                        tltw.Tag = u.Tag;
-                        if (u.UserId == 0)
-                        {
-                            tltw.VerifyCredentials();
-                            u.UserId = tltw.UserId;
-                        }
-                        //break;
+                        break;
                     }
                 }
             }
@@ -535,7 +520,6 @@ namespace OpenTween
                 }
                 //アクティブユーザーを起動時のアカウントに戻す（起動時アカウントなければ何もしない）
                 bool userSet = false;
-                bool tlUserSet = false;
                 if (this.InitialUserId > 0)
                 {
                     foreach (UserAccount u in this.UserAccounts)
@@ -545,30 +529,20 @@ namespace OpenTween
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
                             tw.Tag = u.Tag;
                             userSet = true;
-                            //break;
-                        }
-                        if (u.UserId == this.InitialUserId)
-                        {
-                            tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
-                            tltw.Tag = u.Tag;
-                            tlUserSet = true;
-                            //break;
+                            break;
                         }
                     }
                 }
                 //認証済みアカウントが削除されていた場合、もしくは起動時アカウントがなかった場合は、
                 //アクティブユーザーなしとして初期化
-                if (!userSet || !tlUserSet)
+                if (!userSet)
                 {
                     tw.ClearAuthInfo();
                     tw.Initialize("", "", "", "", "", 0);
-                    tltw.ClearAuthInfo();
-                    tltw.Initialize("", "", "", "", "", 0);
                 }
             }
 
-            if ((tw != null && string.IsNullOrEmpty(tltw.Username) && e.CloseReason == CloseReason.None) ||
-                (tltw != null && string.IsNullOrEmpty(tltw.Username) && e.CloseReason == CloseReason.None))
+            if (tw != null && string.IsNullOrEmpty(tw.Username) && e.CloseReason == CloseReason.None)
             {
                 if (MessageBox.Show(Properties.Resources.Setting_FormClosing1, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
                 {
@@ -596,11 +570,10 @@ namespace OpenTween
             this.GroupBox2.Visible = false;
 #endif
             tw = ((TweenMain)this.Owner).TwitterInstance;
-            tltw = ((TweenMain)this.Owner).TLTwitterInstance;
-            /*string uname = tw.Username;
+            string uname = tw.Username;
             string pw = tw.Password;
             string tk = tw.AccessToken;
-            string tks = tw.AccessTokenSecret;*/
+            string tks = tw.AccessTokenSecret;
             //this.AuthStateLabel.Enabled = true;
             //this.AuthUserLabel.Enabled = true;
             this.AuthClearButton.Enabled = true;
@@ -626,24 +599,16 @@ namespace OpenTween
             //}
 
             this.AuthUserCombo.Items.Clear();
-            this.TLAuthUserCombo.Items.Clear();
             if (this.UserAccounts.Count > 0)
             {
                 this.AuthUserCombo.Items.AddRange(this.UserAccounts.ToArray());
-                this.TLAuthUserCombo.Items.AddRange(this.UserAccounts.ToArray());
                 foreach (UserAccount u in this.UserAccounts)
                 {
                     if (u.UserId == tw.UserId && u.Tag == tw.Tag)
                     {
                         this.AuthUserCombo.SelectedItem = u;
                         this.InitialUserId = u.UserId;
-                        //break;
-                    }
-                    if (u.UserId == tltw.UserId && u.Tag == tltw.Tag)
-                    {
-                        this.TLAuthUserCombo.SelectedItem = u;
-                        this.TLInitialUserId = u.UserId;
-                        //break;
+                        break;
                     }
                 }
             }
@@ -1808,14 +1773,11 @@ namespace OpenTween
                 {
                     this.AuthUserCombo.Items.RemoveAt(idx);
                     this.AuthUserCombo.Items.Insert(idx, user);
-                    this.TLAuthUserCombo.Items.RemoveAt(idx);
-                    this.TLAuthUserCombo.Items.Insert(idx, user);
                     this.AuthUserCombo.SelectedIndex = idx;
                 }
                 else
                 {
                     this.AuthUserCombo.SelectedIndex = this.AuthUserCombo.Items.Add(user);
-                    this.TLAuthUserCombo.Items.Add(user);
                 }
                 //if (TwitterApiInfo.AccessLevel = ApiAccessLevel.ReadWrite)
                 //{
@@ -1857,7 +1819,6 @@ namespace OpenTween
             if (this.AuthUserCombo.SelectedIndex > -1)
             {
                 this.AuthUserCombo.Items.RemoveAt(this.AuthUserCombo.SelectedIndex);
-                this.TLAuthUserCombo.Items.RemoveAt(this.AuthUserCombo.SelectedIndex);
                 if (this.AuthUserCombo.Items.Count > 0)
                 {
                     this.AuthUserCombo.SelectedIndex = 0;
@@ -1959,7 +1920,7 @@ namespace OpenTween
                 }
             }
 
-            if (tltw != null)
+            if (tw != null)
             {
                 if (MyCommon.TwitterApiInfo.MaxCount == -1)
                 {
@@ -1967,7 +1928,7 @@ namespace OpenTween
                     {
                         MyCommon.TwitterApiInfo.UsingCount = UsingApi;
                         Thread proc = new Thread(new System.Threading.ThreadStart(() => {
-                            tltw.GetInfoApi(null); //取得エラー時はinfoCountは初期状態（値：-1）
+                            tw.GetInfoApi(null); //取得エラー時はinfoCountは初期状態（値：-1）
                             if (this.IsHandleCreated && !this.IsDisposed) Invoke(new MethodInvoker(DisplayApiMaxCount));
                         }));
                         proc.Start();
@@ -1984,11 +1945,11 @@ namespace OpenTween
             }
 
 
-            LabelPostAndGet.Visible = CheckPostAndGet.Checked && !tltw.UserStreamEnabled;
-            LabelUserStreamActive.Visible = tltw.UserStreamEnabled;
+            LabelPostAndGet.Visible = CheckPostAndGet.Checked && !tw.UserStreamEnabled;
+            LabelUserStreamActive.Visible = tw.UserStreamEnabled;
 
             LabelApiUsingUserStreamEnabled.Text = string.Format(Properties.Resources.SettingAPIUse2, (ApiLists + ApiUserTimeline).ToString());
-            LabelApiUsingUserStreamEnabled.Visible = tltw.UserStreamEnabled;
+            LabelApiUsingUserStreamEnabled.Visible = tw.UserStreamEnabled;
         }
 
         private void CheckPostAndGet_CheckedChanged(object sender, EventArgs e)

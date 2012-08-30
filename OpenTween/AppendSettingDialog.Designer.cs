@@ -32,23 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppendSettingDialog));
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
-            this.BasedPanel = new System.Windows.Forms.Panel();
-            this.groupBoxConsumerKey = new System.Windows.Forms.GroupBox();
-            this.labelConsumerKey = new System.Windows.Forms.Label();
-            this.TextBoxTag = new System.Windows.Forms.TextBox();
-            this.labelConsumerSecret = new System.Windows.Forms.Label();
-            this.TextBoxConsumerSecret = new System.Windows.Forms.TextBox();
-            this.labelTag = new System.Windows.Forms.Label();
-            this.TextBoxConsumerKey = new System.Windows.Forms.TextBox();
-            this.AuthUserCombo = new System.Windows.Forms.ComboBox();
-            this.GroupBox2 = new System.Windows.Forms.GroupBox();
-            this.EmailText = new System.Windows.Forms.TextBox();
-            this.Label6 = new System.Windows.Forms.Label();
-            this.FollowCheckBox = new System.Windows.Forms.CheckBox();
-            this.CreateAccountButton = new System.Windows.Forms.Button();
-            this.StartAuthButton = new System.Windows.Forms.Button();
-            this.AuthClearButton = new System.Windows.Forms.Button();
-            this.Label4 = new System.Windows.Forms.Label();
             this.StartupPanel = new System.Windows.Forms.Panel();
             this.StartupReaded = new System.Windows.Forms.CheckBox();
             this.CheckStartupFollowers = new System.Windows.Forms.CheckBox();
@@ -112,6 +95,18 @@
             this.Label76 = new System.Windows.Forms.Label();
             this.Label77 = new System.Windows.Forms.Label();
             this.TextBitlyId = new System.Windows.Forms.TextBox();
+            this.BasedPanel = new System.Windows.Forms.Panel();
+            this.AuthUserCombo = new System.Windows.Forms.ComboBox();
+            this.GroupBox2 = new System.Windows.Forms.GroupBox();
+            this.Label1 = new System.Windows.Forms.Label();
+            this.EmailText = new System.Windows.Forms.TextBox();
+            this.Label6 = new System.Windows.Forms.Label();
+            this.FollowCheckBox = new System.Windows.Forms.CheckBox();
+            this.Label43 = new System.Windows.Forms.Label();
+            this.CreateAccountButton = new System.Windows.Forms.Button();
+            this.StartAuthButton = new System.Windows.Forms.Button();
+            this.AuthClearButton = new System.Windows.Forms.Button();
+            this.Label4 = new System.Windows.Forms.Label();
             this.TweetPrvPanel = new System.Windows.Forms.Panel();
             this.IsListsIncludeRtsCheckBox = new System.Windows.Forms.CheckBox();
             this.HideDuplicatedRetweetsCheck = new System.Windows.Forms.CheckBox();
@@ -295,20 +290,24 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.TLAuthUserCombo = new System.Windows.Forms.ComboBox();
-            this.labelAccountTimeLine = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.TextBoxTag = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.TextBoxConsumerSecret = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.TextBoxConsumerKey = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
-            this.BasedPanel.SuspendLayout();
-            this.groupBoxConsumerKey.SuspendLayout();
-            this.GroupBox2.SuspendLayout();
             this.StartupPanel.SuspendLayout();
             this.PreviewPanel.SuspendLayout();
             this.TweetActPanel.SuspendLayout();
             this.GetCountPanel.SuspendLayout();
             this.ShortUrlPanel.SuspendLayout();
+            this.BasedPanel.SuspendLayout();
+            this.GroupBox2.SuspendLayout();
             this.TweetPrvPanel.SuspendLayout();
             this.NotifyPanel.SuspendLayout();
             this.CooperatePanel.SuspendLayout();
@@ -322,6 +321,7 @@
             this.GroupBox1.SuspendLayout();
             this.FontPanel2.SuspendLayout();
             this.GroupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // SplitContainer1
@@ -368,122 +368,6 @@
             this.TreeViewSetting.ShowLines = false;
             this.TreeViewSetting.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewSetting_BeforeSelect);
             this.TreeViewSetting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSetting_AfterSelect);
-            // 
-            // BasedPanel
-            // 
-            this.BasedPanel.Controls.Add(this.TLAuthUserCombo);
-            this.BasedPanel.Controls.Add(this.labelAccountTimeLine);
-            this.BasedPanel.Controls.Add(this.groupBoxConsumerKey);
-            this.BasedPanel.Controls.Add(this.AuthUserCombo);
-            this.BasedPanel.Controls.Add(this.GroupBox2);
-            this.BasedPanel.Controls.Add(this.CreateAccountButton);
-            this.BasedPanel.Controls.Add(this.StartAuthButton);
-            this.BasedPanel.Controls.Add(this.AuthClearButton);
-            this.BasedPanel.Controls.Add(this.Label4);
-            resources.ApplyResources(this.BasedPanel, "BasedPanel");
-            this.BasedPanel.Name = "BasedPanel";
-            // 
-            // groupBoxConsumerKey
-            // 
-            this.groupBoxConsumerKey.Controls.Add(this.labelConsumerKey);
-            this.groupBoxConsumerKey.Controls.Add(this.TextBoxTag);
-            this.groupBoxConsumerKey.Controls.Add(this.labelConsumerSecret);
-            this.groupBoxConsumerKey.Controls.Add(this.TextBoxConsumerSecret);
-            this.groupBoxConsumerKey.Controls.Add(this.labelTag);
-            this.groupBoxConsumerKey.Controls.Add(this.TextBoxConsumerKey);
-            resources.ApplyResources(this.groupBoxConsumerKey, "groupBoxConsumerKey");
-            this.groupBoxConsumerKey.Name = "groupBoxConsumerKey";
-            this.groupBoxConsumerKey.TabStop = false;
-            // 
-            // labelConsumerKey
-            // 
-            resources.ApplyResources(this.labelConsumerKey, "labelConsumerKey");
-            this.labelConsumerKey.Name = "labelConsumerKey";
-            // 
-            // TextBoxTag
-            // 
-            resources.ApplyResources(this.TextBoxTag, "TextBoxTag");
-            this.TextBoxTag.Name = "TextBoxTag";
-            // 
-            // labelConsumerSecret
-            // 
-            resources.ApplyResources(this.labelConsumerSecret, "labelConsumerSecret");
-            this.labelConsumerSecret.Name = "labelConsumerSecret";
-            // 
-            // TextBoxConsumerSecret
-            // 
-            resources.ApplyResources(this.TextBoxConsumerSecret, "TextBoxConsumerSecret");
-            this.TextBoxConsumerSecret.Name = "TextBoxConsumerSecret";
-            // 
-            // labelTag
-            // 
-            resources.ApplyResources(this.labelTag, "labelTag");
-            this.labelTag.Name = "labelTag";
-            // 
-            // TextBoxConsumerKey
-            // 
-            resources.ApplyResources(this.TextBoxConsumerKey, "TextBoxConsumerKey");
-            this.TextBoxConsumerKey.Name = "TextBoxConsumerKey";
-            // 
-            // AuthUserCombo
-            // 
-            this.AuthUserCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AuthUserCombo.FormattingEnabled = true;
-            resources.ApplyResources(this.AuthUserCombo, "AuthUserCombo");
-            this.AuthUserCombo.Name = "AuthUserCombo";
-            // 
-            // GroupBox2
-            // 
-            this.GroupBox2.Controls.Add(this.EmailText);
-            this.GroupBox2.Controls.Add(this.Label6);
-            this.GroupBox2.Controls.Add(this.FollowCheckBox);
-            resources.ApplyResources(this.GroupBox2, "GroupBox2");
-            this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.TabStop = false;
-            // 
-            // EmailText
-            // 
-            resources.ApplyResources(this.EmailText, "EmailText");
-            this.EmailText.Name = "EmailText";
-            // 
-            // Label6
-            // 
-            resources.ApplyResources(this.Label6, "Label6");
-            this.Label6.Name = "Label6";
-            // 
-            // FollowCheckBox
-            // 
-            resources.ApplyResources(this.FollowCheckBox, "FollowCheckBox");
-            this.FollowCheckBox.Checked = true;
-            this.FollowCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.FollowCheckBox.Name = "FollowCheckBox";
-            this.FollowCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CreateAccountButton
-            // 
-            resources.ApplyResources(this.CreateAccountButton, "CreateAccountButton");
-            this.CreateAccountButton.Name = "CreateAccountButton";
-            this.CreateAccountButton.UseVisualStyleBackColor = true;
-            this.CreateAccountButton.Click += new System.EventHandler(this.CreateAccountButton_Click);
-            // 
-            // StartAuthButton
-            // 
-            resources.ApplyResources(this.StartAuthButton, "StartAuthButton");
-            this.StartAuthButton.Name = "StartAuthButton";
-            this.StartAuthButton.UseVisualStyleBackColor = true;
-            this.StartAuthButton.Click += new System.EventHandler(this.StartAuthButton_Click);
-            // 
-            // AuthClearButton
-            // 
-            resources.ApplyResources(this.AuthClearButton, "AuthClearButton");
-            this.AuthClearButton.Name = "AuthClearButton";
-            this.AuthClearButton.UseVisualStyleBackColor = true;
-            this.AuthClearButton.Click += new System.EventHandler(this.AuthClearButton_Click);
-            // 
-            // Label4
-            // 
-            resources.ApplyResources(this.Label4, "Label4");
-            this.Label4.Name = "Label4";
             // 
             // StartupPanel
             // 
@@ -939,6 +823,91 @@
             // 
             resources.ApplyResources(this.TextBitlyId, "TextBitlyId");
             this.TextBitlyId.Name = "TextBitlyId";
+            // 
+            // BasedPanel
+            // 
+            this.BasedPanel.Controls.Add(this.groupBox4);
+            this.BasedPanel.Controls.Add(this.AuthUserCombo);
+            this.BasedPanel.Controls.Add(this.GroupBox2);
+            this.BasedPanel.Controls.Add(this.CreateAccountButton);
+            this.BasedPanel.Controls.Add(this.StartAuthButton);
+            this.BasedPanel.Controls.Add(this.AuthClearButton);
+            this.BasedPanel.Controls.Add(this.Label4);
+            resources.ApplyResources(this.BasedPanel, "BasedPanel");
+            this.BasedPanel.Name = "BasedPanel";
+            // 
+            // AuthUserCombo
+            // 
+            this.AuthUserCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AuthUserCombo.FormattingEnabled = true;
+            resources.ApplyResources(this.AuthUserCombo, "AuthUserCombo");
+            this.AuthUserCombo.Name = "AuthUserCombo";
+            // 
+            // GroupBox2
+            // 
+            this.GroupBox2.Controls.Add(this.Label1);
+            this.GroupBox2.Controls.Add(this.EmailText);
+            this.GroupBox2.Controls.Add(this.Label6);
+            this.GroupBox2.Controls.Add(this.FollowCheckBox);
+            this.GroupBox2.Controls.Add(this.Label43);
+            resources.ApplyResources(this.GroupBox2, "GroupBox2");
+            this.GroupBox2.Name = "GroupBox2";
+            this.GroupBox2.TabStop = false;
+            // 
+            // Label1
+            // 
+            resources.ApplyResources(this.Label1, "Label1");
+            this.Label1.Name = "Label1";
+            // 
+            // EmailText
+            // 
+            resources.ApplyResources(this.EmailText, "EmailText");
+            this.EmailText.Name = "EmailText";
+            // 
+            // Label6
+            // 
+            resources.ApplyResources(this.Label6, "Label6");
+            this.Label6.Name = "Label6";
+            // 
+            // FollowCheckBox
+            // 
+            resources.ApplyResources(this.FollowCheckBox, "FollowCheckBox");
+            this.FollowCheckBox.Checked = true;
+            this.FollowCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.FollowCheckBox.Name = "FollowCheckBox";
+            this.FollowCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // Label43
+            // 
+            this.Label43.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.Label43, "Label43");
+            this.Label43.Name = "Label43";
+            // 
+            // CreateAccountButton
+            // 
+            resources.ApplyResources(this.CreateAccountButton, "CreateAccountButton");
+            this.CreateAccountButton.Name = "CreateAccountButton";
+            this.CreateAccountButton.UseVisualStyleBackColor = true;
+            this.CreateAccountButton.Click += new System.EventHandler(this.CreateAccountButton_Click);
+            // 
+            // StartAuthButton
+            // 
+            resources.ApplyResources(this.StartAuthButton, "StartAuthButton");
+            this.StartAuthButton.Name = "StartAuthButton";
+            this.StartAuthButton.UseVisualStyleBackColor = true;
+            this.StartAuthButton.Click += new System.EventHandler(this.StartAuthButton_Click);
+            // 
+            // AuthClearButton
+            // 
+            resources.ApplyResources(this.AuthClearButton, "AuthClearButton");
+            this.AuthClearButton.Name = "AuthClearButton";
+            this.AuthClearButton.UseVisualStyleBackColor = true;
+            this.AuthClearButton.Click += new System.EventHandler(this.AuthClearButton_Click);
+            // 
+            // Label4
+            // 
+            resources.ApplyResources(this.Label4, "Label4");
+            this.Label4.Name = "Label4";
             // 
             // TweetPrvPanel
             // 
@@ -2365,21 +2334,47 @@
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
-            // FontDialog1
+            // groupBox4
             // 
-            this.FontDialog1.Color = System.Drawing.SystemColors.ControlText;
+            this.groupBox4.Controls.Add(this.label50);
+            this.groupBox4.Controls.Add(this.TextBoxTag);
+            this.groupBox4.Controls.Add(this.label51);
+            this.groupBox4.Controls.Add(this.TextBoxConsumerSecret);
+            this.groupBox4.Controls.Add(this.label54);
+            this.groupBox4.Controls.Add(this.TextBoxConsumerKey);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
             // 
-            // TLAuthUserCombo
+            // label50
             // 
-            this.TLAuthUserCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TLAuthUserCombo.FormattingEnabled = true;
-            resources.ApplyResources(this.TLAuthUserCombo, "TLAuthUserCombo");
-            this.TLAuthUserCombo.Name = "TLAuthUserCombo";
+            resources.ApplyResources(this.label50, "label50");
+            this.label50.Name = "label50";
             // 
-            // labelAccountTimeLine
+            // TextBoxTag
             // 
-            resources.ApplyResources(this.labelAccountTimeLine, "labelAccountTimeLine");
-            this.labelAccountTimeLine.Name = "labelAccountTimeLine";
+            resources.ApplyResources(this.TextBoxTag, "TextBoxTag");
+            this.TextBoxTag.Name = "TextBoxTag";
+            // 
+            // label51
+            // 
+            resources.ApplyResources(this.label51, "label51");
+            this.label51.Name = "label51";
+            // 
+            // TextBoxConsumerSecret
+            // 
+            resources.ApplyResources(this.TextBoxConsumerSecret, "TextBoxConsumerSecret");
+            this.TextBoxConsumerSecret.Name = "TextBoxConsumerSecret";
+            // 
+            // label54
+            // 
+            resources.ApplyResources(this.label54, "label54");
+            this.label54.Name = "label54";
+            // 
+            // TextBoxConsumerKey
+            // 
+            resources.ApplyResources(this.TextBoxConsumerKey, "TextBoxConsumerKey");
+            this.TextBoxConsumerKey.Name = "TextBoxConsumerKey";
             // 
             // AppendSettingDialog
             // 
@@ -2401,12 +2396,6 @@
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
-            this.BasedPanel.ResumeLayout(false);
-            this.BasedPanel.PerformLayout();
-            this.groupBoxConsumerKey.ResumeLayout(false);
-            this.groupBoxConsumerKey.PerformLayout();
-            this.GroupBox2.ResumeLayout(false);
-            this.GroupBox2.PerformLayout();
             this.StartupPanel.ResumeLayout(false);
             this.StartupPanel.PerformLayout();
             this.PreviewPanel.ResumeLayout(false);
@@ -2417,6 +2406,10 @@
             this.GetCountPanel.PerformLayout();
             this.ShortUrlPanel.ResumeLayout(false);
             this.ShortUrlPanel.PerformLayout();
+            this.BasedPanel.ResumeLayout(false);
+            this.BasedPanel.PerformLayout();
+            this.GroupBox2.ResumeLayout(false);
+            this.GroupBox2.PerformLayout();
             this.TweetPrvPanel.ResumeLayout(false);
             this.TweetPrvPanel.PerformLayout();
             this.NotifyPanel.ResumeLayout(false);
@@ -2441,6 +2434,8 @@
             this.FontPanel2.ResumeLayout(false);
             this.GroupBox5.ResumeLayout(false);
             this.GroupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2523,9 +2518,11 @@
         internal System.Windows.Forms.Panel BasedPanel;
         internal System.Windows.Forms.ComboBox AuthUserCombo;
         internal System.Windows.Forms.GroupBox GroupBox2;
+        internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.TextBox EmailText;
         internal System.Windows.Forms.Label Label6;
         internal System.Windows.Forms.CheckBox FollowCheckBox;
+        internal System.Windows.Forms.Label Label43;
         internal System.Windows.Forms.Button CreateAccountButton;
         internal System.Windows.Forms.Button StartAuthButton;
         internal System.Windows.Forms.Button AuthClearButton;
@@ -2705,14 +2702,12 @@
         internal System.Windows.Forms.FontDialog FontDialog1;
         private System.Windows.Forms.ComboBox MapThumbnailProviderComboBox;
         private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.GroupBox groupBoxConsumerKey;
-        private System.Windows.Forms.Label labelConsumerKey;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox TextBoxTag;
-        private System.Windows.Forms.Label labelConsumerSecret;
+        private System.Windows.Forms.Label label51;
         private System.Windows.Forms.TextBox TextBoxConsumerSecret;
-        private System.Windows.Forms.Label labelTag;
+        private System.Windows.Forms.Label label54;
         private System.Windows.Forms.TextBox TextBoxConsumerKey;
-        internal System.Windows.Forms.ComboBox TLAuthUserCombo;
-        internal System.Windows.Forms.Label labelAccountTimeLine;
     }
 }
