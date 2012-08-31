@@ -656,10 +656,9 @@ namespace OpenTween
 
             //認証関連
             if (string.IsNullOrEmpty(_cfgCommon.Token)) _cfgCommon.UserName = "";
-            tw.Initialize(_cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.ConsumerKey, _cfgCommon.ConsumerSecret, _cfgCommon.UserName, _cfgCommon.UserId);
-            tw.Tag = _cfgCommon.Tag;
-            tltw.Initialize(_cfgCommon.TLToken, _cfgCommon.TLTokenSecret, _cfgCommon.TLConsumerKey, _cfgCommon.TLConsumerSecret, _cfgCommon.TLUserName, _cfgCommon.TLUserId);
-            tltw.Tag = _cfgCommon.TLTag;
+            tw.Initialize(_cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.ConsumerKey, _cfgCommon.ConsumerSecret, _cfgCommon.UserName, _cfgCommon.UserId, _cfgCommon.Tag);
+            tw.ForceNotOwl = true;
+            tltw.Initialize(_cfgCommon.TLToken, _cfgCommon.TLTokenSecret, _cfgCommon.TLConsumerKey, _cfgCommon.TLConsumerSecret, _cfgCommon.TLUserName, _cfgCommon.TLUserId, _cfgCommon.TLTag);
 
             SettingDialog.UserAccounts = _cfgCommon.UserAccounts;
 
@@ -12940,7 +12939,7 @@ namespace OpenTween
             {
                 if (InvokeRequired && !IsDisposed)
                 {
-                    Invoke(new Action<Twitter.FormattedEvent, Twitter>(tw_UserStreamEventArrived), ev);
+                    Invoke(new Action<Twitter.FormattedEvent, Twitter>(tw_UserStreamEventArrived), ev, this.tw);
                     return;
                 }
             }
@@ -13423,33 +13422,46 @@ namespace OpenTween
 
         private void ChangeAccountSplitButton_DropDownOpening(object sender, EventArgs e)
         {
+            RefreshChangeAccountSplitButton();
+        }
+
+        private void RefreshChangeAccountSplitButton()
+        {
             this.ChangeAccountSplitButton.DropDown.Items.Clear();
             if (this._cfgCommon.UserAccounts.Count > 0)
             {
-                foreach (UserAccount u in this._cfgCommon.UserAccounts)
+                for (var i = 0; i < this._cfgCommon.UserAccounts.Count; i++)
                 {
-                    var item = new ToolStripMenuItem(u.ToString()) { Tag = u };
+                    var item = new ToolStripMenuItem(this._cfgCommon.UserAccounts[i].ToString());
+                    item.Tag = i;
+                    item.Checked = this._cfgCommon.UserAccounts[i].UserId == tw.UserId &&
+                                    this._cfgCommon.UserAccounts[i].Tag == tw.Tag;
                     item.Click += (sender1, e1) =>
                     {
-                        tw.Initialize(((UserAccount)(((ToolStripMenuItem)sender1).Tag)).Token,
-                            ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).TokenSecret,
-                            ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).ConsumerKey,
-                        ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).ConsumerSecret,
-                        ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).Username,
-                        ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).UserId);
-                        tw.Tag = ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).Tag;
+                        var u = this._cfgCommon.UserAccounts[(int)((ToolStripMenuItem)sender1).Tag];
+
+                        tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
+                        tw.ForceNotOwl = true;
+                        if (u.UserId == 0)
+                        {
+                            tw.VerifyCredentials();
+                            u.UserId = tw.UserId;
+                        }
+
                         foreach (var m in ChangeAccountSplitButton.DropDown.Items)
                         {
-                            ((ToolStripMenuItem)m).Checked = (u.UserId == tw.UserId && u.Tag == tw.Tag);
+                            ((ToolStripMenuItem)m).Checked = false;
                         }
-                        this.ChangeAccountSplitButton.Text = ((UserAccount)(((ToolStripMenuItem)sender1).Tag)).Username;
+                        ((ToolStripMenuItem)sender1).Checked = true;
+
+                        this.ChangeAccountSplitButton.Text = u.ToString();
+                        this.CreatePictureServices();
+                        this.SetImageServiceCombo();
+                        this.doGetFollowersMenu();
                     };
-                    item.Checked = (u.UserId == tw.UserId && u.Tag == tw.Tag);
                     this.ChangeAccountSplitButton.DropDown.Items.Add(item);
-                    this.CreatePictureServices();
-                    this.SetImageServiceCombo();
-                    this.doGetFollowersMenu();
                 }
+                this.ChangeAccountSplitButton.Text = tw.ToString();
             }
         }
 
@@ -13490,25 +13502,19 @@ namespace OpenTween
 
         private void ChangeAccountMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < _cfgCommon.UserAccounts.Count; i++)
-            {
-                var u = _cfgCommon.UserAccounts[i];
-                if (u.UserId == this.tw.UserId && u.Tag == this.tw.Tag)
-                {
-                    var n = i + 1;
-                    if (n == _cfgCommon.UserAccounts.Count) n = 0;
+            var n = this._cfgCommon.UserAccounts.IndexOf(this._cfgCommon.UserAccounts.Single(u => u.UserId == this.tw.UserId && u.Tag == this.tw.Tag))
+                + 1;
+            if (n == this._cfgCommon.UserAccounts.Count) n = 0;
 
-                    var q = _cfgCommon.UserAccounts[n];
-                    tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId);
-                    tw.Tag = q.Tag;
-                    if (q.UserId == 0)
-                    {
-                        tw.VerifyCredentials();
-                        q.UserId = tw.UserId;
-                    }
-                    break;
-                }
-            } 
+            var q = _cfgCommon.UserAccounts[n];
+            tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
+            tw.ForceNotOwl = true;
+            if (q.UserId == 0)
+            {
+                tw.VerifyCredentials();
+                q.UserId = tw.UserId;
+            }
+            RefreshChangeAccountSplitButton();
         }
 
     }

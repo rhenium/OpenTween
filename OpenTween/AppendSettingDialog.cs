@@ -164,8 +164,8 @@ namespace OpenTween
                     if (u.Username.ToLower() == ((UserAccount)this.AuthUserCombo.SelectedItem).Username.ToLower() &&
                         u.Tag == ((UserAccount)this.AuthUserCombo.SelectedItem).Tag)
                     {
-                        tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
-                        tw.Tag = u.Tag;
+                        tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
+                        tw.ForceNotOwl = true;
                         if (u.UserId == 0)
                         {
                             tw.VerifyCredentials();
@@ -176,8 +176,7 @@ namespace OpenTween
                     if (u.Username.ToLower() == ((UserAccount)this.TLAuthUserCombo.SelectedItem).Username.ToLower() &&
                         u.Tag == ((UserAccount)this.TLAuthUserCombo.SelectedItem).Tag)
                     {
-                        tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
-                        tltw.Tag = u.Tag;
+                        tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
                         if (u.UserId == 0)
                         {
                             tltw.VerifyCredentials();
@@ -190,7 +189,7 @@ namespace OpenTween
             else
             {
                 tw.ClearAuthInfo();
-                tw.Initialize("", "", "", "", "", 0);
+                tw.Initialize("", "", "", "", "", 0, "");
             }
 
 #if UA
@@ -542,15 +541,14 @@ namespace OpenTween
                     {
                         if (u.UserId == this.InitialUserId)
                         {
-                            tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
-                            tw.Tag = u.Tag;
+                            tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
+                            tw.ForceNotOwl = true;
                             userSet = true;
                             //break;
                         }
                         if (u.UserId == this.InitialUserId)
                         {
-                            tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId);
-                            tltw.Tag = u.Tag;
+                            tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
                             tlUserSet = true;
                             //break;
                         }
@@ -561,9 +559,9 @@ namespace OpenTween
                 if (!userSet || !tlUserSet)
                 {
                     tw.ClearAuthInfo();
-                    tw.Initialize("", "", "", "", "", 0);
+                    tw.Initialize("", "", "", "", "", 0, "");
                     tltw.ClearAuthInfo();
-                    tltw.Initialize("", "", "", "", "", 0);
+                    tltw.Initialize("", "", "", "", "", 0, "");
                 }
             }
 
@@ -1739,7 +1737,7 @@ namespace OpenTween
 
             string consumerKey = TextBoxConsumerKey.Text.Trim();
             string consumerSecret = TextBoxConsumerSecret.Text.Trim();
-            string tag = TextBoxTag.Text;
+            string tag = TextBoxTag.Text.Trim();
             if (consumerKey == "" || consumerSecret == "")
             {
                 consumerKey = ApplicationSettings.TwitterDefaultConsumerKey;
@@ -1750,8 +1748,8 @@ namespace OpenTween
             HttpConnection.InitializeConnection(20, ptype, padr, pport, pusr, ppw);
             HttpTwitter.TwitterUrl = TwitterAPIText.Text.Trim();
             HttpTwitter.TwitterSearchUrl = TwitterSearchAPIText.Text.Trim();
-            tw.Initialize("", "", consumerKey, consumerSecret, "", 0);
-            tw.Tag = tag;
+            tw.Initialize("", "", consumerKey, consumerSecret, "", 0, tag);
+            tw.ForceNotOwl = true;
             //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
             //this.AuthUserLabel.Text = "";
             string pinPageUrl = "";

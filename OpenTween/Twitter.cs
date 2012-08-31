@@ -153,6 +153,8 @@ namespace OpenTween
 
         private List<Thread> listRetry = new List<Thread>();
 
+        public bool ForceNotOwl = false;
+
         public string Authenticate(string username, string password)
         {
             HttpStatusCode res;
@@ -342,8 +344,9 @@ namespace OpenTween
             }
         }
 
-        public void Initialize(string token, string tokenSecret, string consumerKey, string consumerSecret, string username, long userId)
+        public void Initialize(string token, string tokenSecret, string consumerKey, string consumerSecret, string username, long userId, string tag)
         {
+            this.Tag = tag;
             //OAuth認証
             if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(tokenSecret) || string.IsNullOrEmpty(username))
             {
@@ -2215,7 +2218,7 @@ namespace OpenTween
             }
             else
             {
-                if (followerId.Count > 0) post.IsOwl = !followerId.Contains(post.UserId);
+                if (followerId.Count > 0 && !this.ForceNotOwl) post.IsOwl = !followerId.Contains(post.UserId);
             }
 
             post.IsDm = false;
@@ -3165,7 +3168,7 @@ namespace OpenTween
                     }
                     else
                     {
-                        if (followerId.Count > 0) post.IsOwl = !followerId.Contains(post.UserId);
+                        if (followerId.Count > 0 && !this.ForceNotOwl) post.IsOwl = !followerId.Contains(post.UserId);
                     }
 
                     post.IsDm = false;
@@ -4305,6 +4308,18 @@ namespace OpenTween
                 tweetRetry.ShowDialog();
             });
             m.Start();
+        }
+
+        public override string ToString()
+        {
+            if (string.IsNullOrEmpty(this.Tag))
+            {
+                return this.Username;
+            }
+            else
+            {
+                return this.Username + " - " + this.Tag;
+            }
         }
 
 #region "UserStream"
