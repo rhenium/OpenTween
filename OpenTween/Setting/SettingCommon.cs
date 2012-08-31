@@ -51,6 +51,7 @@ namespace OpenTween
 
         public List<UserAccount> UserAccounts;
         public string UserName = "";
+        public string TLUserName = "";
 
         [XmlIgnore]
         public string Password = "";
@@ -58,6 +59,13 @@ namespace OpenTween
         {
             get { return Encrypt(Password); }
             set { Password = Decrypt(value); }
+        }
+        [XmlIgnore]
+        public string TLPassword = "";
+        public string TLEncryptPassword
+        {
+            get { return Encrypt(TLPassword); }
+            set { TLPassword = Decrypt(value); }
         }
 
         public string Token = "";
@@ -68,10 +76,21 @@ namespace OpenTween
             get { return Encrypt(TokenSecret); }
             set { TokenSecret = Decrypt(value); }
         }
+        public string TLToken = "";
+        [XmlIgnore]
+        public string TLTokenSecret = "";
+        public string TLEncryptTokenSecret
+        {
+            get { return Encrypt(TLTokenSecret); }
+            set { TLTokenSecret = Decrypt(value); }
+        }
 
         public string ConsumerKey = "";
         public string ConsumerSecret = "";
         public string Tag = "";
+        public string TLConsumerKey = "";
+        public string TLConsumerSecret = "";
+        public string TLTag = "";
         
         private string Encrypt(string password)
         {
@@ -110,6 +129,7 @@ namespace OpenTween
         }
 
         public long UserId = 0;
+        public long TLUserId = 0;
         public List<string> TabList;
         public int TimelinePeriod = 90;
         public int ReplyPeriod = 180;

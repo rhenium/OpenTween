@@ -4337,7 +4337,7 @@ namespace OpenTween
         public event Action UserStreamStarted;
         public event Action UserStreamStopped;
         public event Action<long> PostDeleted;
-        public event Action<FormattedEvent> UserStreamEventReceived;
+        public event Action<FormattedEvent, Twitter> UserStreamEventReceived;
         private DateTime _lastUserstreamDataReceived;
         private TwitterUserstream userStream;
 
@@ -4636,7 +4636,7 @@ namespace OpenTween
             this.StoredEvent.Insert(0, evt);
             if (UserStreamEventReceived != null)
             {
-                UserStreamEventReceived(evt);
+                UserStreamEventReceived(evt, this);
             }
         }
 
