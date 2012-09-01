@@ -172,9 +172,6 @@
   <data name="ButtonOK_ClickText3" xml:space="preserve">
     <value>正規表現エラー：</value>
   </data>
-  <data name="ChangeLog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ChangeLog.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="CheckNewVersionText1" xml:space="preserve">
     <value>%AppName%更新確認</value>
   </data>
@@ -1134,5 +1131,8 @@
   </data>
   <data name="BrowserStartFailed" xml:space="preserve">
     <value>ブラウザの起動に失敗しました。エラーコード: {0}</value>
+  </data>
+  <data name="ChangeLog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\ChangeLog.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
