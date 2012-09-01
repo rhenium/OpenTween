@@ -1,5 +1,8 @@
 ﻿更新履歴
 
+==== Ver 1.0.6-beta1:2-2.0c(2012/09/xx)
+ * FIX: TweenMainにtoolStripStatusLabel2という不要なコントロールができてしまっていたので削除
+
 ==== Ver 1.0.6-beta1:2-2.0b(2012/09/01)
  * FIX: SearchがInvalid ATOM!となるのを修正。atomからjsonにAPIを変えた。
  * FIX: 右下のアカウント切り替えメニューが開くのが異常に遅かったのを修正

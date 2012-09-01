@@ -323,7 +323,6 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -386,8 +385,7 @@
             this.StatusLabel,
             this.ToolStripStatusLabel1,
             this.ChangeAccountSplitButton,
-            this.HashStripSplitButton,
-            this.toolStripStatusLabel2});
+            this.HashStripSplitButton});
             this.StatusStrip1.Name = "StatusStrip1";
             this.StatusStrip1.ShowItemToolTips = true;
             this.StatusStrip1.SizingGrip = false;
@@ -2513,11 +2511,6 @@
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
             // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
-            // 
             // TweenMain
             // 
             this.AllowDrop = true;
@@ -2875,6 +2868,5 @@
         internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoAddZenkakuSpaceMenuItem;
         private System.Windows.Forms.ToolStripMenuItem BlockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UnBlockToolStripMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
