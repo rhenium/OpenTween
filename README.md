@@ -20,15 +20,15 @@ ChangeLog.txt‚Ì‚Ù‚¤‚ª‚¢‚¢‚Å‚·B
 
 ŠJ”­ŠÂ‹«
 --------
-Windows 7 Professional SP1 (64bit)
-.NET Framework 4.5
-Visual Studio Professional 2012
+Windows 7 Professional SP1 (64bit)  
+.NET Framework 4.5  
+Visual Studio Professional 2012  
 
 
 ƒŠƒ“ƒN
 ------
-[OpenTween - sf.jp](http://sourceforge.jp/projects/opentween/)
-[OpenTween - github](https://github.com/opentween/OpenTween)
-[re4k](http://re4k.info/)
-[@re4k](https://twitter.com/re4k)
+[OpenTween - sf.jp](http://sourceforge.jp/projects/opentween/)  
+[OpenTween - github](https://github.com/opentween/OpenTween)  
+[re4k](http://re4k.info/)  
+[@re4k](https://twitter.com/re4k)  
 
