@@ -618,13 +618,15 @@ namespace OpenTween
             if (sinceId > 0) param.Add("since_id", sinceId.ToString());
 
             if (param.Count == 0) return HttpStatusCode.BadRequest;
-
-            return httpConVar.GetContent(GetMethod,
-                                         CreateTwitterSearchUri("/search.atom"),
-                                         param,
-                                         out content,
-                                         null,
-                                         MyCommon.GetAssemblyName());
+            param.Add("result_type", "recent");
+            param.Add("include_entities", "true");
+            param.Add("with_twitter_user_id", "true");
+            return this.httpConVar.GetContent(GetMethod,
+                this.CreateTwitterSearchUri("/search.json"),
+                param,
+                out content,
+                null,
+                MyCommon.GetAssemblyName());
         }
 
         public HttpStatusCode SavedSearches(ref string content)

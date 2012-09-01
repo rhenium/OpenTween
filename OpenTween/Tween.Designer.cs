@@ -88,10 +88,10 @@
             this.ContextMenuUserPicture = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.FollowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UnFollowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShowFriendShipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ListManageUserContextToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.BlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UnBlockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowFriendShipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ListManageUserContextToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
             this.ShowUserStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SearchPostsDetailNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -879,18 +879,6 @@
             resources.ApplyResources(this.UnFollowToolStripMenuItem, "UnFollowToolStripMenuItem");
             this.UnFollowToolStripMenuItem.Click += new System.EventHandler(this.UnFollowToolStripMenuItem_Click);
             // 
-            // ShowFriendShipToolStripMenuItem
-            // 
-            this.ShowFriendShipToolStripMenuItem.Name = "ShowFriendShipToolStripMenuItem";
-            resources.ApplyResources(this.ShowFriendShipToolStripMenuItem, "ShowFriendShipToolStripMenuItem");
-            this.ShowFriendShipToolStripMenuItem.Click += new System.EventHandler(this.ShowFriendShipToolStripMenuItem_Click);
-            // 
-            // ListManageUserContextToolStripMenuItem3
-            // 
-            this.ListManageUserContextToolStripMenuItem3.Name = "ListManageUserContextToolStripMenuItem3";
-            resources.ApplyResources(this.ListManageUserContextToolStripMenuItem3, "ListManageUserContextToolStripMenuItem3");
-            this.ListManageUserContextToolStripMenuItem3.Click += new System.EventHandler(this.ListManageUserContextToolStripMenuItem_Click);
-            // 
             // BlockToolStripMenuItem
             // 
             this.BlockToolStripMenuItem.Name = "BlockToolStripMenuItem";
@@ -902,6 +890,18 @@
             this.UnBlockToolStripMenuItem.Name = "UnBlockToolStripMenuItem";
             resources.ApplyResources(this.UnBlockToolStripMenuItem, "UnBlockToolStripMenuItem");
             this.UnBlockToolStripMenuItem.Click += new System.EventHandler(this.UnBlockToolStripMenuItem_Click);
+            // 
+            // ShowFriendShipToolStripMenuItem
+            // 
+            this.ShowFriendShipToolStripMenuItem.Name = "ShowFriendShipToolStripMenuItem";
+            resources.ApplyResources(this.ShowFriendShipToolStripMenuItem, "ShowFriendShipToolStripMenuItem");
+            this.ShowFriendShipToolStripMenuItem.Click += new System.EventHandler(this.ShowFriendShipToolStripMenuItem_Click);
+            // 
+            // ListManageUserContextToolStripMenuItem3
+            // 
+            this.ListManageUserContextToolStripMenuItem3.Name = "ListManageUserContextToolStripMenuItem3";
+            resources.ApplyResources(this.ListManageUserContextToolStripMenuItem3, "ListManageUserContextToolStripMenuItem3");
+            this.ListManageUserContextToolStripMenuItem3.Click += new System.EventHandler(this.ListManageUserContextToolStripMenuItem_Click);
             // 
             // ToolStripSeparator37
             // 
