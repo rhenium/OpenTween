@@ -1309,7 +1309,7 @@ namespace OpenTween
                     //break;
                 }
             }
-            this.ChangeAccountSplitButton.Text = this.tw.Username;
+            RefreshChangeAccountSplitButton();
         }
 
         private void CreatePictureServices()
@@ -2418,6 +2418,7 @@ namespace OpenTween
                 TimerTimeline.Enabled = false;
                 TimerRefreshIcon.Enabled = false;
             }
+            SaveConfigsAll(false);
         }
 
         private void NotifyIcon1_BalloonTipClicked(object sender, EventArgs e)
@@ -2523,9 +2524,9 @@ namespace OpenTween
                             if (!post.IsFav)
                             {
                                 if (post.RetweetedId == 0)
-                                    ret = tw.PostFavAdd(post.StatusId);
+                                    ret = tltw.PostFavAdd(post.StatusId);
                                 else
-                                    ret = tw.PostFavAdd(post.RetweetedId);
+                                    ret = tltw.PostFavAdd(post.RetweetedId);
 
                                 if (ret.Length == 0)
                                 {
@@ -2576,9 +2577,9 @@ namespace OpenTween
                             if (post.IsFav)
                             {
                                 if (post.RetweetedId == 0)
-                                    ret = tw.PostFavRemove(post.StatusId);
+                                    ret = tltw.PostFavRemove(post.StatusId);
                                 else
-                                    ret = tw.PostFavRemove(post.RetweetedId);
+                                    ret = tltw.PostFavRemove(post.RetweetedId);
 
                                 if (ret.Length == 0)
                                 {
@@ -4267,6 +4268,8 @@ namespace OpenTween
 
             this.TopMost = SettingDialog.AlwaysTop;
             SaveConfigsAll(false);
+
+            RefreshChangeAccountSplitButton();
         }
 
         private void PostBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
@@ -13064,13 +13067,13 @@ namespace OpenTween
             }
             if (this._isActiveUserstream)
             {
-                tw.StopUserStream();
                 tltw.StopUserStream();
+                if(tltw.UserId != tw.UserId) tw.StopUserStream();
             }
             else
             {
-                tw.StartUserStream();
                 tltw.StartUserStream();
+                if (tltw.UserId != tw.UserId) tw.StartUserStream();
             }
         }
 
@@ -13422,7 +13425,7 @@ namespace OpenTween
 
         private void ChangeAccountSplitButton_DropDownOpening(object sender, EventArgs e)
         {
-            RefreshChangeAccountSplitButton();
+            // RefreshChangeAccountSplitButton();
         }
 
         private void RefreshChangeAccountSplitButton()
@@ -13430,7 +13433,7 @@ namespace OpenTween
             this.ChangeAccountSplitButton.DropDown.Items.Clear();
             if (this._cfgCommon.UserAccounts.Count > 0)
             {
-                for (var i = 0; i < this._cfgCommon.UserAccounts.Count; i++)
+                Parallel.For(0, this._cfgCommon.UserAccounts.Count, i =>
                 {
                     var item = new ToolStripMenuItem(this._cfgCommon.UserAccounts[i].ToString());
                     item.Tag = i;
@@ -13458,9 +13461,11 @@ namespace OpenTween
                         this.CreatePictureServices();
                         this.SetImageServiceCombo();
                         this.doGetFollowersMenu();
+                        SaveConfigsCommon();
+                        RefreshChangeAccountSplitButton();
                     };
                     this.ChangeAccountSplitButton.DropDown.Items.Add(item);
-                }
+                });
                 this.ChangeAccountSplitButton.Text = tw.ToString();
             }
         }
@@ -13514,6 +13519,7 @@ namespace OpenTween
                 tw.VerifyCredentials();
                 q.UserId = tw.UserId;
             }
+            SaveConfigsCommon();
             RefreshChangeAccountSplitButton();
         }
 
