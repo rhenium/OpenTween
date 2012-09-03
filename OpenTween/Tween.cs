@@ -2204,7 +2204,7 @@ namespace OpenTween
             {
                 // APIコマンド回避
                 if (Regex.IsMatch(tmpStatus,
-                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(on|off|follow|f|unfollow|leave|l|dm|d|m|rt|retweet|set|s|whois|w|get|g|fav|fave|favorite|stats|help|suggest|block|report|\*)([+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]+|$)",
+                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(on|off|follow|f|unfollow|leave|l|dm|d|m|rt|retweet|set|s|whois|w|get|g|fav|fave|favorite|stats|help|suggest|block|report|\*)([\s]+|$)",
                     RegexOptions.IgnoreCase)
                    && tmpStatus.EndsWith(" .") == false) adjustCount += 2;
             }
@@ -2298,7 +2298,7 @@ namespace OpenTween
             {
                 // APIコマンド回避
                 if (Regex.IsMatch(args.status.status,
-                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(on|off|follow|f|unfollow|leave|l|dm|d|m|rt|retweet|set|s|whois|w|get|g|fav|fave|favorite|stats|help|suggest|block|report|\*)([+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]+|$)",
+                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(on|off|follow|f|unfollow|leave|l|dm|d|m|rt|retweet|set|s|whois|w|get|g|fav|fave|favorite|stats|help|suggest|block|report|\*)([\s]+|$)",
                     RegexOptions.IgnoreCase)
                    && args.status.status.EndsWith(" .") == false) args.status.status += " .";
             }
