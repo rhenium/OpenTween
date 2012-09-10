@@ -301,6 +301,7 @@ namespace OpenTween
 
                 FontUnread = lblUnread.Font;     //未使用
                 ColorUnread = lblUnread.ForeColor;
+                ColorSteal = lblSteal.ForeColor;
                 FontReaded = lblListFont.Font;     //リストフォントとして使用
                 ColorReaded = lblListFont.ForeColor;
                 ColorFav = lblFav.ForeColor;
@@ -690,6 +691,7 @@ namespace OpenTween
             lblListFont.Font = FontReaded;
             lblUnread.Font = FontUnread;
             lblUnread.ForeColor = ColorUnread;
+            lblSteal.ForeColor = ColorSteal;
             lblListFont.ForeColor = ColorReaded;
             lblFav.ForeColor = ColorFav;
             lblOWL.ForeColor = ColorOWL;
@@ -1256,6 +1258,9 @@ namespace OpenTween
                 case "btnDetailLink":
                     ColorDialog1.Color = lblDetailLink.ForeColor;
                     break;
+                case "btnSteal":
+                    ColorDialog1.Color = lblSteal.ForeColor;
+                    break;
             }
 
             rtn = ColorDialog1.ShowDialog();
@@ -1303,6 +1308,9 @@ namespace OpenTween
                 case "btnDetailLink":
                     lblDetailLink.ForeColor = ColorDialog1.Color;
                     break;
+                case "btnSteal":
+                    lblSteal.ForeColor = ColorDialog1.Color;
+                    break;
             }
         }
 
@@ -1322,6 +1330,7 @@ namespace OpenTween
         public bool OneWayLove { get; set; }
         public Font FontUnread { get; set; } /////未使用
         public Color ColorUnread { get; set; }
+        public Color ColorSteal { get; set; }
         public Font FontReaded { get; set; } /////リストフォントとして使用
         public Color ColorReaded { get; set; }
         public Color ColorFav { get; set; }

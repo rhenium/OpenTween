@@ -149,9 +149,11 @@
             this.ToolStripSeparator43 = new System.Windows.Forms.ToolStripSeparator();
             this.StopRefreshAllMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
+            this.ChangeAccountMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeAccountUpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator45 = new System.Windows.Forms.ToolStripSeparator();
             this.TweenRestartMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EndFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ChangeAccountMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.UndoRemoveTabMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
@@ -323,6 +325,7 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
+            this.ToolStripShowStealTweetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -448,7 +451,8 @@
             this.HashManageMenuItem,
             this.toolStripSeparator44,
             this.ToolStripAutoAddZenkakuSpaceMenuItem,
-            this.ToolStripAutoCutTweetMenuItem});
+            this.ToolStripAutoCutTweetMenuItem,
+            this.ToolStripShowStealTweetMenuItem});
             this.ContextMenuPostMode.Name = "ContextMenuStripPostMode";
             this.ContextMenuPostMode.OwnerItem = this.HashStripSplitButton;
             resources.ApplyResources(this.ContextMenuPostMode, "ContextMenuPostMode");
@@ -1247,9 +1251,11 @@
             this.ToolStripSeparator43,
             this.StopRefreshAllMenuItem,
             this.ToolStripSeparator24,
+            this.ChangeAccountMenuItem,
+            this.ChangeAccountUpMenuItem,
+            this.toolStripSeparator45,
             this.TweenRestartMenuItem,
-            this.EndFileMenuItem,
-            this.ChangeAccountMenuItem});
+            this.EndFileMenuItem});
             this.MenuItemFile.Name = "MenuItemFile";
             resources.ApplyResources(this.MenuItemFile, "MenuItemFile");
             // 
@@ -1313,6 +1319,23 @@
             this.ToolStripSeparator24.Name = "ToolStripSeparator24";
             resources.ApplyResources(this.ToolStripSeparator24, "ToolStripSeparator24");
             // 
+            // ChangeAccountMenuItem
+            // 
+            this.ChangeAccountMenuItem.Name = "ChangeAccountMenuItem";
+            resources.ApplyResources(this.ChangeAccountMenuItem, "ChangeAccountMenuItem");
+            this.ChangeAccountMenuItem.Click += new System.EventHandler(this.ChangeAccountMenuItem_Click);
+            // 
+            // ChangeAccountUpMenuItem
+            // 
+            this.ChangeAccountUpMenuItem.Name = "ChangeAccountUpMenuItem";
+            resources.ApplyResources(this.ChangeAccountUpMenuItem, "ChangeAccountUpMenuItem");
+            this.ChangeAccountUpMenuItem.Click += new System.EventHandler(this.ChangeAccountUpMenuItem_Click);
+            // 
+            // toolStripSeparator45
+            // 
+            this.toolStripSeparator45.Name = "toolStripSeparator45";
+            resources.ApplyResources(this.toolStripSeparator45, "toolStripSeparator45");
+            // 
             // TweenRestartMenuItem
             // 
             this.TweenRestartMenuItem.Name = "TweenRestartMenuItem";
@@ -1324,12 +1347,6 @@
             this.EndFileMenuItem.Name = "EndFileMenuItem";
             resources.ApplyResources(this.EndFileMenuItem, "EndFileMenuItem");
             this.EndFileMenuItem.Click += new System.EventHandler(this.EndToolStripMenuItem_Click);
-            // 
-            // ChangeAccountMenuItem
-            // 
-            this.ChangeAccountMenuItem.Name = "ChangeAccountMenuItem";
-            resources.ApplyResources(this.ChangeAccountMenuItem, "ChangeAccountMenuItem");
-            this.ChangeAccountMenuItem.Click += new System.EventHandler(this.ChangeAccountMenuItem_Click);
             // 
             // MenuItemEdit
             // 
@@ -2511,6 +2528,12 @@
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
             // 
+            // ToolStripShowStealTweetMenuItem
+            // 
+            this.ToolStripShowStealTweetMenuItem.CheckOnClick = true;
+            this.ToolStripShowStealTweetMenuItem.Name = "ToolStripShowStealTweetMenuItem";
+            resources.ApplyResources(this.ToolStripShowStealTweetMenuItem, "ToolStripShowStealTweetMenuItem");
+            // 
             // TweenMain
             // 
             this.AllowDrop = true;
@@ -2868,5 +2891,8 @@
         internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoAddZenkakuSpaceMenuItem;
         private System.Windows.Forms.ToolStripMenuItem BlockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UnBlockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ChangeAccountUpMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator45;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripShowStealTweetMenuItem;
     }
 }

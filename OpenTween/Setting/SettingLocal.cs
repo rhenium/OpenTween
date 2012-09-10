@@ -102,6 +102,14 @@ namespace OpenTween
         }
 
         [XmlIgnore]
+        public Color ColorSteal = System.Drawing.SystemColors.ControlText;
+        public string ColorStealStr
+        {
+            get { return _cc.ConvertToString(ColorSteal); }
+            set { ColorSteal = (Color)_cc.ConvertFromString(value); }
+        }
+
+        [XmlIgnore]
         public Font FontRead = System.Drawing.SystemFonts.DefaultFont;
         public string FontReadStr
         {

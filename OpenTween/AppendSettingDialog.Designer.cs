@@ -32,6 +32,63 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppendSettingDialog));
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
+            this.FontPanel = new System.Windows.Forms.Panel();
+            this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnRetweet = new System.Windows.Forms.Button();
+            this.lblRetweet = new System.Windows.Forms.Label();
+            this.Label80 = new System.Windows.Forms.Label();
+            this.ButtonBackToDefaultFontColor = new System.Windows.Forms.Button();
+            this.btnDetailLink = new System.Windows.Forms.Button();
+            this.lblDetailLink = new System.Windows.Forms.Label();
+            this.Label18 = new System.Windows.Forms.Label();
+            this.btnUnread = new System.Windows.Forms.Button();
+            this.lblUnread = new System.Windows.Forms.Label();
+            this.Label20 = new System.Windows.Forms.Label();
+            this.btnDetailBack = new System.Windows.Forms.Button();
+            this.lblDetailBackcolor = new System.Windows.Forms.Label();
+            this.Label37 = new System.Windows.Forms.Label();
+            this.btnDetail = new System.Windows.Forms.Button();
+            this.lblDetail = new System.Windows.Forms.Label();
+            this.Label26 = new System.Windows.Forms.Label();
+            this.btnOWL = new System.Windows.Forms.Button();
+            this.lblOWL = new System.Windows.Forms.Label();
+            this.Label24 = new System.Windows.Forms.Label();
+            this.btnFav = new System.Windows.Forms.Button();
+            this.lblFav = new System.Windows.Forms.Label();
+            this.Label22 = new System.Windows.Forms.Label();
+            this.btnListFont = new System.Windows.Forms.Button();
+            this.lblListFont = new System.Windows.Forms.Label();
+            this.Label61 = new System.Windows.Forms.Label();
+            this.FontPanel2 = new System.Windows.Forms.Panel();
+            this.GroupBox5 = new System.Windows.Forms.GroupBox();
+            this.Label65 = new System.Windows.Forms.Label();
+            this.Label52 = new System.Windows.Forms.Label();
+            this.Label49 = new System.Windows.Forms.Label();
+            this.Label9 = new System.Windows.Forms.Label();
+            this.Label14 = new System.Windows.Forms.Label();
+            this.Label16 = new System.Windows.Forms.Label();
+            this.Label32 = new System.Windows.Forms.Label();
+            this.Label34 = new System.Windows.Forms.Label();
+            this.Label36 = new System.Windows.Forms.Label();
+            this.btnInputFont = new System.Windows.Forms.Button();
+            this.btnInputBackcolor = new System.Windows.Forms.Button();
+            this.btnAtTo = new System.Windows.Forms.Button();
+            this.btnListBack = new System.Windows.Forms.Button();
+            this.btnAtFromTarget = new System.Windows.Forms.Button();
+            this.btnAtTarget = new System.Windows.Forms.Button();
+            this.btnTarget = new System.Windows.Forms.Button();
+            this.btnAtSelf = new System.Windows.Forms.Button();
+            this.btnSelf = new System.Windows.Forms.Button();
+            this.lblInputFont = new System.Windows.Forms.Label();
+            this.lblInputBackcolor = new System.Windows.Forms.Label();
+            this.lblAtTo = new System.Windows.Forms.Label();
+            this.lblListBackcolor = new System.Windows.Forms.Label();
+            this.lblAtFromTarget = new System.Windows.Forms.Label();
+            this.lblAtTarget = new System.Windows.Forms.Label();
+            this.lblTarget = new System.Windows.Forms.Label();
+            this.lblAtSelf = new System.Windows.Forms.Label();
+            this.lblSelf = new System.Windows.Forms.Label();
+            this.ButtonBackToDefaultFontColor2 = new System.Windows.Forms.Button();
             this.BasedPanel = new System.Windows.Forms.Panel();
             this.TLAuthUserCombo = new System.Windows.Forms.ComboBox();
             this.labelAccountTimeLine = new System.Windows.Forms.Label();
@@ -235,72 +292,22 @@
             this.CheckCloseToExit = new System.Windows.Forms.CheckBox();
             this.CheckMinimizeToTray = new System.Windows.Forms.CheckBox();
             this.CheckReadOldPosts = new System.Windows.Forms.CheckBox();
-            this.FontPanel = new System.Windows.Forms.Panel();
-            this.GroupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnRetweet = new System.Windows.Forms.Button();
-            this.lblRetweet = new System.Windows.Forms.Label();
-            this.Label80 = new System.Windows.Forms.Label();
-            this.ButtonBackToDefaultFontColor = new System.Windows.Forms.Button();
-            this.btnDetailLink = new System.Windows.Forms.Button();
-            this.lblDetailLink = new System.Windows.Forms.Label();
-            this.Label18 = new System.Windows.Forms.Label();
-            this.btnUnread = new System.Windows.Forms.Button();
-            this.lblUnread = new System.Windows.Forms.Label();
-            this.Label20 = new System.Windows.Forms.Label();
-            this.btnDetailBack = new System.Windows.Forms.Button();
-            this.lblDetailBackcolor = new System.Windows.Forms.Label();
-            this.Label37 = new System.Windows.Forms.Label();
-            this.btnDetail = new System.Windows.Forms.Button();
-            this.lblDetail = new System.Windows.Forms.Label();
-            this.Label26 = new System.Windows.Forms.Label();
-            this.btnOWL = new System.Windows.Forms.Button();
-            this.lblOWL = new System.Windows.Forms.Label();
-            this.Label24 = new System.Windows.Forms.Label();
-            this.btnFav = new System.Windows.Forms.Button();
-            this.lblFav = new System.Windows.Forms.Label();
-            this.Label22 = new System.Windows.Forms.Label();
-            this.btnListFont = new System.Windows.Forms.Button();
-            this.lblListFont = new System.Windows.Forms.Label();
-            this.Label61 = new System.Windows.Forms.Label();
-            this.FontPanel2 = new System.Windows.Forms.Panel();
-            this.GroupBox5 = new System.Windows.Forms.GroupBox();
-            this.Label65 = new System.Windows.Forms.Label();
-            this.Label52 = new System.Windows.Forms.Label();
-            this.Label49 = new System.Windows.Forms.Label();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.Label14 = new System.Windows.Forms.Label();
-            this.Label16 = new System.Windows.Forms.Label();
-            this.Label32 = new System.Windows.Forms.Label();
-            this.Label34 = new System.Windows.Forms.Label();
-            this.Label36 = new System.Windows.Forms.Label();
-            this.btnInputFont = new System.Windows.Forms.Button();
-            this.btnInputBackcolor = new System.Windows.Forms.Button();
-            this.btnAtTo = new System.Windows.Forms.Button();
-            this.btnListBack = new System.Windows.Forms.Button();
-            this.btnAtFromTarget = new System.Windows.Forms.Button();
-            this.btnAtTarget = new System.Windows.Forms.Button();
-            this.btnTarget = new System.Windows.Forms.Button();
-            this.btnAtSelf = new System.Windows.Forms.Button();
-            this.btnSelf = new System.Windows.Forms.Button();
-            this.lblInputFont = new System.Windows.Forms.Label();
-            this.lblInputBackcolor = new System.Windows.Forms.Label();
-            this.lblAtTo = new System.Windows.Forms.Label();
-            this.lblListBackcolor = new System.Windows.Forms.Label();
-            this.lblAtFromTarget = new System.Windows.Forms.Label();
-            this.lblAtTarget = new System.Windows.Forms.Label();
-            this.lblTarget = new System.Windows.Forms.Label();
-            this.lblAtSelf = new System.Windows.Forms.Label();
-            this.lblSelf = new System.Windows.Forms.Label();
-            this.ButtonBackToDefaultFontColor2 = new System.Windows.Forms.Button();
             this.Save = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSteal = new System.Windows.Forms.Button();
+            this.lblSteal = new System.Windows.Forms.Label();
+            this.Label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
+            this.FontPanel.SuspendLayout();
+            this.GroupBox1.SuspendLayout();
+            this.FontPanel2.SuspendLayout();
+            this.GroupBox5.SuspendLayout();
             this.BasedPanel.SuspendLayout();
             this.groupBoxConsumerKey.SuspendLayout();
             this.GroupBox2.SuspendLayout();
@@ -318,10 +325,6 @@
             this.GetPeriodPanel.SuspendLayout();
             this.ActionPanel.SuspendLayout();
             this.GroupBox3.SuspendLayout();
-            this.FontPanel.SuspendLayout();
-            this.GroupBox1.SuspendLayout();
-            this.FontPanel2.SuspendLayout();
-            this.GroupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // SplitContainer1
@@ -368,6 +371,406 @@
             this.TreeViewSetting.ShowLines = false;
             this.TreeViewSetting.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewSetting_BeforeSelect);
             this.TreeViewSetting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSetting_AfterSelect);
+            // 
+            // FontPanel
+            // 
+            this.FontPanel.Controls.Add(this.GroupBox1);
+            resources.ApplyResources(this.FontPanel, "FontPanel");
+            this.FontPanel.Name = "FontPanel";
+            // 
+            // GroupBox1
+            // 
+            this.GroupBox1.Controls.Add(this.btnSteal);
+            this.GroupBox1.Controls.Add(this.lblSteal);
+            this.GroupBox1.Controls.Add(this.Label1);
+            this.GroupBox1.Controls.Add(this.btnRetweet);
+            this.GroupBox1.Controls.Add(this.lblRetweet);
+            this.GroupBox1.Controls.Add(this.Label80);
+            this.GroupBox1.Controls.Add(this.ButtonBackToDefaultFontColor);
+            this.GroupBox1.Controls.Add(this.btnDetailLink);
+            this.GroupBox1.Controls.Add(this.lblDetailLink);
+            this.GroupBox1.Controls.Add(this.Label18);
+            this.GroupBox1.Controls.Add(this.btnUnread);
+            this.GroupBox1.Controls.Add(this.lblUnread);
+            this.GroupBox1.Controls.Add(this.Label20);
+            this.GroupBox1.Controls.Add(this.btnDetailBack);
+            this.GroupBox1.Controls.Add(this.lblDetailBackcolor);
+            this.GroupBox1.Controls.Add(this.Label37);
+            this.GroupBox1.Controls.Add(this.btnDetail);
+            this.GroupBox1.Controls.Add(this.lblDetail);
+            this.GroupBox1.Controls.Add(this.Label26);
+            this.GroupBox1.Controls.Add(this.btnOWL);
+            this.GroupBox1.Controls.Add(this.lblOWL);
+            this.GroupBox1.Controls.Add(this.Label24);
+            this.GroupBox1.Controls.Add(this.btnFav);
+            this.GroupBox1.Controls.Add(this.lblFav);
+            this.GroupBox1.Controls.Add(this.Label22);
+            this.GroupBox1.Controls.Add(this.btnListFont);
+            this.GroupBox1.Controls.Add(this.lblListFont);
+            this.GroupBox1.Controls.Add(this.Label61);
+            resources.ApplyResources(this.GroupBox1, "GroupBox1");
+            this.GroupBox1.Name = "GroupBox1";
+            this.GroupBox1.TabStop = false;
+            // 
+            // btnRetweet
+            // 
+            resources.ApplyResources(this.btnRetweet, "btnRetweet");
+            this.btnRetweet.Name = "btnRetweet";
+            this.btnRetweet.UseVisualStyleBackColor = true;
+            this.btnRetweet.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblRetweet
+            // 
+            this.lblRetweet.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblRetweet, "lblRetweet");
+            this.lblRetweet.Name = "lblRetweet";
+            // 
+            // Label80
+            // 
+            resources.ApplyResources(this.Label80, "Label80");
+            this.Label80.Name = "Label80";
+            // 
+            // ButtonBackToDefaultFontColor
+            // 
+            resources.ApplyResources(this.ButtonBackToDefaultFontColor, "ButtonBackToDefaultFontColor");
+            this.ButtonBackToDefaultFontColor.Name = "ButtonBackToDefaultFontColor";
+            this.ButtonBackToDefaultFontColor.UseVisualStyleBackColor = true;
+            this.ButtonBackToDefaultFontColor.Click += new System.EventHandler(this.ButtonBackToDefaultFontColor_Click);
+            // 
+            // btnDetailLink
+            // 
+            resources.ApplyResources(this.btnDetailLink, "btnDetailLink");
+            this.btnDetailLink.Name = "btnDetailLink";
+            this.btnDetailLink.UseVisualStyleBackColor = true;
+            this.btnDetailLink.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblDetailLink
+            // 
+            this.lblDetailLink.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblDetailLink, "lblDetailLink");
+            this.lblDetailLink.Name = "lblDetailLink";
+            // 
+            // Label18
+            // 
+            resources.ApplyResources(this.Label18, "Label18");
+            this.Label18.Name = "Label18";
+            // 
+            // btnUnread
+            // 
+            resources.ApplyResources(this.btnUnread, "btnUnread");
+            this.btnUnread.Name = "btnUnread";
+            this.btnUnread.UseVisualStyleBackColor = true;
+            this.btnUnread.Click += new System.EventHandler(this.btnFontAndColor_Click);
+            // 
+            // lblUnread
+            // 
+            this.lblUnread.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblUnread, "lblUnread");
+            this.lblUnread.Name = "lblUnread";
+            // 
+            // Label20
+            // 
+            resources.ApplyResources(this.Label20, "Label20");
+            this.Label20.Name = "Label20";
+            // 
+            // btnDetailBack
+            // 
+            resources.ApplyResources(this.btnDetailBack, "btnDetailBack");
+            this.btnDetailBack.Name = "btnDetailBack";
+            this.btnDetailBack.UseVisualStyleBackColor = true;
+            this.btnDetailBack.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblDetailBackcolor
+            // 
+            this.lblDetailBackcolor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblDetailBackcolor, "lblDetailBackcolor");
+            this.lblDetailBackcolor.Name = "lblDetailBackcolor";
+            // 
+            // Label37
+            // 
+            resources.ApplyResources(this.Label37, "Label37");
+            this.Label37.Name = "Label37";
+            // 
+            // btnDetail
+            // 
+            resources.ApplyResources(this.btnDetail, "btnDetail");
+            this.btnDetail.Name = "btnDetail";
+            this.btnDetail.UseVisualStyleBackColor = true;
+            this.btnDetail.Click += new System.EventHandler(this.btnFontAndColor_Click);
+            // 
+            // lblDetail
+            // 
+            this.lblDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblDetail, "lblDetail");
+            this.lblDetail.Name = "lblDetail";
+            // 
+            // Label26
+            // 
+            resources.ApplyResources(this.Label26, "Label26");
+            this.Label26.Name = "Label26";
+            // 
+            // btnOWL
+            // 
+            resources.ApplyResources(this.btnOWL, "btnOWL");
+            this.btnOWL.Name = "btnOWL";
+            this.btnOWL.UseVisualStyleBackColor = true;
+            this.btnOWL.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblOWL
+            // 
+            this.lblOWL.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblOWL, "lblOWL");
+            this.lblOWL.Name = "lblOWL";
+            // 
+            // Label24
+            // 
+            resources.ApplyResources(this.Label24, "Label24");
+            this.Label24.Name = "Label24";
+            // 
+            // btnFav
+            // 
+            resources.ApplyResources(this.btnFav, "btnFav");
+            this.btnFav.Name = "btnFav";
+            this.btnFav.UseVisualStyleBackColor = true;
+            this.btnFav.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblFav
+            // 
+            this.lblFav.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblFav, "lblFav");
+            this.lblFav.Name = "lblFav";
+            // 
+            // Label22
+            // 
+            resources.ApplyResources(this.Label22, "Label22");
+            this.Label22.Name = "Label22";
+            // 
+            // btnListFont
+            // 
+            resources.ApplyResources(this.btnListFont, "btnListFont");
+            this.btnListFont.Name = "btnListFont";
+            this.btnListFont.UseVisualStyleBackColor = true;
+            this.btnListFont.Click += new System.EventHandler(this.btnFontAndColor_Click);
+            // 
+            // lblListFont
+            // 
+            this.lblListFont.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblListFont, "lblListFont");
+            this.lblListFont.Name = "lblListFont";
+            // 
+            // Label61
+            // 
+            resources.ApplyResources(this.Label61, "Label61");
+            this.Label61.Name = "Label61";
+            // 
+            // FontPanel2
+            // 
+            this.FontPanel2.Controls.Add(this.GroupBox5);
+            resources.ApplyResources(this.FontPanel2, "FontPanel2");
+            this.FontPanel2.Name = "FontPanel2";
+            // 
+            // GroupBox5
+            // 
+            this.GroupBox5.Controls.Add(this.Label65);
+            this.GroupBox5.Controls.Add(this.Label52);
+            this.GroupBox5.Controls.Add(this.Label49);
+            this.GroupBox5.Controls.Add(this.Label9);
+            this.GroupBox5.Controls.Add(this.Label14);
+            this.GroupBox5.Controls.Add(this.Label16);
+            this.GroupBox5.Controls.Add(this.Label32);
+            this.GroupBox5.Controls.Add(this.Label34);
+            this.GroupBox5.Controls.Add(this.Label36);
+            this.GroupBox5.Controls.Add(this.btnInputFont);
+            this.GroupBox5.Controls.Add(this.btnInputBackcolor);
+            this.GroupBox5.Controls.Add(this.btnAtTo);
+            this.GroupBox5.Controls.Add(this.btnListBack);
+            this.GroupBox5.Controls.Add(this.btnAtFromTarget);
+            this.GroupBox5.Controls.Add(this.btnAtTarget);
+            this.GroupBox5.Controls.Add(this.btnTarget);
+            this.GroupBox5.Controls.Add(this.btnAtSelf);
+            this.GroupBox5.Controls.Add(this.btnSelf);
+            this.GroupBox5.Controls.Add(this.lblInputFont);
+            this.GroupBox5.Controls.Add(this.lblInputBackcolor);
+            this.GroupBox5.Controls.Add(this.lblAtTo);
+            this.GroupBox5.Controls.Add(this.lblListBackcolor);
+            this.GroupBox5.Controls.Add(this.lblAtFromTarget);
+            this.GroupBox5.Controls.Add(this.lblAtTarget);
+            this.GroupBox5.Controls.Add(this.lblTarget);
+            this.GroupBox5.Controls.Add(this.lblAtSelf);
+            this.GroupBox5.Controls.Add(this.lblSelf);
+            this.GroupBox5.Controls.Add(this.ButtonBackToDefaultFontColor2);
+            resources.ApplyResources(this.GroupBox5, "GroupBox5");
+            this.GroupBox5.Name = "GroupBox5";
+            this.GroupBox5.TabStop = false;
+            // 
+            // Label65
+            // 
+            resources.ApplyResources(this.Label65, "Label65");
+            this.Label65.Name = "Label65";
+            // 
+            // Label52
+            // 
+            resources.ApplyResources(this.Label52, "Label52");
+            this.Label52.Name = "Label52";
+            // 
+            // Label49
+            // 
+            resources.ApplyResources(this.Label49, "Label49");
+            this.Label49.Name = "Label49";
+            // 
+            // Label9
+            // 
+            resources.ApplyResources(this.Label9, "Label9");
+            this.Label9.Name = "Label9";
+            // 
+            // Label14
+            // 
+            resources.ApplyResources(this.Label14, "Label14");
+            this.Label14.Name = "Label14";
+            // 
+            // Label16
+            // 
+            resources.ApplyResources(this.Label16, "Label16");
+            this.Label16.Name = "Label16";
+            // 
+            // Label32
+            // 
+            resources.ApplyResources(this.Label32, "Label32");
+            this.Label32.Name = "Label32";
+            // 
+            // Label34
+            // 
+            resources.ApplyResources(this.Label34, "Label34");
+            this.Label34.Name = "Label34";
+            // 
+            // Label36
+            // 
+            resources.ApplyResources(this.Label36, "Label36");
+            this.Label36.Name = "Label36";
+            // 
+            // btnInputFont
+            // 
+            resources.ApplyResources(this.btnInputFont, "btnInputFont");
+            this.btnInputFont.Name = "btnInputFont";
+            this.btnInputFont.UseVisualStyleBackColor = true;
+            this.btnInputFont.Click += new System.EventHandler(this.btnFontAndColor_Click);
+            // 
+            // btnInputBackcolor
+            // 
+            resources.ApplyResources(this.btnInputBackcolor, "btnInputBackcolor");
+            this.btnInputBackcolor.Name = "btnInputBackcolor";
+            this.btnInputBackcolor.UseVisualStyleBackColor = true;
+            this.btnInputBackcolor.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnAtTo
+            // 
+            resources.ApplyResources(this.btnAtTo, "btnAtTo");
+            this.btnAtTo.Name = "btnAtTo";
+            this.btnAtTo.UseVisualStyleBackColor = true;
+            this.btnAtTo.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnListBack
+            // 
+            resources.ApplyResources(this.btnListBack, "btnListBack");
+            this.btnListBack.Name = "btnListBack";
+            this.btnListBack.UseVisualStyleBackColor = true;
+            this.btnListBack.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnAtFromTarget
+            // 
+            resources.ApplyResources(this.btnAtFromTarget, "btnAtFromTarget");
+            this.btnAtFromTarget.Name = "btnAtFromTarget";
+            this.btnAtFromTarget.UseVisualStyleBackColor = true;
+            this.btnAtFromTarget.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnAtTarget
+            // 
+            resources.ApplyResources(this.btnAtTarget, "btnAtTarget");
+            this.btnAtTarget.Name = "btnAtTarget";
+            this.btnAtTarget.UseVisualStyleBackColor = true;
+            this.btnAtTarget.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnTarget
+            // 
+            resources.ApplyResources(this.btnTarget, "btnTarget");
+            this.btnTarget.Name = "btnTarget";
+            this.btnTarget.UseVisualStyleBackColor = true;
+            this.btnTarget.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnAtSelf
+            // 
+            resources.ApplyResources(this.btnAtSelf, "btnAtSelf");
+            this.btnAtSelf.Name = "btnAtSelf";
+            this.btnAtSelf.UseVisualStyleBackColor = true;
+            this.btnAtSelf.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // btnSelf
+            // 
+            resources.ApplyResources(this.btnSelf, "btnSelf");
+            this.btnSelf.Name = "btnSelf";
+            this.btnSelf.UseVisualStyleBackColor = true;
+            this.btnSelf.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblInputFont
+            // 
+            this.lblInputFont.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblInputFont, "lblInputFont");
+            this.lblInputFont.Name = "lblInputFont";
+            // 
+            // lblInputBackcolor
+            // 
+            this.lblInputBackcolor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblInputBackcolor, "lblInputBackcolor");
+            this.lblInputBackcolor.Name = "lblInputBackcolor";
+            // 
+            // lblAtTo
+            // 
+            this.lblAtTo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblAtTo, "lblAtTo");
+            this.lblAtTo.Name = "lblAtTo";
+            // 
+            // lblListBackcolor
+            // 
+            this.lblListBackcolor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblListBackcolor, "lblListBackcolor");
+            this.lblListBackcolor.Name = "lblListBackcolor";
+            // 
+            // lblAtFromTarget
+            // 
+            this.lblAtFromTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblAtFromTarget, "lblAtFromTarget");
+            this.lblAtFromTarget.Name = "lblAtFromTarget";
+            // 
+            // lblAtTarget
+            // 
+            this.lblAtTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblAtTarget, "lblAtTarget");
+            this.lblAtTarget.Name = "lblAtTarget";
+            // 
+            // lblTarget
+            // 
+            this.lblTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblTarget, "lblTarget");
+            this.lblTarget.Name = "lblTarget";
+            // 
+            // lblAtSelf
+            // 
+            this.lblAtSelf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblAtSelf, "lblAtSelf");
+            this.lblAtSelf.Name = "lblAtSelf";
+            // 
+            // lblSelf
+            // 
+            this.lblSelf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblSelf, "lblSelf");
+            this.lblSelf.Name = "lblSelf";
+            // 
+            // ButtonBackToDefaultFontColor2
+            // 
+            resources.ApplyResources(this.ButtonBackToDefaultFontColor2, "ButtonBackToDefaultFontColor2");
+            this.ButtonBackToDefaultFontColor2.Name = "ButtonBackToDefaultFontColor2";
+            this.ButtonBackToDefaultFontColor2.UseVisualStyleBackColor = true;
+            this.ButtonBackToDefaultFontColor2.Click += new System.EventHandler(this.ButtonBackToDefaultFontColor_Click);
             // 
             // BasedPanel
             // 
@@ -1963,403 +2366,6 @@
             this.CheckReadOldPosts.Name = "CheckReadOldPosts";
             this.CheckReadOldPosts.UseVisualStyleBackColor = true;
             // 
-            // FontPanel
-            // 
-            this.FontPanel.Controls.Add(this.GroupBox1);
-            resources.ApplyResources(this.FontPanel, "FontPanel");
-            this.FontPanel.Name = "FontPanel";
-            // 
-            // GroupBox1
-            // 
-            this.GroupBox1.Controls.Add(this.btnRetweet);
-            this.GroupBox1.Controls.Add(this.lblRetweet);
-            this.GroupBox1.Controls.Add(this.Label80);
-            this.GroupBox1.Controls.Add(this.ButtonBackToDefaultFontColor);
-            this.GroupBox1.Controls.Add(this.btnDetailLink);
-            this.GroupBox1.Controls.Add(this.lblDetailLink);
-            this.GroupBox1.Controls.Add(this.Label18);
-            this.GroupBox1.Controls.Add(this.btnUnread);
-            this.GroupBox1.Controls.Add(this.lblUnread);
-            this.GroupBox1.Controls.Add(this.Label20);
-            this.GroupBox1.Controls.Add(this.btnDetailBack);
-            this.GroupBox1.Controls.Add(this.lblDetailBackcolor);
-            this.GroupBox1.Controls.Add(this.Label37);
-            this.GroupBox1.Controls.Add(this.btnDetail);
-            this.GroupBox1.Controls.Add(this.lblDetail);
-            this.GroupBox1.Controls.Add(this.Label26);
-            this.GroupBox1.Controls.Add(this.btnOWL);
-            this.GroupBox1.Controls.Add(this.lblOWL);
-            this.GroupBox1.Controls.Add(this.Label24);
-            this.GroupBox1.Controls.Add(this.btnFav);
-            this.GroupBox1.Controls.Add(this.lblFav);
-            this.GroupBox1.Controls.Add(this.Label22);
-            this.GroupBox1.Controls.Add(this.btnListFont);
-            this.GroupBox1.Controls.Add(this.lblListFont);
-            this.GroupBox1.Controls.Add(this.Label61);
-            resources.ApplyResources(this.GroupBox1, "GroupBox1");
-            this.GroupBox1.Name = "GroupBox1";
-            this.GroupBox1.TabStop = false;
-            // 
-            // btnRetweet
-            // 
-            resources.ApplyResources(this.btnRetweet, "btnRetweet");
-            this.btnRetweet.Name = "btnRetweet";
-            this.btnRetweet.UseVisualStyleBackColor = true;
-            this.btnRetweet.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // lblRetweet
-            // 
-            this.lblRetweet.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblRetweet, "lblRetweet");
-            this.lblRetweet.Name = "lblRetweet";
-            // 
-            // Label80
-            // 
-            resources.ApplyResources(this.Label80, "Label80");
-            this.Label80.Name = "Label80";
-            // 
-            // ButtonBackToDefaultFontColor
-            // 
-            resources.ApplyResources(this.ButtonBackToDefaultFontColor, "ButtonBackToDefaultFontColor");
-            this.ButtonBackToDefaultFontColor.Name = "ButtonBackToDefaultFontColor";
-            this.ButtonBackToDefaultFontColor.UseVisualStyleBackColor = true;
-            this.ButtonBackToDefaultFontColor.Click += new System.EventHandler(this.ButtonBackToDefaultFontColor_Click);
-            // 
-            // btnDetailLink
-            // 
-            resources.ApplyResources(this.btnDetailLink, "btnDetailLink");
-            this.btnDetailLink.Name = "btnDetailLink";
-            this.btnDetailLink.UseVisualStyleBackColor = true;
-            this.btnDetailLink.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // lblDetailLink
-            // 
-            this.lblDetailLink.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblDetailLink, "lblDetailLink");
-            this.lblDetailLink.Name = "lblDetailLink";
-            // 
-            // Label18
-            // 
-            resources.ApplyResources(this.Label18, "Label18");
-            this.Label18.Name = "Label18";
-            // 
-            // btnUnread
-            // 
-            resources.ApplyResources(this.btnUnread, "btnUnread");
-            this.btnUnread.Name = "btnUnread";
-            this.btnUnread.UseVisualStyleBackColor = true;
-            this.btnUnread.Click += new System.EventHandler(this.btnFontAndColor_Click);
-            // 
-            // lblUnread
-            // 
-            this.lblUnread.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblUnread, "lblUnread");
-            this.lblUnread.Name = "lblUnread";
-            // 
-            // Label20
-            // 
-            resources.ApplyResources(this.Label20, "Label20");
-            this.Label20.Name = "Label20";
-            // 
-            // btnDetailBack
-            // 
-            resources.ApplyResources(this.btnDetailBack, "btnDetailBack");
-            this.btnDetailBack.Name = "btnDetailBack";
-            this.btnDetailBack.UseVisualStyleBackColor = true;
-            this.btnDetailBack.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // lblDetailBackcolor
-            // 
-            this.lblDetailBackcolor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblDetailBackcolor, "lblDetailBackcolor");
-            this.lblDetailBackcolor.Name = "lblDetailBackcolor";
-            // 
-            // Label37
-            // 
-            resources.ApplyResources(this.Label37, "Label37");
-            this.Label37.Name = "Label37";
-            // 
-            // btnDetail
-            // 
-            resources.ApplyResources(this.btnDetail, "btnDetail");
-            this.btnDetail.Name = "btnDetail";
-            this.btnDetail.UseVisualStyleBackColor = true;
-            this.btnDetail.Click += new System.EventHandler(this.btnFontAndColor_Click);
-            // 
-            // lblDetail
-            // 
-            this.lblDetail.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblDetail, "lblDetail");
-            this.lblDetail.Name = "lblDetail";
-            // 
-            // Label26
-            // 
-            resources.ApplyResources(this.Label26, "Label26");
-            this.Label26.Name = "Label26";
-            // 
-            // btnOWL
-            // 
-            resources.ApplyResources(this.btnOWL, "btnOWL");
-            this.btnOWL.Name = "btnOWL";
-            this.btnOWL.UseVisualStyleBackColor = true;
-            this.btnOWL.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // lblOWL
-            // 
-            this.lblOWL.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblOWL, "lblOWL");
-            this.lblOWL.Name = "lblOWL";
-            // 
-            // Label24
-            // 
-            resources.ApplyResources(this.Label24, "Label24");
-            this.Label24.Name = "Label24";
-            // 
-            // btnFav
-            // 
-            resources.ApplyResources(this.btnFav, "btnFav");
-            this.btnFav.Name = "btnFav";
-            this.btnFav.UseVisualStyleBackColor = true;
-            this.btnFav.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // lblFav
-            // 
-            this.lblFav.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblFav, "lblFav");
-            this.lblFav.Name = "lblFav";
-            // 
-            // Label22
-            // 
-            resources.ApplyResources(this.Label22, "Label22");
-            this.Label22.Name = "Label22";
-            // 
-            // btnListFont
-            // 
-            resources.ApplyResources(this.btnListFont, "btnListFont");
-            this.btnListFont.Name = "btnListFont";
-            this.btnListFont.UseVisualStyleBackColor = true;
-            this.btnListFont.Click += new System.EventHandler(this.btnFontAndColor_Click);
-            // 
-            // lblListFont
-            // 
-            this.lblListFont.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblListFont, "lblListFont");
-            this.lblListFont.Name = "lblListFont";
-            // 
-            // Label61
-            // 
-            resources.ApplyResources(this.Label61, "Label61");
-            this.Label61.Name = "Label61";
-            // 
-            // FontPanel2
-            // 
-            this.FontPanel2.Controls.Add(this.GroupBox5);
-            resources.ApplyResources(this.FontPanel2, "FontPanel2");
-            this.FontPanel2.Name = "FontPanel2";
-            // 
-            // GroupBox5
-            // 
-            this.GroupBox5.Controls.Add(this.Label65);
-            this.GroupBox5.Controls.Add(this.Label52);
-            this.GroupBox5.Controls.Add(this.Label49);
-            this.GroupBox5.Controls.Add(this.Label9);
-            this.GroupBox5.Controls.Add(this.Label14);
-            this.GroupBox5.Controls.Add(this.Label16);
-            this.GroupBox5.Controls.Add(this.Label32);
-            this.GroupBox5.Controls.Add(this.Label34);
-            this.GroupBox5.Controls.Add(this.Label36);
-            this.GroupBox5.Controls.Add(this.btnInputFont);
-            this.GroupBox5.Controls.Add(this.btnInputBackcolor);
-            this.GroupBox5.Controls.Add(this.btnAtTo);
-            this.GroupBox5.Controls.Add(this.btnListBack);
-            this.GroupBox5.Controls.Add(this.btnAtFromTarget);
-            this.GroupBox5.Controls.Add(this.btnAtTarget);
-            this.GroupBox5.Controls.Add(this.btnTarget);
-            this.GroupBox5.Controls.Add(this.btnAtSelf);
-            this.GroupBox5.Controls.Add(this.btnSelf);
-            this.GroupBox5.Controls.Add(this.lblInputFont);
-            this.GroupBox5.Controls.Add(this.lblInputBackcolor);
-            this.GroupBox5.Controls.Add(this.lblAtTo);
-            this.GroupBox5.Controls.Add(this.lblListBackcolor);
-            this.GroupBox5.Controls.Add(this.lblAtFromTarget);
-            this.GroupBox5.Controls.Add(this.lblAtTarget);
-            this.GroupBox5.Controls.Add(this.lblTarget);
-            this.GroupBox5.Controls.Add(this.lblAtSelf);
-            this.GroupBox5.Controls.Add(this.lblSelf);
-            this.GroupBox5.Controls.Add(this.ButtonBackToDefaultFontColor2);
-            resources.ApplyResources(this.GroupBox5, "GroupBox5");
-            this.GroupBox5.Name = "GroupBox5";
-            this.GroupBox5.TabStop = false;
-            // 
-            // Label65
-            // 
-            resources.ApplyResources(this.Label65, "Label65");
-            this.Label65.Name = "Label65";
-            // 
-            // Label52
-            // 
-            resources.ApplyResources(this.Label52, "Label52");
-            this.Label52.Name = "Label52";
-            // 
-            // Label49
-            // 
-            resources.ApplyResources(this.Label49, "Label49");
-            this.Label49.Name = "Label49";
-            // 
-            // Label9
-            // 
-            resources.ApplyResources(this.Label9, "Label9");
-            this.Label9.Name = "Label9";
-            // 
-            // Label14
-            // 
-            resources.ApplyResources(this.Label14, "Label14");
-            this.Label14.Name = "Label14";
-            // 
-            // Label16
-            // 
-            resources.ApplyResources(this.Label16, "Label16");
-            this.Label16.Name = "Label16";
-            // 
-            // Label32
-            // 
-            resources.ApplyResources(this.Label32, "Label32");
-            this.Label32.Name = "Label32";
-            // 
-            // Label34
-            // 
-            resources.ApplyResources(this.Label34, "Label34");
-            this.Label34.Name = "Label34";
-            // 
-            // Label36
-            // 
-            resources.ApplyResources(this.Label36, "Label36");
-            this.Label36.Name = "Label36";
-            // 
-            // btnInputFont
-            // 
-            resources.ApplyResources(this.btnInputFont, "btnInputFont");
-            this.btnInputFont.Name = "btnInputFont";
-            this.btnInputFont.UseVisualStyleBackColor = true;
-            this.btnInputFont.Click += new System.EventHandler(this.btnFontAndColor_Click);
-            // 
-            // btnInputBackcolor
-            // 
-            resources.ApplyResources(this.btnInputBackcolor, "btnInputBackcolor");
-            this.btnInputBackcolor.Name = "btnInputBackcolor";
-            this.btnInputBackcolor.UseVisualStyleBackColor = true;
-            this.btnInputBackcolor.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnAtTo
-            // 
-            resources.ApplyResources(this.btnAtTo, "btnAtTo");
-            this.btnAtTo.Name = "btnAtTo";
-            this.btnAtTo.UseVisualStyleBackColor = true;
-            this.btnAtTo.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnListBack
-            // 
-            resources.ApplyResources(this.btnListBack, "btnListBack");
-            this.btnListBack.Name = "btnListBack";
-            this.btnListBack.UseVisualStyleBackColor = true;
-            this.btnListBack.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnAtFromTarget
-            // 
-            resources.ApplyResources(this.btnAtFromTarget, "btnAtFromTarget");
-            this.btnAtFromTarget.Name = "btnAtFromTarget";
-            this.btnAtFromTarget.UseVisualStyleBackColor = true;
-            this.btnAtFromTarget.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnAtTarget
-            // 
-            resources.ApplyResources(this.btnAtTarget, "btnAtTarget");
-            this.btnAtTarget.Name = "btnAtTarget";
-            this.btnAtTarget.UseVisualStyleBackColor = true;
-            this.btnAtTarget.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnTarget
-            // 
-            resources.ApplyResources(this.btnTarget, "btnTarget");
-            this.btnTarget.Name = "btnTarget";
-            this.btnTarget.UseVisualStyleBackColor = true;
-            this.btnTarget.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnAtSelf
-            // 
-            resources.ApplyResources(this.btnAtSelf, "btnAtSelf");
-            this.btnAtSelf.Name = "btnAtSelf";
-            this.btnAtSelf.UseVisualStyleBackColor = true;
-            this.btnAtSelf.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // btnSelf
-            // 
-            resources.ApplyResources(this.btnSelf, "btnSelf");
-            this.btnSelf.Name = "btnSelf";
-            this.btnSelf.UseVisualStyleBackColor = true;
-            this.btnSelf.Click += new System.EventHandler(this.btnColor_Click);
-            // 
-            // lblInputFont
-            // 
-            this.lblInputFont.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblInputFont, "lblInputFont");
-            this.lblInputFont.Name = "lblInputFont";
-            // 
-            // lblInputBackcolor
-            // 
-            this.lblInputBackcolor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblInputBackcolor, "lblInputBackcolor");
-            this.lblInputBackcolor.Name = "lblInputBackcolor";
-            // 
-            // lblAtTo
-            // 
-            this.lblAtTo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblAtTo, "lblAtTo");
-            this.lblAtTo.Name = "lblAtTo";
-            // 
-            // lblListBackcolor
-            // 
-            this.lblListBackcolor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblListBackcolor, "lblListBackcolor");
-            this.lblListBackcolor.Name = "lblListBackcolor";
-            // 
-            // lblAtFromTarget
-            // 
-            this.lblAtFromTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblAtFromTarget, "lblAtFromTarget");
-            this.lblAtFromTarget.Name = "lblAtFromTarget";
-            // 
-            // lblAtTarget
-            // 
-            this.lblAtTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblAtTarget, "lblAtTarget");
-            this.lblAtTarget.Name = "lblAtTarget";
-            // 
-            // lblTarget
-            // 
-            this.lblTarget.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblTarget, "lblTarget");
-            this.lblTarget.Name = "lblTarget";
-            // 
-            // lblAtSelf
-            // 
-            this.lblAtSelf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblAtSelf, "lblAtSelf");
-            this.lblAtSelf.Name = "lblAtSelf";
-            // 
-            // lblSelf
-            // 
-            this.lblSelf.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblSelf, "lblSelf");
-            this.lblSelf.Name = "lblSelf";
-            // 
-            // ButtonBackToDefaultFontColor2
-            // 
-            resources.ApplyResources(this.ButtonBackToDefaultFontColor2, "ButtonBackToDefaultFontColor2");
-            this.ButtonBackToDefaultFontColor2.Name = "ButtonBackToDefaultFontColor2";
-            this.ButtonBackToDefaultFontColor2.UseVisualStyleBackColor = true;
-            this.ButtonBackToDefaultFontColor2.Click += new System.EventHandler(this.ButtonBackToDefaultFontColor_Click);
-            // 
             // Save
             // 
             this.Save.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -2381,6 +2387,24 @@
             // 
             this.FontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
+            // btnSteal
+            // 
+            resources.ApplyResources(this.btnSteal, "btnSteal");
+            this.btnSteal.Name = "btnSteal";
+            this.btnSteal.UseVisualStyleBackColor = true;
+            this.btnSteal.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblSteal
+            // 
+            this.lblSteal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblSteal, "lblSteal");
+            this.lblSteal.Name = "lblSteal";
+            // 
+            // Label1
+            // 
+            resources.ApplyResources(this.Label1, "Label1");
+            this.Label1.Name = "Label1";
+            // 
             // AppendSettingDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -2401,6 +2425,12 @@
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
+            this.FontPanel.ResumeLayout(false);
+            this.GroupBox1.ResumeLayout(false);
+            this.GroupBox1.PerformLayout();
+            this.FontPanel2.ResumeLayout(false);
+            this.GroupBox5.ResumeLayout(false);
+            this.GroupBox5.PerformLayout();
             this.BasedPanel.ResumeLayout(false);
             this.BasedPanel.PerformLayout();
             this.groupBoxConsumerKey.ResumeLayout(false);
@@ -2435,12 +2465,6 @@
             this.ActionPanel.PerformLayout();
             this.GroupBox3.ResumeLayout(false);
             this.GroupBox3.PerformLayout();
-            this.FontPanel.ResumeLayout(false);
-            this.GroupBox1.ResumeLayout(false);
-            this.GroupBox1.PerformLayout();
-            this.FontPanel2.ResumeLayout(false);
-            this.GroupBox5.ResumeLayout(false);
-            this.GroupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2714,5 +2738,8 @@
         private System.Windows.Forms.TextBox TextBoxConsumerKey;
         internal System.Windows.Forms.ComboBox TLAuthUserCombo;
         internal System.Windows.Forms.Label labelAccountTimeLine;
+        internal System.Windows.Forms.Button btnSteal;
+        internal System.Windows.Forms.Label lblSteal;
+        internal System.Windows.Forms.Label Label1;
     }
 }

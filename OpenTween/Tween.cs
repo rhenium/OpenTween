@@ -119,6 +119,7 @@ namespace OpenTween
         //表示フォント、色、アイコン
         private Font _fntUnread;            //未読用フォント
         private Color _clUnread;            //未読用文字色
+        private Color _clSteal;            //重複ツイート文字色
         private Font _fntReaded;            //既読用フォント
         private Color _clReaded;            //既読用文字色
         private Color _clFav;               //Fav用文字色
@@ -168,6 +169,7 @@ namespace OpenTween
         private SolidBrush _brsHighLight = new SolidBrush(Color.FromKnownColor(KnownColor.Highlight));
         private SolidBrush _brsHighLightText = new SolidBrush(Color.FromKnownColor(KnownColor.HighlightText));
         private SolidBrush _brsForeColorUnread;
+        private SolidBrush _brsForeColorSteal;
         private SolidBrush _brsForeColorReaded;
         private SolidBrush _brsForeColorFav;
         private SolidBrush _brsForeColorOWL;
@@ -370,6 +372,7 @@ namespace OpenTween
             _brsHighLight.Dispose();
             _brsHighLightText.Dispose();
             if (_brsForeColorUnread != null) _brsForeColorUnread.Dispose();
+            if (_brsForeColorSteal != null) _brsForeColorSteal.Dispose();
             if (_brsForeColorReaded != null) _brsForeColorReaded.Dispose();
             if (_brsForeColorFav != null) _brsForeColorFav.Dispose();
             if (_brsForeColorOWL != null) _brsForeColorOWL.Dispose();
@@ -607,6 +610,7 @@ namespace OpenTween
             //フォント＆文字色＆背景色保持
             _fntUnread = _cfgLocal.FontUnread;
             _clUnread = _cfgLocal.ColorUnread;
+            _clSteal = _cfgLocal.ColorSteal;
             _fntReaded = _cfgLocal.FontRead;
             _clReaded = _cfgLocal.ColorRead;
             _clFav = _cfgLocal.ColorFav;
@@ -628,6 +632,7 @@ namespace OpenTween
             _fntInputFont = _cfgLocal.FontInputFont;
 
             _brsForeColorUnread = new SolidBrush(_clUnread);
+            _brsForeColorSteal = new SolidBrush(_clSteal);
             _brsForeColorReaded = new SolidBrush(_clReaded);
             _brsForeColorFav = new SolidBrush(_clFav);
             _brsForeColorOWL = new SolidBrush(_clOWL);
@@ -698,6 +703,7 @@ namespace OpenTween
             //フォント＆文字色＆背景色
             SettingDialog.FontUnread = _fntUnread;
             SettingDialog.ColorUnread = _clUnread;
+            SettingDialog.ColorSteal = _clSteal;
             SettingDialog.FontReaded = _fntReaded;
             SettingDialog.ColorReaded = _clReaded;
             SettingDialog.ColorFav = _clFav;
@@ -814,6 +820,7 @@ namespace OpenTween
             this.ToolStripFocusLockMenuItem.Checked = _cfgCommon.FocusLockToStatusText;
             this.ToolStripSpaceToFocusTimelineMenuItem.Checked = _cfgCommon.SpaceToFocusTimeline;
             this.ToolStripAutoAddZenkakuSpaceMenuItem.Checked = _cfgCommon.AutoAddZenkakuSpace;
+            this.ToolStripShowStealTweetMenuItem.Checked = _cfgCommon.ShowStealTweet;
             this.ToolStripAutoCutTweetMenuItem.Checked = _cfgCommon.AutoCutTweet;
 
             //Regex statregex = new Regex("^0*");
@@ -920,6 +927,7 @@ namespace OpenTween
                 //フォント＆文字色＆背景色保持
                 _fntUnread = SettingDialog.FontUnread;
                 _clUnread = SettingDialog.ColorUnread;
+                _clSteal = SettingDialog.ColorSteal;
                 _fntReaded = SettingDialog.FontReaded;
                 _clReaded = SettingDialog.ColorReaded;
                 _clFav = SettingDialog.ColorFav;
@@ -940,11 +948,13 @@ namespace OpenTween
                 _clInputFont = SettingDialog.ColorInputFont;
                 _fntInputFont = SettingDialog.FontInputFont;
                 _brsForeColorUnread.Dispose();
+                _brsForeColorSteal.Dispose();
                 _brsForeColorReaded.Dispose();
                 _brsForeColorFav.Dispose();
                 _brsForeColorOWL.Dispose();
                 _brsForeColorRetweet.Dispose();
                 _brsForeColorUnread = new SolidBrush(_clUnread);
+                _brsForeColorSteal = new SolidBrush(_clSteal);
                 _brsForeColorReaded = new SolidBrush(_clReaded);
                 _brsForeColorFav = new SolidBrush(_clFav);
                 _brsForeColorOWL = new SolidBrush(_clOWL);
@@ -2065,6 +2075,13 @@ namespace OpenTween
                 cl = _clReaded;
             else
                 cl = _clUnread;
+
+            var conv = new Func<string, string>(str => Regex.Replace(str, @"[ 　\r\n\t]", ""));
+
+            if (_cfgCommon.ShowStealTweet && _statuses._statuses.Any(_ => !(Post.RetweetedId > 0) && conv(_.Value.TextFromApi) == conv(Post.TextFromApi) && _.Value.CreatedAt.CompareTo(Post.CreatedAt) < 0))
+            {
+                cl = _clSteal;
+            }
 
             if (DList == null || Item.Index == -1)
             {
@@ -4112,6 +4129,7 @@ namespace OpenTween
                     this.PlaySoundFileMenuItem.Checked = SettingDialog.PlaySound;
                     _fntUnread = SettingDialog.FontUnread;
                     _clUnread = SettingDialog.ColorUnread;
+                    _clSteal = SettingDialog.ColorSteal;
                     _fntReaded = SettingDialog.FontReaded;
                     _clReaded = SettingDialog.ColorReaded;
                     _clFav = SettingDialog.ColorFav;
@@ -4143,11 +4161,13 @@ namespace OpenTween
                     }
 
                     _brsForeColorUnread.Dispose();
+                    _brsForeColorSteal.Dispose();
                     _brsForeColorReaded.Dispose();
                     _brsForeColorFav.Dispose();
                     _brsForeColorOWL.Dispose();
                     _brsForeColorRetweet.Dispose();
                     _brsForeColorUnread = new SolidBrush(_clUnread);
+                    _brsForeColorSteal = new SolidBrush(_clSteal);
                     _brsForeColorReaded = new SolidBrush(_clReaded);
                     _brsForeColorFav = new SolidBrush(_clFav);
                     _brsForeColorOWL = new SolidBrush(_clOWL);
@@ -5443,6 +5463,10 @@ namespace OpenTween
                     else if (e.Item.ForeColor == _clRetweet)
                     {
                         brs = _brsForeColorRetweet;
+                    }
+                    else if (e.Item.ForeColor == _clSteal)
+                    {
+                        brs = _brsForeColorSteal;
                     }
                     else
                     {
@@ -8001,6 +8025,11 @@ namespace OpenTween
                 {
                     _cfgCommon.AutoAddZenkakuSpace = this.ToolStripAutoAddZenkakuSpaceMenuItem.Checked;
                 }
+                if (ToolStripShowStealTweetMenuItem != null &&
+                        ToolStripShowStealTweetMenuItem.IsDisposed == false)
+                {
+                    _cfgCommon.ShowStealTweet = this.ToolStripShowStealTweetMenuItem.Checked;
+                }
                 _cfgCommon.UseAdditionalCount = SettingDialog.UseAdditionalCount;
                 _cfgCommon.MoreCountApi = SettingDialog.MoreCountApi;
                 _cfgCommon.FirstCountApi = SettingDialog.FirstCountApi;
@@ -8046,6 +8075,7 @@ namespace OpenTween
 
                 _cfgLocal.FontUnread = _fntUnread;
                 _cfgLocal.ColorUnread = _clUnread;
+                _cfgLocal.ColorSteal = _clSteal;
                 _cfgLocal.FontRead = _fntReaded;
                 _cfgLocal.ColorRead = _clReaded;
                 _cfgLocal.FontDetail = _fntDetail;
@@ -13442,43 +13472,48 @@ namespace OpenTween
 
         private void RefreshChangeAccountSplitButton()
         {
-            this.ChangeAccountSplitButton.DropDown.Items.Clear();
             if (this._cfgCommon.UserAccounts.Count > 0)
             {
-                Parallel.For(0, this._cfgCommon.UserAccounts.Count, i =>
+                Thread thread = new Thread(() =>
                 {
-                    var item = new ToolStripMenuItem(this._cfgCommon.UserAccounts[i].ToString());
-                    item.Tag = i;
-                    item.Checked = this._cfgCommon.UserAccounts[i].UserId == tw.UserId &&
-                                    this._cfgCommon.UserAccounts[i].Tag == tw.Tag;
-                    item.Click += (sender1, e1) =>
+                    Invoke((Action)(() => this.ChangeAccountSplitButton.DropDown.Items.Clear()));
+                    Parallel.For(0, this._cfgCommon.UserAccounts.Count, i =>
                     {
-                        var u = this._cfgCommon.UserAccounts[(int)((ToolStripMenuItem)sender1).Tag];
-
-                        tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
-                        tw.ForceNotOwl = true;
-                        if (u.UserId == 0)
+                        var item = new ToolStripMenuItem(this._cfgCommon.UserAccounts[i].ToString());
+                        item.Tag = i;
+                        item.Checked = this._cfgCommon.UserAccounts[i].UserId == tw.UserId &&
+                                        this._cfgCommon.UserAccounts[i].Tag == tw.Tag;
+                        item.Click += (sender1, e1) =>
                         {
-                            tw.VerifyCredentials();
-                            u.UserId = tw.UserId;
-                        }
+                            var u = this._cfgCommon.UserAccounts[(int)((ToolStripMenuItem)sender1).Tag];
 
-                        foreach (var m in ChangeAccountSplitButton.DropDown.Items)
-                        {
-                            ((ToolStripMenuItem)m).Checked = false;
-                        }
-                        ((ToolStripMenuItem)sender1).Checked = true;
+                            tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
+                            tw.ForceNotOwl = true;
+                            if (u.UserId == 0)
+                            {
+                                tw.VerifyCredentials();
+                                u.UserId = tw.UserId;
+                            }
 
-                        this.ChangeAccountSplitButton.Text = u.ToString();
-                        this.CreatePictureServices();
-                        this.SetImageServiceCombo();
-                        this.doGetFollowersMenu();
-                        SaveConfigsCommon();
-                        RefreshChangeAccountSplitButton();
-                    };
-                    this.ChangeAccountSplitButton.DropDown.Items.Add(item);
+                            foreach (var m in ChangeAccountSplitButton.DropDown.Items)
+                            {
+                                ((ToolStripMenuItem)m).Checked = false;
+                            }
+                            ((ToolStripMenuItem)sender1).Checked = true;
+
+                            this.ChangeAccountSplitButton.Text = u.ToString();
+                            this.CreatePictureServices();
+                            this.SetImageServiceCombo();
+                            this.doGetFollowersMenu();
+                            SaveConfigsCommon();
+                            RefreshChangeAccountSplitButton();
+                        };
+                        Invoke((Action)(() => this.ChangeAccountSplitButton.DropDown.Items.Add(item)));
+                    });
+                    Invoke((Action)(() => this.ChangeAccountSplitButton.Text = tw.ToString()));
                 });
-                this.ChangeAccountSplitButton.Text = tw.ToString();
+                thread.Start();
+            
             }
         }
 
@@ -13522,6 +13557,24 @@ namespace OpenTween
             var n = this._cfgCommon.UserAccounts.IndexOf(this._cfgCommon.UserAccounts.Single(u => u.UserId == this.tw.UserId && u.Tag == this.tw.Tag))
                 + 1;
             if (n == this._cfgCommon.UserAccounts.Count) n = 0;
+
+            var q = _cfgCommon.UserAccounts[n];
+            tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
+            tw.ForceNotOwl = true;
+            if (q.UserId == 0)
+            {
+                tw.VerifyCredentials();
+                q.UserId = tw.UserId;
+            }
+            SaveConfigsCommon();
+            RefreshChangeAccountSplitButton();
+        }
+
+        private void ChangeAccountUpMenuItem_Click(object sender, EventArgs e)
+        {
+            var n = this._cfgCommon.UserAccounts.IndexOf(this._cfgCommon.UserAccounts.Single(u => u.UserId == this.tw.UserId && u.Tag == this.tw.Tag))
+                - 1;
+            if (n == -1) n = this._cfgCommon.UserAccounts.Count - 1;
 
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);

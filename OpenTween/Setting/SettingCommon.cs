@@ -250,6 +250,7 @@ namespace OpenTween
         public bool SpaceToFocusTimeline = true;
         public bool AutoCutTweet = false;
         public bool AutoAddZenkakuSpace = false;
+        public bool ShowStealTweet = false;
 
         // 隠し
         public bool ShowDeleted = false;

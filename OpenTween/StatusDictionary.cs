@@ -613,7 +613,7 @@ namespace OpenTween
         //個別タブの情報をDictionaryで保持
         private IdComparerClass _sorter;
         private Dictionary<string, TabClass> _tabs = new Dictionary<string, TabClass>();
-        private Dictionary<long, PostClass> _statuses = new Dictionary<long, PostClass>();
+        public Dictionary<long, PostClass> _statuses = new Dictionary<long, PostClass>();
         private List<long> _addedIds;
         private List<long> _deletedIds = new List<long>();
         private Dictionary<long, PostClass> _retweets = new Dictionary<long, PostClass>();

@@ -259,6 +259,96 @@
   <data name="&gt;&gt;SplitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="btnSteal.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="btnSteal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnSteal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>331, 221</value>
+  </data>
+  <data name="btnSteal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 22</value>
+  </data>
+  <data name="btnSteal.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="btnSteal.Text" xml:space="preserve">
+    <value>文字色</value>
+  </data>
+  <data name="&gt;&gt;btnSteal.Name" xml:space="preserve">
+    <value>btnSteal</value>
+  </data>
+  <data name="&gt;&gt;btnSteal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSteal.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;btnSteal.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblSteal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblSteal.Location" type="System.Drawing.Point, System.Drawing">
+    <value>216, 221</value>
+  </data>
+  <data name="lblSteal.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 19</value>
+  </data>
+  <data name="lblSteal.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="lblSteal.Text" xml:space="preserve">
+    <value>This is sample.</value>
+  </data>
+  <data name="lblSteal.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblSteal.Name" xml:space="preserve">
+    <value>lblSteal</value>
+  </data>
+  <data name="&gt;&gt;lblSteal.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSteal.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;lblSteal.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 223</value>
+  </data>
+  <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 12</value>
+  </data>
+  <data name="Label1.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="Label1.Text" xml:space="preserve">
+    <value>重複ツイート</value>
+  </data>
+  <data name="&gt;&gt;Label1.Name" xml:space="preserve">
+    <value>Label1</value>
+  </data>
+  <data name="&gt;&gt;Label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label1.Parent" xml:space="preserve">
+    <value>GroupBox1</value>
+  </data>
+  <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="btnRetweet.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -287,7 +377,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnRetweet.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="lblRetweet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -317,7 +407,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblRetweet.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="Label80.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -347,7 +437,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label80.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="ButtonBackToDefaultFontColor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -356,7 +446,7 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonBackToDefaultFontColor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 235</value>
+    <value>175, 260</value>
   </data>
   <data name="ButtonBackToDefaultFontColor.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 22</value>
@@ -377,7 +467,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;ButtonBackToDefaultFontColor.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="btnDetailLink.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -407,7 +497,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnDetailLink.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="lblDetailLink.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -437,7 +527,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblDetailLink.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="Label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -467,7 +557,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label18.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>9</value>
   </data>
   <data name="btnUnread.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -497,7 +587,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnUnread.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="lblUnread.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -527,7 +617,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblUnread.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>11</value>
   </data>
   <data name="Label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -557,7 +647,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label20.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>12</value>
   </data>
   <data name="btnDetailBack.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -587,7 +677,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnDetailBack.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>13</value>
   </data>
   <data name="lblDetailBackcolor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -617,7 +707,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblDetailBackcolor.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>14</value>
   </data>
   <data name="Label37.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -647,7 +737,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label37.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>15</value>
   </data>
   <data name="btnDetail.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -677,7 +767,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnDetail.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>16</value>
   </data>
   <data name="lblDetail.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -707,7 +797,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblDetail.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>17</value>
   </data>
   <data name="Label26.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -737,7 +827,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label26.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>18</value>
   </data>
   <data name="btnOWL.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -767,7 +857,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnOWL.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>19</value>
   </data>
   <data name="lblOWL.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -797,7 +887,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblOWL.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>20</value>
   </data>
   <data name="Label24.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -827,7 +917,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label24.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>21</value>
   </data>
   <data name="btnFav.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -857,7 +947,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnFav.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>22</value>
   </data>
   <data name="lblFav.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -887,7 +977,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblFav.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>23</value>
   </data>
   <data name="Label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -917,7 +1007,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label22.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>24</value>
   </data>
   <data name="btnListFont.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -947,7 +1037,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;btnListFont.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>25</value>
   </data>
   <data name="lblListFont.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -977,7 +1067,7 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;lblListFont.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>26</value>
   </data>
   <data name="Label61.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1007,13 +1097,13 @@
     <value>GroupBox1</value>
   </data>
   <data name="&gt;&gt;Label61.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>27</value>
   </data>
   <data name="GroupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 18</value>
   </data>
   <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>429, 267</value>
+    <value>429, 292</value>
   </data>
   <data name="GroupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
