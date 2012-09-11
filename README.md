@@ -13,8 +13,9 @@ OpenTween との違い
 * ツイートのトリムを ' ', '\t', '\r', '\n' のみに
 * スペースキーでタイムラインにフォーカスを移すかを選択できるように
 * 鍵アカでもQTをできるように。非公式RTはできない
-* Twitter SearchのAPIがJSONに変更されている。Invalud ATOM!のエラーが発生しない
+* Twitter SearchのAPIがJSONに変更されている。Invalid ATOM!のエラーが発生しない
 * (途中)UserStreamsを2本張り、同じアカウントのタイムラインのまま他のアカウントでツイートすることが可能
+* パクリツイートの文字色を変更できる
 
 ChangeLog.txtのほうがいいです。
 

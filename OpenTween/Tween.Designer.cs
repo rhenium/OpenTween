@@ -53,6 +53,7 @@
             this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripAutoAddZenkakuSpaceMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripAutoCutTweetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripShowStolenTweetWithColorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TimelinePanel = new System.Windows.Forms.Panel();
             this.ListTab = new System.Windows.Forms.TabControl();
@@ -264,6 +265,7 @@
             this.VerUpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.ApiInfoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ApiInfoTLMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.AboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DebugModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -325,7 +327,6 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
-            this.ToolStripShowStealTweetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -452,7 +453,7 @@
             this.toolStripSeparator44,
             this.ToolStripAutoAddZenkakuSpaceMenuItem,
             this.ToolStripAutoCutTweetMenuItem,
-            this.ToolStripShowStealTweetMenuItem});
+            this.ToolStripShowStolenTweetWithColorMenuItem});
             this.ContextMenuPostMode.Name = "ContextMenuStripPostMode";
             this.ContextMenuPostMode.OwnerItem = this.HashStripSplitButton;
             resources.ApplyResources(this.ContextMenuPostMode, "ContextMenuPostMode");
@@ -556,6 +557,12 @@
             this.ToolStripAutoCutTweetMenuItem.Name = "ToolStripAutoCutTweetMenuItem";
             resources.ApplyResources(this.ToolStripAutoCutTweetMenuItem, "ToolStripAutoCutTweetMenuItem");
             this.ToolStripAutoCutTweetMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripAutoCutTweetMenuItem_CheckedChanged);
+            // 
+            // ToolStripShowStolenTweetWithColorMenuItem
+            // 
+            this.ToolStripShowStolenTweetWithColorMenuItem.CheckOnClick = true;
+            this.ToolStripShowStolenTweetWithColorMenuItem.Name = "ToolStripShowStolenTweetWithColorMenuItem";
+            resources.ApplyResources(this.ToolStripShowStolenTweetWithColorMenuItem, "ToolStripShowStolenTweetWithColorMenuItem");
             // 
             // SplitContainer1
             // 
@@ -2067,6 +2074,7 @@
             this.VerUpMenuItem,
             this.ToolStripSeparator14,
             this.ApiInfoMenuItem,
+            this.ApiInfoTLMenuItem,
             this.ToolStripSeparator7,
             this.AboutMenuItem,
             this.DebugModeToolStripMenuItem});
@@ -2107,6 +2115,12 @@
             this.ApiInfoMenuItem.Name = "ApiInfoMenuItem";
             resources.ApplyResources(this.ApiInfoMenuItem, "ApiInfoMenuItem");
             this.ApiInfoMenuItem.Click += new System.EventHandler(this.ApiInfoMenuItem_Click);
+            // 
+            // ApiInfoTLMenuItem
+            // 
+            this.ApiInfoTLMenuItem.Name = "ApiInfoTLMenuItem";
+            resources.ApplyResources(this.ApiInfoTLMenuItem, "ApiInfoTLMenuItem");
+            this.ApiInfoTLMenuItem.Click += new System.EventHandler(this.ApiInfoTLMenuItem_Click);
             // 
             // ToolStripSeparator7
             // 
@@ -2528,12 +2542,6 @@
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
             // 
-            // ToolStripShowStealTweetMenuItem
-            // 
-            this.ToolStripShowStealTweetMenuItem.CheckOnClick = true;
-            this.ToolStripShowStealTweetMenuItem.Name = "ToolStripShowStealTweetMenuItem";
-            resources.ApplyResources(this.ToolStripShowStealTweetMenuItem, "ToolStripShowStealTweetMenuItem");
-            // 
             // TweenMain
             // 
             this.AllowDrop = true;
@@ -2893,6 +2901,7 @@
         private System.Windows.Forms.ToolStripMenuItem UnBlockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ChangeAccountUpMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator45;
-        private System.Windows.Forms.ToolStripMenuItem ToolStripShowStealTweetMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripShowStolenTweetWithColorMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ApiInfoTLMenuItem;
     }
 }

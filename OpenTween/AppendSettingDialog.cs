@@ -63,6 +63,8 @@ namespace OpenTween
         public List<UserAccount> UserAccounts;
         private long InitialUserId;
         private long TLInitialUserId;
+        private string InitialTag;
+        private string TLInitialTag;
         public bool TabMouseLock;
         public bool IsRemoveSameEvent;
         public bool IsNotifyUseGrowl;
@@ -301,7 +303,7 @@ namespace OpenTween
 
                 FontUnread = lblUnread.Font;     //未使用
                 ColorUnread = lblUnread.ForeColor;
-                ColorSteal = lblSteal.ForeColor;
+                ColorStolen = lblStolen.ForeColor;
                 FontReaded = lblListFont.Font;     //リストフォントとして使用
                 ColorReaded = lblListFont.ForeColor;
                 ColorFav = lblFav.ForeColor;
@@ -540,14 +542,14 @@ namespace OpenTween
                 {
                     foreach (UserAccount u in this.UserAccounts)
                     {
-                        if (u.UserId == this.InitialUserId)
+                        if (u.UserId == this.InitialUserId && u.Tag == this.InitialTag)
                         {
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
                             tw.ForceNotOwl = true;
                             userSet = true;
                             //break;
                         }
-                        if (u.UserId == this.InitialUserId)
+                        if (u.UserId == this.TLInitialUserId && u.Tag == this.TLInitialTag)
                         {
                             tltw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
                             tlUserSet = true;
@@ -636,12 +638,14 @@ namespace OpenTween
                     {
                         this.AuthUserCombo.SelectedItem = u;
                         this.InitialUserId = u.UserId;
+                        this.InitialTag = u.Tag;
                         //break;
                     }
                     if (u.UserId == tltw.UserId && u.Tag == tltw.Tag)
                     {
                         this.TLAuthUserCombo.SelectedItem = u;
                         this.TLInitialUserId = u.UserId;
+                        this.TLInitialTag = u.Tag;
                         //break;
                     }
                 }
@@ -691,7 +695,7 @@ namespace OpenTween
             lblListFont.Font = FontReaded;
             lblUnread.Font = FontUnread;
             lblUnread.ForeColor = ColorUnread;
-            lblSteal.ForeColor = ColorSteal;
+            lblStolen.ForeColor = ColorStolen;
             lblListFont.ForeColor = ColorReaded;
             lblFav.ForeColor = ColorFav;
             lblOWL.ForeColor = ColorOWL;
@@ -1258,8 +1262,8 @@ namespace OpenTween
                 case "btnDetailLink":
                     ColorDialog1.Color = lblDetailLink.ForeColor;
                     break;
-                case "btnSteal":
-                    ColorDialog1.Color = lblSteal.ForeColor;
+                case "btnStolen":
+                    ColorDialog1.Color = lblStolen.ForeColor;
                     break;
             }
 
@@ -1308,8 +1312,8 @@ namespace OpenTween
                 case "btnDetailLink":
                     lblDetailLink.ForeColor = ColorDialog1.Color;
                     break;
-                case "btnSteal":
-                    lblSteal.ForeColor = ColorDialog1.Color;
+                case "btnStolen":
+                    lblStolen.ForeColor = ColorDialog1.Color;
                     break;
             }
         }
@@ -1330,7 +1334,7 @@ namespace OpenTween
         public bool OneWayLove { get; set; }
         public Font FontUnread { get; set; } /////未使用
         public Color ColorUnread { get; set; }
-        public Color ColorSteal { get; set; }
+        public Color ColorStolen { get; set; }
         public Font FontReaded { get; set; } /////リストフォントとして使用
         public Color ColorReaded { get; set; }
         public Color ColorFav { get; set; }
@@ -1880,13 +1884,13 @@ namespace OpenTween
 
         private void DisplayApiMaxCount()
         {
-            if (MyCommon.TwitterApiInfo.MaxCount > -1)
+            if (this.tw.TwitterApiInfo.MaxCount > -1)
             {
-                LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, MyCommon.TwitterApiInfo.UsingCount, MyCommon.TwitterApiInfo.MaxCount);
+                LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, this.tw.TwitterApiInfo.UsingCount, this.tw.TwitterApiInfo.MaxCount);
             }
             else
             {
-                LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, MyCommon.TwitterApiInfo.UsingCount, "???");
+                LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, this.tw.TwitterApiInfo.UsingCount, "???");
             }
         }
 
@@ -1968,11 +1972,11 @@ namespace OpenTween
 
             if (tltw != null)
             {
-                if (MyCommon.TwitterApiInfo.MaxCount == -1)
+                if (this.tw.TwitterApiInfo.MaxCount == -1)
                 {
                     if (Twitter.AccountState == MyCommon.ACCOUNT_STATE.Valid)
                     {
-                        MyCommon.TwitterApiInfo.UsingCount = UsingApi;
+                        this.tw.TwitterApiInfo.UsingCount = UsingApi;
                         Thread proc = new Thread(new System.Threading.ThreadStart(() => {
                             tltw.GetInfoApi(null); //取得エラー時はinfoCountは初期状態（値：-1）
                             if (this.IsHandleCreated && !this.IsDisposed) Invoke(new MethodInvoker(DisplayApiMaxCount));
@@ -1986,7 +1990,7 @@ namespace OpenTween
                 }
                 else
                 {
-                    LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, UsingApi, MyCommon.TwitterApiInfo.MaxCount);
+                    LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, UsingApi, this.tw.TwitterApiInfo.MaxCount);
                 }
             }
 

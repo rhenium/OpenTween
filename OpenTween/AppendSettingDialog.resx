@@ -259,64 +259,64 @@
   <data name="&gt;&gt;SplitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="btnSteal.AutoSize" type="System.Boolean, mscorlib">
+  <data name="btnStolen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="btnSteal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="btnStolen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnSteal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="btnStolen.Location" type="System.Drawing.Point, System.Drawing">
     <value>331, 221</value>
   </data>
-  <data name="btnSteal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="btnStolen.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 22</value>
   </data>
-  <data name="btnSteal.TabIndex" type="System.Int32, mscorlib">
+  <data name="btnStolen.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
   </data>
-  <data name="btnSteal.Text" xml:space="preserve">
+  <data name="btnStolen.Text" xml:space="preserve">
     <value>文字色</value>
   </data>
-  <data name="&gt;&gt;btnSteal.Name" xml:space="preserve">
-    <value>btnSteal</value>
+  <data name="&gt;&gt;btnStolen.Name" xml:space="preserve">
+    <value>btnStolen</value>
   </data>
-  <data name="&gt;&gt;btnSteal.Type" xml:space="preserve">
+  <data name="&gt;&gt;btnStolen.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnSteal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnStolen.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
-  <data name="&gt;&gt;btnSteal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnStolen.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lblSteal.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="lblStolen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="lblSteal.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="lblStolen.Location" type="System.Drawing.Point, System.Drawing">
     <value>216, 221</value>
   </data>
-  <data name="lblSteal.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="lblStolen.Size" type="System.Drawing.Size, System.Drawing">
     <value>104, 19</value>
   </data>
-  <data name="lblSteal.TabIndex" type="System.Int32, mscorlib">
+  <data name="lblStolen.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
   </data>
-  <data name="lblSteal.Text" xml:space="preserve">
+  <data name="lblStolen.Text" xml:space="preserve">
     <value>This is sample.</value>
   </data>
-  <data name="lblSteal.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="lblStolen.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;lblSteal.Name" xml:space="preserve">
-    <value>lblSteal</value>
+  <data name="&gt;&gt;lblStolen.Name" xml:space="preserve">
+    <value>lblStolen</value>
   </data>
-  <data name="&gt;&gt;lblSteal.Type" xml:space="preserve">
+  <data name="&gt;&gt;lblStolen.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblSteal.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblStolen.Parent" xml:space="preserve">
     <value>GroupBox1</value>
   </data>
-  <data name="&gt;&gt;lblSteal.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblStolen.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="Label1.AutoSize" type="System.Boolean, mscorlib">

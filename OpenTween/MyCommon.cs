@@ -678,8 +678,6 @@ namespace OpenTween
             return GetAssemblyName() + "/" + fileVersion;
         }
 
-        public static ApiInformation TwitterApiInfo = new ApiInformation();
-
         public static bool IsAnimatedGif(string filename)
         {
             Image img = null;

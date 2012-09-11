@@ -297,8 +297,8 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnSteal = new System.Windows.Forms.Button();
-            this.lblSteal = new System.Windows.Forms.Label();
+            this.btnStolen = new System.Windows.Forms.Button();
+            this.lblStolen = new System.Windows.Forms.Label();
             this.Label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
@@ -380,8 +380,8 @@
             // 
             // GroupBox1
             // 
-            this.GroupBox1.Controls.Add(this.btnSteal);
-            this.GroupBox1.Controls.Add(this.lblSteal);
+            this.GroupBox1.Controls.Add(this.btnStolen);
+            this.GroupBox1.Controls.Add(this.lblStolen);
             this.GroupBox1.Controls.Add(this.Label1);
             this.GroupBox1.Controls.Add(this.btnRetweet);
             this.GroupBox1.Controls.Add(this.lblRetweet);
@@ -2387,18 +2387,18 @@
             // 
             this.FontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
-            // btnSteal
+            // btnStolen
             // 
-            resources.ApplyResources(this.btnSteal, "btnSteal");
-            this.btnSteal.Name = "btnSteal";
-            this.btnSteal.UseVisualStyleBackColor = true;
-            this.btnSteal.Click += new System.EventHandler(this.btnColor_Click);
+            resources.ApplyResources(this.btnStolen, "btnStolen");
+            this.btnStolen.Name = "btnStolen";
+            this.btnStolen.UseVisualStyleBackColor = true;
+            this.btnStolen.Click += new System.EventHandler(this.btnColor_Click);
             // 
-            // lblSteal
+            // lblStolen
             // 
-            this.lblSteal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblSteal, "lblSteal");
-            this.lblSteal.Name = "lblSteal";
+            this.lblStolen.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblStolen, "lblStolen");
+            this.lblStolen.Name = "lblStolen";
             // 
             // Label1
             // 
@@ -2738,8 +2738,8 @@
         private System.Windows.Forms.TextBox TextBoxConsumerKey;
         internal System.Windows.Forms.ComboBox TLAuthUserCombo;
         internal System.Windows.Forms.Label labelAccountTimeLine;
-        internal System.Windows.Forms.Button btnSteal;
-        internal System.Windows.Forms.Label lblSteal;
+        internal System.Windows.Forms.Button btnStolen;
+        internal System.Windows.Forms.Label lblStolen;
         internal System.Windows.Forms.Label Label1;
     }
 }

@@ -60,6 +60,10 @@ namespace OpenTween
         }
         private AuthMethod connectionType = AuthMethod.Basic;
 
+        // MyCommon から移動。アカウントごとに保管するため
+        public ApiInformation TwitterApiInfo = new ApiInformation();
+
+
         private string requestToken;
 
         private static string tk = "";
@@ -238,7 +242,7 @@ namespace OpenTween
                                       param,
                                       binary,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -303,7 +307,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/users/show.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -382,7 +386,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/friendships/show.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -394,7 +398,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/statuses/show/" + id.ToString() + ".json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -434,7 +438,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/statuses/home_timeline.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -463,7 +467,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/statuses/user_timeline.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -483,7 +487,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/statuses/public_timeline.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -503,7 +507,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/statuses/mentions.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -522,7 +526,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/direct_messages.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -541,7 +545,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/direct_messages/sent.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -561,7 +565,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/favorites.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -648,7 +652,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/followers/ids.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -661,7 +665,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/friendships/no_retweet_ids.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -671,7 +675,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/account/rate_limit_status.json"),
                                       null,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -685,7 +689,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/lists.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -733,7 +737,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/lists/subscriptions.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -757,7 +761,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/lists/statuses.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -791,7 +795,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/lists/members.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -878,13 +882,13 @@ namespace OpenTween
                                       CreateTwitterUri("/1/lists/members/show.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
             //return httpCon.GetContent(GetMethod,
             //                          CreateTwitterUri("/1/" + user + "/" + list_id + "/members/" + id + ".json"),
             //                          null,
             //                          ref content,
-            //                          MyCommon.TwitterApiInfo.HttpHeaders,
+            //                          this.tw.TwitterApiInfo.HttpHeaders,
             //                          GetApiCallback);
         }
         #endregion
@@ -901,7 +905,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/statuses/" + statusid.ToString()+ "/retweeted_by/ids.json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -948,7 +952,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/related_results/show/" + id.ToString()+ ".json"),
                                       param,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -958,7 +962,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/blocks/blocking/ids.json"),
                                       null,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -968,7 +972,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/help/configuration.json"),
                                       null,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -978,7 +982,7 @@ namespace OpenTween
                                       CreateTwitterUri("/1/account/verify_credentials.json"),
                                       null,
                                       ref content,
-                                      MyCommon.TwitterApiInfo.HttpHeaders,
+                                      this.TwitterApiInfo.HttpHeaders,
                                       GetApiCallback);
         }
 
@@ -1029,7 +1033,7 @@ namespace OpenTween
         private void GetApiCallback(Object sender, ref HttpStatusCode code, ref string content)
         {
             if (code < HttpStatusCode.InternalServerError)
-                MyCommon.TwitterApiInfo.ParseHttpHeaders(MyCommon.TwitterApiInfo.HttpHeaders);
+                this.TwitterApiInfo.ParseHttpHeaders(this.TwitterApiInfo.HttpHeaders);
         }
 
         public HttpStatusCode UserStream(ref Stream content,

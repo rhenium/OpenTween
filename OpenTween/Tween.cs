@@ -119,7 +119,7 @@ namespace OpenTween
         //表示フォント、色、アイコン
         private Font _fntUnread;            //未読用フォント
         private Color _clUnread;            //未読用文字色
-        private Color _clSteal;            //重複ツイート文字色
+        private Color _clStolen;            //重複ツイート文字色
         private Font _fntReaded;            //既読用フォント
         private Color _clReaded;            //既読用文字色
         private Color _clFav;               //Fav用文字色
@@ -169,7 +169,7 @@ namespace OpenTween
         private SolidBrush _brsHighLight = new SolidBrush(Color.FromKnownColor(KnownColor.Highlight));
         private SolidBrush _brsHighLightText = new SolidBrush(Color.FromKnownColor(KnownColor.HighlightText));
         private SolidBrush _brsForeColorUnread;
-        private SolidBrush _brsForeColorSteal;
+        private SolidBrush _brsForeColorStolen;
         private SolidBrush _brsForeColorReaded;
         private SolidBrush _brsForeColorFav;
         private SolidBrush _brsForeColorOWL;
@@ -186,6 +186,7 @@ namespace OpenTween
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
         private ToolStripAPIGauge _apiGauge = new ToolStripAPIGauge();
+        private ToolStripAPIGauge _apiGaugeTL = new ToolStripAPIGauge();
         private TabInformations _statuses;
         private ListViewItem[] _itemCache;
         private int _itemCacheIndex;
@@ -372,7 +373,7 @@ namespace OpenTween
             _brsHighLight.Dispose();
             _brsHighLightText.Dispose();
             if (_brsForeColorUnread != null) _brsForeColorUnread.Dispose();
-            if (_brsForeColorSteal != null) _brsForeColorSteal.Dispose();
+            if (_brsForeColorStolen != null) _brsForeColorStolen.Dispose();
             if (_brsForeColorReaded != null) _brsForeColorReaded.Dispose();
             if (_brsForeColorFav != null) _brsForeColorFav.Dispose();
             if (_brsForeColorOWL != null) _brsForeColorOWL.Dispose();
@@ -397,6 +398,7 @@ namespace OpenTween
                 _bwFollower.Dispose();
             }
             this._apiGauge.Dispose();
+            this._apiGaugeTL.Dispose();
             if (TIconDic != null)
             {
                 ((ImageDictionary)this.TIconDic).PauseGetImage = true;
@@ -562,7 +564,7 @@ namespace OpenTween
             SecurityManager = new InternetSecurityManager(PostBrowser);
             this.Thumbnail = new ThumbnailGenerator(this);
 
-            MyCommon.TwitterApiInfo.Changed += SetStatusLabelApiHandler;
+            this.tw.TwitterApiInfo.Changed += SetStatusLabelApiHandler;
             Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
             string[] cmdArgs = Environment.GetCommandLineArgs();
@@ -610,7 +612,7 @@ namespace OpenTween
             //フォント＆文字色＆背景色保持
             _fntUnread = _cfgLocal.FontUnread;
             _clUnread = _cfgLocal.ColorUnread;
-            _clSteal = _cfgLocal.ColorSteal;
+            _clStolen = _cfgLocal.ColorStolen;
             _fntReaded = _cfgLocal.FontRead;
             _clReaded = _cfgLocal.ColorRead;
             _clFav = _cfgLocal.ColorFav;
@@ -632,7 +634,7 @@ namespace OpenTween
             _fntInputFont = _cfgLocal.FontInputFont;
 
             _brsForeColorUnread = new SolidBrush(_clUnread);
-            _brsForeColorSteal = new SolidBrush(_clSteal);
+            _brsForeColorStolen = new SolidBrush(_clStolen);
             _brsForeColorReaded = new SolidBrush(_clReaded);
             _brsForeColorFav = new SolidBrush(_clFav);
             _brsForeColorOWL = new SolidBrush(_clOWL);
@@ -663,7 +665,9 @@ namespace OpenTween
             if (string.IsNullOrEmpty(_cfgCommon.Token)) _cfgCommon.UserName = "";
             tw.Initialize(_cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.ConsumerKey, _cfgCommon.ConsumerSecret, _cfgCommon.UserName, _cfgCommon.UserId, _cfgCommon.Tag);
             tw.ForceNotOwl = true;
+            this._apiGauge.Username = _cfgCommon.UserName;
             tltw.Initialize(_cfgCommon.TLToken, _cfgCommon.TLTokenSecret, _cfgCommon.TLConsumerKey, _cfgCommon.TLConsumerSecret, _cfgCommon.TLUserName, _cfgCommon.TLUserId, _cfgCommon.TLTag);
+            this._apiGaugeTL.Username = _cfgCommon.TLUserName;
 
             SettingDialog.UserAccounts = _cfgCommon.UserAccounts;
 
@@ -703,7 +707,7 @@ namespace OpenTween
             //フォント＆文字色＆背景色
             SettingDialog.FontUnread = _fntUnread;
             SettingDialog.ColorUnread = _clUnread;
-            SettingDialog.ColorSteal = _clSteal;
+            SettingDialog.ColorStolen = _clStolen;
             SettingDialog.FontReaded = _fntReaded;
             SettingDialog.ColorReaded = _clReaded;
             SettingDialog.ColorFav = _clFav;
@@ -820,7 +824,7 @@ namespace OpenTween
             this.ToolStripFocusLockMenuItem.Checked = _cfgCommon.FocusLockToStatusText;
             this.ToolStripSpaceToFocusTimelineMenuItem.Checked = _cfgCommon.SpaceToFocusTimeline;
             this.ToolStripAutoAddZenkakuSpaceMenuItem.Checked = _cfgCommon.AutoAddZenkakuSpace;
-            this.ToolStripShowStealTweetMenuItem.Checked = _cfgCommon.ShowStealTweet;
+            this.ToolStripShowStolenTweetWithColorMenuItem.Checked = _cfgCommon.ShowStolenTweetWithColor;
             this.ToolStripAutoCutTweetMenuItem.Checked = _cfgCommon.AutoCutTweet;
 
             //Regex statregex = new Regex("^0*");
@@ -927,7 +931,7 @@ namespace OpenTween
                 //フォント＆文字色＆背景色保持
                 _fntUnread = SettingDialog.FontUnread;
                 _clUnread = SettingDialog.ColorUnread;
-                _clSteal = SettingDialog.ColorSteal;
+                _clStolen = SettingDialog.ColorStolen;
                 _fntReaded = SettingDialog.FontReaded;
                 _clReaded = SettingDialog.ColorReaded;
                 _clFav = SettingDialog.ColorFav;
@@ -948,13 +952,13 @@ namespace OpenTween
                 _clInputFont = SettingDialog.ColorInputFont;
                 _fntInputFont = SettingDialog.FontInputFont;
                 _brsForeColorUnread.Dispose();
-                _brsForeColorSteal.Dispose();
+                _brsForeColorStolen.Dispose();
                 _brsForeColorReaded.Dispose();
                 _brsForeColorFav.Dispose();
                 _brsForeColorOWL.Dispose();
                 _brsForeColorRetweet.Dispose();
                 _brsForeColorUnread = new SolidBrush(_clUnread);
-                _brsForeColorSteal = new SolidBrush(_clSteal);
+                _brsForeColorStolen = new SolidBrush(_clStolen);
                 _brsForeColorReaded = new SolidBrush(_clReaded);
                 _brsForeColorFav = new SolidBrush(_clFav);
                 _brsForeColorOWL = new SolidBrush(_clOWL);
@@ -2077,10 +2081,11 @@ namespace OpenTween
                 cl = _clUnread;
 
             var conv = new Func<string, string>(str => Regex.Replace(str, @"[ 　\r\n\t]", ""));
+            var newp = conv(Post.TextFromApi);
 
-            if (_cfgCommon.ShowStealTweet && _statuses._statuses.Any(_ => !(Post.RetweetedId > 0) && conv(_.Value.TextFromApi) == conv(Post.TextFromApi) && _.Value.CreatedAt.CompareTo(Post.CreatedAt) < 0))
+            if (_cfgCommon.ShowStolenTweetWithColor && !(Post.RetweetedId > 0) && _statuses._statuses.Any(_ => conv(_.Value.TextFromApi) == newp && _.Value.CreatedAt.CompareTo(Post.CreatedAt) < 0))
             {
-                cl = _clSteal;
+                cl = _clStolen;
             }
 
             if (DList == null || Item.Index == -1)
@@ -4129,7 +4134,7 @@ namespace OpenTween
                     this.PlaySoundFileMenuItem.Checked = SettingDialog.PlaySound;
                     _fntUnread = SettingDialog.FontUnread;
                     _clUnread = SettingDialog.ColorUnread;
-                    _clSteal = SettingDialog.ColorSteal;
+                    _clStolen = SettingDialog.ColorStolen;
                     _fntReaded = SettingDialog.FontReaded;
                     _clReaded = SettingDialog.ColorReaded;
                     _clFav = SettingDialog.ColorFav;
@@ -4161,13 +4166,13 @@ namespace OpenTween
                     }
 
                     _brsForeColorUnread.Dispose();
-                    _brsForeColorSteal.Dispose();
+                    _brsForeColorStolen.Dispose();
                     _brsForeColorReaded.Dispose();
                     _brsForeColorFav.Dispose();
                     _brsForeColorOWL.Dispose();
                     _brsForeColorRetweet.Dispose();
                     _brsForeColorUnread = new SolidBrush(_clUnread);
-                    _brsForeColorSteal = new SolidBrush(_clSteal);
+                    _brsForeColorStolen = new SolidBrush(_clStolen);
                     _brsForeColorReaded = new SolidBrush(_clReaded);
                     _brsForeColorFav = new SolidBrush(_clFav);
                     _brsForeColorOWL = new SolidBrush(_clOWL);
@@ -5464,9 +5469,9 @@ namespace OpenTween
                     {
                         brs = _brsForeColorRetweet;
                     }
-                    else if (e.Item.ForeColor == _clSteal)
+                    else if (e.Item.ForeColor == _clStolen)
                     {
-                        brs = _brsForeColorSteal;
+                        brs = _brsForeColorStolen;
                     }
                     else
                     {
@@ -8025,10 +8030,10 @@ namespace OpenTween
                 {
                     _cfgCommon.AutoAddZenkakuSpace = this.ToolStripAutoAddZenkakuSpaceMenuItem.Checked;
                 }
-                if (ToolStripShowStealTweetMenuItem != null &&
-                        ToolStripShowStealTweetMenuItem.IsDisposed == false)
+                if (ToolStripShowStolenTweetWithColorMenuItem != null &&
+                        ToolStripShowStolenTweetWithColorMenuItem.IsDisposed == false)
                 {
-                    _cfgCommon.ShowStealTweet = this.ToolStripShowStealTweetMenuItem.Checked;
+                    _cfgCommon.ShowStolenTweetWithColor = this.ToolStripShowStolenTweetWithColorMenuItem.Checked;
                 }
                 _cfgCommon.UseAdditionalCount = SettingDialog.UseAdditionalCount;
                 _cfgCommon.MoreCountApi = SettingDialog.MoreCountApi;
@@ -8075,7 +8080,7 @@ namespace OpenTween
 
                 _cfgLocal.FontUnread = _fntUnread;
                 _cfgLocal.ColorUnread = _clUnread;
-                _cfgLocal.ColorSteal = _clSteal;
+                _cfgLocal.ColorStolen = _clStolen;
                 _cfgLocal.FontRead = _fntReaded;
                 _cfgLocal.ColorRead = _clReaded;
                 _cfgLocal.FontDetail = _fntDetail;
@@ -9668,9 +9673,12 @@ namespace OpenTween
 
         private void SetStatusLabelApi()
         {
-            this._apiGauge.RemainCount = MyCommon.TwitterApiInfo.RemainCount;
-            this._apiGauge.MaxCount = MyCommon.TwitterApiInfo.MaxCount;
-            this._apiGauge.ResetTime = MyCommon.TwitterApiInfo.ResetTime;
+            this._apiGauge.RemainCount = this.tw.TwitterApiInfo.RemainCount;
+            this._apiGauge.MaxCount = this.tw.TwitterApiInfo.MaxCount;
+            this._apiGauge.ResetTime = this.tw.TwitterApiInfo.ResetTime;
+            this._apiGaugeTL.RemainCount = this.tltw.TwitterApiInfo.RemainCount;
+            this._apiGaugeTL.MaxCount = this.tltw.TwitterApiInfo.MaxCount;
+            this._apiGaugeTL.ResetTime = this.tltw.TwitterApiInfo.ResetTime;
         }
 
         private void SetStatusLabelUrl()
@@ -10880,8 +10888,8 @@ namespace OpenTween
             MenuItemUserStream.Enabled = true;
             StopToolStripMenuItem.Text = "&Start";
             StopToolStripMenuItem.Enabled = true;
-            if (SettingDialog.UserstreamStartup) tw.StartUserStream();
             if (SettingDialog.UserstreamStartup) tltw.StartUserStream();
+            if (SettingDialog.UserstreamStartup && tltw.UserId != tw.UserId) tw.StartUserStream();
         }
 
         private void TweenMain_Shown(object sender, EventArgs e)
@@ -10955,7 +10963,7 @@ namespace OpenTween
                     GetTimeline(MyCommon.WORKERTYPE.Configuration, 0, 0, "");
 
                 // 権限チェック read/write権限(xAuthで取得したトークン)の場合は再認証を促す
-                if (MyCommon.TwitterApiInfo.AccessLevel == ApiAccessLevel.ReadWrite)
+                if (this.tw.TwitterApiInfo.AccessLevel == ApiAccessLevel.ReadWrite)
                 {
                     MessageBox.Show(Properties.Resources.ReAuthorizeText);
                     SettingStripMenuItem_Click(null, null);
@@ -11190,24 +11198,26 @@ namespace OpenTween
         private void GetApiInfo_Dowork(object sender, DoWorkEventArgs e)
         {
             GetApiInfoArgs args = (GetApiInfoArgs)e.Argument;
-            e.Result = tw.GetInfoApi(args.info);
+            e.Result = args.tw.GetInfoApi(args.info);
         }
 
-        private void ApiInfoMenuItem_Click(object sender, EventArgs e)
+        private void ShowApiInfo(Twitter _tw)
         {
             ApiInfo info = new ApiInfo();
             StringBuilder tmp = new StringBuilder();
-            GetApiInfoArgs args = new GetApiInfoArgs() {tw = tw, info = info};
+            GetApiInfoArgs args = new GetApiInfoArgs(){ info = info, tw = _tw };
 
             using (FormInfo dlg = new FormInfo(this, Properties.Resources.ApiInfo6, GetApiInfo_Dowork, null, args))
             {
                 dlg.ShowDialog();
                 if ((bool)dlg.Result)
                 {
+                    tmp.AppendLine("@" + args.tw.Username + "(" + args.tw.UserId.ToString() + ")");
+                    tmp.AppendLine();
                     tmp.AppendLine(Properties.Resources.ApiInfo1 + args.info.MaxCount.ToString());
                     tmp.AppendLine(Properties.Resources.ApiInfo2 + args.info.RemainCount.ToString());
                     tmp.AppendLine(Properties.Resources.ApiInfo3 + args.info.ResetTime.ToString());
-                    tmp.AppendLine(Properties.Resources.ApiInfo7 + (tw.UserStreamEnabled ? Properties.Resources.Enable : Properties.Resources.Disable).ToString());
+                    tmp.AppendLine(Properties.Resources.ApiInfo7 + (args.tw.UserStreamEnabled ? Properties.Resources.Enable : Properties.Resources.Disable).ToString());
 
                     tmp.AppendLine();
                     tmp.AppendLine(Properties.Resources.ApiInfo8 + args.info.AccessLevel.ToString());
@@ -11225,6 +11235,16 @@ namespace OpenTween
             }
 
             MessageBox.Show(tmp.ToString(), Properties.Resources.ApiInfo4, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ApiInfoMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowApiInfo(this.tw);
+        }
+
+        private void ApiInfoTLMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowApiInfo(this.tltw);
         }
 
         private void FollowCommandMenuItem_Click(object sender, EventArgs e)
@@ -12392,7 +12412,13 @@ namespace OpenTween
             this._apiGauge.Control.Margin = new Padding(0, 3, 0, 2);
             this._apiGauge.GaugeHeight = 8;
             this._apiGauge.Control.DoubleClick += this.ApiInfoMenuItem_Click;
+
+            this._apiGaugeTL.Control.Size = new Size(70, 22);
+            this._apiGaugeTL.Control.Margin = new Padding(0, 3, 0, 2);
+            this._apiGaugeTL.GaugeHeight = 8;
+            this._apiGaugeTL.Control.DoubleClick += this.ApiInfoTLMenuItem_Click;
             this.StatusStrip1.Items.Insert(2, this._apiGauge);
+            this.StatusStrip1.Items.Insert(3, this._apiGaugeTL);
 
             this.ReplaceAppName();
         }
@@ -13110,7 +13136,7 @@ namespace OpenTween
             if (this._isActiveUserstream)
             {
                 tltw.StopUserStream();
-                if(tltw.UserId != tw.UserId) tw.StopUserStream();
+                tw.StopUserStream();
             }
             else
             {
@@ -13315,7 +13341,7 @@ namespace OpenTween
         {
             if (isEnable)
             {
-                tw.StartUserStream();
+                if(tltw.UserId != tw.UserId)tw.StartUserStream();
                 tltw.StartUserStream();
             }
             else
@@ -13489,6 +13515,7 @@ namespace OpenTween
 
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
                             tw.ForceNotOwl = true;
+                            this._apiGauge.Username = u.Username;
                             if (u.UserId == 0)
                             {
                                 tw.VerifyCredentials();
@@ -13503,10 +13530,10 @@ namespace OpenTween
 
                             this.ChangeAccountSplitButton.Text = u.ToString();
                             this.CreatePictureServices();
-                            this.SetImageServiceCombo();
+                            //this.SetImageServiceCombo();
                             this.doGetFollowersMenu();
                             SaveConfigsCommon();
-                            RefreshChangeAccountSplitButton();
+                            //RefreshChangeAccountSplitButton();
                         };
                         Invoke((Action)(() => this.ChangeAccountSplitButton.DropDown.Items.Add(item)));
                     });
@@ -13561,6 +13588,7 @@ namespace OpenTween
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
             tw.ForceNotOwl = true;
+            this._apiGauge.Username = q.Username;
             if (q.UserId == 0)
             {
                 tw.VerifyCredentials();
@@ -13579,6 +13607,7 @@ namespace OpenTween
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
             tw.ForceNotOwl = true;
+            this._apiGauge.Username = q.Username;
             if (q.UserId == 0)
             {
                 tw.VerifyCredentials();
@@ -13587,6 +13616,5 @@ namespace OpenTween
             SaveConfigsCommon();
             RefreshChangeAccountSplitButton();
         }
-
     }
 }

@@ -155,12 +155,18 @@ namespace OpenTween
 
         public bool ForceNotOwl = false;
 
+        public ApiInformation TwitterApiInfo
+        {
+            get { return this.twCon.TwitterApiInfo; }
+            set { this.twCon.TwitterApiInfo = value; }
+        }
+
         public string Authenticate(string username, string password)
         {
             HttpStatusCode res;
             var content = "";
 
-            MyCommon.TwitterApiInfo.Initialize();
+            this.TwitterApiInfo.Initialize();
             try
             {
                 res = twCon.AuthUserAndPass(username, password, ref content);
@@ -212,7 +218,7 @@ namespace OpenTween
             //OAuth PIN Flow
             bool res;
 
-            MyCommon.TwitterApiInfo.Initialize();
+            this.TwitterApiInfo.Initialize();
             try
             {
                 res = twCon.AuthGetRequestToken(ref pinPageUrl);
@@ -230,7 +236,7 @@ namespace OpenTween
             HttpStatusCode res;
             var content = "";
 
-            MyCommon.TwitterApiInfo.Initialize();
+            this.TwitterApiInfo.Initialize();
             try
             {
                 res = twCon.AuthGetAccessToken(pinCode);
@@ -280,7 +286,7 @@ namespace OpenTween
         public void ClearAuthInfo()
         {
             Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
-            MyCommon.TwitterApiInfo.Initialize();
+            this.TwitterApiInfo.Initialize();
             twCon.ClearAuthInfo();
         }
 
@@ -352,7 +358,7 @@ namespace OpenTween
             {
                 Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
             }
-            MyCommon.TwitterApiInfo.Initialize();
+            this.TwitterApiInfo.Initialize();
             twCon.Initialize(token, tokenSecret, consumerKey, consumerSecret, username, userId);
             _uname = username.ToLower();
             if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
@@ -769,9 +775,9 @@ namespace OpenTween
             if (MyCommon._endingFlag) return "";
 
             if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
-            if (MyCommon.TwitterApiInfo.AccessLevel != ApiAccessLevel.None)
+            if (this.TwitterApiInfo.AccessLevel != ApiAccessLevel.None)
             {
-                if (!MyCommon.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
+                if (!this.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
             }
 
             //postStr = postStr.Trim();
@@ -987,9 +993,9 @@ namespace OpenTween
             if (MyCommon._endingFlag) return "";
 
             if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
-            if (MyCommon.TwitterApiInfo.AccessLevel != ApiAccessLevel.None)
+            if (this.TwitterApiInfo.AccessLevel != ApiAccessLevel.None)
             {
-                if (!MyCommon.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
+                if (!this.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
             }
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
@@ -2944,9 +2950,9 @@ namespace OpenTween
             if (MyCommon._endingFlag) return "";
 
             if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
-            if (MyCommon.TwitterApiInfo.AccessLevel != ApiAccessLevel.None)
+            if (this.TwitterApiInfo.AccessLevel != ApiAccessLevel.None)
             {
-                if (!MyCommon.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
+                if (!this.TwitterApiInfo.IsDirectMessagePermission) return "Auth Err:try to re-authorization.";
             }
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
@@ -4112,7 +4118,7 @@ namespace OpenTween
             }
             catch(Exception)
             {
-                MyCommon.TwitterApiInfo.Initialize();
+                this.TwitterApiInfo.Initialize();
                 return false;
             }
 
@@ -4140,13 +4146,13 @@ namespace OpenTween
                 {
                     ApiInformationChanged(this, arg);
                 }
-                MyCommon.TwitterApiInfo.WriteBackEventArgs(arg);
+                this.TwitterApiInfo.WriteBackEventArgs(arg);
                 return true;
             }
             catch(Exception ex)
             {
                 MyCommon.TraceOut(ex, MethodBase.GetCurrentMethod().Name + " " + content);
-                MyCommon.TwitterApiInfo.Initialize();
+                this.TwitterApiInfo.Initialize();
                 return false;
             }
         }

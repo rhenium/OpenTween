@@ -43,6 +43,7 @@ namespace OpenTween
             this.Control.Paint += Draw;
             this.Control.TextChanged += Control_TextChanged;
             this.Control.SizeChanged += Control_SizeChanged;
+            this.Username = "";
         }
 
         private int _gaugeHeight;
@@ -105,6 +106,12 @@ namespace OpenTween
             get { return _resetTime; }
         }
 
+        public string Username
+        {
+            get;
+            set;
+        }
+
         private void Draw(object sender, PaintEventArgs e)
         {
             double minute = (this.ResetTime - DateTime.Now).TotalMinutes;
@@ -141,6 +148,7 @@ namespace OpenTween
         {
             string textFormat = "API {0}/{1}";
             string toolTipTextFormat =
+                "@" + this.Username + Environment.NewLine +
                 "API rest {0}/{1}" + Environment.NewLine +
                 "(reset after {2} minutes)";
 

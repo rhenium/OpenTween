@@ -36,15 +36,15 @@ namespace OpenTween
 
     public abstract class ApiInfoBase
     {
-        protected static int _MaxCount = -1;
-        protected static int _RemainCount = -1;
-        protected static DateTime _ResetTime = new DateTime();
-        protected static int _ResetTimeInSeconds = -1;
-        protected static int _UsingCount = -1;
-        protected static ApiAccessLevel _AccessLevel = ApiAccessLevel.None;
-        protected static int _MediaMaxCount = -1;
-        protected static DateTime _MediaResetTime = new DateTime();
-        protected static int _MediaRemainCount = -1;
+        protected int _MaxCount = -1;
+        protected int _RemainCount = -1;
+        protected DateTime _ResetTime = new DateTime();
+        protected int _ResetTimeInSeconds = -1;
+        protected int _UsingCount = -1;
+        protected ApiAccessLevel _AccessLevel = ApiAccessLevel.None;
+        protected int _MediaMaxCount = -1;
+        protected DateTime _MediaResetTime = new DateTime();
+        protected int _MediaRemainCount = -1;
     }
 
     public enum ApiAccessLevel
