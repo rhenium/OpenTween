@@ -715,7 +715,7 @@ namespace OpenTween
             DateTime rslt;
             string[] format = {
                 "ddd MMM dd HH:mm:ss zzzz yyyy",
-                "ddd, d MMM yyyy HH:mm:ss zzzz"
+                "ddd, d MMM yyyy HH:mm:ss zzzz",
             };
             foreach (var fmt in format)
             {

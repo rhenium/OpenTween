@@ -2283,71 +2283,72 @@ namespace OpenTween
             return "";
         }
 
-        private string CreatePostsFromSearchJson(string content, TabClass tab, bool read, int count, ref long minimumId, bool more)
+        private string CreatePostsFromSearchJson(string content, TabClass tab, bool read, int count, ref long minimumId)
         {
-            TwitterDataModel.SearchResult results;
+            TwitterDataModel.SearchResult items;
             try
             {
-                results = MyCommon.CreateDataFromJson<TwitterDataModel.SearchResult>(content);
+                items = MyCommon.CreateDataFromJson<TwitterDataModel.SearchResult>(content);
             }
             catch (SerializationException ex)
             {
                 MyCommon.TraceOut(ex.Message + Environment.NewLine + content);
-                return "Json Parse Error(DataContractJsonSerializer)"; ;
+                return "Json Parse Error(DataContractJsonSerializer)";
             }
             catch (Exception ex)
             {
                 MyCommon.TraceOut(ex, MethodBase.GetCurrentMethod().Name + " " + content);
                 return "Invalid Json!";
             }
-            foreach (TwitterDataModel.SearchResultData result in results.Results)
+            foreach (var result in items.Results)
             {
-                PostClass item = null;
-                item = this.CreatePostsFromSearchData(result);
-                if (item == null) continue;
-                if (minimumId > item.StatusId) minimumId = item.StatusId;
+                PostClass post = null;
+                post = CreatePostsFromSearchResultData(result);
+                if (post == null) continue;
+
+                if (minimumId > post.StatusId) minimumId = post.StatusId;
                 //二重取得回避
                 lock (LockObj)
                 {
                     if (tab == null)
                     {
-                        if (TabInformations.GetInstance().ContainsKey(item.StatusId)) continue;
+                        if (TabInformations.GetInstance().ContainsKey(post.StatusId)) continue;
                     }
                     else
                     {
-                        if (TabInformations.GetInstance().ContainsKey(item.StatusId, tab.TabName)) continue;
+                        if (TabInformations.GetInstance().ContainsKey(post.StatusId, tab.TabName)) continue;
                     }
                 }
 
-                item.IsRead = read;
-                if ((item.IsMe && !read) && this._readOwnPost) item.IsRead = true;
+                post.IsRead = read;
+                if ((post.IsMe && !read) && this._readOwnPost) post.IsRead = true;
 
-                if (tab != null) item.RelTabName = tab.TabName;
+                if (tab != null) post.RelTabName = tab.TabName;
                 //非同期アイコン取得＆StatusDictionaryに追加
-                TabInformations.GetInstance().AddPost(item);
+                TabInformations.GetInstance().AddPost(post);
             }
+
             return "";
         }
 
-        private PostClass CreatePostsFromSearchData(TwitterDataModel.SearchResultData status)
+        private PostClass CreatePostsFromSearchResultData(TwitterDataModel.SearchResultData status)
         {
             var post = new PostClass();
             post.StatusId = status.Id;
             post.CreatedAt = MyCommon.DateTimeParse(status.CreatedAt);
+            //本文
             post.TextFromApi = status.Text;
             var entities = status.Entities;
             post.Source = HttpUtility.HtmlDecode(status.Source);
             post.InReplyToStatusId = status.InReplyToStatusId;
             post.InReplyToUser = status.ToUser;
-            post.InReplyToUserId = !status.ToUserId.HasValue ? 0L : ((long)status.ToUserId);
-            if (status.Geo != null) post.PostGeo = new PostClass.StatusGeo
-                {
-                    Lat = status.Geo.Coordinates[0],
-                    Lng = status.Geo.Coordinates[1]
-                };
-            post.UserId = status.FromUserId;
+            post.InReplyToUserId = !status.ToUserId.HasValue ? 0 : (long)status.ToUserId;
+
+            if (status.Geo != null) post.PostGeo = new PostClass.StatusGeo { Lat = status.Geo.Coordinates[0], Lng = status.Geo.Coordinates[1] };
+
             if (status.FromUser == null) return null;
 
+            post.UserId = status.FromUserId;
             post.ScreenName = status.FromUser;
             post.Nickname = status.FromUserName.Trim();
             post.ImageUrl = status.ProfileImageUrl;
@@ -2355,7 +2356,7 @@ namespace OpenTween
             post.IsMe = post.ScreenName.ToLower().Equals(this._uname);
 
             //幻覚fav対策
-            TabClass tc = TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites);
+            var tc = TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites);
             post.IsFav = tc.Contains(post.StatusId) && TabInformations.GetInstance()[post.StatusId].IsFav;
 
             //HTMLに整形
@@ -2383,12 +2384,12 @@ namespace OpenTween
             {
                 items = MyCommon.CreateDataFromJson<TwitterDataModel.SearchResultPhoenix>(content);
             }
-            catch(SerializationException ex)
+            catch (SerializationException ex)
             {
                 MyCommon.TraceOut(ex.Message + Environment.NewLine + content);
                 return "Json Parse Error(DataContractJsonSerializer)";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MyCommon.TraceOut(ex, MethodBase.GetCurrentMethod().Name + " " + content);
                 return "Invalid Json!";
@@ -2727,7 +2728,7 @@ namespace OpenTween
                 // TODO:一時的に40>100件に 件数変更UI作成の必要あり
                 res = twCon.Search(tab.SearchWords, tab.SearchLang, count, page, sinceId, ref content);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "Err:" + ex.Message;
             }
@@ -2746,8 +2747,8 @@ namespace OpenTween
             }
 
             if (!TabInformations.GetInstance().ContainsTab(tab)) return "";
-            var oldestId = tab.OldestId;
-            return this.CreatePostsFromSearchJson(content, tab, read, count, ref oldestId, more);
+
+            return this.CreatePostsFromSearchJson(content, tab, read, count, ref tab.OldestId);
         }
 
         public string GetPhoenixSearch(bool read,
