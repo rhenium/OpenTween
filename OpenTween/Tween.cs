@@ -2839,7 +2839,7 @@ namespace OpenTween
                     else
                         _tlTimestamps.Add(tm, rslt.addCount);
 
-                    DateTime oneHour = DateTime.Now.Subtract(new TimeSpan(1, 0, 0));
+                    DateTime oneHour = DateTime.Now.Subtract(new TimeSpan(0, 5, 0));
                     List<DateTime> keys = new List<DateTime>();
                     _tlCount = 0;
                     foreach (DateTime key in _tlTimestamps.Keys)
@@ -2858,6 +2858,7 @@ namespace OpenTween
                         _tlTimestamps.Remove(key);
                     }
                     keys.Clear();
+                    _tlCount *= 12;
                 }
             }
 
@@ -12907,7 +12908,7 @@ namespace OpenTween
                 {
                     _tlTimestamps.Add(tm, rsltAddCount);
                 }
-                DateTime oneHour = DateTime.Now.Subtract(new TimeSpan(1, 0, 0));
+                DateTime oneHour = DateTime.Now.Subtract(new TimeSpan(0, 5, 0));
                 List<DateTime> keys = new List<DateTime>();
                 _tlCount = 0;
                 foreach (DateTime key in _tlTimestamps.Keys)
@@ -12922,6 +12923,8 @@ namespace OpenTween
                     _tlTimestamps.Remove(key);
                 }
                 keys.Clear();
+
+                _tlCount *= 12;
 
                 //Static DateTime before = Now;
                 //if (before.Subtract(Now).Seconds > -5) return;
