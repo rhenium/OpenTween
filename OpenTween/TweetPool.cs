@@ -91,7 +91,7 @@ namespace OpenTween
         private void auto_buttonPost_Click(object sender, EventArgs e)
         {
             SendKeys.SendWait("^+A");
-            System.Threading.Thread.Sleep(10);
+            System.Threading.Thread.Sleep(100);
             Thread t = new Thread(new ParameterizedThreadStart(worker));
             t.Start(new object[] { this.textBoxTweet.Text, this.reply_to, this.mediaFile });
             this.Close();
