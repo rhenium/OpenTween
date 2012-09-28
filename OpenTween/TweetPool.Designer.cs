@@ -90,6 +90,7 @@
             this.Text = "ツイートは保留されています";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.TweetRetry_Load);
+            this.Shown += new System.EventHandler(this.auto_buttonPost_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 

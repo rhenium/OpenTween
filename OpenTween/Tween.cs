@@ -3425,36 +3425,6 @@ namespace OpenTween
             if (_statuses.Tabs[_curTab.Text].TabType == MyCommon.TabUsageType.DirectMessage || _curList.SelectedIndices.Count == 0
                 || !this.ExistCurrentPost) return;
 
-            //複数fav確認msg
-            if (_curList.SelectedIndices.Count > 250 && FavAdd)
-            {
-                MessageBox.Show(Properties.Resources.FavoriteLimitCountText);
-                _DoFavRetweetFlags = false;
-                return;
-            }
-            else if (multiFavoriteChangeDialogEnable && _curList.SelectedIndices.Count > 15)
-            {
-                if (FavAdd)
-                {
-                    string QuestionText = Properties.Resources.FavAddToolStripMenuItem_ClickText1;
-                    if (_DoFavRetweetFlags) QuestionText = Properties.Resources.FavoriteRetweetQuestionText3;
-                    if (MessageBox.Show(QuestionText, Properties.Resources.FavAddToolStripMenuItem_ClickText2,
-                                       MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
-                    {
-                        _DoFavRetweetFlags = false;
-                        return;
-                    }
-                }
-                else
-                {
-                    if (MessageBox.Show(Properties.Resources.FavRemoveToolStripMenuItem_ClickText1, Properties.Resources.FavRemoveToolStripMenuItem_ClickText2,
-                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
-                    {
-                        return;
-                    }
-                }
-            }
-
             GetWorkerArg args = new GetWorkerArg();
             args.ids = new List<long>();
             args.sIds = new List<long>();
