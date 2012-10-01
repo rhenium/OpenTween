@@ -3431,11 +3431,19 @@ namespace OpenTween
             //複数fav確認msg
             if (_curList.SelectedIndices.Count > 250 && FavAdd)
             {
-                MessageBox.Show(Properties.Resources.FavoriteLimitCountText);
-                _DoFavRetweetFlags = false;
-                return;
+                if (MessageBox.Show(Properties.Resources.FavoriteLimitCountText,
+                    Properties.Resources.FavAddToolStripMenuItem_ClickText2,
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button2)
+                    == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    _DoFavRetweetFlags = false;
+                    return;
+                }
             }
-            else if (multiFavoriteChangeDialogEnable && _curList.SelectedIndices.Count > 15)
+            
+            if (multiFavoriteChangeDialogEnable && _curList.SelectedIndices.Count > 15)
             {
                 if (FavAdd)
                 {
