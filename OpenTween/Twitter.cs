@@ -151,7 +151,7 @@ namespace OpenTween
 
         //private List<PostClass> _deletemessages = new List<PostClass>();
 
-        private List<Thread> listRetry = new List<Thread>();
+        public List<TweetPool> tweetPoolList = new List<TweetPool>();
 
         public bool ForceNotOwl = false;
 
@@ -4271,7 +4271,7 @@ namespace OpenTween
         {
             if (isDraft)
             {
-                ShowDraftWindow("ツイートは保留されています", tweet, reply_to, mediaFile, owner);
+                ShowDraftWindow("ツイートは保留されています", tweet, reply_to, mediaFile, owner, false);
                 return "Skip: ツイートは保留されています";
             }
             string ret;
@@ -4295,22 +4295,29 @@ namespace OpenTween
                 }
                 else
                 {
-                    ShowDraftWindow(ret, tweet, reply_to, mediaFile, owner);
+                    ShowDraftWindow(ret, tweet, reply_to, mediaFile, owner, true);
                 }
             }
             return ret;
         }
 
-        public void ShowDraftWindow(string msg, string tweet, long reply_to, FileInfo mediaFile, TweenMain owner)
+        public void ShowDraftWindow(string msg, string tweet, long reply_to, FileInfo mediaFile, TweenMain owner, bool retryAllowed)
         {
             Thread m = new Thread(() =>
             {
                 TweetPool tweetRetry = new TweetPool();
-                tweetRetry.Set(msg, tweet, reply_to, mediaFile, this);
-                tweetRetry.mainForm = owner;
+                this.tweetPoolList.Add(tweetRetry);
+                tweetRetry.Set(msg, tweet, reply_to, mediaFile, this, owner._cfgCommon.AutoRetryInterval);
+                tweetRetry.MainForm = owner;
+                tweetRetry.RetryAllowed = retryAllowed; // アカウント切り替え時自動再試行
                 tweetRetry.ShowDialog();
             });
             m.Start();
+        }
+
+        public void RetryAll()
+        {
+            this.tweetPoolList.RemoveAll(p => p.Retry());
         }
 
         public override string ToString()

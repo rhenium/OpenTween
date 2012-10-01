@@ -39,33 +39,40 @@ namespace OpenTween
         private long reply_to;
         private FileInfo mediaFile;
         private Twitter ppc;
-        public TweenMain mainForm;
+        public TweenMain MainForm;
+        public bool RetryAllowed; // アカウント切り替え時自動再試行
 
         public TweetPool()
         {
             InitializeComponent();
         }
 
-        public void Set(string msg, string tweet, long reply_to, FileInfo mediaFile, Twitter ppc)
+        public void Set(string msg, string tweet, long reply_to, FileInfo mediaFile, Twitter ppc, int interval)
         {
             this.msg = msg;
             this.tweet = tweet.Replace("\r", "").Replace("\n", "\r\n");
             this.reply_to = reply_to;
             this.mediaFile = mediaFile;
             this.ppc = ppc;
+            this.retryTimer.Interval = interval;
         }
 
         private void TweetRetry_Load(object sender, EventArgs e)
         {
+            Invoke((MethodInvoker)(() => this.MainForm.Activate()));
             this.textBoxTweet.Text = tweet;
             this.labelMsg.Text = msg;
             if (this.mediaFile != null)
                 this.labelHavePhoto.Text = "Twitter Official";
-            this.mainForm.Activate();
+            if (this.RetryAllowed)
+                this.labelAutoRetry.Text = "自動で再試行されます";
+            else
+                this.labelAutoRetry.Text = "自動で再試行されません";
         }
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
+            this.Hide();
             Thread t = new Thread(new ParameterizedThreadStart(worker));
             t.Start(new object[] { this.textBoxTweet.Text, this.reply_to, this.mediaFile });
             this.Close();
@@ -77,7 +84,20 @@ namespace OpenTween
             long reply_to = (long)((object[])param)[1];
             FileInfo mf = (FileInfo)((object[])param)[2];
 
-            this.ppc.PostStatusRetry(tweet.Replace("\r\n", "\n"), reply_to, false, this.mainForm, mediaFile);
+            this.ppc.PostStatusRetry(tweet.Replace("\r\n", "\n"), reply_to, false, this.MainForm, mf);
+        }
+
+        public bool Retry()
+        {
+            if (this.RetryAllowed)
+            {
+                Invoke((MethodInvoker)(() => buttonPost.PerformClick()));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void textBoxTweet_KeyDown(object sender, KeyEventArgs e)
@@ -86,6 +106,20 @@ namespace OpenTween
             {
                 textBoxTweet.SelectAll();
             }
+        }
+
+        private void retryTimer_Tick(object sender, EventArgs e)
+        {
+            Retry();
+        }
+
+        private void labelAutoRetry_Click(object sender, EventArgs e)
+        {
+            this.RetryAllowed = !this.RetryAllowed;
+            if (this.RetryAllowed)
+                this.labelAutoRetry.Text = "自動で再試行されます";
+            else
+                this.labelAutoRetry.Text = "自動で再試行されません";
         }
     }
 }

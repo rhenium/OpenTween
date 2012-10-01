@@ -259,6 +259,315 @@
   <data name="&gt;&gt;SplitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="numericAutoRetryInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 201</value>
+  </data>
+  <data name="numericAutoRetryInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 19</value>
+  </data>
+  <data name="numericAutoRetryInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;numericAutoRetryInterval.Name" xml:space="preserve">
+    <value>numericAutoRetryInterval</value>
+  </data>
+  <data name="&gt;&gt;numericAutoRetryInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericAutoRetryInterval.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;numericAutoRetryInterval.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelAutoRetryInterval.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelAutoRetryInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 204</value>
+  </data>
+  <data name="labelAutoRetryInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 12</value>
+  </data>
+  <data name="labelAutoRetryInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="labelAutoRetryInterval.Text" xml:space="preserve">
+    <value>自動再試行の間隔（ミリ秒）</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRetryInterval.Name" xml:space="preserve">
+    <value>labelAutoRetryInterval</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRetryInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRetryInterval.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;labelAutoRetryInterval.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CheckHashSupple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CheckHashSupple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CheckHashSupple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 170</value>
+  </data>
+  <data name="CheckHashSupple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 16</value>
+  </data>
+  <data name="CheckHashSupple.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="CheckHashSupple.Text" xml:space="preserve">
+    <value>#タグの入力補助を使用する</value>
+  </data>
+  <data name="&gt;&gt;CheckHashSupple.Name" xml:space="preserve">
+    <value>CheckHashSupple</value>
+  </data>
+  <data name="&gt;&gt;CheckHashSupple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CheckHashSupple.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;CheckHashSupple.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="CheckAtIdSupple.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CheckAtIdSupple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CheckAtIdSupple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 146</value>
+  </data>
+  <data name="CheckAtIdSupple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 16</value>
+  </data>
+  <data name="CheckAtIdSupple.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="CheckAtIdSupple.Text" xml:space="preserve">
+    <value>@IDの入力補助を使用する</value>
+  </data>
+  <data name="&gt;&gt;CheckAtIdSupple.Name" xml:space="preserve">
+    <value>CheckAtIdSupple</value>
+  </data>
+  <data name="&gt;&gt;CheckAtIdSupple.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CheckAtIdSupple.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;CheckAtIdSupple.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ComboBoxPostKeySelect.Items" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="ComboBoxPostKeySelect.Items1" xml:space="preserve">
+    <value>Ctrl+Enter</value>
+  </data>
+  <data name="ComboBoxPostKeySelect.Items2" xml:space="preserve">
+    <value>Shift+Enter</value>
+  </data>
+  <data name="ComboBoxPostKeySelect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 19</value>
+  </data>
+  <data name="ComboBoxPostKeySelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 20</value>
+  </data>
+  <data name="ComboBoxPostKeySelect.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;ComboBoxPostKeySelect.Name" xml:space="preserve">
+    <value>ComboBoxPostKeySelect</value>
+  </data>
+  <data name="&gt;&gt;ComboBoxPostKeySelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ComboBoxPostKeySelect.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;ComboBoxPostKeySelect.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Label27.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label27.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label27.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 22</value>
+  </data>
+  <data name="Label27.Size" type="System.Drawing.Size, System.Drawing">
+    <value>137, 12</value>
+  </data>
+  <data name="Label27.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="Label27.Text" xml:space="preserve">
+    <value>POSTキー（デフォルトEnter）</value>
+  </data>
+  <data name="&gt;&gt;Label27.Name" xml:space="preserve">
+    <value>Label27</value>
+  </data>
+  <data name="&gt;&gt;Label27.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label27.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;Label27.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="CheckRetweetNoConfirm.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CheckRetweetNoConfirm.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CheckRetweetNoConfirm.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 50</value>
+  </data>
+  <data name="CheckRetweetNoConfirm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 16</value>
+  </data>
+  <data name="CheckRetweetNoConfirm.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="CheckRetweetNoConfirm.Text" xml:space="preserve">
+    <value>公式RTする際に確認をしない</value>
+  </data>
+  <data name="&gt;&gt;CheckRetweetNoConfirm.Name" xml:space="preserve">
+    <value>CheckRetweetNoConfirm</value>
+  </data>
+  <data name="&gt;&gt;CheckRetweetNoConfirm.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CheckRetweetNoConfirm.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;CheckRetweetNoConfirm.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="Label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>23, 94</value>
+  </data>
+  <data name="Label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 12</value>
+  </data>
+  <data name="Label12.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="Label12.Text" xml:space="preserve">
+    <value>フッター（文末に付加）</value>
+  </data>
+  <data name="&gt;&gt;Label12.Name" xml:space="preserve">
+    <value>Label12</value>
+  </data>
+  <data name="&gt;&gt;Label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Label12.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="CheckUseRecommendStatus.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CheckUseRecommendStatus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CheckUseRecommendStatus.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 94</value>
+  </data>
+  <data name="CheckUseRecommendStatus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 16</value>
+  </data>
+  <data name="CheckUseRecommendStatus.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="CheckUseRecommendStatus.Text" xml:space="preserve">
+    <value>推奨フッターを使用する[TWNv○○]</value>
+  </data>
+  <data name="&gt;&gt;CheckUseRecommendStatus.Name" xml:space="preserve">
+    <value>CheckUseRecommendStatus</value>
+  </data>
+  <data name="&gt;&gt;CheckUseRecommendStatus.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CheckUseRecommendStatus.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;CheckUseRecommendStatus.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="StatusText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>185, 116</value>
+  </data>
+  <data name="StatusText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 19</value>
+  </data>
+  <data name="StatusText.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;StatusText.Name" xml:space="preserve">
+    <value>StatusText</value>
+  </data>
+  <data name="&gt;&gt;StatusText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatusText.Parent" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;StatusText.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="TweetActPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="TweetActPanel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="TweetActPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="TweetActPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>518, 368</value>
+  </data>
+  <data name="TweetActPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="TweetActPanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;TweetActPanel.Name" xml:space="preserve">
+    <value>TweetActPanel</value>
+  </data>
+  <data name="&gt;&gt;TweetActPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TweetActPanel.Parent" xml:space="preserve">
+    <value>SplitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;TweetActPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btnStolen.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1151,7 +1460,7 @@
     <value>SplitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;FontPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="Label65.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2045,7 +2354,7 @@
     <value>SplitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;FontPanel2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="TLAuthUserCombo.Location" type="System.Drawing.Point, System.Drawing">
     <value>150, 55</value>
@@ -2546,7 +2855,7 @@
     <value>SplitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;BasedPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="StartupReaded.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2696,7 +3005,7 @@
     <value>SplitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;StartupPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3320,267 +3629,6 @@ Growl.CoreLibrary.DLL</value>
     <value>SplitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;PreviewPanel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="CheckHashSupple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CheckHashSupple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CheckHashSupple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 170</value>
-  </data>
-  <data name="CheckHashSupple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 16</value>
-  </data>
-  <data name="CheckHashSupple.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="CheckHashSupple.Text" xml:space="preserve">
-    <value>#タグの入力補助を使用する</value>
-  </data>
-  <data name="&gt;&gt;CheckHashSupple.Name" xml:space="preserve">
-    <value>CheckHashSupple</value>
-  </data>
-  <data name="&gt;&gt;CheckHashSupple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CheckHashSupple.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;CheckHashSupple.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="CheckAtIdSupple.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CheckAtIdSupple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CheckAtIdSupple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 146</value>
-  </data>
-  <data name="CheckAtIdSupple.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 16</value>
-  </data>
-  <data name="CheckAtIdSupple.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="CheckAtIdSupple.Text" xml:space="preserve">
-    <value>@IDの入力補助を使用する</value>
-  </data>
-  <data name="&gt;&gt;CheckAtIdSupple.Name" xml:space="preserve">
-    <value>CheckAtIdSupple</value>
-  </data>
-  <data name="&gt;&gt;CheckAtIdSupple.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CheckAtIdSupple.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;CheckAtIdSupple.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ComboBoxPostKeySelect.Items" xml:space="preserve">
-    <value>Enter</value>
-  </data>
-  <data name="ComboBoxPostKeySelect.Items1" xml:space="preserve">
-    <value>Ctrl+Enter</value>
-  </data>
-  <data name="ComboBoxPostKeySelect.Items2" xml:space="preserve">
-    <value>Shift+Enter</value>
-  </data>
-  <data name="ComboBoxPostKeySelect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>184, 19</value>
-  </data>
-  <data name="ComboBoxPostKeySelect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 20</value>
-  </data>
-  <data name="ComboBoxPostKeySelect.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;ComboBoxPostKeySelect.Name" xml:space="preserve">
-    <value>ComboBoxPostKeySelect</value>
-  </data>
-  <data name="&gt;&gt;ComboBoxPostKeySelect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ComboBoxPostKeySelect.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;ComboBoxPostKeySelect.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="Label27.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label27.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label27.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 22</value>
-  </data>
-  <data name="Label27.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 12</value>
-  </data>
-  <data name="Label27.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="Label27.Text" xml:space="preserve">
-    <value>POSTキー（デフォルトEnter）</value>
-  </data>
-  <data name="&gt;&gt;Label27.Name" xml:space="preserve">
-    <value>Label27</value>
-  </data>
-  <data name="&gt;&gt;Label27.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label27.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;Label27.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="CheckRetweetNoConfirm.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CheckRetweetNoConfirm.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CheckRetweetNoConfirm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 50</value>
-  </data>
-  <data name="CheckRetweetNoConfirm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 16</value>
-  </data>
-  <data name="CheckRetweetNoConfirm.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="CheckRetweetNoConfirm.Text" xml:space="preserve">
-    <value>公式RTする際に確認をしない</value>
-  </data>
-  <data name="&gt;&gt;CheckRetweetNoConfirm.Name" xml:space="preserve">
-    <value>CheckRetweetNoConfirm</value>
-  </data>
-  <data name="&gt;&gt;CheckRetweetNoConfirm.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CheckRetweetNoConfirm.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;CheckRetweetNoConfirm.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="Label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="Label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="Label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 94</value>
-  </data>
-  <data name="Label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 12</value>
-  </data>
-  <data name="Label12.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="Label12.Text" xml:space="preserve">
-    <value>フッター（文末に付加）</value>
-  </data>
-  <data name="&gt;&gt;Label12.Name" xml:space="preserve">
-    <value>Label12</value>
-  </data>
-  <data name="&gt;&gt;Label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Label12.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;Label12.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="CheckUseRecommendStatus.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CheckUseRecommendStatus.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CheckUseRecommendStatus.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 94</value>
-  </data>
-  <data name="CheckUseRecommendStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 16</value>
-  </data>
-  <data name="CheckUseRecommendStatus.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="CheckUseRecommendStatus.Text" xml:space="preserve">
-    <value>推奨フッターを使用する[TWNv○○]</value>
-  </data>
-  <data name="&gt;&gt;CheckUseRecommendStatus.Name" xml:space="preserve">
-    <value>CheckUseRecommendStatus</value>
-  </data>
-  <data name="&gt;&gt;CheckUseRecommendStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CheckUseRecommendStatus.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;CheckUseRecommendStatus.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="StatusText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 116</value>
-  </data>
-  <data name="StatusText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>232, 19</value>
-  </data>
-  <data name="StatusText.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;StatusText.Name" xml:space="preserve">
-    <value>StatusText</value>
-  </data>
-  <data name="&gt;&gt;StatusText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StatusText.Parent" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;StatusText.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="TweetActPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="TweetActPanel.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="TweetActPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="TweetActPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>518, 368</value>
-  </data>
-  <data name="TweetActPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="TweetActPanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;TweetActPanel.Name" xml:space="preserve">
-    <value>TweetActPanel</value>
-  </data>
-  <data name="&gt;&gt;TweetActPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TweetActPanel.Parent" xml:space="preserve">
-    <value>SplitContainer1.Panel2</value>
-  </data>
-  <data name="&gt;&gt;TweetActPanel.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="ListTextCountApi.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">

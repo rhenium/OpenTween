@@ -69,6 +69,8 @@ namespace OpenTween
         public bool IsRemoveSameEvent;
         public bool IsNotifyUseGrowl;
 
+        public int AutoRetryInterval;
+
         public TwitterDataModel.Configuration TwitterConfiguration = new TwitterDataModel.Configuration();
 
         private string _pin;
@@ -513,6 +515,8 @@ namespace OpenTween
                 this.TabMouseLock = this.TabMouseLockCheck.Checked;
                 this.IsRemoveSameEvent = this.IsRemoveSameFavEventCheckBox.Checked;
                 this.IsNotifyUseGrowl = this.IsNotifyUseGrowlCheckBox.Checked;
+
+                this.AutoRetryInterval = (int)this.numericAutoRetryInterval.Value;
             }
             catch(Exception)
             {
@@ -945,6 +949,8 @@ namespace OpenTween
             {
                 IsNotifyUseGrowlCheckBox.Enabled = false;
             }
+
+            this.numericAutoRetryInterval.Value = this.AutoRetryInterval;
 
             this.TreeViewSetting.Nodes["BasedNode"].Tag = BasedPanel;
             this.TreeViewSetting.Nodes["BasedNode"].Nodes["PeriodNode"].Tag = GetPeriodPanel;

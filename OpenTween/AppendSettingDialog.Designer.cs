@@ -34,6 +34,9 @@
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
             this.FontPanel = new System.Windows.Forms.Panel();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnStolen = new System.Windows.Forms.Button();
+            this.lblStolen = new System.Windows.Forms.Label();
+            this.Label1 = new System.Windows.Forms.Label();
             this.btnRetweet = new System.Windows.Forms.Button();
             this.lblRetweet = new System.Windows.Forms.Label();
             this.Label80 = new System.Windows.Forms.Label();
@@ -297,9 +300,8 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnStolen = new System.Windows.Forms.Button();
-            this.lblStolen = new System.Windows.Forms.Label();
-            this.Label1 = new System.Windows.Forms.Label();
+            this.labelAutoRetryInterval = new System.Windows.Forms.Label();
+            this.numericAutoRetryInterval = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
@@ -325,6 +327,7 @@
             this.GetPeriodPanel.SuspendLayout();
             this.ActionPanel.SuspendLayout();
             this.GroupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // SplitContainer1
@@ -339,12 +342,12 @@
             // SplitContainer1.Panel2
             // 
             this.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.SplitContainer1.Panel2.Controls.Add(this.TweetActPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.FontPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.FontPanel2);
             this.SplitContainer1.Panel2.Controls.Add(this.BasedPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.StartupPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.PreviewPanel);
-            this.SplitContainer1.Panel2.Controls.Add(this.TweetActPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.GetCountPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ShortUrlPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetPrvPanel);
@@ -411,6 +414,24 @@
             resources.ApplyResources(this.GroupBox1, "GroupBox1");
             this.GroupBox1.Name = "GroupBox1";
             this.GroupBox1.TabStop = false;
+            // 
+            // btnStolen
+            // 
+            resources.ApplyResources(this.btnStolen, "btnStolen");
+            this.btnStolen.Name = "btnStolen";
+            this.btnStolen.UseVisualStyleBackColor = true;
+            this.btnStolen.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // lblStolen
+            // 
+            this.lblStolen.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.lblStolen, "lblStolen");
+            this.lblStolen.Name = "lblStolen";
+            // 
+            // Label1
+            // 
+            resources.ApplyResources(this.Label1, "Label1");
+            this.Label1.Name = "Label1";
             // 
             // btnRetweet
             // 
@@ -1096,6 +1117,8 @@
             // 
             // TweetActPanel
             // 
+            this.TweetActPanel.Controls.Add(this.numericAutoRetryInterval);
+            this.TweetActPanel.Controls.Add(this.labelAutoRetryInterval);
             this.TweetActPanel.Controls.Add(this.CheckHashSupple);
             this.TweetActPanel.Controls.Add(this.CheckAtIdSupple);
             this.TweetActPanel.Controls.Add(this.ComboBoxPostKeySelect);
@@ -2387,23 +2410,15 @@
             // 
             this.FontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
-            // btnStolen
+            // labelAutoRetryInterval
             // 
-            resources.ApplyResources(this.btnStolen, "btnStolen");
-            this.btnStolen.Name = "btnStolen";
-            this.btnStolen.UseVisualStyleBackColor = true;
-            this.btnStolen.Click += new System.EventHandler(this.btnColor_Click);
+            resources.ApplyResources(this.labelAutoRetryInterval, "labelAutoRetryInterval");
+            this.labelAutoRetryInterval.Name = "labelAutoRetryInterval";
             // 
-            // lblStolen
+            // numericAutoRetryInterval
             // 
-            this.lblStolen.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.lblStolen, "lblStolen");
-            this.lblStolen.Name = "lblStolen";
-            // 
-            // Label1
-            // 
-            resources.ApplyResources(this.Label1, "Label1");
-            this.Label1.Name = "Label1";
+            resources.ApplyResources(this.numericAutoRetryInterval, "numericAutoRetryInterval");
+            this.numericAutoRetryInterval.Name = "numericAutoRetryInterval";
             // 
             // AppendSettingDialog
             // 
@@ -2465,6 +2480,7 @@
             this.ActionPanel.PerformLayout();
             this.GroupBox3.ResumeLayout(false);
             this.GroupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2741,5 +2757,7 @@
         internal System.Windows.Forms.Button btnStolen;
         internal System.Windows.Forms.Label lblStolen;
         internal System.Windows.Forms.Label Label1;
+        private System.Windows.Forms.NumericUpDown numericAutoRetryInterval;
+        private System.Windows.Forms.Label labelAutoRetryInterval;
     }
 }

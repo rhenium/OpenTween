@@ -35,7 +35,7 @@
             this.StatusLabelUrl = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusLabel = new OpenTween.OpenTweenCustomControl.ToolStripLabelHistory();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ChangeAccountSplitButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.ChangeAccountDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.HashStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.ContextMenuPostMode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItemUrlMultibyteSplit = new System.Windows.Forms.ToolStripMenuItem();
@@ -388,7 +388,7 @@
             this.StatusLabelUrl,
             this.StatusLabel,
             this.ToolStripStatusLabel1,
-            this.ChangeAccountSplitButton,
+            this.ChangeAccountDropDownButton,
             this.HashStripSplitButton});
             this.StatusStrip1.Name = "StatusStrip1";
             this.StatusStrip1.ShowItemToolTips = true;
@@ -418,12 +418,12 @@
             this.ToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
             // 
-            // ChangeAccountSplitButton
+            // ChangeAccountDropDownButton
             // 
-            this.ChangeAccountSplitButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            resources.ApplyResources(this.ChangeAccountSplitButton, "ChangeAccountSplitButton");
-            this.ChangeAccountSplitButton.Name = "ChangeAccountSplitButton";
-            this.ChangeAccountSplitButton.DropDownOpening += new System.EventHandler(this.ChangeAccountSplitButton_DropDownOpening);
+            this.ChangeAccountDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.ChangeAccountDropDownButton, "ChangeAccountDropDownButton");
+            this.ChangeAccountDropDownButton.Name = "ChangeAccountDropDownButton";
+            this.ChangeAccountDropDownButton.DropDownOpening += new System.EventHandler(this.ChangeAccountDropDownButton_DropDownOpening);
             // 
             // HashStripSplitButton
             // 
@@ -2892,7 +2892,7 @@
         internal System.Windows.Forms.ToolStripMenuItem ProtectTbMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem ChangeAccountMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem ToolStripSpaceToFocusTimelineMenuItem;
-        internal System.Windows.Forms.ToolStripSplitButton ChangeAccountSplitButton;
+        internal System.Windows.Forms.ToolStripDropDownButton ChangeAccountDropDownButton;
         internal System.Windows.Forms.ToolStripMenuItem SuddenlyDeathToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem ToolStripAutoCutTweetMenuItem;
         internal System.Windows.Forms.ToolStripSeparator toolStripSeparator44;

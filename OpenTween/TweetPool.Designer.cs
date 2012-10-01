@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBoxTweet = new System.Windows.Forms.TextBox();
             this.labelMsg = new System.Windows.Forms.Label();
             this.buttonPost = new System.Windows.Forms.Button();
             this.labelHavePhoto = new System.Windows.Forms.Label();
+            this.labelAutoRetry = new System.Windows.Forms.Label();
+            this.retryTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // textBoxTweet
@@ -74,12 +77,28 @@
             this.labelHavePhoto.TabIndex = 4;
             this.labelHavePhoto.Text = "画像なし";
             // 
+            // labelAutoRetry
+            // 
+            this.labelAutoRetry.AutoSize = true;
+            this.labelAutoRetry.Location = new System.Drawing.Point(66, 117);
+            this.labelAutoRetry.Name = "labelAutoRetry";
+            this.labelAutoRetry.Size = new System.Drawing.Size(123, 12);
+            this.labelAutoRetry.TabIndex = 5;
+            this.labelAutoRetry.Text = "自動で再試行されません";
+            this.labelAutoRetry.Click += new System.EventHandler(this.labelAutoRetry_Click);
+            // 
+            // retryTimer
+            // 
+            this.retryTimer.Enabled = true;
+            this.retryTimer.Interval = 1000000;
+            this.retryTimer.Tick += new System.EventHandler(this.retryTimer_Tick);
+            // 
             // TweetPool
             // 
-            this.AcceptButton = this.buttonPost;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 147);
+            this.Controls.Add(this.labelAutoRetry);
             this.Controls.Add(this.labelHavePhoto);
             this.Controls.Add(this.buttonPost);
             this.Controls.Add(this.labelMsg);
@@ -101,5 +120,7 @@
         private System.Windows.Forms.Label labelMsg;
         private System.Windows.Forms.Button buttonPost;
         private System.Windows.Forms.Label labelHavePhoto;
+        private System.Windows.Forms.Label labelAutoRetry;
+        internal System.Windows.Forms.Timer retryTimer;
     }
 }

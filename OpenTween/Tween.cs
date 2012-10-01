@@ -1334,8 +1334,10 @@ namespace OpenTween
                 // 初回起動時だけ右下のメニューを目立たせる
                 HashStripSplitButton.ShowDropDown();
             }
+
+            this.SettingDialog.AutoRetryInterval = _cfgCommon.AutoRetryInterval;
             
-            RefreshChangeAccountSplitButton();
+            RefreshChangeAccountDropDownButton();
         }
 
         private void CreatePictureServices()
@@ -4299,6 +4301,7 @@ namespace OpenTween
                     catch (Exception)
                     {
                     }
+
                 }
             }
 
@@ -4307,7 +4310,8 @@ namespace OpenTween
             this.TopMost = SettingDialog.AlwaysTop;
             SaveConfigsAll(false);
 
-            RefreshChangeAccountSplitButton();
+            this.tw.tweetPoolList.ForEach(_ => _.retryTimer.Interval = SettingDialog.AutoRetryInterval);
+            RefreshChangeAccountDropDownButton();
         }
 
         private void PostBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
@@ -8059,6 +8063,8 @@ namespace OpenTween
                 _cfgCommon.TabMouseLock = SettingDialog.TabMouseLock;
                 _cfgCommon.IsRemoveSameEvent = SettingDialog.IsRemoveSameEvent;
                 _cfgCommon.IsUseNotifyGrowl = SettingDialog.IsNotifyUseGrowl;
+
+                _cfgCommon.AutoRetryInterval = SettingDialog.AutoRetryInterval;
 
                 _cfgCommon.Save();
             }
@@ -13494,18 +13500,18 @@ namespace OpenTween
             _modifySettingCommon = true;
         }
 
-        private void ChangeAccountSplitButton_DropDownOpening(object sender, EventArgs e)
+        private void ChangeAccountDropDownButton_DropDownOpening(object sender, EventArgs e)
         {
             // RefreshChangeAccountSplitButton();
         }
 
-        private void RefreshChangeAccountSplitButton()
+        private void RefreshChangeAccountDropDownButton()
         {
             if (this._cfgCommon.UserAccounts.Count > 0)
             {
                 Thread thread = new Thread(() =>
                 {
-                    Invoke((Action)(() => this.ChangeAccountSplitButton.DropDown.Items.Clear()));
+                    Invoke((Action)(() => this.ChangeAccountDropDownButton.DropDown.Items.Clear()));
                     Parallel.For(0, this._cfgCommon.UserAccounts.Count, i =>
                     {
                         var item = new ToolStripMenuItem(this._cfgCommon.UserAccounts[i].ToString());
@@ -13518,6 +13524,7 @@ namespace OpenTween
 
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
                             tw.ForceNotOwl = true;
+                            tw.RetryAll();
                             this._apiGauge.Username = u.Username;
                             if (u.UserId == 0)
                             {
@@ -13525,22 +13532,22 @@ namespace OpenTween
                                 u.UserId = tw.UserId;
                             }
 
-                            foreach (var m in ChangeAccountSplitButton.DropDown.Items)
+                            foreach (var m in ChangeAccountDropDownButton.DropDown.Items)
                             {
                                 ((ToolStripMenuItem)m).Checked = false;
                             }
                             ((ToolStripMenuItem)sender1).Checked = true;
 
-                            this.ChangeAccountSplitButton.Text = u.ToString();
+                            this.ChangeAccountDropDownButton.Text = u.ToString();
                             this.CreatePictureServices();
                             //this.SetImageServiceCombo();
                             this.doGetFollowersMenu();
                             SaveConfigsCommon();
                             //RefreshChangeAccountSplitButton();
                         };
-                        Invoke((Action)(() => this.ChangeAccountSplitButton.DropDown.Items.Add(item)));
+                        Invoke((Action)(() => this.ChangeAccountDropDownButton.DropDown.Items.Add(item)));
                     });
-                    Invoke((Action)(() => this.ChangeAccountSplitButton.Text = tw.ToString()));
+                    Invoke((Action)(() => this.ChangeAccountDropDownButton.Text = tw.ToString()));
                 });
                 thread.Start();
             
@@ -13591,6 +13598,7 @@ namespace OpenTween
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
             tw.ForceNotOwl = true;
+            tw.RetryAll();
             this._apiGauge.Username = q.Username;
             if (q.UserId == 0)
             {
@@ -13598,7 +13606,7 @@ namespace OpenTween
                 q.UserId = tw.UserId;
             }
             SaveConfigsCommon();
-            RefreshChangeAccountSplitButton();
+            RefreshChangeAccountDropDownButton();
         }
 
         private void ChangeAccountUpMenuItem_Click(object sender, EventArgs e)
@@ -13610,6 +13618,7 @@ namespace OpenTween
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
             tw.ForceNotOwl = true;
+            tw.RetryAll();
             this._apiGauge.Username = q.Username;
             if (q.UserId == 0)
             {
@@ -13617,7 +13626,7 @@ namespace OpenTween
                 q.UserId = tw.UserId;
             }
             SaveConfigsCommon();
-            RefreshChangeAccountSplitButton();
+            RefreshChangeAccountDropDownButton();
         }
     }
 }

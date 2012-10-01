@@ -254,6 +254,8 @@ namespace OpenTween
 
         // 隠し
         public bool ShowDeleted = false;
+
+        public int AutoRetryInterval = 10000;
     }
 
     public class UserAccount
