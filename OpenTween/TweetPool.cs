@@ -89,7 +89,7 @@ namespace OpenTween
 
         public bool Retry()
         {
-            if (this.RetryAllowed)
+            if (this.RetryAllowed && InvokeRequired)
             {
                 Invoke((MethodInvoker)(() => buttonPost.PerformClick()));
                 return true;
