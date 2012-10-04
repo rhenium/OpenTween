@@ -32,6 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppendSettingDialog));
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
+            this.TweetActPanel = new System.Windows.Forms.Panel();
+            this.numericAutoRetryInterval = new System.Windows.Forms.NumericUpDown();
+            this.labelAutoRetryInterval = new System.Windows.Forms.Label();
+            this.CheckHashSupple = new System.Windows.Forms.CheckBox();
+            this.CheckAtIdSupple = new System.Windows.Forms.CheckBox();
+            this.ComboBoxPostKeySelect = new System.Windows.Forms.ComboBox();
+            this.Label27 = new System.Windows.Forms.Label();
+            this.CheckRetweetNoConfirm = new System.Windows.Forms.CheckBox();
+            this.Label12 = new System.Windows.Forms.Label();
+            this.CheckUseRecommendStatus = new System.Windows.Forms.CheckBox();
+            this.StatusText = new System.Windows.Forms.TextBox();
             this.FontPanel = new System.Windows.Forms.Panel();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.btnStolen = new System.Windows.Forms.Button();
@@ -136,15 +147,6 @@
             this.cmbNameBalloon = new System.Windows.Forms.ComboBox();
             this.CheckDispUsername = new System.Windows.Forms.CheckBox();
             this.CheckBox3 = new System.Windows.Forms.CheckBox();
-            this.TweetActPanel = new System.Windows.Forms.Panel();
-            this.CheckHashSupple = new System.Windows.Forms.CheckBox();
-            this.CheckAtIdSupple = new System.Windows.Forms.CheckBox();
-            this.ComboBoxPostKeySelect = new System.Windows.Forms.ComboBox();
-            this.Label27 = new System.Windows.Forms.Label();
-            this.CheckRetweetNoConfirm = new System.Windows.Forms.CheckBox();
-            this.Label12 = new System.Windows.Forms.Label();
-            this.CheckUseRecommendStatus = new System.Windows.Forms.CheckBox();
-            this.StatusText = new System.Windows.Forms.TextBox();
             this.GetCountPanel = new System.Windows.Forms.Panel();
             this.ListTextCountApi = new System.Windows.Forms.TextBox();
             this.Label25 = new System.Windows.Forms.Label();
@@ -300,12 +302,12 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.labelAutoRetryInterval = new System.Windows.Forms.Label();
-            this.numericAutoRetryInterval = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
+            this.TweetActPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).BeginInit();
             this.FontPanel.SuspendLayout();
             this.GroupBox1.SuspendLayout();
             this.FontPanel2.SuspendLayout();
@@ -315,7 +317,6 @@
             this.GroupBox2.SuspendLayout();
             this.StartupPanel.SuspendLayout();
             this.PreviewPanel.SuspendLayout();
-            this.TweetActPanel.SuspendLayout();
             this.GetCountPanel.SuspendLayout();
             this.ShortUrlPanel.SuspendLayout();
             this.TweetPrvPanel.SuspendLayout();
@@ -327,7 +328,6 @@
             this.GetPeriodPanel.SuspendLayout();
             this.ActionPanel.SuspendLayout();
             this.GroupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // SplitContainer1
@@ -374,6 +374,87 @@
             this.TreeViewSetting.ShowLines = false;
             this.TreeViewSetting.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewSetting_BeforeSelect);
             this.TreeViewSetting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSetting_AfterSelect);
+            // 
+            // TweetActPanel
+            // 
+            this.TweetActPanel.Controls.Add(this.numericAutoRetryInterval);
+            this.TweetActPanel.Controls.Add(this.labelAutoRetryInterval);
+            this.TweetActPanel.Controls.Add(this.CheckHashSupple);
+            this.TweetActPanel.Controls.Add(this.CheckAtIdSupple);
+            this.TweetActPanel.Controls.Add(this.ComboBoxPostKeySelect);
+            this.TweetActPanel.Controls.Add(this.Label27);
+            this.TweetActPanel.Controls.Add(this.CheckRetweetNoConfirm);
+            this.TweetActPanel.Controls.Add(this.Label12);
+            this.TweetActPanel.Controls.Add(this.CheckUseRecommendStatus);
+            this.TweetActPanel.Controls.Add(this.StatusText);
+            resources.ApplyResources(this.TweetActPanel, "TweetActPanel");
+            this.TweetActPanel.Name = "TweetActPanel";
+            // 
+            // numericAutoRetryInterval
+            // 
+            resources.ApplyResources(this.numericAutoRetryInterval, "numericAutoRetryInterval");
+            this.numericAutoRetryInterval.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+            this.numericAutoRetryInterval.Name = "numericAutoRetryInterval";
+            // 
+            // labelAutoRetryInterval
+            // 
+            resources.ApplyResources(this.labelAutoRetryInterval, "labelAutoRetryInterval");
+            this.labelAutoRetryInterval.Name = "labelAutoRetryInterval";
+            // 
+            // CheckHashSupple
+            // 
+            resources.ApplyResources(this.CheckHashSupple, "CheckHashSupple");
+            this.CheckHashSupple.Name = "CheckHashSupple";
+            this.CheckHashSupple.UseVisualStyleBackColor = true;
+            // 
+            // CheckAtIdSupple
+            // 
+            resources.ApplyResources(this.CheckAtIdSupple, "CheckAtIdSupple");
+            this.CheckAtIdSupple.Name = "CheckAtIdSupple";
+            this.CheckAtIdSupple.UseVisualStyleBackColor = true;
+            // 
+            // ComboBoxPostKeySelect
+            // 
+            this.ComboBoxPostKeySelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxPostKeySelect.FormattingEnabled = true;
+            this.ComboBoxPostKeySelect.Items.AddRange(new object[] {
+            resources.GetString("ComboBoxPostKeySelect.Items"),
+            resources.GetString("ComboBoxPostKeySelect.Items1"),
+            resources.GetString("ComboBoxPostKeySelect.Items2")});
+            resources.ApplyResources(this.ComboBoxPostKeySelect, "ComboBoxPostKeySelect");
+            this.ComboBoxPostKeySelect.Name = "ComboBoxPostKeySelect";
+            // 
+            // Label27
+            // 
+            resources.ApplyResources(this.Label27, "Label27");
+            this.Label27.Name = "Label27";
+            // 
+            // CheckRetweetNoConfirm
+            // 
+            resources.ApplyResources(this.CheckRetweetNoConfirm, "CheckRetweetNoConfirm");
+            this.CheckRetweetNoConfirm.Name = "CheckRetweetNoConfirm";
+            this.CheckRetweetNoConfirm.UseVisualStyleBackColor = true;
+            // 
+            // Label12
+            // 
+            resources.ApplyResources(this.Label12, "Label12");
+            this.Label12.Name = "Label12";
+            // 
+            // CheckUseRecommendStatus
+            // 
+            resources.ApplyResources(this.CheckUseRecommendStatus, "CheckUseRecommendStatus");
+            this.CheckUseRecommendStatus.Name = "CheckUseRecommendStatus";
+            this.CheckUseRecommendStatus.UseVisualStyleBackColor = true;
+            this.CheckUseRecommendStatus.CheckedChanged += new System.EventHandler(this.CheckUseRecommendStatus_CheckedChanged);
+            // 
+            // StatusText
+            // 
+            resources.ApplyResources(this.StatusText, "StatusText");
+            this.StatusText.Name = "StatusText";
             // 
             // FontPanel
             // 
@@ -1114,72 +1195,6 @@
             resources.ApplyResources(this.CheckBox3, "CheckBox3");
             this.CheckBox3.Name = "CheckBox3";
             this.CheckBox3.UseVisualStyleBackColor = true;
-            // 
-            // TweetActPanel
-            // 
-            this.TweetActPanel.Controls.Add(this.numericAutoRetryInterval);
-            this.TweetActPanel.Controls.Add(this.labelAutoRetryInterval);
-            this.TweetActPanel.Controls.Add(this.CheckHashSupple);
-            this.TweetActPanel.Controls.Add(this.CheckAtIdSupple);
-            this.TweetActPanel.Controls.Add(this.ComboBoxPostKeySelect);
-            this.TweetActPanel.Controls.Add(this.Label27);
-            this.TweetActPanel.Controls.Add(this.CheckRetweetNoConfirm);
-            this.TweetActPanel.Controls.Add(this.Label12);
-            this.TweetActPanel.Controls.Add(this.CheckUseRecommendStatus);
-            this.TweetActPanel.Controls.Add(this.StatusText);
-            resources.ApplyResources(this.TweetActPanel, "TweetActPanel");
-            this.TweetActPanel.Name = "TweetActPanel";
-            // 
-            // CheckHashSupple
-            // 
-            resources.ApplyResources(this.CheckHashSupple, "CheckHashSupple");
-            this.CheckHashSupple.Name = "CheckHashSupple";
-            this.CheckHashSupple.UseVisualStyleBackColor = true;
-            // 
-            // CheckAtIdSupple
-            // 
-            resources.ApplyResources(this.CheckAtIdSupple, "CheckAtIdSupple");
-            this.CheckAtIdSupple.Name = "CheckAtIdSupple";
-            this.CheckAtIdSupple.UseVisualStyleBackColor = true;
-            // 
-            // ComboBoxPostKeySelect
-            // 
-            this.ComboBoxPostKeySelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxPostKeySelect.FormattingEnabled = true;
-            this.ComboBoxPostKeySelect.Items.AddRange(new object[] {
-            resources.GetString("ComboBoxPostKeySelect.Items"),
-            resources.GetString("ComboBoxPostKeySelect.Items1"),
-            resources.GetString("ComboBoxPostKeySelect.Items2")});
-            resources.ApplyResources(this.ComboBoxPostKeySelect, "ComboBoxPostKeySelect");
-            this.ComboBoxPostKeySelect.Name = "ComboBoxPostKeySelect";
-            // 
-            // Label27
-            // 
-            resources.ApplyResources(this.Label27, "Label27");
-            this.Label27.Name = "Label27";
-            // 
-            // CheckRetweetNoConfirm
-            // 
-            resources.ApplyResources(this.CheckRetweetNoConfirm, "CheckRetweetNoConfirm");
-            this.CheckRetweetNoConfirm.Name = "CheckRetweetNoConfirm";
-            this.CheckRetweetNoConfirm.UseVisualStyleBackColor = true;
-            // 
-            // Label12
-            // 
-            resources.ApplyResources(this.Label12, "Label12");
-            this.Label12.Name = "Label12";
-            // 
-            // CheckUseRecommendStatus
-            // 
-            resources.ApplyResources(this.CheckUseRecommendStatus, "CheckUseRecommendStatus");
-            this.CheckUseRecommendStatus.Name = "CheckUseRecommendStatus";
-            this.CheckUseRecommendStatus.UseVisualStyleBackColor = true;
-            this.CheckUseRecommendStatus.CheckedChanged += new System.EventHandler(this.CheckUseRecommendStatus_CheckedChanged);
-            // 
-            // StatusText
-            // 
-            resources.ApplyResources(this.StatusText, "StatusText");
-            this.StatusText.Name = "StatusText";
             // 
             // GetCountPanel
             // 
@@ -2410,16 +2425,6 @@
             // 
             this.FontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
-            // labelAutoRetryInterval
-            // 
-            resources.ApplyResources(this.labelAutoRetryInterval, "labelAutoRetryInterval");
-            this.labelAutoRetryInterval.Name = "labelAutoRetryInterval";
-            // 
-            // numericAutoRetryInterval
-            // 
-            resources.ApplyResources(this.numericAutoRetryInterval, "numericAutoRetryInterval");
-            this.numericAutoRetryInterval.Name = "numericAutoRetryInterval";
-            // 
             // AppendSettingDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -2440,6 +2445,9 @@
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
+            this.TweetActPanel.ResumeLayout(false);
+            this.TweetActPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).EndInit();
             this.FontPanel.ResumeLayout(false);
             this.GroupBox1.ResumeLayout(false);
             this.GroupBox1.PerformLayout();
@@ -2456,8 +2464,6 @@
             this.StartupPanel.PerformLayout();
             this.PreviewPanel.ResumeLayout(false);
             this.PreviewPanel.PerformLayout();
-            this.TweetActPanel.ResumeLayout(false);
-            this.TweetActPanel.PerformLayout();
             this.GetCountPanel.ResumeLayout(false);
             this.GetCountPanel.PerformLayout();
             this.ShortUrlPanel.ResumeLayout(false);
@@ -2480,7 +2486,6 @@
             this.ActionPanel.PerformLayout();
             this.GroupBox3.ResumeLayout(false);
             this.GroupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -1811,6 +1811,7 @@ namespace OpenTween
                 user.ConsumerSecret = tw.ConsumerSecret;
                 user.Token = tw.AccessToken;
                 user.TokenSecret = tw.AccessTokenSecret;
+                user.Tag = tw.Tag;
 
                 foreach (object u in this.AuthUserCombo.Items)
                 {
@@ -1873,8 +1874,8 @@ namespace OpenTween
             //this.AuthUserLabel.Text = "";
             if (this.AuthUserCombo.SelectedIndex > -1)
             {
-                this.AuthUserCombo.Items.RemoveAt(this.AuthUserCombo.SelectedIndex);
                 this.TLAuthUserCombo.Items.RemoveAt(this.AuthUserCombo.SelectedIndex);
+                this.AuthUserCombo.Items.RemoveAt(this.AuthUserCombo.SelectedIndex);
                 if (this.AuthUserCombo.Items.Count > 0)
                 {
                     this.AuthUserCombo.SelectedIndex = 0;
