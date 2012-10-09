@@ -132,6 +132,7 @@
     <Compile Include="DetailsListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MorseCode.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

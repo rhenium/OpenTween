@@ -1,5 +1,8 @@
-1.0.7-beta1:2-2.1d
+1.0.7-beta1:2-2.2a
 https://github.com/re4k/OpenTween/downloads
+
+==== Ver 1.0.7-beta1:2-2.2a(2012/10/09)
+ * NEW: モールス符号の読み書き
 
 ==== Ver 1.0.7-beta1:2-2.1d(2012/10/05)
  * FIX: アカウント追加時にTagを入力しておいても無視される問題を修正

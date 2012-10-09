@@ -6174,7 +6174,14 @@ namespace OpenTween
 
         public string createDetailHtml(string orgdata)
         {
-            return detailHtmlFormatHeader + orgdata + detailHtmlFormatFooter;
+            if (MorseCode.IsJapaneseMorseCode(CreateRetweetUnofficial(orgdata)))
+            {
+                return detailHtmlFormatHeader + orgdata + "&nbsp;&nbsp;<small>Morse: " + MorseCode.ParseJapaneseMorseCode(CreateRetweetUnofficial(orgdata)) + "</small>" + detailHtmlFormatFooter;
+            }
+            else
+            {
+                return detailHtmlFormatHeader + orgdata + detailHtmlFormatFooter;
+            }
         }
 
         private void DisplayItemImage_Downloaded(object sender, EventArgs e)
@@ -13565,6 +13572,11 @@ namespace OpenTween
         // http://starwing.net/suddenly_death.html のパクリですごめんなさい
         private void SuddenlyDeathToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(this.StatusText.SelectedText))
+            {
+                this.StatusText.SelectAll();
+            }
+
             var width = (int)this.StatusText.SelectedText.Aggregate<char, double>(0, (wid, c) =>
             {
                 var m = (int)c;
@@ -13635,6 +13647,25 @@ namespace OpenTween
             }
             SaveConfigsCommon();
             RefreshChangeAccountDropDownButton();
+        }
+
+        private void MorseEncodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!this.StatusText.Focused)
+            {
+                MessageBox.Show(MorseCode.ParseJapaneseMorseCode(CreateRetweetUnofficial(_curPost.TextFromApi)));
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(this.StatusText.SelectedText))
+                {
+                    this.StatusText.SelectAll();
+                }
+
+                var result = MorseCode.ToJapaneseMorseCode(this.StatusText.SelectedText);
+
+                this.StatusText.SelectedText = result;
+            }
         }
     }
 }

@@ -327,6 +327,7 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
+            this.MorseEncodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -1366,6 +1367,7 @@
             this.CopyTweetStripMenuItem,
             this.PasteToolStripMenuItem,
             this.SuddenlyDeathToolStripMenuItem,
+            this.MorseEncodeToolStripMenuItem,
             this.ToolStripSeparator6,
             this.MenuItemSubSearch,
             this.MenuItemSearchNext,
@@ -2542,6 +2544,12 @@
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
             // 
+            // MorseEncodeToolStripMenuItem
+            // 
+            this.MorseEncodeToolStripMenuItem.Name = "MorseEncodeToolStripMenuItem";
+            resources.ApplyResources(this.MorseEncodeToolStripMenuItem, "MorseEncodeToolStripMenuItem");
+            this.MorseEncodeToolStripMenuItem.Click += new System.EventHandler(this.MorseEncodeToolStripMenuItem_Click);
+            // 
             // TweenMain
             // 
             this.AllowDrop = true;
@@ -2903,5 +2911,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator45;
         private System.Windows.Forms.ToolStripMenuItem ToolStripShowStolenTweetWithColorMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ApiInfoTLMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem MorseEncodeToolStripMenuItem;
     }
 }
