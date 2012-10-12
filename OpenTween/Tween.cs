@@ -229,6 +229,8 @@ namespace OpenTween
 
         private char[] trimChars = new char[] { ' ', '\t', '\r', '\n' };
 
+        public static List<long> FollowerId = new List<long>();
+
         //URL短縮のUndo用
         private struct urlUndo
         {
@@ -547,7 +549,8 @@ namespace OpenTween
             TraceOutToolStripMenuItem.Checked = true;
             MyCommon.TraceFlag = true;
 #endif
-            if (!MyCommon.fileVersion.EndsWith("0"))
+            //if (!MyCommon.fileVersion.EndsWith("0"))
+            if(true)
             {
                 TraceOutToolStripMenuItem.Checked = true;
                 MyCommon.TraceFlag = true;
@@ -576,6 +579,7 @@ namespace OpenTween
             Regex.CacheSize = 100;
 
             MyCommon.fileVersion = ((AssemblyFileVersionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0]).Version;
+            MyCommon.fileVersion = Regex.Match(Properties.Resources.ChangeLog, @"==== Ver (([A-Za-z0-9\-_:;\/\.]|beta|alpha|stable|test)+?)\(20[0-9]{2}").Groups[0].Value;
             InitializeTraceFrag();
             LoadIcons(); // アイコン読み込み
 
@@ -664,7 +668,6 @@ namespace OpenTween
             //認証関連
             if (string.IsNullOrEmpty(_cfgCommon.Token)) _cfgCommon.UserName = "";
             tw.Initialize(_cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.ConsumerKey, _cfgCommon.ConsumerSecret, _cfgCommon.UserName, _cfgCommon.UserId, _cfgCommon.Tag);
-            tw.ForceNotOwl = true;
             this._apiGauge.Username = _cfgCommon.UserName;
             tltw.Initialize(_cfgCommon.TLToken, _cfgCommon.TLTokenSecret, _cfgCommon.TLConsumerKey, _cfgCommon.TLConsumerSecret, _cfgCommon.TLUserName, _cfgCommon.TLUserId, _cfgCommon.TLTag);
             this._apiGaugeTL.Username = _cfgCommon.TLUserName;
@@ -6124,11 +6127,11 @@ namespace OpenTween
             string currentVersion = msgHeader[0];
             string downloadUrl = msgHeader[1];
 
-            if (currentVersion.Replace(".", "").CompareTo(MyCommon.fileVersion.Replace(".", "")) > 0)
+            if (string.Compare(currentVersion, MyCommon.fileVersion) > 0)
             {
                 using (var dialog = new UpdateDialog())
                 {
-                    dialog.SummaryText = string.Format(Properties.Resources.CheckNewVersionText3, MyCommon.GetReadableVersion(currentVersion));
+                    dialog.SummaryText = string.Format(Properties.Resources.CheckNewVersionText3, currentVersion);
                     dialog.DetailsText = msgBody;
                     if (dialog.ShowDialog(this) == DialogResult.Yes)
                     {
@@ -6140,7 +6143,7 @@ namespace OpenTween
             {
                 if (!startup)
                 {
-                    var msgtext = MyCommon.ReplaceAppName(string.Format(Properties.Resources.CheckNewVersionText7, MyCommon.GetReadableVersion(), MyCommon.GetReadableVersion(currentVersion)));
+                    var msgtext = MyCommon.ReplaceAppName(string.Format(Properties.Resources.CheckNewVersionText7, MyCommon.fileVersion, currentVersion));
                     MessageBox.Show(msgtext, MyCommon.ReplaceAppName(Properties.Resources.CheckNewVersionText2), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -9587,7 +9590,7 @@ namespace OpenTween
             switch (SettingDialog.DispLatestPost)
             {
                 case MyCommon.DispTitleEnum.Ver:
-                    ttl.Append("Ver:").Append(MyCommon.GetReadableVersion());
+                    ttl.Append("Ver:").Append(MyCommon.fileVersion);
                     break;
                 case MyCommon.DispTitleEnum.Post:
                     if (_history != null && _history.Count > 1)
@@ -13538,7 +13541,6 @@ namespace OpenTween
                             var u = this._cfgCommon.UserAccounts[(int)((ToolStripMenuItem)sender1).Tag];
 
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
-                            tw.ForceNotOwl = true;
                             tw.RetryAll();
                             this._apiGauge.Username = u.Username;
                             if (u.UserId == 0)
@@ -13617,7 +13619,6 @@ namespace OpenTween
 
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
-            tw.ForceNotOwl = true;
             tw.RetryAll();
             this._apiGauge.Username = q.Username;
             if (q.UserId == 0)
@@ -13637,7 +13638,6 @@ namespace OpenTween
 
             var q = _cfgCommon.UserAccounts[n];
             tw.Initialize(q.Token, q.TokenSecret, q.ConsumerKey, q.ConsumerSecret, q.Username, q.UserId, q.Tag);
-            tw.ForceNotOwl = true;
             tw.RetryAll();
             this._apiGauge.Username = q.Username;
             if (q.UserId == 0)

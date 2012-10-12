@@ -169,7 +169,6 @@ namespace OpenTween
                         u.Tag == ((UserAccount)this.AuthUserCombo.SelectedItem).Tag)
                     {
                         tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
-                        tw.ForceNotOwl = true;
                         if (u.UserId == 0)
                         {
                             tw.VerifyCredentials();
@@ -549,7 +548,6 @@ namespace OpenTween
                         if (u.UserId == this.InitialUserId && u.Tag == this.InitialTag)
                         {
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
-                            tw.ForceNotOwl = true;
                             userSet = true;
                             //break;
                         }
@@ -1768,7 +1766,6 @@ namespace OpenTween
             HttpTwitter.TwitterUrl = TwitterAPIText.Text.Trim();
             HttpTwitter.TwitterSearchUrl = TwitterSearchAPIText.Text.Trim();
             tw.Initialize("", "", consumerKey, consumerSecret, "", 0, tag);
-            tw.ForceNotOwl = true;
             //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
             //this.AuthUserLabel.Text = "";
             string pinPageUrl = "";

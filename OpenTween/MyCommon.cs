@@ -817,7 +817,7 @@ namespace OpenTween
         /// <returns>
         /// 生成されたバージョン番号の文字列
         /// </returns>
-        public static string GetReadableVersion(string fileVersion = null)
+        /*public static string GetReadableVersion(string fileVersion = null)
         {
             if (fileVersion == null)
             {
@@ -855,7 +855,7 @@ namespace OpenTween
 
                 return string.Format("{0}.{1}.{2}-beta{3}", version[0], version[1], version[2], version[3]);
             }
-        }
+        }*/
 
         public const string TwitterUrl = "https://twitter.com/";
 

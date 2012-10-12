@@ -114,7 +114,7 @@ namespace OpenTween
 
         delegate void GetIconImageDelegate(PostClass post);
         private readonly object LockObj = new object();
-        private List<long> followerId = new List<long>();
+        //private List<long> followerId = new List<long>();
         private bool _GetFollowerResult = false;
         private List<long> noRTId = new List<long>();
         private bool _GetNoRetweetResult = false;
@@ -153,8 +153,7 @@ namespace OpenTween
 
         public List<TweetPool> tweetPoolList = new List<TweetPool>();
 
-        public bool ForceNotOwl = false;
-
+        
         public ApiInformation TwitterApiInfo
         {
             get { return this.twCon.TwitterApiInfo; }
@@ -2224,7 +2223,7 @@ namespace OpenTween
             }
             else
             {
-                if (followerId.Count > 0 && !this.ForceNotOwl) post.IsOwl = !followerId.Contains(post.UserId);
+                if (TweenMain.FollowerId.Count > 0) post.IsOwl = !TweenMain.FollowerId.Contains(post.UserId);
             }
 
             post.IsDm = false;
@@ -3171,7 +3170,7 @@ namespace OpenTween
                     }
                     else
                     {
-                        if (followerId.Count > 0 && !this.ForceNotOwl) post.IsOwl = !followerId.Contains(post.UserId);
+                        if (TweenMain.FollowerId.Count > 0) post.IsOwl = !TweenMain.FollowerId.Contains(post.UserId);
                     }
 
                     post.IsDm = false;
@@ -3215,22 +3214,22 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
             long cursor = -1;
-            var tmpFollower = new List<long>(followerId);
+            var tmpFollower = new List<long>(TweenMain.FollowerId);
 
-            followerId.Clear();
+            TweenMain.FollowerId.Clear();
             do
             {
                 var ret = FollowerApi(ref cursor);
                 if (!string.IsNullOrEmpty(ret))
                 {
-                    followerId.Clear();
-                    followerId.AddRange(tmpFollower);
+                    TweenMain.FollowerId.Clear();
+                    TweenMain.FollowerId.AddRange(tmpFollower);
                     _GetFollowerResult = false;
                     return ret;
                 }
             } while (cursor > 0);
 
-            TabInformations.GetInstance().RefreshOwl(followerId);
+            TabInformations.GetInstance().RefreshOwl(TweenMain.FollowerId);
 
             _GetFollowerResult = true;
             return "";
@@ -3276,7 +3275,7 @@ namespace OpenTween
             try
             {
                 var followers = MyCommon.CreateDataFromJson<TwitterDataModel.Ids>(content);
-                followerId.AddRange(followers.Id);
+                TweenMain.FollowerId.AddRange(followers.Id);
                 cursor = followers.NextCursor;
                 return "";
             }
@@ -4572,7 +4571,7 @@ namespace OpenTween
                 case "follow":
                     if (eventData.Target.ScreenName.ToLower().Equals(_uname))
                     {
-                        if (!this.followerId.Contains(eventData.Source.Id)) this.followerId.Add(eventData.Source.Id);
+                        if (!TweenMain.FollowerId.Contains(eventData.Source.Id)) TweenMain.FollowerId.Add(eventData.Source.Id);
                     }
                     else
                     {
