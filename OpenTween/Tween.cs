@@ -578,8 +578,8 @@ namespace OpenTween
 
             Regex.CacheSize = 100;
 
-            MyCommon.fileVersion = ((AssemblyFileVersionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0]).Version;
-            MyCommon.fileVersion = Regex.Match(Properties.Resources.ChangeLog, @"==== Ver (([A-Za-z0-9\-_:;\/\.]|beta|alpha|stable|test)+?)\(20[0-9]{2}").Groups[0].Value;
+            //MyCommon.fileVersion = ((AssemblyFileVersionAttribute)Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0]).Version;
+            MyCommon.fileVersion = Regex.Match(Properties.Resources.ChangeLog, @"==== Ver (([A-Za-z0-9\-_:;\/\.]|beta|alpha|stable|test)+?)\(20[0-9]{2}").Groups[1].Value;
             InitializeTraceFrag();
             LoadIcons(); // アイコン読み込み
 
