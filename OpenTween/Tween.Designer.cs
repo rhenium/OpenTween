@@ -164,6 +164,7 @@
             this.CopyTweetStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuddenlyDeathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MorseEncodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuItemSubSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemSearchNext = new System.Windows.Forms.ToolStripMenuItem();
@@ -327,7 +328,6 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
-            this.MorseEncodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -1424,6 +1424,12 @@
             this.SuddenlyDeathToolStripMenuItem.Name = "SuddenlyDeathToolStripMenuItem";
             resources.ApplyResources(this.SuddenlyDeathToolStripMenuItem, "SuddenlyDeathToolStripMenuItem");
             this.SuddenlyDeathToolStripMenuItem.Click += new System.EventHandler(this.SuddenlyDeathToolStripMenuItem_Click);
+            // 
+            // MorseEncodeToolStripMenuItem
+            // 
+            this.MorseEncodeToolStripMenuItem.Name = "MorseEncodeToolStripMenuItem";
+            resources.ApplyResources(this.MorseEncodeToolStripMenuItem, "MorseEncodeToolStripMenuItem");
+            this.MorseEncodeToolStripMenuItem.Click += new System.EventHandler(this.MorseEncodeToolStripMenuItem_Click);
             // 
             // ToolStripSeparator6
             // 
@@ -2543,12 +2549,6 @@
             this.PostStateImageList.Images.SetKeyName(12, "S12.ico");
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
-            // 
-            // MorseEncodeToolStripMenuItem
-            // 
-            this.MorseEncodeToolStripMenuItem.Name = "MorseEncodeToolStripMenuItem";
-            resources.ApplyResources(this.MorseEncodeToolStripMenuItem, "MorseEncodeToolStripMenuItem");
-            this.MorseEncodeToolStripMenuItem.Click += new System.EventHandler(this.MorseEncodeToolStripMenuItem_Click);
             // 
             // TweenMain
             // 

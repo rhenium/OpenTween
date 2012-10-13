@@ -10901,7 +10901,7 @@ namespace OpenTween
             tw.NewPostFromStream += tw_NewPostFromStream;
             tw.UserStreamStarted += tw_UserStreamStarted;
             tw.UserStreamStopped += tw_UserStreamStopped;
-            tw.PostDeleted += _ => { }; // 無視します; tltwのほうが処理する //tw_PostDeleted;
+            tw.PostDeleted += tw_PostDeleted;
             tw.UserStreamEventReceived += tw_UserStreamEventArrived;
             tltw.NewPostFromStream += tw_NewPostFromStream;
             tltw.UserStreamStarted += tw_UserStreamStarted;
@@ -13037,7 +13037,7 @@ namespace OpenTween
             {
                 if (InvokeRequired && !IsDisposed)
                 {
-                    Invoke(new Action<Twitter.FormattedEvent, Twitter>(tw_UserStreamEventArrived), ev, this.tw);
+                    Invoke(new Action<Twitter.FormattedEvent, Twitter>(tw_UserStreamEventArrived), ev, twi);
                     return;
                 }
             }
@@ -13064,7 +13064,7 @@ namespace OpenTween
                     _postCache = null;
                     ((DetailsListView)_curTab.Tag).Update();
                 }
-                if (ev.Event == "unfavorite" && ev.Username.ToLower().Equals(tw.Username.ToLower()))
+                if (ev.Event == "unfavorite" && ev.Username.ToLower().Equals(twi.Username.ToLower()))
                 {
                     RemovePostFromFavTab(new long[] {ev.Id});
                 }

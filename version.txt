@@ -1,5 +1,8 @@
-1.0.7-beta1:2-2.2b
+1.0.7-beta1:2-2.2c
 https://github.com/re4k/OpenTween/downloads
+
+==== Ver 1.0.7-beta1:2-2.2c(2012/10/14)
+ * FIX: Events がちょっとおかしかったのを修正
 
 ==== Ver 1.0.7-beta1:2-2.2b(2012/10/13)
  * FIX: 片思い表示が異常な問題の修正（未テスト）
