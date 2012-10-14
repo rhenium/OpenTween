@@ -1,5 +1,8 @@
-1.0.7-beta1:2-2.2c
+1.0.7-beta1:2-2.2d
 https://github.com/re4k/OpenTween/downloads
+
+==== Ver 1.0.7-beta1:2-2.2d(2012/10/15)
+ * FIX: •¶š”ƒJƒEƒ“ƒg‚ğC³
 
 ==== Ver 1.0.7-beta1:2-2.2c(2012/10/14)
  * FIX: Events ‚ª‚¿‚å‚Á‚Æ‚¨‚©‚µ‚©‚Á‚½‚Ì‚ğC³

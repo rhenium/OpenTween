@@ -2212,7 +2212,7 @@ namespace OpenTween
                 }
             }*/
 
-            _history[_history.Count - 1] = new PostingStatus(StatusText.Text.Replace("\r\n", "\n").Trim(trimChars), _reply_to_id, _reply_to_name);
+            _history[_history.Count - 1] = new PostingStatus(StatusText.Text.Trim(trimChars), _reply_to_id, _reply_to_name);
 
             if (SettingDialog.Nicoms)
             {
@@ -2234,11 +2234,11 @@ namespace OpenTween
             args.page = 0;
             args.endPage = 0;
             args.type = MyCommon.WORKERTYPE.PostMessage;
-            CheckReplyTo(StatusText.Text.Replace("\r\n", "\n"));
+            CheckReplyTo(StatusText.Text);
 
             //整形によって増加する文字数を取得
             int adjustCount = 0;
-            string tmpStatus = StatusText.Text.Replace("\r\n", "\n").Trim(trimChars);
+            string tmpStatus = StatusText.Text.Trim(trimChars);
             if (ToolStripMenuItemApiCommandEvasion.Checked)
             {
                 // APIコマンド回避
@@ -2288,12 +2288,7 @@ namespace OpenTween
 
             string footer = "";
             string header = "";
-            if (StatusText.Text.StartsWith("D ")
-                || StatusText.Text.StartsWith("d ")
-                || StatusText.Text.StartsWith("dm ")
-                || StatusText.Text.StartsWith("DM ")
-                || StatusText.Text.StartsWith("M ")
-                || StatusText.Text.StartsWith("m "))
+            if (Regex.IsMatch(this.StatusText.Text, "^DM? +(?<id>[a-zA-Z0-9_]+) +(?<body>.+)", RegexOptions.IgnoreCase | RegexOptions.Singleline))
             {
                 //DM時は何もつけない
                 footer = "";
@@ -2331,7 +2326,7 @@ namespace OpenTween
                         footer += " " + SettingDialog.Status.Trim(trimChars);
                 }
             }
-            args.status.status = header + StatusText.Text.Replace("\r\n", "\n").Trim(trimChars) + footer;
+            args.status.status = header + StatusText.Text.Trim(trimChars) + footer;
 
             if (ToolStripMenuItemApiCommandEvasion.Checked)
             {
@@ -2354,6 +2349,7 @@ namespace OpenTween
                 // 文中の全角スペースを半角スペース1個にする
                 args.status.status = args.status.status.Replace("　", " ");
             }
+            args.status.status = args.status.status.Replace(Environment.NewLine, "\n");
 
             if (args.status.status.Length > 140)
             {
@@ -2373,7 +2369,7 @@ namespace OpenTween
 
             args.status.inReplyToId = _reply_to_id;
             args.status.inReplyToName = _reply_to_name;
-            args.isDraft = MyCommon.IsKeyDown(Keys.Shift, Keys.Control);
+            args.isDraft = MyCommon.IsKeyDown(Keys.Shift, Keys.Control); // 簡易実装
             if (ImageSelectionPanel.Visible)
             {
                 //画像投稿
@@ -5154,8 +5150,6 @@ namespace OpenTween
 
         private void StatusText_TextChanged(object sender, EventArgs e)
         {
-            StatusText.Text = StatusText.Text.Replace("\r", "").Replace("\n", "\r\n");
-            //文字数カウント
             int pLen = GetRestStatusCount(true, false);
             lblLen.Text = pLen.ToString();
             if (pLen < 0)
@@ -5176,8 +5170,16 @@ namespace OpenTween
         private int GetRestStatusCount(bool isAuto, bool isAddFooter)
         {
             //文字数カウント
-            int pLen = 140 - StatusText.Text.Replace("\r\n", "\n").Trim(this.trimChars).Length;
+            int pLen = 140 - StatusText.Text.Trim(this.trimChars).Length;
             if (this.NotifyIcon1 == null || !this.NotifyIcon1.Visible) return pLen;
+            Match match = Regex.Match(this.StatusText.Text, "^DM? +(?<id>[a-zA-Z0-9_]+) +(?<body>.+)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            if (match.Success)
+            {
+                pLen = 140 - match.Result("${body}").Length;
+            }
+            else
+            {
+            }
             if ((isAuto && !MyCommon.IsKeyDown(Keys.Control) && SettingDialog.PostShiftEnter) ||
                 (isAuto && !MyCommon.IsKeyDown(Keys.Shift) && !SettingDialog.PostShiftEnter) ||
                 (!isAuto && isAddFooter))
@@ -5190,6 +5192,10 @@ namespace OpenTween
             if (!string.IsNullOrEmpty(HashMgr.UseHash))
             {
                 pLen -= HashMgr.UseHash.Length + 1;
+            }
+            if (ImageSelectionPanel.Visible && ImageSelectedPicture.Tag != null && !string.IsNullOrEmpty(this.ImageService))
+            {
+                pLen -= SettingDialog.TwitterConfiguration.CharactersReservedPerMedia;
             }
             //foreach (Match m in Regex.Matches(StatusText.Text, "https?:\/\/[-_.!~*//()a-zA-Z0-9;\/?:\@&=+\$,%#^]+"))
             //{
@@ -5230,6 +5236,10 @@ namespace OpenTween
                         pLen += path.Length;
                     }
                 }
+                else if (protocol.Length > 7)
+                {
+                    pLen += url.Length - SettingDialog.TwitterConfiguration.ShortUrlLengthHttps;
+                }
                 else
                 {
                     pLen += url.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
@@ -5240,10 +5250,7 @@ namespace OpenTween
                 //    pLen += m.Result("${url}").Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
                 //}
             }
-            if (ImageSelectionPanel.Visible && ImageSelectedPicture.Tag != null && !string.IsNullOrEmpty(this.ImageService))
-            {
-                pLen -= SettingDialog.TwitterConfiguration.CharactersReservedPerMedia;
-            }
+            pLen += StatusText.Text.Trim(this.trimChars).Split(new[] { Environment.NewLine }, StringSplitOptions.None).Count() - 1;
             return pLen;
         }
 
@@ -6716,7 +6723,15 @@ namespace OpenTween
                                 return true;
                             case Keys.Up:
                             case Keys.Down:
-                                if (!string.IsNullOrEmpty(StatusText.Text))
+                                if (this._hisIdx == this._history.Count - 1 && KeyCode == Keys.Down && string.IsNullOrEmpty(this.StatusText.Text.Trim()))
+                                {
+                                    this._history[this._hisIdx] = new TweenMain.PostingStatus(this.StatusText.Text, this._reply_to_id, this._reply_to_name);
+                                    this._history.Add(new TweenMain.PostingStatus());
+                                    this.StatusText.Text = "";
+                                    this._reply_to_id = 0L;
+                                    this._reply_to_name = "";
+                                }
+                                if (!string.IsNullOrEmpty(StatusText.Text.Trim(trimChars)))
                                 {
                                     _history[_hisIdx] = new PostingStatus(StatusText.Text, _reply_to_id, _reply_to_name);
                                 }
@@ -6730,7 +6745,7 @@ namespace OpenTween
                                     _hisIdx += 1;
                                     if (_hisIdx > _history.Count - 1) _hisIdx = _history.Count - 1;
                                 }
-                                StatusText.Text = _history[_hisIdx].status.Replace("\r", "").Replace("\n", "\r\n");
+                                StatusText.Text = _history[_hisIdx].status;
                                 _reply_to_id = _history[_hisIdx].inReplyToId;
                                 _reply_to_name = _history[_hisIdx].inReplyToName;
                                 StatusText.SelectionStart = StatusText.Text.Length;
@@ -7128,7 +7143,7 @@ namespace OpenTween
 
             if (pasteStatusText)
             {
-                StatusText.Paste();
+                StatusText.Paste(Regex.Replace(Clipboard.GetText(), @"(?<!\r)\n", Environment.NewLine));
             }
         }
 
@@ -13498,7 +13513,7 @@ namespace OpenTween
         private void CopyTweet()
         {
             if (_curPost == null || (_curPost.IsDeleted && !_cfgCommon.ShowDeleted)) return;
-            string clstr = _curPost.TextFromApi;
+            string clstr = CreateRetweetUnofficial(_curPost.Text);
             try
             {
                 Clipboard.SetDataObject(clstr, false, 5, 100);
@@ -13508,6 +13523,7 @@ namespace OpenTween
                 MessageBox.Show(ex.Message);
             }
         }
+
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PasteClipboard(true);
@@ -13598,7 +13614,7 @@ namespace OpenTween
                 "＞　" + this.StatusText.SelectedText + "　＜\n" +
                 "￣^" + repeat("Y^", width + 2) + "￣";
 
-            this.StatusText.SelectedText = result;
+            StatusText.Paste(result);
         }
 
         private void ToolStripAutoAddZenkakuSpaceMenuItem_CheckedChanged(object sender, EventArgs e)
@@ -13653,7 +13669,7 @@ namespace OpenTween
         {
             if (!this.StatusText.Focused)
             {
-                MessageBox.Show(MorseCode.ParseJapaneseMorseCode(CreateRetweetUnofficial(_curPost.TextFromApi)));
+                MessageBox.Show(MorseCode.ParseJapaneseMorseCode(CreateRetweetUnofficial(_curPost.Text)));
             }
             else
             {
@@ -13664,7 +13680,7 @@ namespace OpenTween
 
                 var result = MorseCode.ToJapaneseMorseCode(this.StatusText.SelectedText);
 
-                this.StatusText.SelectedText = result;
+                StatusText.Paste(result);
             }
         }
     }

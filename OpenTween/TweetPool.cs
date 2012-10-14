@@ -50,7 +50,7 @@ namespace OpenTween
         public void Set(string msg, string tweet, long reply_to, FileInfo mediaFile, Twitter ppc, int interval)
         {
             this.msg = msg;
-            this.tweet = tweet.Replace("\r", "").Replace("\n", "\r\n");
+            this.tweet = tweet;
             this.reply_to = reply_to;
             this.mediaFile = mediaFile;
             this.ppc = ppc;
@@ -84,7 +84,7 @@ namespace OpenTween
             long reply_to = (long)((object[])param)[1];
             FileInfo mf = (FileInfo)((object[])param)[2];
 
-            this.ppc.PostStatusRetry(tweet.Replace("\r\n", "\n"), reply_to, false, this.MainForm, mf);
+            this.ppc.PostStatusRetry(tweet, reply_to, false, this.MainForm, mf);
         }
 
         public bool Retry()
