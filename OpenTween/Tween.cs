@@ -13610,8 +13610,8 @@ namespace OpenTween
             var repeat = new Func<string, int, string>((str, i) => Enumerable.Repeat(str, i).Aggregate((sum, next) => sum + next));
 
             var result =
-                "＿" + repeat("人", width + 2) + "＿\n" +
-                "＞　" + this.StatusText.SelectedText + "　＜\n" +
+                "＿" + repeat("人", width + 2) + "＿" + Environment.NewLine +
+                "＞　" + this.StatusText.SelectedText + "　＜" + Environment.NewLine + 
                 "￣^" + repeat("Y^", width + 2) + "￣";
 
             StatusText.Paste(result);
