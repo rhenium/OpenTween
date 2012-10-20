@@ -13683,5 +13683,57 @@ namespace OpenTween
                 StatusText.Paste(result);
             }
         }
+
+        private void ReadAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _curList.BeginUpdate();
+            for (int idx = 0; idx < _curList.Items.Count; idx++)
+            {
+                if (SettingDialog.UnreadManage)
+                {
+                    _statuses.SetReadAllTab(true, _curTab.Text, idx);
+                }
+                ChangeCacheStyleRead(true, idx, _curTab);
+            }
+            ColorizeList();
+            _curList.EndUpdate();
+            foreach (TabPage tb in ListTab.TabPages)
+            {
+                if (_statuses.Tabs[tb.Text].UnreadCount == 0)
+                {
+                    if (SettingDialog.TabIconDisp)
+                    {
+                        if (tb.ImageIndex == 0) tb.ImageIndex = -1; //タブアイコン
+                    }
+                }
+            }
+            if (!SettingDialog.TabIconDisp) ListTab.Refresh();
+        }
+
+        private void UnreadAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _curList.BeginUpdate();
+            for (int idx = 0; idx < _curList.Items.Count; idx++)
+            {
+                if (SettingDialog.UnreadManage)
+                {
+                    _statuses.SetReadAllTab(false, _curTab.Text, idx);
+                }
+                ChangeCacheStyleRead(false, idx, _curTab);
+            }
+            ColorizeList();
+            _curList.EndUpdate();
+            foreach (TabPage tb in ListTab.TabPages)
+            {
+                if (_statuses.Tabs[tb.Text].UnreadCount > 0)
+                {
+                    if (SettingDialog.TabIconDisp)
+                    {
+                        if (tb.ImageIndex == -1) tb.ImageIndex = 0; //タブアイコン
+                    }
+                }
+            }
+            if (!SettingDialog.TabIconDisp) ListTab.Refresh();
+        }
     }
 }
