@@ -68,10 +68,12 @@ namespace OpenTween
                 this.labelAutoRetry.Text = "自動で再試行されます";
             else
                 this.labelAutoRetry.Text = "自動で再試行されません";
+            this.retryTimer.Enabled = true;
         }
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
+            this.retryTimer.Enabled = false;
             this.Hide();
             Thread t = new Thread(new ParameterizedThreadStart(worker));
             t.Start(new object[] { this.textBoxTweet.Text, this.reply_to, this.mediaFile });

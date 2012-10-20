@@ -89,7 +89,6 @@
             // 
             // retryTimer
             // 
-            this.retryTimer.Enabled = true;
             this.retryTimer.Interval = 1000000;
             this.retryTimer.Tick += new System.EventHandler(this.retryTimer_Tick);
             // 

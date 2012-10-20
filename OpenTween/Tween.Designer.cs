@@ -69,6 +69,9 @@
             this.FilterEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.ClearTabMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpAllReadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UnreadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.DeleteTabMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabImage = new System.Windows.Forms.ImageList(this.components);
@@ -328,9 +331,9 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
-            this.OpAllReadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.UnreadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuReadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenuUnreadAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -459,6 +462,7 @@
             this.ToolStripAutoCutTweetMenuItem,
             this.ToolStripShowStolenTweetWithColorMenuItem});
             this.ContextMenuPostMode.Name = "ContextMenuStripPostMode";
+            this.ContextMenuPostMode.OwnerItem = this.HashStripSplitButton;
             resources.ApplyResources(this.ContextMenuPostMode, "ContextMenuPostMode");
             this.ContextMenuPostMode.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuPostMode_Opening);
             // 
@@ -703,6 +707,26 @@
             this.ClearTabMenuItem.Name = "ClearTabMenuItem";
             resources.ApplyResources(this.ClearTabMenuItem, "ClearTabMenuItem");
             this.ClearTabMenuItem.Click += new System.EventHandler(this.ClearTabMenuItem_Click);
+            // 
+            // OpAllReadToolStripMenuItem
+            // 
+            this.OpAllReadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ReadAllToolStripMenuItem,
+            this.UnreadAllToolStripMenuItem});
+            this.OpAllReadToolStripMenuItem.Name = "OpAllReadToolStripMenuItem";
+            resources.ApplyResources(this.OpAllReadToolStripMenuItem, "OpAllReadToolStripMenuItem");
+            // 
+            // ReadAllToolStripMenuItem
+            // 
+            this.ReadAllToolStripMenuItem.Name = "ReadAllToolStripMenuItem";
+            resources.ApplyResources(this.ReadAllToolStripMenuItem, "ReadAllToolStripMenuItem");
+            this.ReadAllToolStripMenuItem.Click += new System.EventHandler(this.ReadAllToolStripMenuItem_Click);
+            // 
+            // UnreadAllToolStripMenuItem
+            // 
+            this.UnreadAllToolStripMenuItem.Name = "UnreadAllToolStripMenuItem";
+            resources.ApplyResources(this.UnreadAllToolStripMenuItem, "UnreadAllToolStripMenuItem");
+            this.UnreadAllToolStripMenuItem.Click += new System.EventHandler(this.UnreadAllToolStripMenuItem_Click);
             // 
             // ToolStripSeparator11
             // 
@@ -1751,6 +1775,7 @@
             this.EditRuleTbMenuItem,
             this.ToolStripSeparator30,
             this.ClearTbMenuItem,
+            this.toolStripMenuItem2,
             this.ToolStripSeparator31,
             this.DeleteTbMenuItem});
             this.MenuItemTab.Name = "MenuItemTab";
@@ -2553,25 +2578,25 @@
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
             // 
-            // OpAllReadToolStripMenuItem
+            // toolStripMenuItem2
             // 
-            this.OpAllReadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ReadAllToolStripMenuItem,
-            this.UnreadAllToolStripMenuItem});
-            this.OpAllReadToolStripMenuItem.Name = "OpAllReadToolStripMenuItem";
-            resources.ApplyResources(this.OpAllReadToolStripMenuItem, "OpAllReadToolStripMenuItem");
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MainMenuReadAllToolStripMenuItem,
+            this.MainMenuUnreadAllToolStripMenuItem});
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
-            // ReadAllToolStripMenuItem
+            // MainMenuReadAllToolStripMenuItem
             // 
-            this.ReadAllToolStripMenuItem.Name = "ReadAllToolStripMenuItem";
-            resources.ApplyResources(this.ReadAllToolStripMenuItem, "ReadAllToolStripMenuItem");
-            this.ReadAllToolStripMenuItem.Click += new System.EventHandler(this.ReadAllToolStripMenuItem_Click);
+            this.MainMenuReadAllToolStripMenuItem.Name = "MainMenuReadAllToolStripMenuItem";
+            resources.ApplyResources(this.MainMenuReadAllToolStripMenuItem, "MainMenuReadAllToolStripMenuItem");
+            this.MainMenuReadAllToolStripMenuItem.Click += new System.EventHandler(this.ReadAllToolStripMenuItem_Click);
             // 
-            // UnreadAllToolStripMenuItem
+            // MainMenuUnreadAllToolStripMenuItem
             // 
-            this.UnreadAllToolStripMenuItem.Name = "UnreadAllToolStripMenuItem";
-            resources.ApplyResources(this.UnreadAllToolStripMenuItem, "UnreadAllToolStripMenuItem");
-            this.UnreadAllToolStripMenuItem.Click += new System.EventHandler(this.UnreadAllToolStripMenuItem_Click);
+            this.MainMenuUnreadAllToolStripMenuItem.Name = "MainMenuUnreadAllToolStripMenuItem";
+            resources.ApplyResources(this.MainMenuUnreadAllToolStripMenuItem, "MainMenuUnreadAllToolStripMenuItem");
+            this.MainMenuUnreadAllToolStripMenuItem.Click += new System.EventHandler(this.UnreadAllToolStripMenuItem_Click);
             // 
             // TweenMain
             // 
@@ -2938,5 +2963,8 @@
         private System.Windows.Forms.ToolStripMenuItem OpAllReadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ReadAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UnreadAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem MainMenuReadAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MainMenuUnreadAllToolStripMenuItem;
     }
 }
