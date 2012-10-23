@@ -2282,7 +2282,7 @@ namespace OpenTween
             return "";
         }
 
-        private string CreatePostsFromSearchJson(string content, TabClass tab, bool read, int count, ref long minimumId)
+        private string CreatePostsFromSearchJson(string content, TabClass tab, bool read, int count, ref long minimumId, bool more)
         {
             TwitterDataModel.SearchResult items;
             try
@@ -2306,6 +2306,7 @@ namespace OpenTween
                 if (post == null) continue;
 
                 if (minimumId > post.StatusId) minimumId = post.StatusId;
+                if (!more && post.StatusId > tab.SinceId) tab.SinceId = post.StatusId;
                 //二重取得回避
                 lock (LockObj)
                 {
@@ -2747,7 +2748,7 @@ namespace OpenTween
 
             if (!TabInformations.GetInstance().ContainsTab(tab)) return "";
 
-            return this.CreatePostsFromSearchJson(content, tab, read, count, ref tab.OldestId);
+            return this.CreatePostsFromSearchJson(content, tab, read, count, ref tab.OldestId, more);
         }
 
         public string GetPhoenixSearch(bool read,
