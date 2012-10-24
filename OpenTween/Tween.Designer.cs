@@ -1716,7 +1716,10 @@
             // MorseEncodeToolStripMenuItem
             // 
             this.MorseEncodeToolStripMenuItem.Name = "MorseEncodeToolStripMenuItem";
+            this.MorseEncodeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.M)));
             this.MorseEncodeToolStripMenuItem.Size = new System.Drawing.Size(259, 22);
+            this.MorseEncodeToolStripMenuItem.Text = "モールス符号化(&M)";
             this.MorseEncodeToolStripMenuItem.Click += new System.EventHandler(this.MorseEncodeToolStripMenuItem_Click);
             // 
             // ToolStripSeparator6
