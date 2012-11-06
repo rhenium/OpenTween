@@ -13551,6 +13551,7 @@ namespace OpenTween
                                         this._cfgCommon.UserAccounts[i].Tag == tw.Tag;
                         item.Click += (sender1, e1) =>
                         {
+                            tw.StopUserStream();
                             var u = this._cfgCommon.UserAccounts[(int)((ToolStripMenuItem)sender1).Tag];
 
                             tw.Initialize(u.Token, u.TokenSecret, u.ConsumerKey, u.ConsumerSecret, u.Username, u.UserId, u.Tag);
@@ -13569,9 +13570,10 @@ namespace OpenTween
                             ((ToolStripMenuItem)sender1).Checked = true;
 
                             this.ChangeAccountDropDownButton.Text = u.ToString();
-                            this.CreatePictureServices();
+                            //this.CreatePictureServices();
                             //this.SetImageServiceCombo();
                             this.doGetFollowersMenu();
+                            if (tltw.UserId != tw.UserId) tw.StartUserStream();
                             SaveConfigsCommon();
                             //RefreshChangeAccountSplitButton();
                         };
@@ -13626,6 +13628,7 @@ namespace OpenTween
 
         private void ChangeAccountMenuItem_Click(object sender, EventArgs e)
         {
+            tw.StopUserStream();
             var n = this._cfgCommon.UserAccounts.IndexOf(this._cfgCommon.UserAccounts.Single(u => u.UserId == this.tw.UserId && u.Tag == this.tw.Tag))
                 + 1;
             if (n == this._cfgCommon.UserAccounts.Count) n = 0;
@@ -13639,12 +13642,14 @@ namespace OpenTween
                 tw.VerifyCredentials();
                 q.UserId = tw.UserId;
             }
+            if (tltw.UserId != tw.UserId) tw.StartUserStream();
             SaveConfigsCommon();
             RefreshChangeAccountDropDownButton();
         }
 
         private void ChangeAccountUpMenuItem_Click(object sender, EventArgs e)
         {
+            tw.StopUserStream();
             var n = this._cfgCommon.UserAccounts.IndexOf(this._cfgCommon.UserAccounts.Single(u => u.UserId == this.tw.UserId && u.Tag == this.tw.Tag))
                 - 1;
             if (n == -1) n = this._cfgCommon.UserAccounts.Count - 1;
@@ -13658,6 +13663,7 @@ namespace OpenTween
                 tw.VerifyCredentials();
                 q.UserId = tw.UserId;
             }
+            if (tltw.UserId != tw.UserId) tw.StartUserStream();
             SaveConfigsCommon();
             RefreshChangeAccountDropDownButton();
         }
