@@ -500,5 +500,22 @@ namespace OpenTween
             [DataMember(Name = "short_url_length_https")] public int ShortUrlLengthHttps = 20;
             [DataMember(Name = "max_media_per_upload")] public int MaxMediaPerUpload;
         }
+
+        [DataContract]
+        public class StatusActivitySummary
+        {
+            [DataMember(Name = "favoriters_count")]
+            public string FavoritersCount;
+            [DataMember(Name = "retweeters_count")]
+            public string RetweetersCount;
+            [DataMember(Name = "repliers_count")]
+            public string RepliersCount;
+            [DataMember(Name = "favoriters")]
+            public long[] Favoriters;
+            [DataMember(Name = "retweeters")]
+            public long[] Retweeters;
+            [DataMember(Name = "repliers")]
+            public long[] Repliers;
+        }
     }
 }

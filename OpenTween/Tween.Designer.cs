@@ -2449,7 +2449,7 @@
             // 
             this.RtCountMenuItem.Name = "RtCountMenuItem";
             this.RtCountMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.RtCountMenuItem.Text = "この発言のRetweet回数を確認";
+            this.RtCountMenuItem.Text = "この発言のRetweet/Favorite回数を確認";
             this.RtCountMenuItem.Click += new System.EventHandler(this.RtCountMenuItem_Click);
             // 
             // ListManageToolStripMenuItem

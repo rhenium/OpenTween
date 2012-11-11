@@ -12392,6 +12392,7 @@ namespace OpenTween
         private void GetRetweet_DoWork(object sender, DoWorkEventArgs e)
         {
             int counter = 0;
+            int counter2 = 0;
 
             long statusid;
             if (_curPost.RetweetedId > 0)
@@ -12402,9 +12403,9 @@ namespace OpenTween
             {
                 statusid = _curPost.StatusId;
             }
-            tw.GetStatus_Retweeted_Count(statusid, ref counter);
+            tw.GetStatus_Retweeted_Count(statusid, ref counter, ref counter2);
 
-            e.Result = counter;
+            e.Result = new Tuple<int, int>(counter, counter2);
         }
 
         private void RtCountMenuItem_Click(object sender, EventArgs e)
@@ -12415,17 +12416,19 @@ namespace OpenTween
                                                      GetRetweet_DoWork))
                 {
                     int retweet_count = 0;
+                    int favorite_count = 0;
 
                     // ダイアログ表示
                     _info.ShowDialog();
-                    retweet_count = (int)_info.Result;
+                    retweet_count = ((Tuple<int, int>)_info.Result).Item1;
+                    favorite_count = ((Tuple<int, int>)_info.Result).Item2;
                     if (retweet_count < 0)
                     {
                         MessageBox.Show(Properties.Resources.RtCountText2);
                     }
                     else
                     {
-                        MessageBox.Show(retweet_count.ToString() + Properties.Resources.RtCountText1);
+                        MessageBox.Show(string.Format(Properties.Resources.RtCountText1, retweet_count, favorite_count));
                     }
                 }
             }

@@ -14,7 +14,8 @@ OpenTween との違い
 * スペースキーでタイムラインにフォーカスを移すかを選択できるように
 * 鍵アカでもQTをできるように。非公式RTはできない
 * UserStreamsを2本張り、同じアカウントのタイムラインのまま他のアカウントでツイートすることが可能 * バグがあるかも
-* パクリツイートの文字色を変更できる
+* パクリツイートの文字色を変更できる * 非常に重い
+* ツイートのRTされた数・ふぁぼられた数が表示できる（rate limitedなAPIを使います）
 
 色々抜けているかもしれません。ChangeLog.txtをみてください。
 
@@ -28,8 +29,8 @@ OpenTween との違い
 
 開発環境
 --------
-Windows 7 Professional SP1 (64bit)  
-.NET Framework 4.5  
+Windows 8 Pro (64bit)  
+.NET Framework 4.0  
 Visual Studio Professional 2012  
 
 
@@ -37,6 +38,6 @@ Visual Studio Professional 2012
 ------
 [OpenTween - sf.jp](http://sourceforge.jp/projects/opentween/)  
 [OpenTween - github](https://github.com/opentween/OpenTween)  
-[re4k](http://re4k.info/)  
+[re4k.info](http://re4k.info/)  
 [@re4k](https://twitter.com/re4k)  
 

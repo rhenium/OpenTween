@@ -758,10 +758,10 @@
     <value>最新発言の取得に失敗しました</value>
   </data>
   <data name="RtCountText1" xml:space="preserve">
-    <value>回Retweetされています</value>
+    <value>{0}回Retweet/{1}回Favoriteされています</value>
   </data>
   <data name="RtCountText2" xml:space="preserve">
-    <value>Retweetカウントの取得に失敗しました</value>
+    <value>Retweet/Favoriteカウントの取得に失敗しました</value>
   </data>
   <data name="PubSearchPeriod_ValidatingText1" xml:space="preserve">
     <value>更新間隔には数値（0または30～6000）を指定してください。</value>
@@ -773,7 +773,7 @@
     <value>プロフィール取得中・・・</value>
   </data>
   <data name="RtCountMenuItem_ClickText1" xml:space="preserve">
-    <value>Retweetカウント取得中・・・</value>
+    <value>Retweet/Favoriteカウント取得中・・・</value>
   </data>
   <data name="FollowCommandText1" xml:space="preserve">
     <value>フォローしています・・・</value>

@@ -1,5 +1,8 @@
-1.0.7-beta1:2-2.2f
+1.0.7-beta1:2-2.3a
 https://github.com/re4k/OpenTween/downloads
+
+==== Ver 1.0.7-beta1:2-2.3a(2012/11/11)
+ * NEW: 非公開なAPIを使用していままでのRetweet回数表示でFav数も表示できるように
 
 ==== Ver 1.0.7-beta1:2-2.2f(2012/11/11)
  * FIX: ツイート詳細のアイコンの上下に1pxずつ隙間があったのを修正

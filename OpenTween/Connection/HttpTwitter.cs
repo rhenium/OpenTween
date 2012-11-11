@@ -986,6 +986,16 @@ namespace OpenTween
                                       GetApiCallback);
         }
 
+        public HttpStatusCode StatusActivitySummary(long statusid, ref string content)
+        {
+            return httpCon.GetContent(GetMethod,
+                                      CreateTwitterUri("/i/statuses/" + statusid.ToString() + "/activity/summary.json"),
+                                      null,
+                                      ref content,
+                                      this.TwitterApiInfo.HttpHeaders,
+                                      GetApiCallback);
+        }
+
         #region Proxy API
         private static string _twitterUrl = "api.twitter.com";
         private static string _TwitterSearchUrl = "search.twitter.com";

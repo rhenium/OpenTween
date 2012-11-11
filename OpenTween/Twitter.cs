@@ -1333,7 +1333,7 @@ namespace OpenTween
             }
         }
 
-        public string GetStatus_Retweeted_Count(long StatusId, ref int retweeted_count)
+        public string GetStatus_Retweeted_Count(long StatusId, ref int retweeted_count, ref int favorites_count)
         {
             if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
@@ -1344,7 +1344,7 @@ namespace OpenTween
 
             try
             {
-                res = twCon.ShowStatuses(StatusId, ref content);
+                res = twCon.StatusActivitySummary(StatusId, ref content);
             }
             catch (Exception ex)
             {
@@ -1366,10 +1366,10 @@ namespace OpenTween
                     return "Err:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
             }
 
-            TwitterDataModel.Status status;
+            TwitterDataModel.StatusActivitySummary status;
             try
             {
-                status = MyCommon.CreateDataFromJson<TwitterDataModel.Status>(content);
+                status = MyCommon.CreateDataFromJson<TwitterDataModel.StatusActivitySummary>(content);
             }
             catch (SerializationException ex)
             {
@@ -1382,8 +1382,12 @@ namespace OpenTween
                 return "Invalid Json!";
             }
             int tmp;
-            if (int.TryParse(status.RetweetCount, out tmp))
+            if (int.TryParse(status.RetweetersCount, out tmp))
                 retweeted_count = tmp;
+            int tmp2;
+            if (int.TryParse(status.FavoritersCount, out tmp2))
+                favorites_count = tmp2;
+
             return "";
         }
 
