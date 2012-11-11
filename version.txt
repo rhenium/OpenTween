@@ -2,115 +2,115 @@
 https://github.com/re4k/OpenTween/downloads
 
 ==== Ver 1.0.7-beta1:2-2.3a(2012/11/11)
- * NEW: ����J��API���g�p���Ă��܂܂ł�Retweet�񐔕\����Fav�����\���ł���悤��
+ * NEW: 非公開なAPIを使用していままでのRetweet回数表示でFav数も表示できるように
 
 ==== Ver 1.0.7-beta1:2-2.2f(2012/11/11)
- * FIX: �c�C�[�g�ڍׂ̃A�C�R���̏㉺��1px�����Ԃ��������̂��C��
- * FIX: ���[���X�M�����j���[�����������Ȃ��Ă����̂��C��
- * FIX: �A�J�E���g�ؑ֎���UserStreams��1�{�����Ȃ���Ȃ��E2�{�Ȃ����Ă��܂��̂��C��
+ * FIX: ツイート詳細のアイコンの上下に1pxずつ隙間があったのを修正
+ * FIX: モールス信号メニューがおかしくなっていたのを修正
+ * FIX: アカウント切替時にUserStreamsが1本しかつながらない・2本つながってしまうのを修正
 
 ==== Ver 1.0.7-beta1:2-2.2e(2012/10/24)
- * FIX: �ˑR�̎��̘g�ŁA���͗��ł͉��s���\������Ȃ������C��
- * NEW: �^�u�E�N���b�N�E�^�u���j���[���猻�݂̃^�u�̂��ׂĂ̔����̖��ǁE���ǂ�؂�ւ�����悤��
- * OpenTween �̃R�~�b�g���}�[�W�B�ȉ� OpenTween �̍X�V�_
- * NEW: img.azyobuzi.net ���g�p�����T���l�C���\���ɑΉ�
- * CHG: ����API��ATOM����JSON�Ɉڍs (thx @re4k, @5px!)
- * CHG: �T���l�C���\����啝�ɏ�������
+ * FIX: 突然の死の枠で、入力欄では改行が表示されない問題を修正
+ * NEW: タブ右クリック・タブメニューから現在のタブのすべての発言の未読・既読を切り替えられるように
+ * OpenTween のコミットをマージ。以下 OpenTween の更新点
+ * NEW: img.azyobuzi.net を使用したサムネイル表示に対応
+ * CHG: 検索APIをATOMからJSONに移行 (thx @re4k, @5px!)
+ * CHG: サムネイル表示を大幅に書き直し
 
 ==== Ver 1.0.7-beta1:2-2.2d(2012/10/15)
- * FIX: �������J�E���g���C��
+ * FIX: 文字数カウントを修正
 
 ==== Ver 1.0.7-beta1:2-2.2c(2012/10/14)
- * FIX: Events ��������Ƃ������������̂��C��
+ * FIX: Events がちょっとおかしかったのを修正
 
 ==== Ver 1.0.7-beta1:2-2.2b(2012/10/13)
- * FIX: �Ўv���\�����ُ�Ȗ��̏C���i���e�X�g�j
- * FIX: �ŐV�Ŋm�F�@�\�̏C���i���e�X�g�j
+ * FIX: 片思い表示が異常な問題の修正（未テスト）
+ * FIX: 最新版確認機能の修正（未テスト）
 
 ==== Ver 1.0.7-beta1:2-2.2a(2012/10/09)
- * NEW: ���[���X�����̓ǂݏ���
+ * NEW: モールス符号の読み書き
 
 ==== Ver 1.0.7-beta1:2-2.1d(2012/10/05)
- * FIX: �A�J�E���g�ǉ�����Tag����͂��Ă����Ă��������������C��
- * FIX: �o�^�����A�J�E���g�폜�ŃG���[��������������C��
+ * FIX: アカウント追加時にTagを入力しておいても無視される問題を修正
+ * FIX: 登録したアカウント削除でエラーが発生する問題を修正
 
 ==== Ver 1.0.7-beta1:2-2.1c(2012/10/01)
- * FIX: �A�J�E���g��؂�ւ���ƃG���[����������o�O���C��
+ * FIX: アカウントを切り替えるとエラーが発生するバグを修正
 
 ==== Ver 1.0.7-beta1:2-2.1b(2012/10/01)
- * CHG: 250����葽��Fav�ǉ����m�F���邾���ɕύX�����ithanks @AliceUuo!�j
+ * CHG: 250件より多いFav追加を確認するだけに変更した（thanks @AliceUuo!）
 
 ==== Ver 1.0.7-beta1:2-2.1a(2012/10/01)
- * FIX: �E���̃A�J�E���g�؂�ւ��{�^����ToolStripDropDownButton�ɕύX
- * NEW: ���s�����c�C�[�g���A�J�E���g�ؑ֎��E��莞�ԊԊu�Ŏ����ăc�C�[�g�����݂�
+ * FIX: 右下のアカウント切り替えボタンをToolStripDropDownButtonに変更
+ * NEW: 失敗したツイートをアカウント切替時・一定時間間隔で自動再ツイートを試みる
 
 ==== Ver 1.0.7-beta1:2-2.0g(2012/09/16)
- * CHG: �����\���i�^�C�����C���̂݁j�̌v�����ߋ�1���ԕ��ł͂Ȃ�5�����ɕύX
+ * CHG: 流速表示（タイムラインのみ）の計測を過去1時間分ではなく5分分に変更
 
 ==== Ver 1.0.7-beta1:2-2.0f(2012/09/12)
- * FIX: �^�C�����C���̃A�J�E���g�ƃc�C�[�g�̃A�J�E���g�������ꍇ�AUserStreams��2�{�Ȃ����̂��C��
- * FIX: �ӂ��ڂ�ꂪ2�{�ɂȂ��Ă��܂��̂��C��
- * FIX: �d���c�C�[�g�̕����F�̕ύX�@�\���������C��
- * FIX: �����A�J�E���g�ŕ����̃R���V���[�}�L�[���g���ĔF�؂��Ă���ꍇ�A�ݒ��ʂ��L�����Z���ŕ���Ƒ��̃R���V���[�}�L�[�̂��̂ɐ؂�ւ���Ă��܂������C��
- * FIX: ���ʂ��Ȃ�����(�A�J�E���g�؂�ւ��h���b�v�_�E��)
- * CHG: API�c���Q�[�W�𕪂����B���ۂɓ������͕s��
+ * FIX: タイムラインのアカウントとツイートのアカウントが同じ場合、UserStreamsが2本つながれるのを修正
+ * FIX: ふぁぼられが2倍になってしまうのを修正
+ * FIX: 重複ツイートの文字色の変更機能をすこし修正
+ * FIX: 同じアカウントで複数のコンシューマキーを使って認証している場合、設定画面をキャンセルで閉じると他のコンシューマキーのものに切り替わってしまう問題を修正
+ * FIX: 無駄をなくした(アカウント切り替えドロップダウン)
+ * CHG: API残数ゲージを分けた。実際に働くかは不明
 
 ==== Ver 1.0.7-beta1:2-2.0e(2012/09/11)
- * NEW: �d���c�C�[�g�̕����F��ς���I�v�V������ǉ��B���ɏd��
+ * NEW: 重複ツイートの文字色を変えるオプションを追加。非常に重い
 
 ==== Ver 1.0.7-beta1:2-2.0d(2012/09/10)
- * FIX: �E���̃A�J�E���g�؂�ւ��{�^���̏��Ԃ�����ւ������C��
- * CHG: �t�@�C�����j���[�ɃA�J�E���g�����ɐ؂�ւ��郁�j���[�ǉ�
+ * FIX: 右下のアカウント切り替えボタンの順番が入れ替わる問題を修正
+ * CHG: ファイルメニューにアカウントを一つ上に切り替えるメニュー追加
 
 ==== Ver 1.0.7-beta1:2-2.0d(2012/09/04)
- * OpenTween���}�[�W
- * FIX: API�R�}���h�̔F���̏C��
+ * OpenTweenをマージ
+ * FIX: APIコマンドの認識の修正
 
 ==== Ver 1.0.6-beta1:2-2.0c(2012/09/xx)
- * FIX: TweenMain��toolStripStatusLabel2�Ƃ����s�v�ȃR���g���[�����ł��Ă��܂��Ă����̂ō폜
+ * FIX: TweenMainにtoolStripStatusLabel2という不要なコントロールができてしまっていたので削除
 
 ==== Ver 1.0.6-beta1:2-2.0b(2012/09/01)
- * FIX: Search��Invalid ATOM!�ƂȂ�̂��C���Batom����json��API��ς����B
- * FIX: �E���̃A�J�E���g�؂�ւ����j���[���J���̂��ُ�ɒx�������̂��C��
- + FIX: �Ўv�����[�U�[��TL�\���p�A�J�E���g�ł̂ݍs���悤�ɂ��A���ׂẴA�J�E���g�ɑ΂��ĕЎv���\���ɂȂ�̂��C��
- * FIX: (1.0.6-beta1:2-2.0a)TL�ƃc�C�[�g�������A�J�E���g�ł����Ă�UserStreams��2�{���낤�Ƃ���̂��C��
- * BUG: �����̃c�C�[�g�����ǂɂ���悤�Ȑݒ�����Ă��Ă������̃c�C�[�g�����Ǖ\���Ȃ邱�Ƃ�����
- * BUG: UserStreams��1�{�ł��؂��ƃ��j���[�̕\�������ƂȂ�
+ * FIX: SearchがInvalid ATOM!となるのを修正。atomからjsonにAPIを変えた。
+ * FIX: 右下のアカウント切り替えメニューが開くのが異常に遅かったのを修正
+ + FIX: 片思いユーザーはTL表示用アカウントでのみ行うようにし、すべてのアカウントに対して片思い表示になるのを修正
+ * FIX: (1.0.6-beta1:2-2.0a)TLとツイートが同じアカウントであってもUserStreamsを2本張ろうとするのを修正
+ * BUG: 自分のツイートを既読にするような設定をしていても自分のツイートが未読表示なることがある
+ * BUG: UserStreamsが1本でも切れるとメニューの表示が■となる
 
 ==== Ver 1.0.6-beta1:2-2.0a(2012/08/31)
- * NEW[dev]: �^�C�����C���ƃc�C�[�g�̃A�J�E���g�����r���BUserStreams��2�{����悤�ɂȂ�܂�
- * BUG: �Ўv�����[�U�[�����܂��擾�ł��Ȃ�
- * BUG: TL�ƃc�C�[�g�������A�J�E���g�ł����Ă�UserStreams��2�{���낤�Ƃ���
+ * NEW[dev]: タイムラインとツイートのアカウント分離途中。UserStreamsを2本張るようになります
+ * BUG: 片思いユーザーがうまく取得できない
+ * BUG: TLとツイートが同じアカウントであってもUserStreamsを2本張ろうとする
 
 ==== Ver 1.0.6-beta1:2-1.1b(2012/08/30)
- * FIX: Public Search�� georss �Ƃ����v���t�B�b�N�X�����Ă���(<georss:point>)�Ƃ������������A��`����Ă��Ȃ��������� Invalid ATOM! �ɂȂ��Ă��܂����Ƃ��������B���}�[�u�B���x������񌩂Ȃ����K�v����
+ * FIX: Public Searchで georss というプリフィックスがついてくる(<georss:point>)ときがあったが、定義されていなかったため Invalid ATOM! になってしまうことがあった。応急措置。今度もう一回見なおす必要あり
 
 ==== Ver 1.0.6-beta1:2-1.1a(2012/08/28)
- * NEW: �c�C�[�g�ڍׂ̃��[�U�[�摜�E�N���b�N���j���[�Ƀu���b�N�E�u���b�N�����ǉ�
+ * NEW: ツイート詳細のユーザー画像右クリックメニューにブロック・ブロック解除追加
 
 ==== Ver 1.0.6-beta1:2-1.0d(2012/08/26)
- * FIX: UserStreams���Ƀc�C�[�g���폜���ꂽ�Ƃ��̋������C��
+ * FIX: UserStreams時にツイートが削除されたときの挙動を修正
 
 ==== Ver 1.0.6-beta1:2-1.0c(2012/08/20)
- * OpenTween�̕ύX�� ef73f80ab3 �܂Ń}�[�W
- * FIX: Ctrl+Shift+A, �t�@�C�����j���[����̃A�J�E���g�؂�ւ����@�\���Ă��Ȃ������̂��C��
+ * OpenTweenの変更を ef73f80ab3 までマージ
+ * FIX: Ctrl+Shift+A, ファイルメニューからのアカウント切り替えが機能していなかったのを修正
 
 ==== Ver 1.0.6-beta1:2-1.0b(2012/08/17 20:40)
- * FIX: �A�C�R����PictureBox���c�ɒׂ�Ă����̂��C��
- * FIX: 140���������J�b�g�E�A�����[�h���g�p�ł��Ȃ������̂��C��
- * NEW: version.txt���g���Ă݂�
+ * FIX: アイコンのPictureBoxが縦に潰れていたのを修正
+ * FIX: 140文字自動カット・連投モードが使用できなかったのを修正
+ * NEW: version.txtを使ってみた
 
 ==== Ver 1.0.6-beta1:2-1.0a(2012/08/17 19:30)
- * Ver 1.0.5�����Ƀ��Z�b�g
- * 1.0.4-beta1:1 �Ƃ͐ݒ�t�@�C�����ꕔ�Ⴂ�܂��BSettingCommon.xml��"Comment"��"Tag"�ɕς��Ă�������
- * NEW: �E������̃h���b�v�_�E������A�J�E���g�؂�ւ����ł���悤��
- * NEW: Ctrl+Shift�������Ȃ���Post�{�^�����������A�c�C�[�g���s���ɊȈՉ������E�B���h�E���J��
- * NEW: �R���V���[�}�L�[���A�J�E���g���ƂɕύX�\��
- * NEW: 140���������J�b�g�E�A�����[�h���g�p���邩�I���ł���悤��
- * NEW: �N���b�v�{�[�h����̉摜�\��t��
- * FIX: API�R�}���h����̐��K�\�����C��
- * FIX: �c�C�[�g����\r\n����Ȃ���\n�ő��M����悤�ɁB�������J�E���g���C��
- * FIX: �c�C�[�g�̃g������ ' ', '\t', '\r', '\n' �݂̂�
- * CHG: �X�y�[�X�L�[�Ń^�C�����C���Ƀt�H�[�J�X���ڂ�����I���ł���悤��
- * CHG: Ctrl+C��STOT�`���Ńc�C�[�g���R�s�[����̂ł͂Ȃ��c�C�[�g�{�����R�s�[����悤��
- * CHG: ���A�J�ł�QT���ł���悤�ɁB�����RT�͂ł��Ȃ�
+ * Ver 1.0.5相当にリセット
+ * 1.0.4-beta1:1 とは設定ファイルが一部違います。SettingCommon.xmlの"Comment"を"Tag"に変えてください
+ * NEW: 右下からのドロップダウンからアカウント切り替えができるように
+ * NEW: Ctrl+Shiftを押しながらPostボタンを押すか、ツイート失敗時に簡易下書きウィンドウが開く
+ * NEW: コンシューマキーをアカウントごとに変更可能に
+ * NEW: 140文字自動カット・連投モードを使用するか選択できるように
+ * NEW: クリップボードからの画像貼り付け
+ * FIX: APIコマンド回避の正規表現を修正
+ * FIX: ツイート時に\r\nじゃなくて\nで送信するように。文字数カウントも修正
+ * FIX: ツイートのトリムを ' ', '\t', '\r', '\n' のみに
+ * CHG: スペースキーでタイムラインにフォーカスを移すかを選択できるように
+ * CHG: Ctrl+CでSTOT形式でツイートをコピーするのではなくツイート本文をコピーするように
+ * CHG: 鍵アカでもQTをできるように。非公式RTはできない

@@ -1,40 +1,40 @@
 OpenTweenA
 ==========
-OpenTween �̔h���N���C�A���g�ł��B�����֗̕��Ȃ悤�ɕύX�����������̂ł��B�ł�����A�@�\�̗v�]�Ȃǂ͊�{�I�Ɏ󂯕t���܂���B
+OpenTween の派生クライアントです。自分の便利なように変更を加えたものです。ですから、機能の要望などは基本的に受け付けません。
 
 
-OpenTween �Ƃ̈Ⴂ
+OpenTween との違い
 ------------------
-* �E������̃h���b�v�_�E���E�V���[�g�J�b�g�L�[����A�J�E���g�؂�ւ����ł���悤��
-* �R���V���[�}�L�[���A�J�E���g���ƂɕύX�\
-* 140���������J�b�g�E�����ɑS�p�X�y�[�X������c�C�[�g�d���h�~
-* API�R�}���h����̐��K�\�����C������Ă���
-* �c�C�[�g����\r\n�ł͂Ȃ�\n�ő��M�����B�������J�E���g���C������Ă���
-* �c�C�[�g�̃g������ ' ', '\t', '\r', '\n' �݂̂�
-* �X�y�[�X�L�[�Ń^�C�����C���Ƀt�H�[�J�X���ڂ�����I���ł���悤��
-* ���A�J�ł�QT���ł���悤�ɁB�����RT�͂ł��Ȃ�
-* UserStreams��2�{����A�����A�J�E���g�̃^�C�����C���̂܂ܑ��̃A�J�E���g�Ńc�C�[�g���邱�Ƃ��\ * �o�O�����邩��
-* �p�N���c�C�[�g�̕����F��ύX�ł��� * ���ɏd��
-* �c�C�[�g��RT���ꂽ���E�ӂ��ڂ�ꂽ�����\���ł���irate limited��API���g���܂��j
+* 右下からのドロップダウン・ショートカットキーからアカウント切り替えができるように
+* コンシューマキーをアカウントごとに変更可能
+* 140文字自動カット・末尾に全角スペースをつけるツイート重複防止
+* APIコマンド回避の正規表現を修正されている
+* ツイート時に\r\nではなく\nで送信される。文字数カウントが修正されている
+* ツイートのトリムを ' ', '\t', '\r', '\n' のみに
+* スペースキーでタイムラインにフォーカスを移すかを選択できるように
+* 鍵アカでもQTをできるように。非公式RTはできない
+* UserStreamsを2本張り、同じアカウントのタイムラインのまま他のアカウントでツイートすることが可能 * バグがあるかも
+* パクリツイートの文字色を変更できる * 非常に重い
+* ツイートのRTされた数・ふぁぼられた数が表示できる（rate limitedなAPIを使います）
 
-�F�X�����Ă��邩������܂���BChangeLog.txt���݂Ă��������B
+色々抜けているかもしれません。ChangeLog.txtをみてください。
 
-���m�̃o�O�E�s�
+既知のバグ・不具合
 -----------------
- * API�c���\�����ُ�
- * UserStreams��2�{�����Ă���ꍇ�A�����̃c�C�[�g�����ǂɂ���悤�Ȑݒ�����Ă��Ă�����ɓ����Ȃ�
- * UserStreams��2�{�����Ă���ꍇ�A1�{�ł��؂��ƃ��j���[�̕\�������ƂȂ�
+ * API残数表示が異常
+ * UserStreamsが2本張られている場合、自分のツイートを既読にするような設定をしていても正常に動かない
+ * UserStreamsが2本張られている場合、1本でも切れるとメニューの表示が■となる
 
-���܂莄�ɂ͉e�����Ȃ����߁A�C������Ȃ��\��������܂��B���ꂩpull request��������(�L�փÂ�`*)
+あまり私には影響がないため、修正されない可能性もあります。たれかpull requestおくって(´へεへ`*)
 
-�J����
+開発環境
 --------
 Windows 8 Pro (64bit)  
 .NET Framework 4.0  
 Visual Studio Professional 2012  
 
 
-�����N
+リンク
 ------
 [OpenTween - sf.jp](http://sourceforge.jp/projects/opentween/)  
 [OpenTween - github](https://github.com/opentween/OpenTween)  
