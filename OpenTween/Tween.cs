@@ -13243,8 +13243,8 @@ namespace OpenTween
                 pos.Y = Convert.ToInt32(this.Location.Y + this.Size.Height / 2 - evtDialog.Size.Height / 2);
                 evtDialog.Location = pos;
             }
-            evtDialog.EventSource = tw.StoredEvent;
-            evtDialog.EventSource.AddRange(tltw.StoredEvent);
+            evtDialog.EventSource = tltw.StoredEvent;
+            evtDialog.EventSource.AddRange(tw.StoredEvent.Where(m => !evtDialog.EventSource.Contains(m, new EventComparer())));
             if (!evtDialog.Visible)
             {
                 evtDialog.Show(this);
@@ -13755,6 +13755,22 @@ namespace OpenTween
         private void OpenThumbnailPicture(ThumbnailInfo thumbnail)
         {
             this.OpenUriAsync(thumbnail.ImageUrl);
+        }
+    }
+    public class EventComparer : System.Collections.Generic.IEqualityComparer<Twitter.FormattedEvent>
+    {
+        public bool Equals(Twitter.FormattedEvent x, Twitter.FormattedEvent y)
+        {
+            return x.CreatedAt == y.CreatedAt &&
+                x.Event == y.Event &&
+                x.Id == y.Id &&
+                x.Target == y.Target &&
+                x.Username == y.Username;
+        }
+
+        public int GetHashCode(Twitter.FormattedEvent obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

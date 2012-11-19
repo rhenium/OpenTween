@@ -110,6 +110,7 @@
             this.EventList.View = System.Windows.Forms.View.Details;
             this.EventList.VirtualMode = true;
             this.EventList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this.EventList_CacheVirtualItems);
+            this.EventList.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.EventList_ColumnClick);
             this.EventList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.EventList_RetrieveVirtualItem);
             this.EventList.DoubleClick += new System.EventHandler(this.EventList_DoubleClick);
             // 

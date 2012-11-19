@@ -48,6 +48,8 @@ namespace OpenTween
 
         private TabPage _curTab = null;
 
+        private int _col = 0;
+
         public EventViewerDialog()
         {
             InitializeComponent();
@@ -125,9 +127,11 @@ namespace OpenTween
         {
             if (EventSource != null && EventSource.Count > 0)
             {
-                _filterdEventSource = EventSource.FindAll((x) => (CheckExcludeMyEvent.Checked ? !x.IsMe : true) &&
+                _filterdEventSource = EventSource
+                    .FindAll((x) => (CheckExcludeMyEvent.Checked ? !x.IsMe : true) &&
                                                                  (x.Eventtype & ParseEventTypeFromTag()) != 0 &&
-                                                                 IsFilterMatch(x)).ToArray();
+                                                                 IsFilterMatch(x))
+                    .OrderBy(m => new[] { m.CreatedAt.ToString(), m.Event, m.Username, m.Target }[_col]).ThenBy(m => m.CreatedAt).ToArray();
                 _ItemCache = null;
                 EventList.VirtualListSize = _filterdEventSource.Count();
                 StatusLabelCount.Text = string.Format("{0} / {1}", _filterdEventSource.Count(), EventSource.Count());
@@ -265,6 +269,15 @@ namespace OpenTween
                              _event.Target + "\t" +
                              _event.Id.ToString());
             }
+        }
+
+        private void EventList_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            _col = e.Column;
+            EventList.BeginUpdate();
+            EventList.VirtualListSize = 0;
+            CreateFilterdEventSource();
+            EventList.EndUpdate();
         }
     }
 }
