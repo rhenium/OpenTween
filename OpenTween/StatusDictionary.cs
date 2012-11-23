@@ -27,8 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -76,6 +74,7 @@ namespace OpenTween
         public int RetweetedCount { get; set; }
         public long RetweetedByUserId { get; set; }
         public Dictionary<string, string> Media { get; set; }
+        public bool? IsStolen { get; set; }
 
         [Flags]
         private enum States
@@ -148,6 +147,7 @@ namespace OpenTween
             RetweetedCount = 0;
             RetweetedByUserId = 0;
             Media = new Dictionary<string, string>();
+            IsStolen = null;
         }
 
         public string Nickname

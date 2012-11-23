@@ -29,25 +29,24 @@
 //"c:\Program Files\Microsoft.NET\SDK\v2.0\Bin\sgen.exe" /f /a:"$(TargetPath)"
 //"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\sgen.exe" /f /a:"$(TargetPath)"
 
+using OpenTween.OpenTweenCustomControl;
+using OpenTween.Thumbnail;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using OpenTween.OpenTweenCustomControl;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using System.Threading;
-using System.Media;
-using System.Web;
 using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Media;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
-using OpenTween.Thumbnail;
+using System.Web;
+using System.Windows.Forms;
 
 namespace OpenTween
 {
@@ -2088,7 +2087,13 @@ namespace OpenTween
             var conv = new Func<string, string>(str => Regex.Replace(str, @"[ 　\r\n\t]", ""));
             var newp = conv(Post.TextFromApi);
 
-            if (_cfgCommon.ShowStolenTweetWithColor && !(Post.RetweetedId > 0) && _statuses._statuses.Any(_ => conv(_.Value.TextFromApi) == newp && _.Value.CreatedAt.CompareTo(Post.CreatedAt) < 0))
+            if (Post.IsStolen == null)
+            {
+                Post.IsStolen = _cfgCommon.ShowStolenTweetWithColor && !(Post.RetweetedId > 0) && _statuses._statuses.Any(_ => conv(_.Value.TextFromApi) == newp && _.Value.CreatedAt.CompareTo(Post.CreatedAt) < 0);
+
+            }
+
+            if (Post.IsStolen == true)
             {
                 cl = _clStolen;
             }
