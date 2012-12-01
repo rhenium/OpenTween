@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenTween\OpenTween.csproj">
+    <ProjectReference Include="..\OpenTween\OpenTweenA.csproj">
       <Project>{3D8995C7-BDF3-4273-9F9D-DDD902F6A101}</Project>
       <Name>OpenTween</Name>
     </ProjectReference>
