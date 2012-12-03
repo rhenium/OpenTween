@@ -1347,11 +1347,11 @@ namespace OpenTween
             if (this.pictureService != null) this.pictureService.Clear();
             this.pictureService = null;
             this.pictureService = new Dictionary<string, IMultimediaShareService> {
-                {"TwitPic", new TwitPic(tltw)},
-                {"img.ly", new imgly(tltw)},
-                {"yfrog", new yfrog(tltw)},
-                {"lockerz", new Plixi(tltw)},
-                {"Twitter", new TwitterPhoto(tltw)}
+                {"TwitPic", new TwitPic(tw, tltw)},
+                {"img.ly", new imgly(tw, tltw)},
+                {"yfrog", new yfrog(tw, tltw)},
+                {"lockerz", new Plixi(tw, tltw)},
+                {"Twitter", new TwitterPhoto(tw, tltw)}
             };
         }
 

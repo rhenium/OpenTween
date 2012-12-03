@@ -25,19 +25,17 @@
 // the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-using HttpConnectionOAuthEcho = OpenTween.HttpConnectionOAuthEcho;
-using IMultimediaShareService = OpenTween.IMultimediaShareService;
-using FileInfo = System.IO.FileInfo;
-using NotSupportedException = System.NotSupportedException;
-using HttpStatusCode = System.Net.HttpStatusCode;
-using Exception = System.Exception;
-using XmlDocument = System.Xml.XmlDocument;
-using XmlException = System.Xml.XmlException;
-using ArgumentException = System.ArgumentException;
 using System.Collections.Generic; // for Dictionary<TKey, TValue>, List<T>, KeyValuePair<TKey, TValue>
+using ArgumentException = System.ArgumentException;
+using Array = System.Array;
+using Exception = System.Exception;
+using FileInfo = System.IO.FileInfo;
+using HttpStatusCode = System.Net.HttpStatusCode;
+using NotSupportedException = System.NotSupportedException;
 using UploadFileType = OpenTween.MyCommon.UploadFileType;
 using Uri = System.Uri;
-using Array = System.Array;
+using XmlDocument = System.Xml.XmlDocument;
+using XmlException = System.Xml.XmlException;
 
 namespace OpenTween
 {
@@ -50,7 +48,9 @@ namespace OpenTween
 		private const long MaxFileSize = 10 * 1024 * 1024; // Image only
 		// Multimedia filesize limit unknown. But length limit is 1:30.
 
-		private Twitter tw;
+        private Twitter tw;
+
+        private Twitter tltw;
 
         public string Upload(ref string filePath, ref string message, long reply_to, bool isDraft, TweenMain owner)
 		{
@@ -190,11 +190,12 @@ namespace OpenTween
 			return true;
 		}
 
-		public TwitPic( Twitter twitter )
+        public TwitPic(Twitter twitter, Twitter tltwitter)
 			: base( new Uri( "http://api.twitter.com/" ), new Uri( "https://api.twitter.com/1/account/verify_credentials.json" ) )
 		{
-			this.tw = twitter;
-            this.Initialize(tw.ConsumerKey, tw.ConsumerSecret, tw.AccessToken, tw.AccessTokenSecret, "", "");
+            this.tw = twitter;
+            this.tltw = tltwitter;
+            this.Initialize(tltw.ConsumerKey, tltw.ConsumerSecret, tltw.AccessToken, tltw.AccessTokenSecret, "", "");
 		}
 	}
 }

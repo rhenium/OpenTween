@@ -25,14 +25,12 @@
 // the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-using IMultimediaShareService = OpenTween.IMultimediaShareService;
 using Array = System.Array;
 using Convert = System.Convert;
 using Exception = System.Exception;
-using UploadFileType = OpenTween.MyCommon.UploadFileType;
-using MyCommon = OpenTween.MyCommon;
 using FileInfo = System.IO.FileInfo;
 using NotSupportedException = System.NotSupportedException;
+using UploadFileType = OpenTween.MyCommon.UploadFileType;
 
 namespace OpenTween
 {
@@ -45,9 +43,9 @@ namespace OpenTween
 		// help/configurationにより取得されコンストラクタへ渡される
 		private long _MaxFileSize = 3145728;
 
-		private Twitter tw;
+        private Twitter tw;
 
-		public bool CheckValidExtension( string ext )
+        public bool CheckValidExtension(string ext)
 		{
 			if ( Array.IndexOf( this.pictureExt, ext.ToLower() ) > -1 )
 				return true;
@@ -131,9 +129,9 @@ namespace OpenTween
             return tw.PostStatusRetry(message, reply_to, isDraft, owner, mediaFile);
 		}
 
-		public TwitterPhoto( Twitter twitter )
+        public TwitterPhoto(Twitter twitter, Twitter tltwitter)
 		{
-			this.tw = twitter;
-		}
+            this.tw = twitter;
+        }
 	}
 }
