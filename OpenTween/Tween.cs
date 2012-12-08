@@ -106,7 +106,6 @@ namespace OpenTween
 
         //サブ画面インスタンス
         private AppendSettingDialog SettingDialog = AppendSettingDialog.Instance;       //設定画面インスタンス
-        private TabsDialog TabDialog = new TabsDialog();        //タブ選択ダイアログインスタンス
         private SearchWord SearchDialog = new SearchWord();     //検索画面インスタンス
         private FilterDialog fltDialog = new FilterDialog(); //フィルター編集画面
         private OpenURL UrlDialog = new OpenURL();
@@ -354,7 +353,6 @@ namespace OpenTween
         {
             //後始末
             SettingDialog.Dispose();
-            TabDialog.Dispose();
             SearchDialog.Dispose();
             fltDialog.Dispose();
             UrlDialog.Dispose();
@@ -548,7 +546,7 @@ namespace OpenTween
             MyCommon.TraceFlag = true;
 #endif
             //if (!MyCommon.fileVersion.EndsWith("0"))
-            if(true)
+            if (true)
             {
                 TraceOutToolStripMenuItem.Checked = true;
                 MyCommon.TraceFlag = true;
@@ -590,10 +588,9 @@ namespace OpenTween
             NotifyIcon1.Icon = NIconAt;      //タスクトレイ
             TabImage.Images.Add(TabIcon);    //タブ見出し
 
-            SettingDialog.Owner = this;;
+            SettingDialog.Owner = this; ;
             SearchDialog.Owner = this;
             fltDialog.Owner = this;
-            TabDialog.Owner = this;
             UrlDialog.Owner = this;
 
             _history.Add(new PostingStatus());
@@ -796,7 +793,6 @@ namespace OpenTween
             SettingDialog.BitlyUser = _cfgCommon.BilyUser;
             SettingDialog.BitlyPwd = _cfgCommon.BitlyPwd;
             SettingDialog.ShowGrid = _cfgCommon.ShowGrid;
-            SettingDialog.Language = _cfgCommon.Language;
             SettingDialog.UseAtIdSupplement = _cfgCommon.UseAtIdSupplement;
             SettingDialog.UseHashSupplement = _cfgCommon.UseHashSupplement;
             SettingDialog.PreviewEnable = _cfgCommon.PreviewEnable;
@@ -1338,7 +1334,7 @@ namespace OpenTween
             }
 
             this.SettingDialog.AutoRetryInterval = _cfgCommon.AutoRetryInterval;
-            
+
             RefreshChangeAccountDropDownButton();
         }
 
@@ -1741,7 +1737,7 @@ namespace OpenTween
                 }
                 else
                 {
-                    selId.Add(tab.Text, new long[1] {-2});
+                    selId.Add(tab.Text, new long[1] { -2 });
                 }
                 if (lst.FocusedItem != null)
                     focusedId.Add(tab.Text, _statuses.GetId(tab.Text, lst.FocusedItem.Index));
@@ -2502,8 +2498,6 @@ namespace OpenTween
 
             Thread.CurrentThread.Priority = ThreadPriority.BelowNormal;
 
-            MyApplication.InitCulture();
-
             string ret = "";
             GetWorkerResult rslt = new GetWorkerResult();
 
@@ -2717,7 +2711,7 @@ namespace OpenTween
                     }
                     catch (Exception)
                     {
-    //                  MessageBox.Show("ブラウザの起動に失敗、またはタイムアウトしました。" + ex.ToString());
+                        //                  MessageBox.Show("ブラウザの起動に失敗、またはタイムアウトしました。" + ex.ToString());
                     }
                     break;
                 case MyCommon.WORKERTYPE.Favorites:
@@ -3426,7 +3420,7 @@ namespace OpenTween
             FavoritesRetweetUnofficial();
         }
 
-        private void FavoriteChange(bool FavAdd , bool multiFavoriteChangeDialogEnable = true)
+        private void FavoriteChange(bool FavAdd, bool multiFavoriteChangeDialogEnable = true)
         {
             //trueでFavAdd,falseでFavRemove
             if (_statuses.Tabs[_curTab.Text].TabType == MyCommon.TabUsageType.DirectMessage || _curList.SelectedIndices.Count == 0
@@ -3446,7 +3440,7 @@ namespace OpenTween
                     return;
                 }
             }
-            
+
             if (multiFavoriteChangeDialogEnable && _curList.SelectedIndices.Count > 15)
             {
                 if (FavAdd)
@@ -3963,7 +3957,7 @@ namespace OpenTween
                         GetTimeline(MyCommon.WORKERTYPE.Favorites, 1, 0, "");
                         break;
                     //case MyCommon.TabUsageType.Profile:
-                        //// TODO
+                    //// TODO
                     case MyCommon.TabUsageType.PublicSearch:
                         //// TODO
                         TabClass tb = _statuses.Tabs[_curTab.Text];
@@ -4075,11 +4069,11 @@ namespace OpenTween
                                                         SettingDialog.ProxyUser,
                                                         SettingDialog.ProxyPassword);
                     this.CreatePictureServices();
-    #if UA
+#if UA
                     this.SplitContainer4.Panel2.Controls.RemoveAt(0);
                     this.ab = new AdsBrowser();
                     this.SplitContainer4.Panel2.Controls.Add(ab);
-    #endif
+#endif
                     try
                     {
                         if (SettingDialog.TabIconDisp)
@@ -4617,7 +4611,7 @@ namespace OpenTween
                 cmbLang.Items.Add("sv");
                 cmbLang.Items.Add("th");
                 if (_statuses.ContainsTab(tabName)) cmbLang.Text = _statuses.Tabs[tabName].SearchLang;
-            
+
                 lbl.Text = "Search(C-S-f)";
                 lbl.Name = "label1";
                 lbl.Dock = DockStyle.Left;
@@ -4649,11 +4643,11 @@ namespace OpenTween
             _listCustom.AllowColumnReorder = true;
             if (!_iconCol)
             {
-                _listCustom.Columns.AddRange(new ColumnHeader[] {_colHd1, _colHd2, _colHd3, _colHd4, _colHd5, _colHd6, _colHd7, _colHd8});
+                _listCustom.Columns.AddRange(new ColumnHeader[] { _colHd1, _colHd2, _colHd3, _colHd4, _colHd5, _colHd6, _colHd7, _colHd8 });
             }
             else
             {
-                _listCustom.Columns.AddRange(new ColumnHeader[] {_colHd1, _colHd3});
+                _listCustom.Columns.AddRange(new ColumnHeader[] { _colHd1, _colHd3 });
             }
             _listCustom.ContextMenuStrip = this.ContextMenuOperate;
             _listCustom.Dock = DockStyle.Fill;
@@ -4706,8 +4700,6 @@ namespace OpenTween
             _colHd7.Width = 16;
             _colHd8.Text = ColumnText[7];
             _colHd8.Width = 50;
-
-            if (_statuses.IsDistributableTab(tabName)) TabDialog.AddTab(tabName);
 
             _listCustom.SmallImageList = new ImageList();
             if (_iconSz > 0)
@@ -4785,7 +4777,7 @@ namespace OpenTween
             }
 
             if (tabType == MyCommon.TabUsageType.PublicSearch) pnl.ResumeLayout(false);
-        
+
             _tabPage.ResumeLayout(false);
 
             this.SplitContainer1.Panel1.ResumeLayout(false);
@@ -4877,8 +4869,6 @@ namespace OpenTween
             _listCustom.RetrieveVirtualItem -= MyList_RetrieveVirtualItem;
             _listCustom.DrawSubItem -= MyList_DrawSubItem;
             _listCustom.HScrolled -= MyList_HScrolled;
-
-            TabDialog.RemoveTab(TabName);
 
             _listCustom.SmallImageList = null;
             _listCustom.ListViewItemSorter = null;
@@ -5249,7 +5239,7 @@ namespace OpenTween
                 {
                     pLen += url.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
                 }
-                
+
                 //if (m.Result("${url}").Length > SettingDialog.TwitterConfiguration.ShortUrlLength)
                 //{
                 //    pLen += m.Result("${url}").Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
@@ -5295,7 +5285,7 @@ namespace OpenTween
                 catch (Exception)
                 {
                     //不正な要求に対する間に合わせの応答
-                    string[] sitem = {"", "", "", "", "", "", "", ""};
+                    string[] sitem = { "", "", "", "", "", "", "", "" };
                     e.Item = new ImageListViewItem(sitem, "");
                 }
             }
@@ -5313,7 +5303,7 @@ namespace OpenTween
                 _postCache = _statuses[_curTab.Text, StartIndex, EndIndex]; //配列で取得
                 _itemCacheIndex = StartIndex;
 
-                _itemCache = new ListViewItem[0] {};
+                _itemCache = new ListViewItem[0] { };
                 Array.Resize(ref _itemCache, _postCache.Length);
 
                 for (int i = 0; i < _postCache.Length; i++)
@@ -5340,7 +5330,7 @@ namespace OpenTween
             ImageListViewItem itm;
             if (Post.RetweetedId == 0)
             {
-                string[] sitem= {"",
+                string[] sitem = {"",
                                  Post.Nickname,
                                  Post.IsDeleted ? (this._cfgCommon.ShowDeleted ? "(DELETED:" + Post.TextSingleLine + ")" : "(DELETED)") : Post.TextSingleLine,
                                  Post.CreatedAt.ToString(SettingDialog.DateTimeFormat),
@@ -5830,7 +5820,7 @@ namespace OpenTween
             }
             try
             {
-    RETRY:
+            RETRY:
                 if (UseRegex)
                 {
                     // 正規表現検索
@@ -6129,9 +6119,9 @@ namespace OpenTween
             }
 
             // 改行2つで前後パートを分割（前半がバージョン番号など、後半が詳細テキスト）
-            string[] msgPart = retMsg.Split(new string[] {"\n\n", "\r\n\r\n"}, 2, StringSplitOptions.None);
+            string[] msgPart = retMsg.Split(new string[] { "\n\n", "\r\n\r\n" }, 2, StringSplitOptions.None);
 
-            string[] msgHeader = msgPart[0].Split(new string[] {"\n", "\r\n"}, StringSplitOptions.None);
+            string[] msgHeader = msgPart[0].Split(new string[] { "\n", "\r\n" }, StringSplitOptions.None);
             string msgBody = msgPart.Length == 2 ? msgPart[1] : "";
 
             msgBody = Regex.Replace(msgBody, "(?<!\r)\n", "\r\n"); // LF -> CRLF
@@ -6344,7 +6334,7 @@ namespace OpenTween
                 sb.AppendFormat("IsProtect      : {0}<br>", _curPost.IsProtect.ToString());
                 sb.AppendFormat("IsRead         : {0}<br>", _curPost.IsRead.ToString());
                 sb.AppendFormat("IsReply        : {0}<br>", _curPost.IsReply.ToString());
-            
+
                 foreach (string nm in _curPost.ReplyToList)
                 {
                     sb.AppendFormat("ReplyToList    : {0}<br>", nm);
@@ -7622,7 +7612,7 @@ namespace OpenTween
                                  where post.StatusId == inReplyToId
                                  let index = tab.IndexOf(post.StatusId)
                                  where index != -1
-                                 select new {Tab = tab, Index = index};
+                                 select new { Tab = tab, Index = index };
 
             try
             {
@@ -7691,7 +7681,7 @@ namespace OpenTween
                                 where indexOf > -1
                                 orderby isForward ? indexOf : indexOf * -1
                                 orderby t.Value != curTabClass
-                                select new {Tab = t.Value, Post = p.Value, Index = indexOf};
+                                select new { Tab = t.Value, Post = p.Value, Index = indexOf };
                     try
                     {
                         var postList = posts.ToList();
@@ -7728,7 +7718,7 @@ namespace OpenTween
                                 where indexOf > -1
                                 orderby indexOf
                                 orderby t.Value != curTabClass
-                                select new {Tab = t.Value, Index = indexOf};
+                                select new { Tab = t.Value, Index = indexOf };
                     try
                     {
                         var post = posts.First();
@@ -8008,7 +7998,6 @@ namespace OpenTween
                 _cfgCommon.UseAtIdSupplement = SettingDialog.UseAtIdSupplement;
                 _cfgCommon.UseHashSupplement = SettingDialog.UseHashSupplement;
                 _cfgCommon.PreviewEnable = SettingDialog.PreviewEnable;
-                _cfgCommon.Language = SettingDialog.Language;
 
                 _cfgCommon.SortOrder = (int)_statuses.SortOrder;
                 switch (_statuses.SortMode)
@@ -8261,10 +8250,6 @@ namespace OpenTween
                 //タブ名のリスト作り直し（デフォルトタブ以外は再作成）
                 for (int i = 0; i < ListTab.TabCount; i++)
                 {
-                    if (_statuses.IsDistributableTab(ListTab.TabPages[i].Text))
-                    {
-                        TabDialog.RemoveTab(ListTab.TabPages[i].Text);
-                    }
                     if (ListTab.TabPages[i].Text == tabName)
                     {
                         ListTab.TabPages[i].Text = newTabText;
@@ -8280,7 +8265,6 @@ namespace OpenTween
                         {
                             ListTab.TabPages[i].Text = newTabText;
                         }
-                        TabDialog.AddTab(ListTab.TabPages[i].Text);
                     }
                 }
                 SaveConfigsCommon();
@@ -9093,9 +9077,9 @@ namespace OpenTween
             //選択発言を元にフィルタ追加
             foreach (int idx in _curList.SelectedIndices)
             {
-                string tabName = "";
+                string tabName;
                 //タブ選択（or追加）
-                if (!SelectTab(ref tabName)) return;
+                if (!SelectTab(out tabName)) return;
 
                 fltDialog.SetCurrent(tabName);
                 if (_statuses[_curTab.Text, idx].RetweetedId == 0)
@@ -9237,13 +9221,13 @@ namespace OpenTween
 
         private void IDRuleMenuItem_Click(object sender, EventArgs e)
         {
-            string tabName = "";
+            string tabName;
 
             //未選択なら処理終了
             if (_curList.SelectedIndices.Count == 0) return;
 
             //タブ選択（or追加）
-            if (!SelectTab(ref tabName)) return;
+            if (!SelectTab(out tabName)) return;
 
             bool mv = false;
             bool mk = false;
@@ -9319,18 +9303,20 @@ namespace OpenTween
             SaveConfigsTabs();
         }
 
-        private bool SelectTab(ref string tabName)
+        private bool SelectTab(out string tabName)
         {
             do
             {
+                tabName = null;
+
                 //振り分け先タブ選択
-                if (TabDialog.ShowDialog() == DialogResult.Cancel)
+                using (var dialog = new TabsDialog(_statuses))
                 {
-                    this.TopMost = SettingDialog.AlwaysTop;
-                    return false;
+                    if (dialog.ShowDialog(this) == DialogResult.Cancel) return false;
+
+                    var selectedTab = dialog.SelectedTab;
+                    tabName = selectedTab == null ? null : selectedTab.TabName;
                 }
-                this.TopMost = SettingDialog.AlwaysTop;
-                tabName = TabDialog.SelectedTabName;
 
                 ListTab.SelectedTab.Focus();
                 //新規タブを選択→タブ作成
@@ -10280,7 +10266,7 @@ namespace OpenTween
             UrlConvert(MyCommon.UrlConverter.Uxnu);
         }
 
-        private void UrlConvertAutoToolStripMenuItem_Click(object sender, EventArgs e) 
+        private void UrlConvertAutoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!UrlConvert(SettingDialog.AutoShortUrlFirst))
             {
@@ -10820,7 +10806,7 @@ namespace OpenTween
             if (flg) LView.Invalidate(bnd);
         }
 
-        private void SelectListItem(DetailsListView LView , int[] Index, int FocusedIndex)
+        private void SelectListItem(DetailsListView LView, int[] Index, int FocusedIndex)
         {
             //複数
             Rectangle bnd = new Rectangle();
@@ -11079,7 +11065,8 @@ namespace OpenTween
                     _DoFavRetweetFlags = false;
                     return;
                 }
-                else */if (_curList.SelectedIndices.Count > 15)
+                else */
+                if (_curList.SelectedIndices.Count > 15)
                 {
                     string QuestionText = Properties.Resources.RetweetQuestion2;
                     if (_DoFavRetweetFlags) QuestionText = Properties.Resources.FavoriteRetweetQuestionText1;
@@ -11247,7 +11234,7 @@ namespace OpenTween
         {
             ApiInfo info = new ApiInfo();
             StringBuilder tmp = new StringBuilder();
-            GetApiInfoArgs args = new GetApiInfoArgs(){ info = info, tw = _tw };
+            GetApiInfoArgs args = new GetApiInfoArgs() { info = info, tw = _tw };
 
             using (FormInfo dlg = new FormInfo(this, Properties.Resources.ApiInfo6, GetApiInfo_Dowork, null, args))
             {
@@ -11344,7 +11331,7 @@ namespace OpenTween
             public string id;
         }
 
-        private void RemoveCommand_DoWork(object sender , DoWorkEventArgs e)
+        private void RemoveCommand_DoWork(object sender, DoWorkEventArgs e)
         {
             FollowRemoveCommandArgs arg = (FollowRemoveCommandArgs)e.Argument;
             e.Result = arg.tw.PostRemoveCommand(arg.id);
@@ -11796,13 +11783,13 @@ namespace OpenTween
             string name = GetUserId();
             if (name != null)
             {
-                string tabName = "";
+                string tabName;
 
                 //未選択なら処理終了
                 if (_curList.SelectedIndices.Count == 0) return;
 
                 //タブ選択（or追加）
-                if (!SelectTab(ref tabName)) return;
+                if (!SelectTab(out tabName)) return;
 
                 bool mv = false;
                 bool mk = false;
@@ -12518,7 +12505,7 @@ namespace OpenTween
             get { return SettingDialog.PreviewEnable; }
         }
 
-#region "画像投稿"
+        #region "画像投稿"
         private void ImageSelectMenuItem_Click(object sender, EventArgs e)
         {
             if (ImageSelectionPanel.Visible == true)
@@ -12757,7 +12744,7 @@ namespace OpenTween
                 }
             }
         }
-#endregion
+        #endregion
 
         private void ListManageToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -12899,7 +12886,7 @@ namespace OpenTween
             this._modifySettingCommon = true;
         }
 
-#region "Userstream"
+        #region "Userstream"
         private bool _isActiveUserstream = false;
 
         private void tw_PostDeleted(long id)
@@ -12908,7 +12895,7 @@ namespace OpenTween
             {
                 if (InvokeRequired && !IsDisposed)
                 {
-                    Invoke((Action) (() =>
+                    Invoke((Action)(() =>
                            {
                                _statuses.RemovePostReserve(id);
                                if (_curTab != null && _statuses.Tabs[_curTab.Text].Contains(id))
@@ -13086,7 +13073,7 @@ namespace OpenTween
                 }
                 if (ev.Event == "unfavorite" && ev.Username.ToLower().Equals(twi.Username.ToLower()))
                 {
-                    RemovePostFromFavTab(new long[] {ev.Id});
+                    RemovePostFromFavTab(new long[] { ev.Id });
                 }
             }
         }
@@ -13260,7 +13247,7 @@ namespace OpenTween
             }
             this.TopMost = this.SettingDialog.AlwaysTop;
         }
-#endregion
+        #endregion
 
         private void TweenRestartMenuItem_Click(object sender, EventArgs e)
         {
@@ -13388,7 +13375,7 @@ namespace OpenTween
         {
             if (isEnable)
             {
-                if(tltw.UserId != tw.UserId)tw.StartUserStream();
+                if (tltw.UserId != tw.UserId) tw.StartUserStream();
                 tltw.StartUserStream();
             }
             else
@@ -13486,7 +13473,7 @@ namespace OpenTween
         {
             if (Form.ActiveForm == null)
             {
-                this.BeginInvoke((Action) (() =>
+                this.BeginInvoke((Action)(() =>
                 {
                     this.Visible = true;
                     if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;
@@ -13590,7 +13577,7 @@ namespace OpenTween
                     Invoke((Action)(() => this.ChangeAccountDropDownButton.Text = tw.ToString()));
                 });
                 thread.Start();
-            
+
             }
         }
 
@@ -13618,7 +13605,7 @@ namespace OpenTween
 
             var result =
                 "＿" + repeat("人", width + 2) + "＿" + Environment.NewLine +
-                "＞　" + this.StatusText.SelectedText + "　＜" + Environment.NewLine + 
+                "＞　" + this.StatusText.SelectedText + "　＜" + Environment.NewLine +
                 "￣^" + repeat("Y^", width + 2) + "￣";
 
             StatusText.Paste(result);

@@ -44,7 +44,6 @@ namespace OpenTween
         static int Main()
         {
             CheckSettingFilePath();
-            InitCulture();
 
             string pt = Application.ExecutablePath.Replace("\\", "/") + "/" + Application.ProductName;
             using (Mutex mt = new Mutex(false, pt))
@@ -108,54 +107,6 @@ namespace OpenTween
                 {
                     Application.Exit();
                 }
-            }
-        }
-
-        private static bool IsEqualCurrentCulture(string CultureName)
-        {
-            return Thread.CurrentThread.CurrentUICulture.Name.StartsWith(CultureName);
-        }
-
-        public static string CultureCode
-        {
-            get
-            {
-                if (MyCommon.cultureStr == null)
-                {
-                    var cfgCommon = SettingCommon.Load();
-                    MyCommon.cultureStr = cfgCommon.Language;
-                    if (MyCommon.cultureStr == "OS")
-                    {
-                        if (!IsEqualCurrentCulture("ja") &&
-                           !IsEqualCurrentCulture("en") &&
-                           !IsEqualCurrentCulture("zh-CN"))
-                        {
-                            MyCommon.cultureStr = "en";
-                        }
-                    }
-                }
-                return MyCommon.cultureStr;
-            }
-        }
-
-        public static void InitCulture(string code)
-        {
-            try
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(code);
-            }
-            catch (Exception)
-            {
-            }
-        }
-        public static void InitCulture()
-        {
-            try
-            {
-                if (CultureCode != "OS") Thread.CurrentThread.CurrentUICulture = new CultureInfo(CultureCode);
-            }
-            catch (Exception)
-            {
             }
         }
 

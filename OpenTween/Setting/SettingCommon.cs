@@ -91,7 +91,7 @@ namespace OpenTween
         public string TLConsumerKey = "";
         public string TLConsumerSecret = "";
         public string TLTag = "";
-        
+
         private string Encrypt(string password)
         {
             if (String.IsNullOrEmpty(password)) password = "";
@@ -168,7 +168,6 @@ namespace OpenTween
         public bool StartupFollowers = true;
         public bool RestrictFavCheck = false;
         public bool AlwaysTop = false;
-        public string CultureCode = "";
         public bool UrlConvertAuto = false;
         public bool Outputz = false;
         public int SortColumn = 3;
@@ -176,7 +175,6 @@ namespace OpenTween
         public bool IsMonospace = false;
         public bool ReadOldPosts = false;
         public bool UseSsl = true;
-        public string Language = "OS";
         public bool Nicoms = false;
         public List<string> HashTags = new List<string>();
         public string HashSelected = "";

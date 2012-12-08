@@ -161,7 +161,7 @@ namespace OpenTween
             {
                 this.UserAccounts.Add((UserAccount)u);
             }
-            if (this.AuthUserCombo.SelectedIndex > -1)
+            if (this.AuthUserCombo.SelectedIndex > -1 || this.TLAuthUserCombo.SelectedIndex > -1)
             {
                 foreach (UserAccount u in this.UserAccounts)
                 {
@@ -193,6 +193,8 @@ namespace OpenTween
             {
                 tw.ClearAuthInfo();
                 tw.Initialize("", "", "", "", "", 0, "");
+                tltw.ClearAuthInfo();
+                tltw.Initialize("", "", "", "", "", 0, "");
             }
 
 #if UA
@@ -467,24 +469,6 @@ namespace OpenTween
                         ReplyIconState = MyCommon.REPLY_ICONSTATE.BlinkIcon;
                         break;
                 }
-                switch (LanguageCombo.SelectedIndex)
-                {
-                    case 0:
-                        Language = "OS";
-                        break;
-                    case 1:
-                        Language = "ja";
-                        break;
-                    case 2:
-                        Language = "en";
-                        break;
-                    case 3:
-                        Language = "zh-CN";
-                        break;
-                    default:
-                        Language = "en";
-                        break;
-                }
                 HotkeyEnabled = this.HotkeyCheck.Checked;
                 HotkeyMod = Keys.None;
                 if (this.HotkeyAlt.Checked) HotkeyMod = HotkeyMod | Keys.Alt;
@@ -515,9 +499,9 @@ namespace OpenTween
                 this.IsRemoveSameEvent = this.IsRemoveSameFavEventCheckBox.Checked;
                 this.IsNotifyUseGrowl = this.IsNotifyUseGrowlCheckBox.Checked;
 
-                this.AutoRetryInterval = (int)this.numericAutoRetryInterval.Value;
+                this.AutoRetryInterval = int.Parse(this.numericAutoRetryInterval.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.Save_ClickText3);
                 this.DialogResult = DialogResult.Cancel;
@@ -870,24 +854,6 @@ namespace OpenTween
                     ReplyIconStateCombo.SelectedIndex = 2;
                     break;
             }
-            switch (Language)
-            {
-                case "OS":
-                    LanguageCombo.SelectedIndex = 0;
-                    break;
-                case "ja":
-                    LanguageCombo.SelectedIndex = 1;
-                    break;
-                case "en":
-                    LanguageCombo.SelectedIndex = 2;
-                    break;
-                case "zh-CN":
-                    LanguageCombo.SelectedIndex = 3;
-                    break;
-                default:
-                    LanguageCombo.SelectedIndex = 0;
-                    break;
-            }
             HotkeyCheck.Checked = HotkeyEnabled;
             HotkeyAlt.Checked = ((HotkeyMod & Keys.Alt) == Keys.Alt);
             HotkeyCtrl.Checked = ((HotkeyMod & Keys.Control) == Keys.Control);
@@ -948,7 +914,7 @@ namespace OpenTween
                 IsNotifyUseGrowlCheckBox.Enabled = false;
             }
 
-            this.numericAutoRetryInterval.Value = this.AutoRetryInterval;
+            this.numericAutoRetryInterval.Text = this.AutoRetryInterval.ToString();
 
             this.TreeViewSetting.Nodes["BasedNode"].Tag = BasedPanel;
             this.TreeViewSetting.Nodes["BasedNode"].Nodes["PeriodNode"].Tag = GetPeriodPanel;
@@ -981,7 +947,7 @@ namespace OpenTween
             {
                 prd = int.Parse(UserstreamPeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.UserstreamPeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1004,7 +970,7 @@ namespace OpenTween
             {
                 prd = int.Parse(TimelinePeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.TimelinePeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1027,7 +993,7 @@ namespace OpenTween
             {
                 prd = int.Parse(ReplyPeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.TimelinePeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1050,7 +1016,7 @@ namespace OpenTween
             {
                 prd = int.Parse(DMPeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.DMPeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1073,7 +1039,7 @@ namespace OpenTween
             {
                 prd = int.Parse(PubSearchPeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.PubSearchPeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1094,7 +1060,7 @@ namespace OpenTween
             {
                 prd = int.Parse(ListsPeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.DMPeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1117,7 +1083,7 @@ namespace OpenTween
             {
                 prd = int.Parse(UserTimelinePeriod.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.DMPeriod_ValidatingText1);
                 e.Cancel = true;
@@ -1147,7 +1113,7 @@ namespace OpenTween
 
         private void btnFontAndColor_Click(object sender, EventArgs e) // Handles btnUnread.Click, btnDetail.Click, btnListFont.Click, btnInputFont.Click
         {
-            Button Btn = (Button) sender;
+            Button Btn = (Button)sender;
             DialogResult rtn;
 
             FontDialog1.AllowVerticalFonts = false;
@@ -1185,7 +1151,7 @@ namespace OpenTween
             {
                 rtn = FontDialog1.ShowDialog();
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
@@ -1395,10 +1361,12 @@ namespace OpenTween
         public bool SortOrderLock { get; set; }
         public HttpConnection.ProxyType SelectedProxyType
         {
-            get {
+            get
+            {
                 return _MyProxyType;
             }
-            set {
+            set
+            {
                 _MyProxyType = value;
             }
         }
@@ -1440,7 +1408,6 @@ namespace OpenTween
         public bool OpenUserTimeline { get; set; }
         public string TwitterApiUrl { get; set; }
         public string TwitterSearchApiUrl { get; set; }
-        public string Language { get; set; }
 
         private void Button3_Click(object sender, EventArgs e)
         {
@@ -1527,7 +1494,7 @@ namespace OpenTween
             {
                 LabelDateTimeFormatApplied.Text = DateTime.Now.ToString(CmbDateTimeFormat.Text);
             }
-            catch(FormatException)
+            catch (FormatException)
             {
                 LabelDateTimeFormatApplied.Text = Properties.Resources.CreateDateTimeFormatSampleText1;
                 return false;
@@ -1561,7 +1528,7 @@ namespace OpenTween
             {
                 tm = int.Parse(ConnectionTimeOut.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.ConnectionTimeOut_ValidatingText1);
                 e.Cancel = true;
@@ -1587,7 +1554,7 @@ namespace OpenTween
             {
                 cnt = int.Parse(TextCountApi.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.TextCountApi_Validating1);
                 e.Cancel = true;
@@ -1609,7 +1576,7 @@ namespace OpenTween
             {
                 cnt = int.Parse(TextCountApiReply.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.TextCountApi_Validating1);
                 e.Cancel = true;
@@ -1826,11 +1793,12 @@ namespace OpenTween
                     this.TLAuthUserCombo.Items.RemoveAt(idx);
                     this.TLAuthUserCombo.Items.Insert(idx, user);
                     this.AuthUserCombo.SelectedIndex = idx;
+                    this.TLAuthUserCombo.SelectedIndex = idx;
                 }
                 else
                 {
                     this.AuthUserCombo.SelectedIndex = this.AuthUserCombo.Items.Add(user);
-                    this.TLAuthUserCombo.Items.Add(user);
+                    this.TLAuthUserCombo.SelectedIndex = this.TLAuthUserCombo.Items.Add(user);
                 }
                 //if (TwitterApiInfo.AccessLevel = ApiAccessLevel.ReadWrite)
                 //{
@@ -1912,7 +1880,7 @@ namespace OpenTween
                 // 初回起動時などにnullの場合あり
                 ListsTabNum = TabInformations.GetInstance().GetTabsByType(MyCommon.TabUsageType.Lists).Count;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return;
             }
@@ -1922,7 +1890,7 @@ namespace OpenTween
                 // 初回起動時などにnullの場合あり
                 UserTimelineTabNum = TabInformations.GetInstance().GetTabsByType(MyCommon.TabUsageType.UserTimeline).Count;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return;
             }
@@ -1981,7 +1949,8 @@ namespace OpenTween
                     if (Twitter.AccountState == MyCommon.ACCOUNT_STATE.Valid)
                     {
                         this.tw.TwitterApiInfo.UsingCount = UsingApi;
-                        Thread proc = new Thread(new System.Threading.ThreadStart(() => {
+                        Thread proc = new Thread(new System.Threading.ThreadStart(() =>
+                        {
                             tltw.GetInfoApi(null); //取得エラー時はinfoCountは初期状態（値：-1）
                             if (this.IsHandleCreated && !this.IsDisposed) Invoke(new MethodInvoker(DisplayApiMaxCount));
                         }));
@@ -2107,7 +2076,7 @@ namespace OpenTween
             {
                 cnt = int.Parse(GetMoreTextCountApi.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.TextCountApi_Validating1);
                 e.Cancel = true;
@@ -2145,7 +2114,7 @@ namespace OpenTween
             {
                 cnt = int.Parse(FirstTextCountApi.Text);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show(Properties.Resources.TextCountApi_Validating1);
                 e.Cancel = true;
@@ -2449,9 +2418,9 @@ namespace OpenTween
                     System.Diagnostics.Process.Start(myPath);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
-//              MessageBox.Show("ブラウザの起動に失敗、またはタイムアウトしました。" + ex.ToString());
+                //              MessageBox.Show("ブラウザの起動に失敗、またはタイムアウトしました。" + ex.ToString());
             }
         }
 

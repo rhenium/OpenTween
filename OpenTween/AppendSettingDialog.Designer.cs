@@ -33,7 +33,7 @@
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
             this.TweetActPanel = new System.Windows.Forms.Panel();
-            this.numericAutoRetryInterval = new System.Windows.Forms.NumericUpDown();
+            this.numericAutoRetryInterval = new System.Windows.Forms.TextBox();
             this.labelAutoRetryInterval = new System.Windows.Forms.Label();
             this.CheckHashSupple = new System.Windows.Forms.CheckBox();
             this.CheckAtIdSupple = new System.Windows.Forms.CheckBox();
@@ -135,9 +135,6 @@
             this.ChkNewMentionsBlink = new System.Windows.Forms.CheckBox();
             this.chkTabIconDisp = new System.Windows.Forms.CheckBox();
             this.CheckPreviewEnable = new System.Windows.Forms.CheckBox();
-            this.Label81 = new System.Windows.Forms.Label();
-            this.LanguageCombo = new System.Windows.Forms.ComboBox();
-            this.Label13 = new System.Windows.Forms.Label();
             this.CheckAlwaysTop = new System.Windows.Forms.CheckBox();
             this.CheckMonospace = new System.Windows.Forms.CheckBox();
             this.CheckBalloonLimit = new System.Windows.Forms.CheckBox();
@@ -307,7 +304,6 @@
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
             this.TweetActPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).BeginInit();
             this.FontPanel.SuspendLayout();
             this.GroupBox1.SuspendLayout();
             this.FontPanel2.SuspendLayout();
@@ -342,12 +338,12 @@
             // SplitContainer1.Panel2
             // 
             this.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.SplitContainer1.Panel2.Controls.Add(this.PreviewPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetActPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.FontPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.FontPanel2);
             this.SplitContainer1.Panel2.Controls.Add(this.BasedPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.StartupPanel);
-            this.SplitContainer1.Panel2.Controls.Add(this.PreviewPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.GetCountPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ShortUrlPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetPrvPanel);
@@ -393,11 +389,6 @@
             // numericAutoRetryInterval
             // 
             resources.ApplyResources(this.numericAutoRetryInterval, "numericAutoRetryInterval");
-            this.numericAutoRetryInterval.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
             this.numericAutoRetryInterval.Name = "numericAutoRetryInterval";
             // 
             // labelAutoRetryInterval
@@ -1044,9 +1035,6 @@
             this.PreviewPanel.Controls.Add(this.ChkNewMentionsBlink);
             this.PreviewPanel.Controls.Add(this.chkTabIconDisp);
             this.PreviewPanel.Controls.Add(this.CheckPreviewEnable);
-            this.PreviewPanel.Controls.Add(this.Label81);
-            this.PreviewPanel.Controls.Add(this.LanguageCombo);
-            this.PreviewPanel.Controls.Add(this.Label13);
             this.PreviewPanel.Controls.Add(this.CheckAlwaysTop);
             this.PreviewPanel.Controls.Add(this.CheckMonospace);
             this.PreviewPanel.Controls.Add(this.CheckBalloonLimit);
@@ -1104,30 +1092,6 @@
             resources.ApplyResources(this.CheckPreviewEnable, "CheckPreviewEnable");
             this.CheckPreviewEnable.Name = "CheckPreviewEnable";
             this.CheckPreviewEnable.UseVisualStyleBackColor = true;
-            // 
-            // Label81
-            // 
-            resources.ApplyResources(this.Label81, "Label81");
-            this.Label81.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Label81.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Label81.Name = "Label81";
-            // 
-            // LanguageCombo
-            // 
-            this.LanguageCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.LanguageCombo.FormattingEnabled = true;
-            this.LanguageCombo.Items.AddRange(new object[] {
-            resources.GetString("LanguageCombo.Items"),
-            resources.GetString("LanguageCombo.Items1"),
-            resources.GetString("LanguageCombo.Items2"),
-            resources.GetString("LanguageCombo.Items3")});
-            resources.ApplyResources(this.LanguageCombo, "LanguageCombo");
-            this.LanguageCombo.Name = "LanguageCombo";
-            // 
-            // Label13
-            // 
-            resources.ApplyResources(this.Label13, "Label13");
-            this.Label13.Name = "Label13";
             // 
             // CheckAlwaysTop
             // 
@@ -2447,7 +2411,6 @@
             this.SplitContainer1.ResumeLayout(false);
             this.TweetActPanel.ResumeLayout(false);
             this.TweetActPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAutoRetryInterval)).EndInit();
             this.FontPanel.ResumeLayout(false);
             this.GroupBox1.ResumeLayout(false);
             this.GroupBox1.PerformLayout();
@@ -2515,9 +2478,6 @@
         internal System.Windows.Forms.CheckBox ChkNewMentionsBlink;
         internal System.Windows.Forms.CheckBox chkTabIconDisp;
         internal System.Windows.Forms.CheckBox CheckPreviewEnable;
-        internal System.Windows.Forms.Label Label81;
-        internal System.Windows.Forms.ComboBox LanguageCombo;
-        internal System.Windows.Forms.Label Label13;
         internal System.Windows.Forms.CheckBox CheckAlwaysTop;
         internal System.Windows.Forms.CheckBox CheckMonospace;
         internal System.Windows.Forms.CheckBox CheckBalloonLimit;
@@ -2762,7 +2722,7 @@
         internal System.Windows.Forms.Button btnStolen;
         internal System.Windows.Forms.Label lblStolen;
         internal System.Windows.Forms.Label Label1;
-        private System.Windows.Forms.NumericUpDown numericAutoRetryInterval;
+        private System.Windows.Forms.TextBox numericAutoRetryInterval;
         private System.Windows.Forms.Label labelAutoRetryInterval;
     }
 }
