@@ -13479,7 +13479,7 @@ namespace OpenTween
         private void CopyTweet()
         {
             if (_curPost == null || (_curPost.IsDeleted && !_cfgCommon.ShowDeleted)) return;
-            string clstr = CreateRetweetUnofficial(_curPost.Text);
+            string clstr = HttpUtility.HtmlDecode(CreateRetweetUnofficial(_curPost.Text));
             try
             {
                 Clipboard.SetDataObject(clstr, false, 5, 100);
