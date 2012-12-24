@@ -9766,19 +9766,6 @@ namespace OpenTween
             }
             if (!string.IsNullOrEmpty(hstr)) HashMgr.AddHashToHistory(hstr.Trim(), false);
 
-            // 本当にリプライ先指定すべきかどうかの判定
-            m = Regex.Matches(StatusText, "(^|[ -/:-@[-^`{-~])(?<id>@[a-zA-Z0-9_]+)");
-
-            if (SettingDialog.UseAtIdSupplement)
-            {
-                int bCnt = AtIdSupl.ItemCount;
-                foreach (Match mid in m)
-                {
-                    AtIdSupl.AddItem(mid.Result("${id}"));
-                }
-                if (bCnt != AtIdSupl.ItemCount) _modifySettingAtId = true;
-            }
-
             // リプライ先ステータスIDの指定がない場合は指定しない
             if (_reply_to_id == 0) return;
 
@@ -9795,20 +9782,7 @@ namespace OpenTween
             // 2. リプライ先ステータスIDが設定されている(リストをダブルクリックで返信している)
             // 3. 文中に含まれた@idがリプライ先のポスト者のIDと一致する
 
-            if (m != null)
-            {
-                if (StatusText.StartsWith("@"))
-                {
-                    if (StatusText.StartsWith("@" + _reply_to_name)) return;
-                }
-                else
-                {
-                    foreach (Match mid in m)
-                    {
-                        if (StatusText.Contains("QT " + mid.Result("${id}") + ":") && mid.Result("${id}") == "@" + _reply_to_name) return;
-                    }
-                }
-            }
+            if (StatusText.Contains("@" + _reply_to_name)) return;
 
             _reply_to_id = 0;
             _reply_to_name = "";
