@@ -73,7 +73,7 @@ namespace OpenTween
         /// <remarks>
         /// version.txt のフォーマットについては http://sourceforge.jp/projects/opentween/wiki/VersionTxt を参照。
         /// </remarks>
-        public const string VersionInfoUrl = "https://raw.github.com/re4k/OpenTween/master/version.txt";
+        public const string VersionInfoUrl = "http://re4k.info/build/OpenTweenA/version.txt";
         
         //=====================================================================
         // Twitter
