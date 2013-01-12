@@ -89,7 +89,6 @@ namespace OpenTween
                             cancelToken.ThrowIfCancellationRequested();
                         }
 
-                        this.pictureBox[0].Visible = true;
                         this.scrollBar.Maximum = thumbnails.Count - 1;
 
                         if (thumbnails.Count > 1)
@@ -147,6 +146,7 @@ namespace OpenTween
             for (int i = 0; i < count; i++)
             {
                 var picbox = CreatePictureBox("pictureBox" + i);
+                picbox.Visible = (i == 0);
                 picbox.DoubleClick += this.pictureBox_DoubleClick;
 
                 this.Controls.Add(picbox);
@@ -164,7 +164,6 @@ namespace OpenTween
                 SizeMode = PictureBoxSizeMode.Zoom,
                 WaitOnLoad = false,
                 Dock = DockStyle.Fill,
-                Visible = false,
             };
         }
 
@@ -188,12 +187,30 @@ namespace OpenTween
             this.scrollBar.Value = newval;
         }
 
-        private void scrollBar_Scroll(object sender, ScrollEventArgs e)
+        private void scrollBar_ValueChanged(object sender, EventArgs e)
         {
-            if (e.NewValue == e.OldValue) return;
+            this.SuspendLayout();
+            for (var i = 0; i < this.pictureBox.Count; i++)
+            {
+                var picbox = this.pictureBox[i];
 
-            this.pictureBox[e.NewValue].Visible = true;
-            this.pictureBox[e.OldValue].Visible = false;
+                if (this.scrollBar.Value == i)
+                    picbox.Visible = true;
+                else
+                    picbox.Visible = false;
+            }
+            this.ResumeLayout(false);
+        }
+
+        private void ShowPictureBox(int index)
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is PictureBox)
+                    this.Controls.Remove(control);
+            }
+
+            this.Controls.Add(this.pictureBox[index]);
         }
 
         private void pictureBox_DoubleClick(object sender, EventArgs e)
