@@ -54,7 +54,7 @@ namespace OpenTween.Thumbnail
                 new SimpleThumbnailService(@"^http://(www\.)?twitpic\.com/(?<photoId>\w+)(/full/?)?$", "http://twitpic.com/show/thumb/${photoId}"),
 
                 // yfrog
-                new SimpleThumbnailService(@"^http://yfrog\.com/(\w+)$", "${0}:small"),
+                new SimpleThumbnailService(@"^http://(?:(?:twitter|www)\.)?yfrog\.com/(\w+)$", "http://yfrog.com/${1}:medium"), // fullメンド
 
                 // Lockerz
                 new SimpleThumbnailService(@"^http://(tweetphoto\.com/[0-9]+|pic\.gd/[a-z0-9]+|(lockerz|plixi)\.com/[ps]/[0-9]+)$", "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=thumbnail&url=${0}"),
