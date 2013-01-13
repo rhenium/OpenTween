@@ -32,6 +32,23 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppendSettingDialog));
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
+            this.PreviewPanel = new System.Windows.Forms.Panel();
+            this.Label2 = new System.Windows.Forms.Label();
+            this.IsNotifyUseGrowlCheckBox = new System.Windows.Forms.CheckBox();
+            this.ReplyIconStateCombo = new System.Windows.Forms.ComboBox();
+            this.Label72 = new System.Windows.Forms.Label();
+            this.ChkNewMentionsBlink = new System.Windows.Forms.CheckBox();
+            this.chkTabIconDisp = new System.Windows.Forms.CheckBox();
+            this.CheckPreviewEnable = new System.Windows.Forms.CheckBox();
+            this.CheckAlwaysTop = new System.Windows.Forms.CheckBox();
+            this.CheckMonospace = new System.Windows.Forms.CheckBox();
+            this.CheckBalloonLimit = new System.Windows.Forms.CheckBox();
+            this.Label10 = new System.Windows.Forms.Label();
+            this.ComboDispTitle = new System.Windows.Forms.ComboBox();
+            this.Label45 = new System.Windows.Forms.Label();
+            this.cmbNameBalloon = new System.Windows.Forms.ComboBox();
+            this.CheckDispUsername = new System.Windows.Forms.CheckBox();
+            this.CheckBox3 = new System.Windows.Forms.CheckBox();
             this.TweetActPanel = new System.Windows.Forms.Panel();
             this.numericAutoRetryInterval = new System.Windows.Forms.TextBox();
             this.labelAutoRetryInterval = new System.Windows.Forms.Label();
@@ -127,23 +144,6 @@
             this.CheckStartupFollowers = new System.Windows.Forms.CheckBox();
             this.CheckStartupVersion = new System.Windows.Forms.CheckBox();
             this.chkGetFav = new System.Windows.Forms.CheckBox();
-            this.PreviewPanel = new System.Windows.Forms.Panel();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.IsNotifyUseGrowlCheckBox = new System.Windows.Forms.CheckBox();
-            this.ReplyIconStateCombo = new System.Windows.Forms.ComboBox();
-            this.Label72 = new System.Windows.Forms.Label();
-            this.ChkNewMentionsBlink = new System.Windows.Forms.CheckBox();
-            this.chkTabIconDisp = new System.Windows.Forms.CheckBox();
-            this.CheckPreviewEnable = new System.Windows.Forms.CheckBox();
-            this.CheckAlwaysTop = new System.Windows.Forms.CheckBox();
-            this.CheckMonospace = new System.Windows.Forms.CheckBox();
-            this.CheckBalloonLimit = new System.Windows.Forms.CheckBox();
-            this.Label10 = new System.Windows.Forms.Label();
-            this.ComboDispTitle = new System.Windows.Forms.ComboBox();
-            this.Label45 = new System.Windows.Forms.Label();
-            this.cmbNameBalloon = new System.Windows.Forms.ComboBox();
-            this.CheckDispUsername = new System.Windows.Forms.CheckBox();
-            this.CheckBox3 = new System.Windows.Forms.CheckBox();
             this.GetCountPanel = new System.Windows.Forms.Panel();
             this.ListTextCountApi = new System.Windows.Forms.TextBox();
             this.Label25 = new System.Windows.Forms.Label();
@@ -163,16 +163,8 @@
             this.Label67 = new System.Windows.Forms.Label();
             this.TextCountApi = new System.Windows.Forms.TextBox();
             this.ShortUrlPanel = new System.Windows.Forms.Panel();
-            this.ShortenTcoCheck = new System.Windows.Forms.CheckBox();
             this.CheckForceResolve = new System.Windows.Forms.CheckBox();
             this.CheckTinyURL = new System.Windows.Forms.CheckBox();
-            this.TextBitlyPw = new System.Windows.Forms.TextBox();
-            this.CheckAutoConvertUrl = new System.Windows.Forms.CheckBox();
-            this.Label71 = new System.Windows.Forms.Label();
-            this.ComboBoxAutoShortUrlFirst = new System.Windows.Forms.ComboBox();
-            this.Label76 = new System.Windows.Forms.Label();
-            this.Label77 = new System.Windows.Forms.Label();
-            this.TextBitlyId = new System.Windows.Forms.TextBox();
             this.TweetPrvPanel = new System.Windows.Forms.Panel();
             this.IsListsIncludeRtsCheckBox = new System.Windows.Forms.CheckBox();
             this.HideDuplicatedRetweetsCheck = new System.Windows.Forms.CheckBox();
@@ -303,6 +295,7 @@
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
+            this.PreviewPanel.SuspendLayout();
             this.TweetActPanel.SuspendLayout();
             this.FontPanel.SuspendLayout();
             this.GroupBox1.SuspendLayout();
@@ -312,7 +305,6 @@
             this.groupBoxConsumerKey.SuspendLayout();
             this.GroupBox2.SuspendLayout();
             this.StartupPanel.SuspendLayout();
-            this.PreviewPanel.SuspendLayout();
             this.GetCountPanel.SuspendLayout();
             this.ShortUrlPanel.SuspendLayout();
             this.TweetPrvPanel.SuspendLayout();
@@ -338,6 +330,7 @@
             // SplitContainer1.Panel2
             // 
             this.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.SplitContainer1.Panel2.Controls.Add(this.ShortUrlPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.PreviewPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetActPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.FontPanel);
@@ -345,7 +338,6 @@
             this.SplitContainer1.Panel2.Controls.Add(this.BasedPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.StartupPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.GetCountPanel);
-            this.SplitContainer1.Panel2.Controls.Add(this.ShortUrlPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetPrvPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.NotifyPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.CooperatePanel);
@@ -370,6 +362,140 @@
             this.TreeViewSetting.ShowLines = false;
             this.TreeViewSetting.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewSetting_BeforeSelect);
             this.TreeViewSetting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSetting_AfterSelect);
+            // 
+            // PreviewPanel
+            // 
+            this.PreviewPanel.Controls.Add(this.Label2);
+            this.PreviewPanel.Controls.Add(this.IsNotifyUseGrowlCheckBox);
+            this.PreviewPanel.Controls.Add(this.ReplyIconStateCombo);
+            this.PreviewPanel.Controls.Add(this.Label72);
+            this.PreviewPanel.Controls.Add(this.ChkNewMentionsBlink);
+            this.PreviewPanel.Controls.Add(this.chkTabIconDisp);
+            this.PreviewPanel.Controls.Add(this.CheckPreviewEnable);
+            this.PreviewPanel.Controls.Add(this.CheckAlwaysTop);
+            this.PreviewPanel.Controls.Add(this.CheckMonospace);
+            this.PreviewPanel.Controls.Add(this.CheckBalloonLimit);
+            this.PreviewPanel.Controls.Add(this.Label10);
+            this.PreviewPanel.Controls.Add(this.ComboDispTitle);
+            this.PreviewPanel.Controls.Add(this.Label45);
+            this.PreviewPanel.Controls.Add(this.cmbNameBalloon);
+            this.PreviewPanel.Controls.Add(this.CheckDispUsername);
+            this.PreviewPanel.Controls.Add(this.CheckBox3);
+            resources.ApplyResources(this.PreviewPanel, "PreviewPanel");
+            this.PreviewPanel.Name = "PreviewPanel";
+            // 
+            // Label2
+            // 
+            resources.ApplyResources(this.Label2, "Label2");
+            this.Label2.Name = "Label2";
+            this.ToolTip1.SetToolTip(this.Label2, resources.GetString("Label2.ToolTip"));
+            // 
+            // IsNotifyUseGrowlCheckBox
+            // 
+            resources.ApplyResources(this.IsNotifyUseGrowlCheckBox, "IsNotifyUseGrowlCheckBox");
+            this.IsNotifyUseGrowlCheckBox.Name = "IsNotifyUseGrowlCheckBox";
+            this.IsNotifyUseGrowlCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ReplyIconStateCombo
+            // 
+            this.ReplyIconStateCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ReplyIconStateCombo.FormattingEnabled = true;
+            this.ReplyIconStateCombo.Items.AddRange(new object[] {
+            resources.GetString("ReplyIconStateCombo.Items"),
+            resources.GetString("ReplyIconStateCombo.Items1"),
+            resources.GetString("ReplyIconStateCombo.Items2")});
+            resources.ApplyResources(this.ReplyIconStateCombo, "ReplyIconStateCombo");
+            this.ReplyIconStateCombo.Name = "ReplyIconStateCombo";
+            // 
+            // Label72
+            // 
+            resources.ApplyResources(this.Label72, "Label72");
+            this.Label72.Name = "Label72";
+            // 
+            // ChkNewMentionsBlink
+            // 
+            resources.ApplyResources(this.ChkNewMentionsBlink, "ChkNewMentionsBlink");
+            this.ChkNewMentionsBlink.Name = "ChkNewMentionsBlink";
+            this.ChkNewMentionsBlink.UseVisualStyleBackColor = true;
+            // 
+            // chkTabIconDisp
+            // 
+            resources.ApplyResources(this.chkTabIconDisp, "chkTabIconDisp");
+            this.chkTabIconDisp.Name = "chkTabIconDisp";
+            this.chkTabIconDisp.UseVisualStyleBackColor = true;
+            // 
+            // CheckPreviewEnable
+            // 
+            resources.ApplyResources(this.CheckPreviewEnable, "CheckPreviewEnable");
+            this.CheckPreviewEnable.Name = "CheckPreviewEnable";
+            this.CheckPreviewEnable.UseVisualStyleBackColor = true;
+            // 
+            // CheckAlwaysTop
+            // 
+            resources.ApplyResources(this.CheckAlwaysTop, "CheckAlwaysTop");
+            this.CheckAlwaysTop.Name = "CheckAlwaysTop";
+            this.CheckAlwaysTop.UseVisualStyleBackColor = true;
+            // 
+            // CheckMonospace
+            // 
+            resources.ApplyResources(this.CheckMonospace, "CheckMonospace");
+            this.CheckMonospace.Name = "CheckMonospace";
+            this.CheckMonospace.UseVisualStyleBackColor = true;
+            // 
+            // CheckBalloonLimit
+            // 
+            resources.ApplyResources(this.CheckBalloonLimit, "CheckBalloonLimit");
+            this.CheckBalloonLimit.Name = "CheckBalloonLimit";
+            this.CheckBalloonLimit.UseVisualStyleBackColor = true;
+            // 
+            // Label10
+            // 
+            resources.ApplyResources(this.Label10, "Label10");
+            this.Label10.Name = "Label10";
+            // 
+            // ComboDispTitle
+            // 
+            this.ComboDispTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboDispTitle.FormattingEnabled = true;
+            this.ComboDispTitle.Items.AddRange(new object[] {
+            resources.GetString("ComboDispTitle.Items"),
+            resources.GetString("ComboDispTitle.Items1"),
+            resources.GetString("ComboDispTitle.Items2"),
+            resources.GetString("ComboDispTitle.Items3"),
+            resources.GetString("ComboDispTitle.Items4"),
+            resources.GetString("ComboDispTitle.Items5"),
+            resources.GetString("ComboDispTitle.Items6"),
+            resources.GetString("ComboDispTitle.Items7")});
+            resources.ApplyResources(this.ComboDispTitle, "ComboDispTitle");
+            this.ComboDispTitle.Name = "ComboDispTitle";
+            // 
+            // Label45
+            // 
+            resources.ApplyResources(this.Label45, "Label45");
+            this.Label45.Name = "Label45";
+            // 
+            // cmbNameBalloon
+            // 
+            this.cmbNameBalloon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbNameBalloon.FormattingEnabled = true;
+            this.cmbNameBalloon.Items.AddRange(new object[] {
+            resources.GetString("cmbNameBalloon.Items"),
+            resources.GetString("cmbNameBalloon.Items1"),
+            resources.GetString("cmbNameBalloon.Items2")});
+            resources.ApplyResources(this.cmbNameBalloon, "cmbNameBalloon");
+            this.cmbNameBalloon.Name = "cmbNameBalloon";
+            // 
+            // CheckDispUsername
+            // 
+            resources.ApplyResources(this.CheckDispUsername, "CheckDispUsername");
+            this.CheckDispUsername.Name = "CheckDispUsername";
+            this.CheckDispUsername.UseVisualStyleBackColor = true;
+            // 
+            // CheckBox3
+            // 
+            resources.ApplyResources(this.CheckBox3, "CheckBox3");
+            this.CheckBox3.Name = "CheckBox3";
+            this.CheckBox3.UseVisualStyleBackColor = true;
             // 
             // TweetActPanel
             // 
@@ -1026,140 +1152,6 @@
             this.chkGetFav.Name = "chkGetFav";
             this.chkGetFav.UseVisualStyleBackColor = true;
             // 
-            // PreviewPanel
-            // 
-            this.PreviewPanel.Controls.Add(this.Label2);
-            this.PreviewPanel.Controls.Add(this.IsNotifyUseGrowlCheckBox);
-            this.PreviewPanel.Controls.Add(this.ReplyIconStateCombo);
-            this.PreviewPanel.Controls.Add(this.Label72);
-            this.PreviewPanel.Controls.Add(this.ChkNewMentionsBlink);
-            this.PreviewPanel.Controls.Add(this.chkTabIconDisp);
-            this.PreviewPanel.Controls.Add(this.CheckPreviewEnable);
-            this.PreviewPanel.Controls.Add(this.CheckAlwaysTop);
-            this.PreviewPanel.Controls.Add(this.CheckMonospace);
-            this.PreviewPanel.Controls.Add(this.CheckBalloonLimit);
-            this.PreviewPanel.Controls.Add(this.Label10);
-            this.PreviewPanel.Controls.Add(this.ComboDispTitle);
-            this.PreviewPanel.Controls.Add(this.Label45);
-            this.PreviewPanel.Controls.Add(this.cmbNameBalloon);
-            this.PreviewPanel.Controls.Add(this.CheckDispUsername);
-            this.PreviewPanel.Controls.Add(this.CheckBox3);
-            resources.ApplyResources(this.PreviewPanel, "PreviewPanel");
-            this.PreviewPanel.Name = "PreviewPanel";
-            // 
-            // Label2
-            // 
-            resources.ApplyResources(this.Label2, "Label2");
-            this.Label2.Name = "Label2";
-            this.ToolTip1.SetToolTip(this.Label2, resources.GetString("Label2.ToolTip"));
-            // 
-            // IsNotifyUseGrowlCheckBox
-            // 
-            resources.ApplyResources(this.IsNotifyUseGrowlCheckBox, "IsNotifyUseGrowlCheckBox");
-            this.IsNotifyUseGrowlCheckBox.Name = "IsNotifyUseGrowlCheckBox";
-            this.IsNotifyUseGrowlCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ReplyIconStateCombo
-            // 
-            this.ReplyIconStateCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ReplyIconStateCombo.FormattingEnabled = true;
-            this.ReplyIconStateCombo.Items.AddRange(new object[] {
-            resources.GetString("ReplyIconStateCombo.Items"),
-            resources.GetString("ReplyIconStateCombo.Items1"),
-            resources.GetString("ReplyIconStateCombo.Items2")});
-            resources.ApplyResources(this.ReplyIconStateCombo, "ReplyIconStateCombo");
-            this.ReplyIconStateCombo.Name = "ReplyIconStateCombo";
-            // 
-            // Label72
-            // 
-            resources.ApplyResources(this.Label72, "Label72");
-            this.Label72.Name = "Label72";
-            // 
-            // ChkNewMentionsBlink
-            // 
-            resources.ApplyResources(this.ChkNewMentionsBlink, "ChkNewMentionsBlink");
-            this.ChkNewMentionsBlink.Name = "ChkNewMentionsBlink";
-            this.ChkNewMentionsBlink.UseVisualStyleBackColor = true;
-            // 
-            // chkTabIconDisp
-            // 
-            resources.ApplyResources(this.chkTabIconDisp, "chkTabIconDisp");
-            this.chkTabIconDisp.Name = "chkTabIconDisp";
-            this.chkTabIconDisp.UseVisualStyleBackColor = true;
-            // 
-            // CheckPreviewEnable
-            // 
-            resources.ApplyResources(this.CheckPreviewEnable, "CheckPreviewEnable");
-            this.CheckPreviewEnable.Name = "CheckPreviewEnable";
-            this.CheckPreviewEnable.UseVisualStyleBackColor = true;
-            // 
-            // CheckAlwaysTop
-            // 
-            resources.ApplyResources(this.CheckAlwaysTop, "CheckAlwaysTop");
-            this.CheckAlwaysTop.Name = "CheckAlwaysTop";
-            this.CheckAlwaysTop.UseVisualStyleBackColor = true;
-            // 
-            // CheckMonospace
-            // 
-            resources.ApplyResources(this.CheckMonospace, "CheckMonospace");
-            this.CheckMonospace.Name = "CheckMonospace";
-            this.CheckMonospace.UseVisualStyleBackColor = true;
-            // 
-            // CheckBalloonLimit
-            // 
-            resources.ApplyResources(this.CheckBalloonLimit, "CheckBalloonLimit");
-            this.CheckBalloonLimit.Name = "CheckBalloonLimit";
-            this.CheckBalloonLimit.UseVisualStyleBackColor = true;
-            // 
-            // Label10
-            // 
-            resources.ApplyResources(this.Label10, "Label10");
-            this.Label10.Name = "Label10";
-            // 
-            // ComboDispTitle
-            // 
-            this.ComboDispTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboDispTitle.FormattingEnabled = true;
-            this.ComboDispTitle.Items.AddRange(new object[] {
-            resources.GetString("ComboDispTitle.Items"),
-            resources.GetString("ComboDispTitle.Items1"),
-            resources.GetString("ComboDispTitle.Items2"),
-            resources.GetString("ComboDispTitle.Items3"),
-            resources.GetString("ComboDispTitle.Items4"),
-            resources.GetString("ComboDispTitle.Items5"),
-            resources.GetString("ComboDispTitle.Items6"),
-            resources.GetString("ComboDispTitle.Items7")});
-            resources.ApplyResources(this.ComboDispTitle, "ComboDispTitle");
-            this.ComboDispTitle.Name = "ComboDispTitle";
-            // 
-            // Label45
-            // 
-            resources.ApplyResources(this.Label45, "Label45");
-            this.Label45.Name = "Label45";
-            // 
-            // cmbNameBalloon
-            // 
-            this.cmbNameBalloon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbNameBalloon.FormattingEnabled = true;
-            this.cmbNameBalloon.Items.AddRange(new object[] {
-            resources.GetString("cmbNameBalloon.Items"),
-            resources.GetString("cmbNameBalloon.Items1"),
-            resources.GetString("cmbNameBalloon.Items2")});
-            resources.ApplyResources(this.cmbNameBalloon, "cmbNameBalloon");
-            this.cmbNameBalloon.Name = "cmbNameBalloon";
-            // 
-            // CheckDispUsername
-            // 
-            resources.ApplyResources(this.CheckDispUsername, "CheckDispUsername");
-            this.CheckDispUsername.Name = "CheckDispUsername";
-            this.CheckDispUsername.UseVisualStyleBackColor = true;
-            // 
-            // CheckBox3
-            // 
-            resources.ApplyResources(this.CheckBox3, "CheckBox3");
-            this.CheckBox3.Name = "CheckBox3";
-            this.CheckBox3.UseVisualStyleBackColor = true;
-            // 
             // GetCountPanel
             // 
             this.GetCountPanel.Controls.Add(this.ListTextCountApi);
@@ -1279,24 +1271,10 @@
             // 
             // ShortUrlPanel
             // 
-            this.ShortUrlPanel.Controls.Add(this.ShortenTcoCheck);
             this.ShortUrlPanel.Controls.Add(this.CheckForceResolve);
             this.ShortUrlPanel.Controls.Add(this.CheckTinyURL);
-            this.ShortUrlPanel.Controls.Add(this.TextBitlyPw);
-            this.ShortUrlPanel.Controls.Add(this.CheckAutoConvertUrl);
-            this.ShortUrlPanel.Controls.Add(this.Label71);
-            this.ShortUrlPanel.Controls.Add(this.ComboBoxAutoShortUrlFirst);
-            this.ShortUrlPanel.Controls.Add(this.Label76);
-            this.ShortUrlPanel.Controls.Add(this.Label77);
-            this.ShortUrlPanel.Controls.Add(this.TextBitlyId);
             resources.ApplyResources(this.ShortUrlPanel, "ShortUrlPanel");
             this.ShortUrlPanel.Name = "ShortUrlPanel";
-            // 
-            // ShortenTcoCheck
-            // 
-            resources.ApplyResources(this.ShortenTcoCheck, "ShortenTcoCheck");
-            this.ShortenTcoCheck.Name = "ShortenTcoCheck";
-            this.ShortenTcoCheck.UseVisualStyleBackColor = true;
             // 
             // CheckForceResolve
             // 
@@ -1309,53 +1287,6 @@
             resources.ApplyResources(this.CheckTinyURL, "CheckTinyURL");
             this.CheckTinyURL.Name = "CheckTinyURL";
             this.CheckTinyURL.UseVisualStyleBackColor = true;
-            // 
-            // TextBitlyPw
-            // 
-            resources.ApplyResources(this.TextBitlyPw, "TextBitlyPw");
-            this.TextBitlyPw.Name = "TextBitlyPw";
-            // 
-            // CheckAutoConvertUrl
-            // 
-            resources.ApplyResources(this.CheckAutoConvertUrl, "CheckAutoConvertUrl");
-            this.CheckAutoConvertUrl.Name = "CheckAutoConvertUrl";
-            this.CheckAutoConvertUrl.UseVisualStyleBackColor = true;
-            this.CheckAutoConvertUrl.CheckedChanged += new System.EventHandler(this.CheckAutoConvertUrl_CheckedChanged);
-            // 
-            // Label71
-            // 
-            resources.ApplyResources(this.Label71, "Label71");
-            this.Label71.Name = "Label71";
-            // 
-            // ComboBoxAutoShortUrlFirst
-            // 
-            this.ComboBoxAutoShortUrlFirst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxAutoShortUrlFirst.FormattingEnabled = true;
-            this.ComboBoxAutoShortUrlFirst.Items.AddRange(new object[] {
-            resources.GetString("ComboBoxAutoShortUrlFirst.Items"),
-            resources.GetString("ComboBoxAutoShortUrlFirst.Items1"),
-            resources.GetString("ComboBoxAutoShortUrlFirst.Items2"),
-            resources.GetString("ComboBoxAutoShortUrlFirst.Items3"),
-            resources.GetString("ComboBoxAutoShortUrlFirst.Items4"),
-            resources.GetString("ComboBoxAutoShortUrlFirst.Items5")});
-            resources.ApplyResources(this.ComboBoxAutoShortUrlFirst, "ComboBoxAutoShortUrlFirst");
-            this.ComboBoxAutoShortUrlFirst.Name = "ComboBoxAutoShortUrlFirst";
-            this.ComboBoxAutoShortUrlFirst.SelectedIndexChanged += new System.EventHandler(this.ComboBoxAutoShortUrlFirst_SelectedIndexChanged);
-            // 
-            // Label76
-            // 
-            resources.ApplyResources(this.Label76, "Label76");
-            this.Label76.Name = "Label76";
-            // 
-            // Label77
-            // 
-            resources.ApplyResources(this.Label77, "Label77");
-            this.Label77.Name = "Label77";
-            // 
-            // TextBitlyId
-            // 
-            resources.ApplyResources(this.TextBitlyId, "TextBitlyId");
-            this.TextBitlyId.Name = "TextBitlyId";
             // 
             // TweetPrvPanel
             // 
@@ -2409,6 +2340,8 @@
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
+            this.PreviewPanel.ResumeLayout(false);
+            this.PreviewPanel.PerformLayout();
             this.TweetActPanel.ResumeLayout(false);
             this.TweetActPanel.PerformLayout();
             this.FontPanel.ResumeLayout(false);
@@ -2425,8 +2358,6 @@
             this.GroupBox2.PerformLayout();
             this.StartupPanel.ResumeLayout(false);
             this.StartupPanel.PerformLayout();
-            this.PreviewPanel.ResumeLayout(false);
-            this.PreviewPanel.PerformLayout();
             this.GetCountPanel.ResumeLayout(false);
             this.GetCountPanel.PerformLayout();
             this.ShortUrlPanel.ResumeLayout(false);
@@ -2515,16 +2446,8 @@
         internal System.Windows.Forms.Label Label67;
         internal System.Windows.Forms.TextBox TextCountApi;
         internal System.Windows.Forms.Panel ShortUrlPanel;
-        internal System.Windows.Forms.CheckBox ShortenTcoCheck;
         internal System.Windows.Forms.CheckBox CheckForceResolve;
         internal System.Windows.Forms.CheckBox CheckTinyURL;
-        internal System.Windows.Forms.TextBox TextBitlyPw;
-        internal System.Windows.Forms.CheckBox CheckAutoConvertUrl;
-        internal System.Windows.Forms.Label Label71;
-        internal System.Windows.Forms.ComboBox ComboBoxAutoShortUrlFirst;
-        internal System.Windows.Forms.Label Label76;
-        internal System.Windows.Forms.Label Label77;
-        internal System.Windows.Forms.TextBox TextBitlyId;
         internal System.Windows.Forms.Panel BasedPanel;
         internal System.Windows.Forms.ComboBox AuthUserCombo;
         internal System.Windows.Forms.GroupBox GroupBox2;

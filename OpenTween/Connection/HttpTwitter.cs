@@ -215,7 +215,6 @@ namespace OpenTween
             param.Add("status", status);
             if (replyToId > 0) param.Add("in_reply_to_status_id", replyToId.ToString());
             param.Add("include_entities", "true");
-            //if (AppendSettingDialog.Instance.ShortenTco && AppendSettingDialog.Instance.UrlConvertAuto) param.Add("wrap_links", "true")
 
             return httpCon.GetContent(PostMethod,
                                       CreateTwitterUri("/1/statuses/update.json"),
@@ -232,7 +231,6 @@ namespace OpenTween
             param.Add("status", status);
             if (replyToId > 0) param.Add("in_reply_to_status_id", replyToId.ToString());
             param.Add("include_entities", "true");
-            //if (AppendSettingDialog.Instance.ShortenTco && AppendSettingDialog.Instance.UrlConvertAuto) param.Add("wrap_links", "true")
 
             List<KeyValuePair<string, FileInfo>> binary = new List<KeyValuePair<string, FileInfo>>();
             binary.Add(new KeyValuePair<string, FileInfo>("media[]", mediaFile));
@@ -251,7 +249,7 @@ namespace OpenTween
             string content = null;
 
             return httpCon.GetContent(PostMethod,
-                                      CreateTwitterUri("/1/statuses/destroy/" + id.ToString()+ ".json"),
+                                      CreateTwitterUri("/1/statuses/destroy/" + id.ToString() + ".json"),
                                       null,
                                       ref content,
                                       null,
@@ -263,7 +261,6 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("text", status);
             param.Add("screen_name", sendto);
-            //if (AppendSettingDialog.Instance.ShortenTco && AppendSettingDialog.Instance.UrlConvertAuto) param.Add("wrap_links", "true")
 
             return httpCon.GetContent(PostMethod,
                                       CreateTwitterUri("/1/direct_messages/new.json"),
@@ -278,7 +275,7 @@ namespace OpenTween
             string content = null;
 
             return httpCon.GetContent(PostMethod,
-                                      CreateTwitterUri("/1/direct_messages/destroy/" + id.ToString()+ ".json"),
+                                      CreateTwitterUri("/1/direct_messages/destroy/" + id.ToString() + ".json"),
                                       null,
                                       ref content,
                                       null,
@@ -576,10 +573,10 @@ namespace OpenTween
             string[] paramstr;
             if (string.IsNullOrEmpty(querystr)) return HttpStatusCode.BadRequest;
 
-            tmp = querystr.Split(new char[] {'?', '&'}, StringSplitOptions.RemoveEmptyEntries);
+            tmp = querystr.Split(new char[] { '?', '&' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string tmp2 in tmp)
             {
-                paramstr = tmp2.Split(new char[] {'='});
+                paramstr = tmp2.Split(new char[] { '=' });
                 param.Add(paramstr[0], paramstr[1]);
             }
 
@@ -902,7 +899,7 @@ namespace OpenTween
                 param.Add("page", page.ToString());
 
             return httpCon.GetContent(GetMethod,
-                                      CreateTwitterUri("/1/statuses/" + statusid.ToString()+ "/retweeted_by/ids.json"),
+                                      CreateTwitterUri("/1/statuses/" + statusid.ToString() + "/retweeted_by/ids.json"),
                                       param,
                                       ref content,
                                       this.TwitterApiInfo.HttpHeaders,
@@ -949,7 +946,7 @@ namespace OpenTween
             param.Add("include_entities", "true");
 
             return httpCon.GetContent(GetMethod,
-                                      CreateTwitterUri("/1/related_results/show/" + id.ToString()+ ".json"),
+                                      CreateTwitterUri("/1/related_results/show/" + id.ToString() + ".json"),
                                       param,
                                       ref content,
                                       this.TwitterApiInfo.HttpHeaders,

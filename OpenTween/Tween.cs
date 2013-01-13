@@ -228,15 +228,6 @@ namespace OpenTween
 
         public static List<long> FollowerId = new List<long>();
 
-        //URL短縮のUndo用
-        private struct urlUndo
-        {
-            public string Before;
-            public string After;
-        }
-
-        private List<urlUndo> urlUndoBuffer = null;
-
         private struct ReplyChain
         {
             public long OriginalId;
@@ -758,8 +749,6 @@ namespace OpenTween
             SettingDialog.StartupFollowers = _cfgCommon.StartupFollowers;
             SettingDialog.RestrictFavCheck = _cfgCommon.RestrictFavCheck;
             SettingDialog.AlwaysTop = _cfgCommon.AlwaysTop;
-            SettingDialog.UrlConvertAuto = false;
-            //SettingDialog.UrlConvertAuto = _cfgCommon.UrlConvertAuto;
 
             SettingDialog.OutputzEnabled = _cfgCommon.Outputz;
             SettingDialog.OutputzKey = _cfgCommon.OutputzKey;
@@ -778,20 +767,12 @@ namespace OpenTween
             SettingDialog.FavEventUnread = _cfgCommon.FavEventUnread;
             SettingDialog.TranslateLanguage = _cfgCommon.TranslateLanguage;
             SettingDialog.EventSoundFile = _cfgCommon.EventSoundFile;
-
-            //廃止サービスが選択されていた場合bit.lyへ読み替え
-            if (_cfgCommon.AutoShortUrlFirst < 0)
-                _cfgCommon.AutoShortUrlFirst = MyCommon.UrlConverter.Uxnu;
-
-            SettingDialog.AutoShortUrlFirst = _cfgCommon.AutoShortUrlFirst;
             SettingDialog.TabIconDisp = _cfgCommon.TabIconDisp;
             SettingDialog.ReplyIconState = _cfgCommon.ReplyIconState;
             SettingDialog.ReadOwnPost = _cfgCommon.ReadOwnPost;
             SettingDialog.GetFav = _cfgCommon.GetFav;
             SettingDialog.ReadOldPosts = _cfgCommon.ReadOldPosts;
             SettingDialog.UseSsl = _cfgCommon.UseSsl;
-            SettingDialog.BitlyUser = _cfgCommon.BilyUser;
-            SettingDialog.BitlyPwd = _cfgCommon.BitlyPwd;
             SettingDialog.ShowGrid = _cfgCommon.ShowGrid;
             SettingDialog.UseAtIdSupplement = _cfgCommon.UseAtIdSupplement;
             SettingDialog.UseHashSupplement = _cfgCommon.UseHashSupplement;
@@ -818,7 +799,6 @@ namespace OpenTween
             {
                 detailHtmlFormatHeader += detailHtmlFormat6;
             }
-            this.IdeographicSpaceToSpaceToolStripMenuItem.Checked = _cfgCommon.WideSpaceConvert;
             this.ToolStripFocusLockMenuItem.Checked = _cfgCommon.FocusLockToStatusText;
             this.ToolStripSpaceToFocusTimelineMenuItem.Checked = _cfgCommon.SpaceToFocusTimeline;
             this.ToolStripAutoAddZenkakuSpaceMenuItem.Checked = _cfgCommon.AutoAddZenkakuSpace;
@@ -1026,8 +1006,6 @@ namespace OpenTween
             tltw.UseSsl = SettingDialog.UseSsl;
             ShortUrl.IsResolve = SettingDialog.TinyUrlResolve;
             ShortUrl.IsForceResolve = SettingDialog.ShortUrlForceResolve;
-            ShortUrl.BitlyId = SettingDialog.BitlyUser;
-            ShortUrl.BitlyKey = SettingDialog.BitlyPwd;
             HttpTwitter.TwitterUrl = _cfgCommon.TwitterUrl;
             HttpTwitter.TwitterSearchUrl = _cfgCommon.TwitterSearchUrl;
             tltw.TrackWord = _cfgCommon.TrackWord;
@@ -2215,21 +2193,6 @@ namespace OpenTween
 
             _history[_history.Count - 1] = new PostingStatus(StatusText.Text.Trim(trimChars), _reply_to_id, _reply_to_name);
 
-            if (SettingDialog.Nicoms)
-            {
-                StatusText.SelectionStart = StatusText.Text.Length;
-                UrlConvert(MyCommon.UrlConverter.Nicoms);
-            }
-            //if (SettingDialog.UrlConvertAuto)
-            //{
-            //    StatusText.SelectionStart = StatusText.Text.Length;
-            //    UrlConvertAutoToolStripMenuItem_Click(null, null);
-            //}
-            //else if (SettingDialog.Nicoms)
-            //{
-            //    StatusText.SelectionStart = StatusText.Text.Length;
-            //    UrlConvert(UrlConverter.Nicoms);
-            //}
             StatusText.SelectionStart = StatusText.Text.Length;
             GetWorkerArg args = new GetWorkerArg();
             args.page = 0;
@@ -2240,14 +2203,6 @@ namespace OpenTween
             //整形によって増加する文字数を取得
             int adjustCount = 0;
             string tmpStatus = StatusText.Text.Trim(trimChars);
-            if (ToolStripMenuItemApiCommandEvasion.Checked)
-            {
-                // APIコマンド回避
-                if (Regex.IsMatch(tmpStatus,
-                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(on|off|follow|f|unfollow|leave|l|dm|d|m|rt|retweet|set|s|whois|w|get|g|fav|fave|favorite|stats|help|suggest|block|report|\*)([\s]+|$)",
-                    RegexOptions.IgnoreCase)
-                   && tmpStatus.EndsWith(" .") == false) adjustCount += 2;
-            }
 
             if (ToolStripMenuItemUrlMultibyteSplit.Checked)
             {
@@ -2275,7 +2230,6 @@ namespace OpenTween
                 if (_cfgCommon.AutoCutTweet || MessageBox.Show(Properties.Resources.PostLengthOverMessage1, Properties.Resources.PostLengthOverMessage2, MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
                     //isCutOff = true;
-                    //if (!SettingDialog.UrlConvertAuto) UrlConvertAutoToolStripMenuItem_Click(null, null);
                     if (GetRestStatusCount(false, !isRemoveFooter) - adjustCount < 0)
                     {
                         isRemoveFooter = true;
@@ -2329,15 +2283,6 @@ namespace OpenTween
             }
             args.status.status = header + StatusText.Text.Trim(trimChars) + footer;
 
-            if (ToolStripMenuItemApiCommandEvasion.Checked)
-            {
-                // APIコマンド回避
-                if (Regex.IsMatch(args.status.status,
-                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(on|off|follow|f|unfollow|leave|l|dm|d|m|rt|retweet|set|s|whois|w|get|g|fav|fave|favorite|stats|help|suggest|block|report|\*)([\s]+|$)",
-                    RegexOptions.IgnoreCase)
-                   && args.status.status.EndsWith(" .") == false) args.status.status += " .";
-            }
-
             if (ToolStripMenuItemUrlMultibyteSplit.Checked)
             {
                 // URLと全角文字の切り離し
@@ -2345,11 +2290,6 @@ namespace OpenTween
                 if (mc2.Success) args.status.status = Regex.Replace(args.status.status, @"https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#^]+", "$& ");
             }
 
-            if (IdeographicSpaceToSpaceToolStripMenuItem.Checked)
-            {
-                // 文中の全角スペースを半角スペース1個にする
-                args.status.status = args.status.status.Replace("　", " ");
-            }
             args.status.status = args.status.status.Replace(Environment.NewLine, "\n");
 
             if (args.status.status.Length > 140)
@@ -2427,8 +2367,6 @@ namespace OpenTween
             _hisIdx = _history.Count - 1;
             if (!ToolStripFocusLockMenuItem.Checked)
                 ((Control)ListTab.SelectedTab.Tag).Focus();
-            urlUndoBuffer = null;
-            UrlUndoToolStripMenuItem.Enabled = false;  //Undoをできないように設定
         }
 
         private void EndToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4057,8 +3995,6 @@ namespace OpenTween
                     tltw.UseSsl = SettingDialog.UseSsl;
                     ShortUrl.IsResolve = SettingDialog.TinyUrlResolve;
                     ShortUrl.IsForceResolve = SettingDialog.ShortUrlForceResolve;
-                    ShortUrl.BitlyId = SettingDialog.BitlyUser;
-                    ShortUrl.BitlyKey = SettingDialog.BitlyPwd;
                     HttpTwitter.TwitterUrl = _cfgCommon.TwitterUrl;
                     HttpTwitter.TwitterSearchUrl = _cfgCommon.TwitterSearchUrl;
 
@@ -6630,9 +6566,6 @@ namespace OpenTween
                         case Keys.T:
                             HashManageMenuItem_Click(null, null);
                             return true;
-                        case Keys.L:
-                            UrlConvertAutoToolStripMenuItem_Click(null, null);
-                            return true;
                         case Keys.Y:
                             if (Focused != FocusedControl.PostBrowser)
                             {
@@ -7963,7 +7896,6 @@ namespace OpenTween
                 _cfgCommon.StartupFollowers = SettingDialog.StartupFollowers;
                 _cfgCommon.RestrictFavCheck = SettingDialog.RestrictFavCheck;
                 _cfgCommon.AlwaysTop = SettingDialog.AlwaysTop;
-                _cfgCommon.UrlConvertAuto = SettingDialog.UrlConvertAuto;
                 _cfgCommon.Outputz = SettingDialog.OutputzEnabled;
                 _cfgCommon.OutputzKey = SettingDialog.OutputzKey;
                 _cfgCommon.OutputzUrlMode = SettingDialog.OutputzUrlmode;
@@ -7979,21 +7911,13 @@ namespace OpenTween
                 _cfgCommon.FavEventUnread = SettingDialog.FavEventUnread;
                 _cfgCommon.TranslateLanguage = SettingDialog.TranslateLanguage;
                 _cfgCommon.EventSoundFile = SettingDialog.EventSoundFile;
-                _cfgCommon.AutoShortUrlFirst = SettingDialog.AutoShortUrlFirst;
                 _cfgCommon.TabIconDisp = SettingDialog.TabIconDisp;
                 _cfgCommon.ReplyIconState = SettingDialog.ReplyIconState;
                 _cfgCommon.ReadOwnPost = SettingDialog.ReadOwnPost;
                 _cfgCommon.GetFav = SettingDialog.GetFav;
                 _cfgCommon.IsMonospace = SettingDialog.IsMonospace;
-                if (IdeographicSpaceToSpaceToolStripMenuItem != null &&
-                   IdeographicSpaceToSpaceToolStripMenuItem.IsDisposed == false)
-                {
-                    _cfgCommon.WideSpaceConvert = this.IdeographicSpaceToSpaceToolStripMenuItem.Checked;
-                }
                 _cfgCommon.ReadOldPosts = SettingDialog.ReadOldPosts;
                 _cfgCommon.UseSsl = SettingDialog.UseSsl;
-                _cfgCommon.BilyUser = SettingDialog.BitlyUser;
-                _cfgCommon.BitlyPwd = SettingDialog.BitlyPwd;
                 _cfgCommon.ShowGrid = SettingDialog.ShowGrid;
                 _cfgCommon.UseAtIdSupplement = SettingDialog.UseAtIdSupplement;
                 _cfgCommon.UseHashSupplement = SettingDialog.UseHashSupplement;
@@ -10080,187 +10004,6 @@ namespace OpenTween
             _modifySettingLocal = true;
         }
 
-        private bool UrlConvert(MyCommon.UrlConverter Converter_Type)
-        {
-            //t.coで投稿時自動短縮する場合は、外部サービスでの短縮禁止
-            //if (SettingDialog.UrlConvertAuto && SettingDialog.ShortenTco) return;
-
-            //Converter_Type=Nicomsの場合は、nicovideoのみ短縮する
-            //参考資料 RFC3986 Uniform Resource Identifier (URI): Generic Syntax
-            //Appendix A.  Collected ABNF for URI
-            //http://www.ietf.org/rfc/rfc3986.txt
-
-            string result = "";
-
-            const string nico = @"^https?://[a-z]+\.(nicovideo|niconicommons|nicolive)\.jp/[a-z]+/[a-z0-9]+$";
-
-            if (StatusText.SelectionLength > 0)
-            {
-                string tmp = StatusText.SelectedText;
-                // httpから始まらない場合、ExcludeStringで指定された文字列で始まる場合は対象としない
-                if (tmp.StartsWith("http"))
-                {
-                    // 文字列が選択されている場合はその文字列について処理
-
-                    //nico.ms使用、nicovideoにマッチしたら変換
-                    if (SettingDialog.Nicoms && Regex.IsMatch(tmp, nico))
-                    {
-                        result = nicoms.Shorten(tmp);
-                    }
-                    else if (Converter_Type != MyCommon.UrlConverter.Nicoms)
-                    {
-                        //短縮URL変換 日本語を含むかもしれないのでURLエンコードする
-                        result = ShortUrl.Make(Converter_Type, tmp);
-                        if (result.Equals("Can't convert"))
-                        {
-                            StatusLabel.Text = result.Insert(0, Converter_Type.ToString() + ":");
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return true;
-                    }
-
-                    if (!string.IsNullOrEmpty(result))
-                    {
-                        urlUndo undotmp = new urlUndo();
-
-                        StatusText.Select(StatusText.Text.IndexOf(tmp, StringComparison.Ordinal), tmp.Length);
-                        StatusText.SelectedText = result;
-
-                        //undoバッファにセット
-                        undotmp.Before = tmp;
-                        undotmp.After = result;
-
-                        if (urlUndoBuffer == null)
-                        {
-                            urlUndoBuffer = new List<urlUndo>();
-                            UrlUndoToolStripMenuItem.Enabled = true;
-                        }
-
-                        urlUndoBuffer.Add(undotmp);
-                    }
-                }
-            }
-            else
-            {
-                const string url = @"(?<before>(?:[^\""':!=]|^|\:))" +
-                                   @"(?<url>(?<protocol>https?://)" +
-                                   @"(?<domain>(?:[\.-]|[^\p{P}\s])+\.[a-z]{2,}(?::[0-9]+)?)" +
-                                   @"(?<path>/[a-z0-9!*//();:&=+$/%#\-_.,~@]*[a-z0-9)=#/]?)?" +
-                                   @"(?<query>\?[a-z0-9!*//();:&=+$/%#\-_.,~@?]*[a-z0-9_&=#/])?)";
-                // 正規表現にマッチしたURL文字列をtinyurl化
-                foreach (Match mt in Regex.Matches(StatusText.Text, url, RegexOptions.IgnoreCase))
-                {
-                    if (StatusText.Text.IndexOf(mt.Result("${url}"), StringComparison.Ordinal) == -1) continue;
-                    string tmp = mt.Result("${url}");
-                    if (tmp.StartsWith("w", StringComparison.OrdinalIgnoreCase)) tmp = "http://" + tmp;
-                    urlUndo undotmp = new urlUndo();
-
-                    //選んだURLを選択（？）
-                    StatusText.Select(StatusText.Text.IndexOf(mt.Result("${url}"), StringComparison.Ordinal), mt.Result("${url}").Length);
-
-                    //nico.ms使用、nicovideoにマッチしたら変換
-                    if (SettingDialog.Nicoms && Regex.IsMatch(tmp, nico))
-                    {
-                        result = nicoms.Shorten(tmp);
-                    }
-                    else if (Converter_Type != MyCommon.UrlConverter.Nicoms)
-                    {
-                        //短縮URL変換 日本語を含むかもしれないのでURLエンコードする
-                        result = ShortUrl.Make(Converter_Type, tmp);
-                        if (result.Equals("Can't convert"))
-                        {
-                            StatusLabel.Text = result.Insert(0, Converter_Type.ToString() + ":");
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
-                    if (!string.IsNullOrEmpty(result))
-                    {
-                        StatusText.Select(StatusText.Text.IndexOf(mt.Result("${url}"), StringComparison.Ordinal), mt.Result("${url}").Length);
-                        StatusText.SelectedText = result;
-                        //undoバッファにセット
-                        undotmp.Before = mt.Result("${url}");
-                        undotmp.After = result;
-
-                        if (urlUndoBuffer == null)
-                        {
-                            urlUndoBuffer = new List<urlUndo>();
-                            UrlUndoToolStripMenuItem.Enabled = true;
-                        }
-
-                        urlUndoBuffer.Add(undotmp);
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        private void doUrlUndo()
-        {
-            if (urlUndoBuffer != null)
-            {
-                string tmp = StatusText.Text;
-                foreach (urlUndo data in urlUndoBuffer)
-                {
-                    tmp = tmp.Replace(data.After, data.Before);
-                }
-                StatusText.Text = tmp;
-                urlUndoBuffer = null;
-                UrlUndoToolStripMenuItem.Enabled = false;
-                StatusText.SelectionStart = 0;
-                StatusText.SelectionLength = 0;
-            }
-        }
-
-        private void TinyURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UrlConvert(MyCommon.UrlConverter.TinyUrl);
-        }
-
-        private void IsgdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UrlConvert(MyCommon.UrlConverter.Isgd);
-        }
-
-        private void TwurlnlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UrlConvert(MyCommon.UrlConverter.Twurl);
-        }
-
-        private void UxnuMenuItem_Click(object sender, EventArgs e)
-        {
-            UrlConvert(MyCommon.UrlConverter.Uxnu);
-        }
-
-        private void UrlConvertAutoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!UrlConvert(SettingDialog.AutoShortUrlFirst))
-            {
-                MyCommon.UrlConverter svc = SettingDialog.AutoShortUrlFirst;
-                Random rnd = new Random();
-                // 前回使用した短縮URLサービス以外を選択する
-                do
-                {
-                    svc = (MyCommon.UrlConverter)rnd.Next(System.Enum.GetNames(typeof(MyCommon.UrlConverter)).Length);
-                }
-                while (svc == SettingDialog.AutoShortUrlFirst || svc == MyCommon.UrlConverter.Nicoms || svc == MyCommon.UrlConverter.Unu);
-                UrlConvert(svc);
-            }
-        }
-
-        private void UrlUndoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            doUrlUndo();
-        }
-
         private void NewPostPopMenuItem_CheckStateChanged(object sender, EventArgs e)
         {
             this.NotifyFileMenuItem.Checked = ((ToolStripMenuItem)sender).Checked;
@@ -11151,16 +10894,6 @@ namespace OpenTween
                 DebugModeToolStripMenuItem.Visible = false;
         }
 
-        private void ToolStripMenuItemUrlAutoShorten_CheckedChanged(object sender, EventArgs e)
-        {
-            SettingDialog.UrlConvertAuto = ToolStripMenuItemUrlAutoShorten.Checked;
-        }
-
-        private void ContextMenuPostMode_Opening(object sender, CancelEventArgs e)
-        {
-            ToolStripMenuItemUrlAutoShorten.Checked = SettingDialog.UrlConvertAuto;
-        }
-
         private void TraceOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TraceOutToolStripMenuItem.Checked)
@@ -11180,17 +10913,6 @@ namespace OpenTween
             if (string.IsNullOrEmpty(_rclickTabName)) return;
             TabRename(ref _rclickTabName);
         }
-
-        private void BitlyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UrlConvert(MyCommon.UrlConverter.Bitly);
-        }
-
-        private void JmpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UrlConvert(MyCommon.UrlConverter.Jmp);
-        }
-
 
         private class GetApiInfoArgs
         {
@@ -12772,11 +12494,6 @@ namespace OpenTween
                 RtCountMenuItem.Enabled = true;
             else
                 RtCountMenuItem.Enabled = false;
-
-            //if (SettingDialog.UrlConvertAuto && SettingDialog.ShortenTco)
-            //    TinyUrlConvertToolStripMenuItem.Enabled = false;
-            //else
-            //    TinyUrlConvertToolStripMenuItem.Enabled = true;
         }
 
         private void CopyUserIdStripMenuItem_Click(object sender, EventArgs e)

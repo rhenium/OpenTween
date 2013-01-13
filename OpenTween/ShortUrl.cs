@@ -82,23 +82,11 @@ namespace OpenTween
             "http://tinami.jp/",
         };
 
-        private static string _bitlyId = "";
-        private static string _bitlyKey = "";
         private static bool _isresolve = true;
         private static bool _isForceResolve = true;
         private static Dictionary<string, string> urlCache = new Dictionary<string, string>();
 
         private static readonly object _lockObj = new object();
-
-        public static string BitlyId
-        {
-            set { _bitlyId = value; }
-        }
-
-        public static string BitlyKey
-        {
-            set { _bitlyKey = value; }
-        }
 
         public static bool IsResolve
         {
@@ -235,151 +223,6 @@ namespace OpenTween
             }
 
             return orgData;
-        }
-
-        public static string Make(MyCommon.UrlConverter ConverterType, string SrcUrl)
-        {
-            string src = "";
-            try
-            {
-                src = MyCommon.urlEncodeMultibyteChar(SrcUrl);
-            }
-            catch (Exception)
-            {
-                return "Can't convert";
-            }
-            string orgSrc = SrcUrl;
-            Dictionary<string, string> param = new Dictionary<string, string>();
-            string content = "";
-
-            foreach (string svc in _ShortUrlService)
-            {
-                if (SrcUrl.StartsWith(svc))
-                    return "Can't convert";
-            }
-
-            //nico.msは短縮しない
-            if (SrcUrl.StartsWith("http://nico.ms/")) return "Can't convert";
-
-            SrcUrl = HttpUtility.UrlEncode(SrcUrl);
-
-            switch (ConverterType)
-            {
-                case MyCommon.UrlConverter.TinyUrl:       //tinyurl
-                    if (SrcUrl.StartsWith("http"))
-                    {
-                        if ("http://tinyurl.com/xxxxxx".Length > src.Length && !src.Contains("?") && !src.Contains("#"))
-                        {
-                            // 明らかに長くなると推測できる場合は圧縮しない
-                            content = src;
-                            break;
-                        }
-                        if (!(new HttpVarious()).PostData("http://tinyurl.com/api-create.php?url=" + SrcUrl, null, out content))
-                        {
-                            return "Can't convert";
-                        }
-                    }
-                    if (!content.StartsWith("http://tinyurl.com/"))
-                    {
-                        return "Can't convert";
-                    }
-                    break;
-                case MyCommon.UrlConverter.Isgd:
-                    if (SrcUrl.StartsWith("http"))
-                    {
-                        if ("http://is.gd/xxxx".Length > src.Length && !src.Contains("?") && !src.Contains("#"))
-                        {
-                            // 明らかに長くなると推測できる場合は圧縮しない
-                            content = src;
-                            break;
-                        }
-                        if (!(new HttpVarious()).PostData("http://is.gd/api.php?longurl=" + SrcUrl, null, out content))
-                        {
-                            return "Can't convert";
-                        }
-                    }
-                    if (!content.StartsWith("http://is.gd/"))
-                    {
-                        return "Can't convert";
-                    }
-                    break;
-                case MyCommon.UrlConverter.Twurl:
-                    if (SrcUrl.StartsWith("http"))
-                    {
-                        if ("http://twurl.nl/xxxxxx".Length > src.Length && !src.Contains("?") && !src.Contains("#"))
-                        {
-                            // 明らかに長くなると推測できる場合は圧縮しない
-                            content = src;
-                            break;
-                        }
-                        param.Add("link[url]", orgSrc); //twurlはpostメソッドなので日本語エンコードのみ済ませた状態で送る
-                        if (!(new HttpVarious()).PostData("http://tweetburner.com/links", param, out content))
-                        {
-                            return "Can't convert";
-                        }
-                    }
-                    if (!content.StartsWith("http://twurl.nl/"))
-                    {
-                        return "Can't convert";
-                    }
-                    break;
-                case MyCommon.UrlConverter.Bitly:
-                case MyCommon.UrlConverter.Jmp:
-                    const string BitlyApiVersion = "3";
-                    if (SrcUrl.StartsWith("http"))
-                    {
-                        if ("http://bit.ly/xxxx".Length > src.Length && !src.Contains("?") && !src.Contains("#"))
-                        {
-                            // 明らかに長くなると推測できる場合は圧縮しない
-                            content = src;
-                            break;
-                        }
-                        if (string.IsNullOrEmpty(_bitlyId) || string.IsNullOrEmpty(_bitlyKey))
-                        {
-                            // bit.ly 短縮機能実装のプライバシー問題の暫定対応
-                            // ログインIDとAPIキーが指定されていない場合は短縮せずにPOSTする
-                            // 参照: http://sourceforge.jp/projects/opentween/lists/archive/dev/2012-January/000020.html
-                            content = src;
-                            break;
-                        }
-                        string req = "";
-                        req = "http://api.bitly.com/v" + BitlyApiVersion + "/shorten?";
-                        req += "login=" + _bitlyId +
-                            "&apiKey=" + _bitlyKey +
-                            "&format=txt" +
-                            "&longUrl=" + SrcUrl;
-                        if (ConverterType == MyCommon.UrlConverter.Jmp) req += "&domain=j.mp";
-                        if (!(new HttpVarious()).GetData(req, null, out content))
-                        {
-                            return "Can't convert";
-                        }
-                    }
-                    break;
-                case MyCommon.UrlConverter.Uxnu:
-                    if (SrcUrl.StartsWith("http"))
-                    {
-                        if ("http://ux.nx/xxxxxx".Length > src.Length && !src.Contains("?") && !src.Contains("#"))
-                        {
-                            // 明らかに長くなると推測できる場合は圧縮しない
-                            content = src;
-                            break;
-                        }
-                        if (!(new HttpVarious()).PostData("http://ux.nu/api/short?url=" + SrcUrl + "&format=plain", null, out content))
-                        {
-                            return "Can't convert";
-                        }
-                    }
-                    if (!content.StartsWith("http://ux.nu/"))
-                    {
-                        return "Can't convert";
-                    }
-                    break;
-            }
-            //変換結果から改行を除去
-            char[] ch = {'\r', '\n'};
-            content = content.TrimEnd(ch);
-            if (src.Length < content.Length) content = src; // 圧縮の結果逆に長くなった場合は圧縮前のURLを返す
-            return content;
         }
     }
 }

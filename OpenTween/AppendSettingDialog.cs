@@ -121,41 +121,6 @@ namespace OpenTween
 
         private void Save_Click(object sender, EventArgs e)
         {
-            if (MyCommon.IsNetworkAvailable() &&
-                (ComboBoxAutoShortUrlFirst.SelectedIndex == (int)MyCommon.UrlConverter.Bitly || ComboBoxAutoShortUrlFirst.SelectedIndex == (int)MyCommon.UrlConverter.Jmp))
-            {
-                // bit.ly 短縮機能実装のプライバシー問題の暫定対応
-                // bit.ly 使用時はログインIDとAPIキーの指定を必須とする
-                // 参照: http://sourceforge.jp/projects/opentween/lists/archive/dev/2012-January/000020.html
-                if (string.IsNullOrEmpty(TextBitlyId.Text) || string.IsNullOrEmpty(TextBitlyPw.Text))
-                {
-                    MessageBox.Show("bit.ly のログイン名とAPIキーの指定は必須項目です。", Application.ProductName);
-                    _ValidationError = true;
-                    TreeViewSetting.SelectedNode = TreeViewSetting.Nodes["ConnectionNode"].Nodes["ShortUrlNode"]; // 動作タブを選択
-                    TreeViewSetting.Select();
-                    TextBitlyId.Focus();
-                    return;
-                }
-
-                if (!BitlyValidation(TextBitlyId.Text, TextBitlyPw.Text))
-                {
-                    MessageBox.Show(Properties.Resources.SettingSave_ClickText1);
-                    _ValidationError = true;
-                    TreeViewSetting.SelectedNode = TreeViewSetting.Nodes["ConnectionNode"].Nodes["ShortUrlNode"]; // 動作タブを選択
-                    TreeViewSetting.Select();
-                    TextBitlyId.Focus();
-                    return;
-                }
-                else
-                {
-                    _ValidationError = false;
-                }
-            }
-            else
-            {
-                _ValidationError = false;
-            }
-
             this.UserAccounts.Clear();
             foreach (object u in this.AuthUserCombo.Items)
             {
@@ -415,8 +380,6 @@ namespace OpenTween
                 StartupFollowers = CheckStartupFollowers.Checked;
                 RestrictFavCheck = CheckFavRestrict.Checked;
                 AlwaysTop = CheckAlwaysTop.Checked;
-                UrlConvertAuto = CheckAutoConvertUrl.Checked;
-                ShortenTco = ShortenTcoCheck.Checked;
                 OutputzEnabled = CheckOutputz.Checked;
                 OutputzKey = TextBoxOutputzKey.Text.Trim();
 
@@ -442,15 +405,12 @@ namespace OpenTween
                 FavEventUnread = CheckFavEventUnread.Checked;
                 TranslateLanguage = (new Bing()).GetLanguageEnumFromIndex(ComboBoxTranslateLanguage.SelectedIndex);
                 EventSoundFile = (string)ComboBoxEventNotifySound.SelectedItem;
-                AutoShortUrlFirst = (MyCommon.UrlConverter)ComboBoxAutoShortUrlFirst.SelectedIndex;
                 TabIconDisp = chkTabIconDisp.Checked;
                 ReadOwnPost = chkReadOwnPost.Checked;
                 GetFav = chkGetFav.Checked;
                 IsMonospace = CheckMonospace.Checked;
                 ReadOldPosts = CheckReadOldPosts.Checked;
                 UseSsl = CheckUseSsl.Checked;
-                BitlyUser = TextBitlyId.Text;
-                BitlyPwd = TextBitlyPw.Text;
                 ShowGrid = CheckShowGrid.Checked;
                 UseAtIdSupplement = CheckAtIdSupple.Checked;
                 UseHashSupplement = CheckHashSupple.Checked;
@@ -797,9 +757,6 @@ namespace OpenTween
             CheckStartupFollowers.Checked = StartupFollowers;
             CheckFavRestrict.Checked = RestrictFavCheck;
             CheckAlwaysTop.Checked = AlwaysTop;
-            CheckAutoConvertUrl.Checked = UrlConvertAuto;
-            ShortenTcoCheck.Checked = ShortenTco;
-            ShortenTcoCheck.Enabled = CheckAutoConvertUrl.Checked;
             CheckOutputz.Checked = OutputzEnabled;
             TextBoxOutputzKey.Text = OutputzKey;
 
@@ -825,17 +782,12 @@ namespace OpenTween
             CheckFavEventUnread.Checked = FavEventUnread;
             ComboBoxTranslateLanguage.SelectedIndex = (new Bing()).GetIndexFromLanguageEnum(TranslateLanguage);
             SoundFileListup();
-            ComboBoxAutoShortUrlFirst.SelectedIndex = (int)AutoShortUrlFirst;
             chkTabIconDisp.Checked = TabIconDisp;
             chkReadOwnPost.Checked = ReadOwnPost;
             chkGetFav.Checked = GetFav;
             CheckMonospace.Checked = IsMonospace;
             CheckReadOldPosts.Checked = ReadOldPosts;
             CheckUseSsl.Checked = UseSsl;
-            TextBitlyId.Text = BitlyUser;
-            TextBitlyPw.Text = BitlyPwd;
-            TextBitlyId.Modified = false;
-            TextBitlyPw.Modified = false;
             CheckShowGrid.Checked = ShowGrid;
             CheckAtIdSupple.Checked = UseAtIdSupplement;
             CheckHashSupple.Checked = UseHashSupplement;
@@ -1380,13 +1332,10 @@ namespace OpenTween
         public bool StartupFollowers { get; set; }
         public bool RestrictFavCheck { get; set; }
         public bool AlwaysTop { get; set; }
-        public bool UrlConvertAuto { get; set; }
-        public bool ShortenTco { get; set; }
         public bool OutputzEnabled { get; set; }
         public string OutputzKey { get; set; }
         public MyCommon.OutputzUrlmode OutputzUrlmode { get; set; }
         public bool Nicoms { get; set; }
-        public MyCommon.UrlConverter AutoShortUrlFirst { get; set; }
         public bool UseUnreadStyle { get; set; }
         public string DateTimeFormat { get; set; }
         public int DefaultTimeOut { get; set; }
@@ -1398,8 +1347,6 @@ namespace OpenTween
         public bool IsMonospace { get; set; }
         public bool ReadOldPosts { get; set; }
         public bool UseSsl { get; set; }
-        public string BitlyUser { get; set; }
-        public string BitlyPwd { get; set; }
         public bool ShowGrid { get; set; }
         public bool UseAtIdSupplement { get; set; }
         public bool UseHashSupplement { get; set; }
@@ -1638,25 +1585,6 @@ namespace OpenTween
         public int ListDoubleClickAction { get; set; }
         public string UserAppointUrl { get; set; }
 
-        private void ComboBoxAutoShortUrlFirst_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ComboBoxAutoShortUrlFirst.SelectedIndex == (int)MyCommon.UrlConverter.Bitly ||
-               ComboBoxAutoShortUrlFirst.SelectedIndex == (int)MyCommon.UrlConverter.Jmp)
-            {
-                Label76.Enabled = true;
-                Label77.Enabled = true;
-                TextBitlyId.Enabled = true;
-                TextBitlyPw.Enabled = true;
-            }
-            else
-            {
-                Label76.Enabled = false;
-                Label77.Enabled = false;
-                TextBitlyId.Enabled = false;
-                TextBitlyPw.Enabled = false;
-            }
-        }
-
         private void ButtonBackToDefaultFontColor_Click(object sender, EventArgs e) //Handles ButtonBackToDefaultFontColor.Click, ButtonBackToDefaultFontColor2.Click
         {
             lblUnread.ForeColor = SystemColors.ControlText;
@@ -1722,7 +1650,7 @@ namespace OpenTween
             string consumerKey = TextBoxConsumerKey.Text.Trim();
             string consumerSecret = TextBoxConsumerSecret.Text.Trim();
             string tag = TextBoxTag.Text.Trim();
-            if (consumerKey == "" || consumerSecret == "")
+            if (String.IsNullOrWhiteSpace(consumerKey) || String.IsNullOrWhiteSpace(consumerSecret))
             {
                 consumerKey = ApplicationSettings.TwitterDefaultConsumerKey;
                 consumerSecret = ApplicationSettings.TwitterDefaultConsumerSecret;
@@ -1999,41 +1927,6 @@ namespace OpenTween
         public static AppendSettingDialog Instance
         {
             get { return _instance; }
-        }
-
-        private bool BitlyValidation(string id, string apikey)
-        {
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(apikey))
-            {
-                return false;
-            }
-
-            string req = "http://api.bit.ly/v3/validate";
-            string content = "";
-            Dictionary<string, string> param = new Dictionary<string, string>();
-
-            param.Add("login", ApplicationSettings.BitlyLoginId);
-            param.Add("apiKey", ApplicationSettings.BitlyApiKey);
-            param.Add("x_login", id);
-            param.Add("x_apiKey", apikey);
-            param.Add("format", "txt");
-
-            if (!(new HttpVarious()).PostData(req, param, out content))
-            {
-                return true;             // 通信エラーの場合はとりあえずチェックを通ったことにする
-            }
-            else if (content.Trim() == "1")
-            {
-                return true;             // 検証成功
-            }
-            else if (content.Trim() == "0")
-            {
-                return false;            // 検証失敗 APIキーとIDの組み合わせが違う
-            }
-            else
-            {
-                return true;             // 規定外応答：通信エラーの可能性があるためとりあえずチェックを通ったことにする
-            }
         }
 
         private void Cancel_Click(object sender, EventArgs e)
@@ -2427,11 +2320,6 @@ namespace OpenTween
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
             this.OpenUrl("https://twitter.com/signup");
-        }
-
-        private void CheckAutoConvertUrl_CheckedChanged(object sender, EventArgs e)
-        {
-            ShortenTcoCheck.Enabled = CheckAutoConvertUrl.Checked;
         }
 
         public AppendSettingDialog()

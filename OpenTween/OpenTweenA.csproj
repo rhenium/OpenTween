@@ -37,6 +37,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -208,7 +209,6 @@
       <DependentUpon>MyLists.cs</DependentUpon>
     </Compile>
     <Compile Include="MySpecialPath.cs" />
-    <Compile Include="nicoms.cs" />
     <Compile Include="OpenURL.cs">
       <SubType>Form</SubType>
     </Compile>

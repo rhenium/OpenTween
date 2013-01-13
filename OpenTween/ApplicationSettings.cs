@@ -37,7 +37,7 @@ namespace OpenTween
         //=====================================================================
         // フィードバック送信先
         // 異常終了時などにエラーログ等とともに表示されます。
-        
+
         /// <summary>
         /// フィードバック送信先 (メール)
         /// </summary>
@@ -74,7 +74,7 @@ namespace OpenTween
         /// version.txt のフォーマットについては http://sourceforge.jp/projects/opentween/wiki/VersionTxt を参照。
         /// </remarks>
         public const string VersionInfoUrl = "http://re4k.info/build/OpenTweenA/version.txt";
-        
+
         //=====================================================================
         // Twitter
         // https://dev.twitter.com/ から取得できます。
@@ -134,20 +134,6 @@ namespace OpenTween
         /// Foursquare Client Secret
         /// </summary>
         public const string FoursquareClientSecret = "U2BVK1J4KVPFIUSZCCRNKN0MBN4KDEBSDRDTARCDTOT1DPA0";
-
-        //=====================================================================
-        // bit.ly
-        // https://bitly.com/a/account から取得できます。
-
-        /// <summary>
-        /// bit.ly ログイン名
-        /// </summary>
-        public const string BitlyLoginId = "opentween";
-
-        /// <summary>
-        /// bit.ly APIキー
-        /// </summary>
-        public const string BitlyApiKey = "R_76319a25e2420b8d2c42e812fe177d8b";
 
         //=====================================================================
         // TINAMI

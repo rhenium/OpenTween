@@ -192,7 +192,6 @@ namespace OpenTween
         }
 
         public MyCommon.OutputzUrlmode OutputzUrlMode = MyCommon.OutputzUrlmode.twittercom;
-        public MyCommon.UrlConverter AutoShortUrlFirst = MyCommon.UrlConverter.Uxnu;
         public bool UseUnreadStyle = true;
         public string DateTimeFormat = "yyyy/MM/dd H:mm:ss";
         public int DefaultTimeOut = 20;
@@ -200,11 +199,8 @@ namespace OpenTween
         public bool LimitBalloon = false;
         public bool TabIconDisp = true;
         public MyCommon.REPLY_ICONSTATE ReplyIconState = MyCommon.REPLY_ICONSTATE.StaticIcon;
-        public bool WideSpaceConvert = true;
         public bool ReadOwnPost = false;
         public bool GetFav = true;
-        public string BilyUser = "";
-        public string BitlyPwd = "";
         public bool ShowGrid = false;
         public bool UseAtIdSupplement = true;
         public bool UseHashSupplement = true;
