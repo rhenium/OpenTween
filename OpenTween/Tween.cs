@@ -10770,6 +10770,9 @@ namespace OpenTween
                 string rtdata = _curPost.Text;
                 rtdata = CreateRetweetUnofficial(rtdata);
 
+                _reply_to_id = 0;
+                _reply_to_name = "";
+                
                 StatusText.Text = " RT @" + _curPost.ScreenName + ": " + HttpUtility.HtmlDecode(rtdata);
 
                 StatusText.SelectionStart = 0;
@@ -10890,8 +10893,6 @@ namespace OpenTween
             else
                 status = Regex.Replace(status, @"(\r\n|\n|\r)?<br>", " ", RegexOptions.IgnoreCase | RegexOptions.Multiline);
 
-            _reply_to_id = 0;
-            _reply_to_name = "";
             status = status.Replace("&nbsp;", " ");
 
             return status;
