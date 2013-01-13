@@ -193,6 +193,7 @@ namespace OpenTween
             for (var i = 0; i < this.pictureBox.Count; i++)
             {
                 var picbox = this.pictureBox[i];
+                Console.WriteLine(this.scrollBar.Value + ", " + i);
 
                 if (this.scrollBar.Value == i)
                     picbox.Visible = true;
