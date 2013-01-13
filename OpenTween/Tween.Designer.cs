@@ -38,7 +38,6 @@
             this.ChangeAccountDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.HashStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.ContextMenuPostMode = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ToolStripMenuItemUrlMultibyteSplit = new System.Windows.Forms.ToolStripMenuItem();
             this.MultiLineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripFocusLockMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSpaceToFocusTimelineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -454,7 +453,6 @@
             // ContextMenuPostMode
             // 
             this.ContextMenuPostMode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStripMenuItemUrlMultibyteSplit,
             this.MultiLineMenuItem,
             this.ToolStripFocusLockMenuItem,
             this.ToolStripSpaceToFocusTimelineMenuItem,
@@ -470,13 +468,6 @@
             this.ContextMenuPostMode.Name = "ContextMenuStripPostMode";
             this.ContextMenuPostMode.OwnerItem = this.HashStripSplitButton;
             this.ContextMenuPostMode.Size = new System.Drawing.Size(298, 264);
-            // 
-            // ToolStripMenuItemUrlMultibyteSplit
-            // 
-            this.ToolStripMenuItemUrlMultibyteSplit.CheckOnClick = true;
-            this.ToolStripMenuItemUrlMultibyteSplit.Name = "ToolStripMenuItemUrlMultibyteSplit";
-            this.ToolStripMenuItemUrlMultibyteSplit.Size = new System.Drawing.Size(297, 22);
-            this.ToolStripMenuItemUrlMultibyteSplit.Text = "URLからの全角文字列の切り離し";
             // 
             // MultiLineMenuItem
             // 
@@ -3040,7 +3031,6 @@
         internal System.Windows.Forms.ToolStripStatusLabel ToolStripStatusLabel1;
         internal System.Windows.Forms.ToolStripSplitButton HashStripSplitButton;
         internal System.Windows.Forms.ContextMenuStrip ContextMenuPostMode;
-        internal System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemUrlMultibyteSplit;
         internal System.Windows.Forms.ToolStripMenuItem MultiLineMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem ToolStripFocusLockMenuItem;
         internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator35;
