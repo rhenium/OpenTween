@@ -3201,14 +3201,16 @@ namespace OpenTween
                 {
                     foreach (var m in entities.Urls)
                     {
-                        if (!string.IsNullOrEmpty(m.DisplayUrl)) text = text.Replace(m.Url, m.DisplayUrl);
+                        var expanded = ShortUrl.ResolveMedia(m.ExpandedUrl, false);
+                        if (!string.IsNullOrEmpty(m.DisplayUrl)) text = text.Replace(m.Url, expanded);
                     }
                 }
                 if (entities.Media != null)
                 {
                     foreach (var m in entities.Media)
                     {
-                        if (!string.IsNullOrEmpty(m.DisplayUrl)) text = text.Replace(m.Url, m.DisplayUrl);
+                        var expanded = ShortUrl.ResolveMedia(m.ExpandedUrl, false);
+                        if (!string.IsNullOrEmpty(m.DisplayUrl)) text = text.Replace(m.Url, expanded);
                     }
                 }
             }
@@ -3976,7 +3978,18 @@ namespace OpenTween
                 {
                     foreach (var ent in entities.Urls)
                     {
-                        if (string.IsNullOrEmpty(ent.DisplayUrl))
+                        var expanded = ShortUrl.ResolveMedia(ent.ExpandedUrl, false);
+                        etInfo.Add(ent.Indices[0],
+                                   new EntityInfo
+                                   {
+                                       StartIndex = ent.Indices[0],
+                                       EndIndex = ent.Indices[1],
+                                       Text = expanded,
+                                       Html = "<a href=\"" + expanded + "\" title=\"" + expanded + "\">" + expanded + "</a>",
+                                       Display = expanded
+                                   });
+                        if (media != null && !media.ContainsKey(ent.Url)) media.Add(ent.Url, expanded);
+                        /*if (string.IsNullOrEmpty(ent.DisplayUrl))
                         {
                             etInfo.Add(ent.Indices[0],
                                        new EntityInfo
@@ -4000,7 +4013,7 @@ namespace OpenTween
                                            Display = ent.DisplayUrl
                                        });
                             if (media != null && !media.ContainsKey(ent.Url)) media.Add(ent.Url, expanded);
-                        }
+                        }*/
                     }
                 }
                 if (entities.Hashtags != null)
@@ -4044,14 +4057,15 @@ namespace OpenTween
                     {
                         if (ent.Type == "photo")
                         {
+                            var expanded = ShortUrl.ResolveMedia(ent.ExpandedUrl, false);
                             etInfo.Add(ent.Indices[0],
                                        new EntityInfo
                                        {
                                            StartIndex = ent.Indices[0],
                                            EndIndex = ent.Indices[1],
-                                           Text = ent.Url,
-                                           Html = "<a href=\"" + ent.Url + "\" title=\"" + ent.ExpandedUrl + "\">" + ent.DisplayUrl + "</a>",
-                                           Display = ent.DisplayUrl
+                                           Text = expanded,
+                                           Html = "<a href=\"" + expanded + "\" title=\"" + expanded + "\">" + expanded + "</a>",
+                                           Display = expanded
                                        });
                             if (media != null && !media.ContainsKey(ent.Url)) media.Add(ent.Url, ent.MediaUrl);
                         }
