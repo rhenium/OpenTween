@@ -1,5 +1,8 @@
 更新履歴
 
+==== Ver 1.0.7-beta1:2-2.5c(2013/01/**)
+ * Access level が、Read, write, and direct messages でないとエラーが出るのを抑制（公式コンシューマキーなどでは Read and write でもDMが使えるにもかかわらずエラーが出るため）
+
 ==== Ver 1.0.7-beta1:2-2.5b(2013/01/13)
  * OpenTween のコミットをマージ (bd3657402a8df6b9c76081c49e4e2702793f9665)
  * URL短縮機能・APIコマンド回避機能・全角スペースを半角スペースに変換する機能を削除

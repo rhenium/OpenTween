@@ -424,16 +424,17 @@ namespace OpenTween
             {
                 switch (HttpHeaders["X-Access-Level"])
                 {
-                case "read":
-                    return ApiAccessLevel.Read;
-                case "read-write":
-                    return ApiAccessLevel.ReadWrite;
-                case "read-write-directmessages":
-                case "read-write-privatemessages":
-                    return ApiAccessLevel.ReadWriteAndDirectMessage;
-                default:
-                    MyCommon.TraceOut("Unknown ApiAccessLevel:" + HttpHeaders["X-Access-Level"]);
-                    return ApiAccessLevel.ReadWriteAndDirectMessage;     //未知のアクセスレベルの場合Read/Write/Dmと仮定して処理継続;
+                    case "read":
+                        return ApiAccessLevel.Read;
+                    case "read-write":
+                        return ApiAccessLevel.ReadWrite;
+                    case "read-write-directmessages":
+                    case "read-write-privatemessages":
+                        return ApiAccessLevel.ReadWriteAndDirectMessage;
+                    default:
+                        // 異常によく起こるためにとりあえず無効化
+                        // MyCommon.TraceOut("Unknown ApiAccessLevel:" + HttpHeaders["X-Access-Level"]);
+                        return ApiAccessLevel.ReadWriteAndDirectMessage;     //未知のアクセスレベルの場合Read/Write/Dmと仮定して処理継続;
                 }
             }
         }
