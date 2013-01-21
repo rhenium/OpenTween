@@ -1,5 +1,13 @@
-1.0.9-beta1:2-2.6a
+1.0.9-beta1:2-2.6b
 http://re4k.info/build/OpenTweenA/
+
+==== Ver 1.0.9-beta1:2-2.6b(2013/01/21)
+ * NEW: UserStreams の unfollow イベントに対応
+ * CHG: @#の入力補完を直前の文字が空白文字であるときのみ動くように
+ * CHG: Outputz 対応を廃止
+ * CHG: nico.ms 短縮機能を廃止
+ * CHG: Bing 翻訳機能を廃止
+ * CHG: 推奨フッタを削除
 
 ==== Ver 1.0.9-beta1:2-2.6a(2013/01/21)
  * OpenTween の変更をマージ (6ad91e0924fa26993131dc5bc454bb6456ae8ab0)
