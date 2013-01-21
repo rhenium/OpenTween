@@ -2033,7 +2033,7 @@ namespace OpenTween
 
         private EventCheckboxTblElement[] GetEventCheckboxTable()
         {
-            EventCheckboxTblElement[] _eventCheckboxTable = new EventCheckboxTblElement[8];
+            EventCheckboxTblElement[] _eventCheckboxTable = new EventCheckboxTblElement[9];
 
             _eventCheckboxTable[0] = new EventCheckboxTblElement();
             _eventCheckboxTable[0].CheckBox = CheckFavoritesEvent;
@@ -2048,24 +2048,28 @@ namespace OpenTween
             _eventCheckboxTable[2].Type = MyCommon.EVENTTYPE.Follow;
 
             _eventCheckboxTable[3] = new EventCheckboxTblElement();
-            _eventCheckboxTable[3].CheckBox = CheckListMemberAddedEvent;
-            _eventCheckboxTable[3].Type = MyCommon.EVENTTYPE.ListMemberAdded;
+            _eventCheckboxTable[3].CheckBox = CheckUnfollowEvent;
+            _eventCheckboxTable[3].Type = MyCommon.EVENTTYPE.Unfollow;
 
             _eventCheckboxTable[4] = new EventCheckboxTblElement();
-            _eventCheckboxTable[4].CheckBox = CheckListMemberRemovedEvent;
-            _eventCheckboxTable[4].Type = MyCommon.EVENTTYPE.ListMemberRemoved;
+            _eventCheckboxTable[4].CheckBox = CheckListMemberAddedEvent;
+            _eventCheckboxTable[4].Type = MyCommon.EVENTTYPE.ListMemberAdded;
 
             _eventCheckboxTable[5] = new EventCheckboxTblElement();
-            _eventCheckboxTable[5].CheckBox = CheckBlockEvent;
-            _eventCheckboxTable[5].Type = MyCommon.EVENTTYPE.Block;
+            _eventCheckboxTable[5].CheckBox = CheckListMemberRemovedEvent;
+            _eventCheckboxTable[5].Type = MyCommon.EVENTTYPE.ListMemberRemoved;
 
             _eventCheckboxTable[6] = new EventCheckboxTblElement();
-            _eventCheckboxTable[6].CheckBox = CheckUserUpdateEvent;
-            _eventCheckboxTable[6].Type = MyCommon.EVENTTYPE.UserUpdate;
+            _eventCheckboxTable[6].CheckBox = CheckBlockEvent;
+            _eventCheckboxTable[6].Type = MyCommon.EVENTTYPE.Block;
 
             _eventCheckboxTable[7] = new EventCheckboxTblElement();
-            _eventCheckboxTable[7].CheckBox = CheckListCreatedEvent;
-            _eventCheckboxTable[7].Type = MyCommon.EVENTTYPE.ListCreated;
+            _eventCheckboxTable[7].CheckBox = CheckUserUpdateEvent;
+            _eventCheckboxTable[7].Type = MyCommon.EVENTTYPE.UserUpdate;
+
+            _eventCheckboxTable[8] = new EventCheckboxTblElement();
+            _eventCheckboxTable[8].CheckBox = CheckListCreatedEvent;
+            _eventCheckboxTable[8].Type = MyCommon.EVENTTYPE.ListCreated;
 
             return _eventCheckboxTable;
         }

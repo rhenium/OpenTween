@@ -282,6 +282,7 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.CheckUnfollowEvent = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
@@ -321,6 +322,7 @@
             // SplitContainer1.Panel2
             // 
             this.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.SplitContainer1.Panel2.Controls.Add(this.NotifyPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetActPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.CooperatePanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ShortUrlPanel);
@@ -331,7 +333,6 @@
             this.SplitContainer1.Panel2.Controls.Add(this.StartupPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.GetCountPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetPrvPanel);
-            this.SplitContainer1.Panel2.Controls.Add(this.NotifyPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ProxyPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ConnectionPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.GetPeriodPanel);
@@ -1479,6 +1480,7 @@
             // 
             // NotifyPanel
             // 
+            this.NotifyPanel.Controls.Add(this.CheckUnfollowEvent);
             this.NotifyPanel.Controls.Add(this.IsRemoveSameFavEventCheckBox);
             this.NotifyPanel.Controls.Add(this.CheckUserUpdateEvent);
             this.NotifyPanel.Controls.Add(this.Label35);
@@ -2119,6 +2121,14 @@
             // 
             this.FontDialog1.Color = System.Drawing.SystemColors.ControlText;
             // 
+            // CheckUnfollowEvent
+            // 
+            resources.ApplyResources(this.CheckUnfollowEvent, "CheckUnfollowEvent");
+            this.CheckUnfollowEvent.Checked = true;
+            this.CheckUnfollowEvent.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckUnfollowEvent.Name = "CheckUnfollowEvent";
+            this.CheckUnfollowEvent.UseVisualStyleBackColor = true;
+            // 
             // AppendSettingDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -2437,5 +2447,6 @@
         internal System.Windows.Forms.Label Label1;
         private System.Windows.Forms.TextBox numericAutoRetryInterval;
         private System.Windows.Forms.Label labelAutoRetryInterval;
+        private System.Windows.Forms.CheckBox CheckUnfollowEvent;
     }
 }

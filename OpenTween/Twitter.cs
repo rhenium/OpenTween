@@ -4418,6 +4418,7 @@ namespace OpenTween
             new EventTypeTableElement("favorite", MyCommon.EVENTTYPE.Favorite),
             new EventTypeTableElement("unfavorite", MyCommon.EVENTTYPE.Unfavorite),
             new EventTypeTableElement("follow", MyCommon.EVENTTYPE.Follow),
+            new EventTypeTableElement("unfollow", MyCommon.EVENTTYPE.Unfollow),
             new EventTypeTableElement("list_member_added", MyCommon.EVENTTYPE.ListMemberAdded),
             new EventTypeTableElement("list_member_removed", MyCommon.EVENTTYPE.ListMemberRemoved),
             new EventTypeTableElement("block", MyCommon.EVENTTYPE.Block),
@@ -4586,11 +4587,8 @@ namespace OpenTween
                     {
                         if (!TweenMain.FollowerId.Contains(eventData.Source.Id)) TweenMain.FollowerId.Add(eventData.Source.Id);
                     }
-                    else
-                    {
-                        return;    //Block後のUndoをすると、SourceとTargetが逆転したfollowイベントが帰ってくるため。
-                    }
-                    evt.Target = "";
+                    break;
+                case "unfollow":
                     break;
                 case "favorite":
                 case "unfavorite":

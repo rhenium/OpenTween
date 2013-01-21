@@ -185,16 +185,17 @@ namespace OpenTween
             Favorite = 1,
             Unfavorite = 2,
             Follow = 4,
-            ListMemberAdded = 8,
-            ListMemberRemoved = 16,
-            Block = 32,
-            Unblock = 64,
-            UserUpdate = 128,
-            Deleted = 256,
-            ListCreated = 512,
-            ListUpdated = 1024,
+            Unfollow = 8,
+            ListMemberAdded = 16,
+            ListMemberRemoved = 32,
+            Block = 64,
+            Unblock = 128,
+            UserUpdate = 256,
+            Deleted = 512,
+            ListCreated = 1024,
+            ListUpdated = 2048,
 
-            All = (None | Favorite | Unfavorite | Follow | ListMemberAdded | ListMemberRemoved |
+            All = (None | Favorite | Unfavorite | Follow | Unfollow | ListMemberAdded | ListMemberRemoved |
                    Block | Unblock | UserUpdate | Deleted | ListCreated | ListUpdated),
         }
 

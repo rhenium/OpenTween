@@ -5,6 +5,7 @@
  * nico.ms 短縮機能を廃止
  * Bing 翻訳機能を廃止
  * 推奨フッタを削除
+ * UserStreams の unfollow イベントに対応
 
 ==== Ver 1.0.9-beta1:2-2.6a(2013/01/21)
  * OpenTween の変更をマージ (6ad91e0924fa26993131dc5bc454bb6456ae8ab0)

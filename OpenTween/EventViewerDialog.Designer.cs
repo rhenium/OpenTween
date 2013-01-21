@@ -54,6 +54,7 @@
             this.ButtonRefresh = new System.Windows.Forms.Button();
             this.CheckExcludeMyEvent = new System.Windows.Forms.CheckBox();
             this.SaveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.TabPageUnfollow = new System.Windows.Forms.TabPage();
             this.TabPageAll.SuspendLayout();
             this.StatusStrip1.SuspendLayout();
             this.TabEventType.SuspendLayout();
@@ -182,6 +183,7 @@
             this.TabEventType.Controls.Add(this.TabPageFav);
             this.TabEventType.Controls.Add(this.TabPageUnfav);
             this.TabEventType.Controls.Add(this.TabPageFollow);
+            this.TabEventType.Controls.Add(this.TabPageUnfollow);
             this.TabEventType.Controls.Add(this.TabPageAddLists);
             this.TabEventType.Controls.Add(this.TabPageRemoveLists);
             this.TabEventType.Controls.Add(this.TabPageListsCreated);
@@ -233,6 +235,13 @@
             this.CheckExcludeMyEvent.Name = "CheckExcludeMyEvent";
             this.CheckExcludeMyEvent.UseVisualStyleBackColor = true;
             this.CheckExcludeMyEvent.CheckedChanged += new System.EventHandler(this.CheckExcludeMyEvent_CheckedChanged);
+            // 
+            // TabPageUnfollow
+            // 
+            resources.ApplyResources(this.TabPageUnfollow, "TabPageUnfollow");
+            this.TabPageUnfollow.Name = "TabPageUnfollow";
+            this.TabPageUnfollow.Tag = "Unfollow";
+            this.TabPageUnfollow.UseVisualStyleBackColor = true;
             // 
             // EventViewerDialog
             // 
@@ -289,5 +298,6 @@
         internal System.Windows.Forms.Button ButtonRefresh;
         internal System.Windows.Forms.CheckBox CheckExcludeMyEvent;
         internal System.Windows.Forms.SaveFileDialog SaveFileDialog1;
+        private System.Windows.Forms.TabPage TabPageUnfollow;
     }
 }
