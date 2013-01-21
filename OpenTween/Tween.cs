@@ -4850,20 +4850,24 @@ namespace OpenTween
 
         private void StatusText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '@')
+            if (StatusText.SelectionStart == 0 ||
+                char.IsWhiteSpace(StatusText.Text.Substring(0, StatusText.SelectionStart).Last()))
             {
-                if (!SettingDialog.UseAtIdSupplement) return;
-                //@マーク
-                int cnt = AtIdSupl.ItemCount;
-                ShowSuplDialog(StatusText, AtIdSupl);
-                if (cnt != AtIdSupl.ItemCount) _modifySettingAtId = true;
-                e.Handled = true;
-            }
-            else if (e.KeyChar == '#')
-            {
-                if (!SettingDialog.UseHashSupplement) return;
-                ShowSuplDialog(StatusText, HashSupl);
-                e.Handled = true;
+                if (e.KeyChar == '@')
+                {
+                    if (!SettingDialog.UseAtIdSupplement) return;
+                    //@マーク
+                    int cnt = AtIdSupl.ItemCount;
+                    ShowSuplDialog(StatusText, AtIdSupl);
+                    if (cnt != AtIdSupl.ItemCount) _modifySettingAtId = true;
+                    e.Handled = true;
+                }
+                else if (e.KeyChar == '#')
+                {
+                    if (!SettingDialog.UseHashSupplement) return;
+                    ShowSuplDialog(StatusText, HashSupl);
+                    e.Handled = true;
+                }
             }
         }
 

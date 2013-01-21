@@ -40,11 +40,10 @@ namespace OpenTween
         public static string ParseJapaneseMorseCode(string str)
         {
             return str
-                .Replace("&nbsp;", " ")
                 .Split(' ')
                 .Select(_ =>
                 {
-                    if (JapaneseMorseCodeList.Exists(__=>__.Item2 == _))
+                    if (JapaneseMorseCodeList.Exists(__ => __.Item2 == _))
                     {
                         return JapaneseMorseCodeList.First(__ => __.Item2 == _).Item1.ToString();
                     }
@@ -71,15 +70,13 @@ namespace OpenTween
                     {
                         return _.ToString();
                     }
-                })
-                .Aggregate(new List<string>(), (ls, _) => { ls.Add(_); return ls; }));
-                
+                }));
+
         }
 
         public static bool IsJapaneseMorseCode(string str)
         {
             return str
-                .Replace("&nbsp;", " ")
                 .Split(' ')
                 .All(_ => JapaneseMorseCodeList.Exists(__ => __.Item2 == _));
         }
