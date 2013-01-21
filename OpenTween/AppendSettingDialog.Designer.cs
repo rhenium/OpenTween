@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppendSettingDialog));
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
+            this.ShortUrlPanel = new System.Windows.Forms.Panel();
+            this.CheckForceResolve = new System.Windows.Forms.CheckBox();
+            this.CheckTinyURL = new System.Windows.Forms.CheckBox();
             this.PreviewPanel = new System.Windows.Forms.Panel();
             this.Label2 = new System.Windows.Forms.Label();
             this.IsNotifyUseGrowlCheckBox = new System.Windows.Forms.CheckBox();
@@ -162,9 +165,6 @@
             this.TextCountApiReply = new System.Windows.Forms.TextBox();
             this.Label67 = new System.Windows.Forms.Label();
             this.TextCountApi = new System.Windows.Forms.TextBox();
-            this.ShortUrlPanel = new System.Windows.Forms.Panel();
-            this.CheckForceResolve = new System.Windows.Forms.CheckBox();
-            this.CheckTinyURL = new System.Windows.Forms.CheckBox();
             this.TweetPrvPanel = new System.Windows.Forms.Panel();
             this.IsListsIncludeRtsCheckBox = new System.Windows.Forms.CheckBox();
             this.HideDuplicatedRetweetsCheck = new System.Windows.Forms.CheckBox();
@@ -210,12 +210,6 @@
             this.UserAppointUrlText = new System.Windows.Forms.TextBox();
             this.ComboBoxTranslateLanguage = new System.Windows.Forms.ComboBox();
             this.Label29 = new System.Windows.Forms.Label();
-            this.CheckOutputz = new System.Windows.Forms.CheckBox();
-            this.CheckNicoms = new System.Windows.Forms.CheckBox();
-            this.TextBoxOutputzKey = new System.Windows.Forms.TextBox();
-            this.Label60 = new System.Windows.Forms.Label();
-            this.Label59 = new System.Windows.Forms.Label();
-            this.ComboBoxOutputzUrlmode = new System.Windows.Forms.ComboBox();
             this.ProxyPanel = new System.Windows.Forms.Panel();
             this.Label55 = new System.Windows.Forms.Label();
             this.TextProxyPassword = new System.Windows.Forms.TextBox();
@@ -295,6 +289,7 @@
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
+            this.ShortUrlPanel.SuspendLayout();
             this.PreviewPanel.SuspendLayout();
             this.TweetActPanel.SuspendLayout();
             this.FontPanel.SuspendLayout();
@@ -306,7 +301,6 @@
             this.GroupBox2.SuspendLayout();
             this.StartupPanel.SuspendLayout();
             this.GetCountPanel.SuspendLayout();
-            this.ShortUrlPanel.SuspendLayout();
             this.TweetPrvPanel.SuspendLayout();
             this.NotifyPanel.SuspendLayout();
             this.CooperatePanel.SuspendLayout();
@@ -330,6 +324,7 @@
             // SplitContainer1.Panel2
             // 
             this.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.SplitContainer1.Panel2.Controls.Add(this.CooperatePanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ShortUrlPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.PreviewPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetActPanel);
@@ -340,7 +335,6 @@
             this.SplitContainer1.Panel2.Controls.Add(this.GetCountPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.TweetPrvPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.NotifyPanel);
-            this.SplitContainer1.Panel2.Controls.Add(this.CooperatePanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ProxyPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.ConnectionPanel);
             this.SplitContainer1.Panel2.Controls.Add(this.GetPeriodPanel);
@@ -362,6 +356,25 @@
             this.TreeViewSetting.ShowLines = false;
             this.TreeViewSetting.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewSetting_BeforeSelect);
             this.TreeViewSetting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSetting_AfterSelect);
+            // 
+            // ShortUrlPanel
+            // 
+            this.ShortUrlPanel.Controls.Add(this.CheckForceResolve);
+            this.ShortUrlPanel.Controls.Add(this.CheckTinyURL);
+            resources.ApplyResources(this.ShortUrlPanel, "ShortUrlPanel");
+            this.ShortUrlPanel.Name = "ShortUrlPanel";
+            // 
+            // CheckForceResolve
+            // 
+            resources.ApplyResources(this.CheckForceResolve, "CheckForceResolve");
+            this.CheckForceResolve.Name = "CheckForceResolve";
+            this.CheckForceResolve.UseVisualStyleBackColor = true;
+            // 
+            // CheckTinyURL
+            // 
+            resources.ApplyResources(this.CheckTinyURL, "CheckTinyURL");
+            this.CheckTinyURL.Name = "CheckTinyURL";
+            this.CheckTinyURL.UseVisualStyleBackColor = true;
             // 
             // PreviewPanel
             // 
@@ -1269,25 +1282,6 @@
             this.TextCountApi.Name = "TextCountApi";
             this.TextCountApi.Validating += new System.ComponentModel.CancelEventHandler(this.TextCountApi_Validating);
             // 
-            // ShortUrlPanel
-            // 
-            this.ShortUrlPanel.Controls.Add(this.CheckForceResolve);
-            this.ShortUrlPanel.Controls.Add(this.CheckTinyURL);
-            resources.ApplyResources(this.ShortUrlPanel, "ShortUrlPanel");
-            this.ShortUrlPanel.Name = "ShortUrlPanel";
-            // 
-            // CheckForceResolve
-            // 
-            resources.ApplyResources(this.CheckForceResolve, "CheckForceResolve");
-            this.CheckForceResolve.Name = "CheckForceResolve";
-            this.CheckForceResolve.UseVisualStyleBackColor = true;
-            // 
-            // CheckTinyURL
-            // 
-            resources.ApplyResources(this.CheckTinyURL, "CheckTinyURL");
-            this.CheckTinyURL.Name = "CheckTinyURL";
-            this.CheckTinyURL.UseVisualStyleBackColor = true;
-            // 
             // TweetPrvPanel
             // 
             this.TweetPrvPanel.Controls.Add(this.IsListsIncludeRtsCheckBox);
@@ -1558,12 +1552,6 @@
             this.CooperatePanel.Controls.Add(this.UserAppointUrlText);
             this.CooperatePanel.Controls.Add(this.ComboBoxTranslateLanguage);
             this.CooperatePanel.Controls.Add(this.Label29);
-            this.CooperatePanel.Controls.Add(this.CheckOutputz);
-            this.CooperatePanel.Controls.Add(this.CheckNicoms);
-            this.CooperatePanel.Controls.Add(this.TextBoxOutputzKey);
-            this.CooperatePanel.Controls.Add(this.Label60);
-            this.CooperatePanel.Controls.Add(this.Label59);
-            this.CooperatePanel.Controls.Add(this.ComboBoxOutputzUrlmode);
             resources.ApplyResources(this.CooperatePanel, "CooperatePanel");
             this.CooperatePanel.Name = "CooperatePanel";
             // 
@@ -1779,45 +1767,6 @@
             // 
             resources.ApplyResources(this.Label29, "Label29");
             this.Label29.Name = "Label29";
-            // 
-            // CheckOutputz
-            // 
-            resources.ApplyResources(this.CheckOutputz, "CheckOutputz");
-            this.CheckOutputz.Name = "CheckOutputz";
-            this.CheckOutputz.UseVisualStyleBackColor = true;
-            this.CheckOutputz.CheckedChanged += new System.EventHandler(this.CheckOutputz_CheckedChanged);
-            // 
-            // CheckNicoms
-            // 
-            resources.ApplyResources(this.CheckNicoms, "CheckNicoms");
-            this.CheckNicoms.Name = "CheckNicoms";
-            this.CheckNicoms.UseVisualStyleBackColor = true;
-            // 
-            // TextBoxOutputzKey
-            // 
-            resources.ApplyResources(this.TextBoxOutputzKey, "TextBoxOutputzKey");
-            this.TextBoxOutputzKey.Name = "TextBoxOutputzKey";
-            this.TextBoxOutputzKey.Validating += new System.ComponentModel.CancelEventHandler(this.TextBoxOutputzKey_Validating);
-            // 
-            // Label60
-            // 
-            resources.ApplyResources(this.Label60, "Label60");
-            this.Label60.Name = "Label60";
-            // 
-            // Label59
-            // 
-            resources.ApplyResources(this.Label59, "Label59");
-            this.Label59.Name = "Label59";
-            // 
-            // ComboBoxOutputzUrlmode
-            // 
-            this.ComboBoxOutputzUrlmode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxOutputzUrlmode.FormattingEnabled = true;
-            this.ComboBoxOutputzUrlmode.Items.AddRange(new object[] {
-            resources.GetString("ComboBoxOutputzUrlmode.Items"),
-            resources.GetString("ComboBoxOutputzUrlmode.Items1")});
-            resources.ApplyResources(this.ComboBoxOutputzUrlmode, "ComboBoxOutputzUrlmode");
-            this.ComboBoxOutputzUrlmode.Name = "ComboBoxOutputzUrlmode";
             // 
             // ProxyPanel
             // 
@@ -2340,6 +2289,8 @@
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
+            this.ShortUrlPanel.ResumeLayout(false);
+            this.ShortUrlPanel.PerformLayout();
             this.PreviewPanel.ResumeLayout(false);
             this.PreviewPanel.PerformLayout();
             this.TweetActPanel.ResumeLayout(false);
@@ -2360,8 +2311,6 @@
             this.StartupPanel.PerformLayout();
             this.GetCountPanel.ResumeLayout(false);
             this.GetCountPanel.PerformLayout();
-            this.ShortUrlPanel.ResumeLayout(false);
-            this.ShortUrlPanel.PerformLayout();
             this.TweetPrvPanel.ResumeLayout(false);
             this.TweetPrvPanel.PerformLayout();
             this.NotifyPanel.ResumeLayout(false);
@@ -2501,12 +2450,6 @@
         internal System.Windows.Forms.TextBox UserAppointUrlText;
         internal System.Windows.Forms.ComboBox ComboBoxTranslateLanguage;
         internal System.Windows.Forms.Label Label29;
-        internal System.Windows.Forms.CheckBox CheckOutputz;
-        internal System.Windows.Forms.CheckBox CheckNicoms;
-        internal System.Windows.Forms.TextBox TextBoxOutputzKey;
-        internal System.Windows.Forms.Label Label60;
-        internal System.Windows.Forms.Label Label59;
-        internal System.Windows.Forms.ComboBox ComboBoxOutputzUrlmode;
         internal System.Windows.Forms.Panel ProxyPanel;
         internal System.Windows.Forms.Label Label55;
         internal System.Windows.Forms.TextBox TextProxyPassword;

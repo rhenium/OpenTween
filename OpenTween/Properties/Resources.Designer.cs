@@ -625,21 +625,17 @@ namespace OpenTween.Properties {
         /// <summary>
         ///   更新履歴
         ///
-        ///==== Ver 1.0.7-beta1:2-2.2f(2012/11/11)
-        /// * FIX: ツイート詳細のアイコンの上下に1pxずつ隙間があったのを修正
-        /// * FIX: モールス信号メニューがおかしくなっていたのを修正
-        /// * FIX: アカウント切替時にUserStreamsが1本しかつながらない・2本つながってしまうのを修正
+        ///==== Ver 1.0.9-beta1:2-2.6a(2013/01/21)
+        /// * OpenTween の変更をマージ (6ad91e0924fa26993131dc5bc454bb6456ae8ab0)
+        /// * v1.0.7 のみに存在する、アニメーションGifのサムネイル表示に関連した重要な修正を含んでいます
         ///
-        ///==== Ver 1.0.7-beta1:2-2.2e(2012/10/24)
-        /// * FIX: 突然の死の枠で、入力欄では改行が表示されない問題を修正
-        /// * NEW: タブ右クリック・タブメニューから現在のタブのすべての発言の未読・既読を切り替えられるように
-        /// * OpenTween のコミットをマージ。以下 OpenTween の更新点
-        /// * NEW: img.azyobuzi.net を使用したサムネイル表示に対応
-        /// * CHG: 検索APIをATOMからJSONに移行 (thx @re4k, @5px!)
-        /// * CHG: サムネイル表示を大幅に書き直し
+        /// * FIX: http://m.tbs.jp/tv/ で始まるURLを含むツイートを開くと発生するエラーの対策 (thx @WhiteWeathercoc!)
+        /// * FIX: ディスプレイ設定が96dpiの環境で発言詳細欄のアイコンが正方形に表示されない不具合の修正 (thx @5px!)
+        /// * FIX: PublicSearch利用時に発生することのあるエラーの対策
+        /// * FIX: アニメーションGifを使用した画像をサムネイル表示すると表示が壊れる問題の修正 (thx @hama_kai!)
         ///
-        ///==== Ver 1.0.7-beta1:2-2.2d(2012/10/15)
-        /// * FIX: 文字数カウン [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///==== Ver 1.0.8-beta1:2-2.6(2013/01/**)
+        /// * OpenTween の変更をマージ (111815c423d4f1d70f6f298c221ebd805 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -2674,15 +2670,6 @@ namespace OpenTween.Properties {
         internal static string TabUsageTypeName_UserTimeline {
             get {
                 return ResourceManager.GetString("TabUsageTypeName_UserTimeline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   復活の呪文を指定してください。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string TextBoxOutputzKey_Validating {
-            get {
-                return ResourceManager.GetString("TextBoxOutputzKey_Validating", resourceCulture);
             }
         }
         

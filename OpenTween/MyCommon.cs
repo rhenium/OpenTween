@@ -96,12 +96,6 @@ namespace OpenTween
             MultiMedia,
         }
 
-        public enum OutputzUrlmode
-        {
-            twittercom,
-            twittercomWithUsername,
-        }
-
         public enum HITRESULT
         {
             None,
