@@ -6319,6 +6319,8 @@ namespace OpenTween
                         PostBrowser.DocumentText = dTxt;
 
                         this.SplitContainer3.Panel2Collapsed = true;
+
+                        if (this.IsPreviewEnable)
                         this.tweetThumbnail1.ShowThumbnailAsync(_curPost);
                     }
                 }

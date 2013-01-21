@@ -1,19 +1,19 @@
 ﻿// OpenTween - Client of Twitter
-// Copyright (c) 2012      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
+// Copyright (c) 2012 kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
 // All rights reserved.
-// 
+//
 // This file is part of OpenTween.
-// 
+//
 // This program is free software; you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the Free
 // Software Foundation; either version 3 of the License, or (at your option)
 // any later version.
-// 
+//
 // This program is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
 // or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details. 
-// 
+// for more details.
+//
 // You should have received a copy of the GNU General Public License along
 // with this program. If not, see <http://www.gnu.org/licenses/>, or write to
 // the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
@@ -22,25 +22,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace OpenTween.Thumbnail.Services
 {
-    class ImgAzyobuziNet : IThumbnailService
+    class ImgAzyobuziNet : IThumbnailService, IDisposable
     {
-        protected string[] ApiHosts = { "http://img.azyobuzi.net/api/", "http://img.opentween.org/api/" };
+        protected string[] ApiHosts = {
+            "https://ss1.coressl.jp/img.azyobuzi.net/api/",
+            "http://img.azyobuzi.net/api/",
+            "http://img.opentween.org/api/",
+        };
 
         protected string ApiBase;
         protected IEnumerable<Regex> UrlRegex = new Regex[] {};
+        protected Timer UpdateTimer;
 
         private object LockObj = new object();
 
@@ -48,20 +49,33 @@ namespace OpenTween.Thumbnail.Services
         {
             this.LoadRegex();
 
-            if (autoupdate)
-                this.StartAutoUpdate();
+            this.UpdateTimer = new Timer(_ => this.LoadRegex());
+            this.AutoUpdate = autoupdate;
         }
 
-        public void StartAutoUpdate()
+        public bool AutoUpdate
         {
-            Task.Factory.StartNew(() =>
+            get { return this._AutoUpdate; }
+            set
             {
-                for (;;)
-                {
-                    Thread.Sleep(30 * 60 * 1000); // 30分おきに更新
-                    this.LoadRegex();
-                }
-            }, TaskCreationOptions.LongRunning);
+                if (value)
+                    this.StartAutoUpdate();
+                else
+                    this.StopAutoUpdate();
+
+                this._AutoUpdate = value;
+            }
+        }
+        private bool _AutoUpdate = false;
+
+        protected void StartAutoUpdate()
+        {
+            this.UpdateTimer.Change(0, 30 * 60 * 1000); ; // 30分おきに更新
+        }
+
+        protected void StopAutoUpdate()
+        {
+            this.UpdateTimer.Change(Timeout.Infinite, Timeout.Infinite);
         }
 
         public void LoadRegex()
@@ -126,7 +140,7 @@ namespace OpenTween.Thumbnail.Services
                         return new ThumbnailInfo()
                         {
                             ImageUrl = url,
-                            ThumbnailUrl = this.ApiBase + "redirect?uri=" + Uri.EscapeDataString(url),
+                            ThumbnailUrl = this.ApiBase + "redirect?size=large&uri=" + Uri.EscapeDataString(url),
                             TooltipText = null,
                         };
                     }
@@ -134,6 +148,11 @@ namespace OpenTween.Thumbnail.Services
             }
 
             return null;
+        }
+
+        public virtual void Dispose()
+        {
+            this.UpdateTimer.Dispose();
         }
     }
 }

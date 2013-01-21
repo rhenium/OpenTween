@@ -1,6 +1,7 @@
 更新履歴
 
-==== Ver 1.0.7-beta1:2-2.5c(2013/01/**)
+==== Ver 1.0.8-beta1:2-2.6(2013/01/**)
+ * OpenTween の変更をマージ (111815c423d4f1d70f6f298c221ebd805b655856)
  * Access level が、Read, write, and direct messages でないとエラーが出るのを抑制（公式コンシューマキーなどでは Read and write でもDMが使えるにもかかわらずエラーが出るため）
  * URL 表示を変更。長い URL が http://～～/～～/～～… と途中で切られてしまうのを変更。t.coを経由せずに飛ぶように（ダメかも）
 
