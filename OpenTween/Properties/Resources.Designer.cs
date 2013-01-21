@@ -625,6 +625,10 @@ namespace OpenTween.Properties {
         /// <summary>
         ///   更新履歴
         ///
+        ///==== Ver 1.0.9-beta1:2-2.6b(2013/01/**)
+        /// * Outputz 対応を廃止
+        /// * nico.ms 短縮機能を廃止
+        ///
         ///==== Ver 1.0.9-beta1:2-2.6a(2013/01/21)
         /// * OpenTween の変更をマージ (6ad91e0924fa26993131dc5bc454bb6456ae8ab0)
         /// * v1.0.7 のみに存在する、アニメーションGifのサムネイル表示に関連した重要な修正を含んでいます
@@ -634,8 +638,7 @@ namespace OpenTween.Properties {
         /// * FIX: PublicSearch利用時に発生することのあるエラーの対策
         /// * FIX: アニメーションGifを使用した画像をサムネイル表示すると表示が壊れる問題の修正 (thx @hama_kai!)
         ///
-        ///==== Ver 1.0.8-beta1:2-2.6(2013/01/**)
-        /// * OpenTween の変更をマージ (111815c423d4f1d70f6f298c221ebd805 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        ///==== Ver 1.0.8-be [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -2796,15 +2799,6 @@ namespace OpenTween.Properties {
         internal static string TraceOutText6 {
             get {
                 return ResourceManager.GetString("TraceOutText6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   ja に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string TranslateDefaultLanguage {
-            get {
-                return ResourceManager.GetString("TranslateDefaultLanguage", resourceCulture);
             }
         }
         

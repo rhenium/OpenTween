@@ -50,7 +50,6 @@ namespace OpenTween
         private bool _ValidationError = false;
         private MyCommon.EVENTTYPE _MyEventNotifyFlag;
         private MyCommon.EVENTTYPE _isMyEventNotifyFlag;
-        private string _MyTranslateLanguage;
 
         public bool HideDuplicatedRetweets;
 
@@ -323,7 +322,6 @@ namespace OpenTween
                 CountApiReply = int.Parse(TextCountApiReply.Text);
                 BrowserPath = BrowserPathText.Text.Trim();
                 PostAndGet = CheckPostAndGet.Checked;
-                UseRecommendStatus = CheckUseRecommendStatus.Checked;
                 DispUsername = CheckDispUsername.Checked;
                 CloseToExit = CheckCloseToExit.Checked;
                 MinimizeToTray = CheckMinimizeToTray.Checked;
@@ -390,7 +388,6 @@ namespace OpenTween
                 GetEventNotifyFlag(ref _MyEventNotifyFlag, ref _isMyEventNotifyFlag);
                 ForceEventNotify = CheckForceEventNotify.Checked;
                 FavEventUnread = CheckFavEventUnread.Checked;
-                TranslateLanguage = (new Bing()).GetLanguageEnumFromIndex(ComboBoxTranslateLanguage.SelectedIndex);
                 EventSoundFile = (string)ComboBoxEventNotifySound.SelectedItem;
                 TabIconDisp = chkTabIconDisp.Checked;
                 ReadOwnPost = chkReadOwnPost.Checked;
@@ -678,7 +675,6 @@ namespace OpenTween
             TextCountApiReply.Text = CountApiReply.ToString();
             BrowserPathText.Text = BrowserPath;
             CheckPostAndGet.Checked = PostAndGet;
-            CheckUseRecommendStatus.Checked = UseRecommendStatus;
             CheckDispUsername.Checked = DispUsername;
             CheckCloseToExit.Checked = CloseToExit;
             CheckMinimizeToTray.Checked = MinimizeToTray;
@@ -754,7 +750,6 @@ namespace OpenTween
             ApplyEventNotifyFlag(EventNotifyEnabled, EventNotifyFlag, IsMyEventNotifyFlag);
             CheckForceEventNotify.Checked = ForceEventNotify;
             CheckFavEventUnread.Checked = FavEventUnread;
-            ComboBoxTranslateLanguage.SelectedIndex = (new Bing()).GetIndexFromLanguageEnum(TranslateLanguage);
             SoundFileListup();
             chkTabIconDisp.Checked = TabIconDisp;
             chkReadOwnPost.Checked = ReadOwnPost;
@@ -1260,8 +1255,6 @@ namespace OpenTween
         public int UserTimelineCountApi { get; set; }
         public int ListCountApi { get; set; }
         public bool PostAndGet { get; set; }
-        public bool UseRecommendStatus { get; set; }
-        public string RecommendStatusText { get; set; }
         public bool DispUsername { get; set; }
         public bool CloseToExit { get; set; }
         public bool MinimizeToTray { get; set; }
@@ -1269,18 +1262,6 @@ namespace OpenTween
         public string BrowserPath { get; set; }
         public bool TinyUrlResolve { get; set; }
         public bool ShortUrlForceResolve { get; set; }
-
-        private void CheckUseRecommendStatus_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CheckUseRecommendStatus.Checked == true)
-            {
-                StatusText.Enabled = false;
-            }
-            else
-            {
-                StatusText.Enabled = true;
-            }
-        }
 
         public bool SortOrderLock { get; set; }
         public HttpConnection.ProxyType SelectedProxyType
@@ -1503,19 +1484,6 @@ namespace OpenTween
 
         public bool ForceEventNotify { get; set; }
         public bool FavEventUnread { get; set; }
-
-        public string TranslateLanguage
-        {
-            get
-            {
-                return _MyTranslateLanguage;
-            }
-            set
-            {
-                _MyTranslateLanguage = value;
-                ComboBoxTranslateLanguage.SelectedIndex = (new Bing()).GetIndexFromLanguageEnum(value);
-            }
-        }
 
         public string EventSoundFile { get; set; }
         public int ListDoubleClickAction { get; set; }
@@ -2171,11 +2139,6 @@ namespace OpenTween
         //private void CheckFavEventUnread_CheckedChanged(object sender, EventArgs e)
         //{
         //    _MyFavEventUnread = CheckFavEventUnread.Checked;
-        //}
-
-        //private void ComboBoxTranslateLanguage_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    _MyTranslateLanguage = (new Google()).GetLanguageEnumFromIndex(ComboBoxTranslateLanguage.SelectedIndex);
         //}
 
         private void SoundFileListup()

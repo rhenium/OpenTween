@@ -729,7 +729,6 @@ namespace OpenTween
 
             SettingDialog.BrowserPath = _cfgLocal.BrowserPath;
             SettingDialog.PostAndGet = _cfgCommon.PostAndGet;
-            SettingDialog.UseRecommendStatus = _cfgLocal.UseRecommendStatus;
             SettingDialog.DispUsername = _cfgCommon.DispUsername;
             SettingDialog.CloseToExit = _cfgCommon.CloseToExit;
             SettingDialog.MinimizeToTray = _cfgCommon.MinimizeToTray;
@@ -761,7 +760,6 @@ namespace OpenTween
             SettingDialog.IsMyEventNotifyFlag = _cfgCommon.IsMyEventNotifyFlag;
             SettingDialog.ForceEventNotify = _cfgCommon.ForceEventNotify;
             SettingDialog.FavEventUnread = _cfgCommon.FavEventUnread;
-            SettingDialog.TranslateLanguage = _cfgCommon.TranslateLanguage;
             SettingDialog.EventSoundFile = _cfgCommon.EventSoundFile;
             SettingDialog.TabIconDisp = _cfgCommon.TabIconDisp;
             SettingDialog.ReplyIconState = _cfgCommon.ReplyIconState;
@@ -800,9 +798,6 @@ namespace OpenTween
             this.ToolStripAutoAddZenkakuSpaceMenuItem.Checked = _cfgCommon.AutoAddZenkakuSpace;
             this.ToolStripShowStolenTweetWithColorMenuItem.Checked = _cfgCommon.ShowStolenTweetWithColor;
             this.ToolStripAutoCutTweetMenuItem.Checked = _cfgCommon.AutoCutTweet;
-
-            //Regex statregex = new Regex("^0*");
-            SettingDialog.RecommendStatusText = " [TWNv" + Regex.Replace(MyCommon.fileVersion.Replace(".", ""), "^0*", "") + "]";
 
             //書式指定文字列エラーチェック
             try
@@ -5006,12 +5001,7 @@ namespace OpenTween
             }
             if (!isRemoveFooter)
             {
-                if (SettingDialog.UseRecommendStatus)
-                {
-                    // 推奨ステータスを使用する
-                    footer += " " + SettingDialog.RecommendStatusText;
-                }
-                else if (SettingDialog.Status.Length > 0)
+                if (SettingDialog.Status.Length > 0)
                 {
                     // テキストボックスに入力されている文字列を使用する
                     footer += " " + SettingDialog.Status;
@@ -5095,11 +5085,7 @@ namespace OpenTween
                 StatusText.Text.Contains("RT @") ||
                 StatusText.Text.Contains("QT @"))
             {
-                if (SettingDialog.UseRecommendStatus)
-                {
-                    pLen += SettingDialog.RecommendStatusText.Length + 1;
-                }
-                else if (SettingDialog.Status.Length > 0)
+                if (SettingDialog.Status.Length > 0)
                 {
                     pLen += SettingDialog.Status.Length + 1;
                 }
@@ -6290,7 +6276,7 @@ namespace OpenTween
                         this.SplitContainer3.Panel2Collapsed = true;
 
                         if (this.IsPreviewEnable)
-                        this.tweetThumbnail1.ShowThumbnailAsync(_curPost);
+                            this.tweetThumbnail1.ShowThumbnailAsync(_curPost);
                     }
                 }
                 catch (System.Runtime.InteropServices.COMException)
@@ -6988,10 +6974,6 @@ namespace OpenTween
                     }
                     switch (KeyCode)
                     {
-                        case Keys.T:
-                            if (!this.ExistCurrentPost && !_cfgCommon.ShowDeleted) return false;
-                            doTranslation(_curPost.TextFromApi);
-                            return true;
                         case Keys.R:
                             doReTweetUnofficial();
                             return true;
@@ -7893,7 +7875,6 @@ namespace OpenTween
                 _cfgCommon.IsMyEventNotifyFlag = SettingDialog.IsMyEventNotifyFlag;
                 _cfgCommon.ForceEventNotify = SettingDialog.ForceEventNotify;
                 _cfgCommon.FavEventUnread = SettingDialog.FavEventUnread;
-                _cfgCommon.TranslateLanguage = SettingDialog.TranslateLanguage;
                 _cfgCommon.EventSoundFile = SettingDialog.EventSoundFile;
                 _cfgCommon.TabIconDisp = SettingDialog.TabIconDisp;
                 _cfgCommon.ReplyIconState = SettingDialog.ReplyIconState;
@@ -8040,7 +8021,6 @@ namespace OpenTween
                 _cfgLocal.FontInputFont = _fntInputFont;
 
                 _cfgLocal.BrowserPath = SettingDialog.BrowserPath;
-                _cfgLocal.UseRecommendStatus = SettingDialog.UseRecommendStatus;
                 _cfgLocal.ProxyType = SettingDialog.SelectedProxyType;
                 _cfgLocal.ProxyAddress = SettingDialog.ProxyAddress;
                 _cfgLocal.ProxyPort = SettingDialog.ProxyPort;
@@ -10316,13 +10296,11 @@ namespace OpenTween
             {
                 SelectionSearchContextMenuItem.Enabled = false;
                 SelectionCopyContextMenuItem.Enabled = false;
-                SelectionTranslationToolStripMenuItem.Enabled = false;
             }
             else
             {
                 SelectionSearchContextMenuItem.Enabled = true;
                 SelectionCopyContextMenuItem.Enabled = true;
-                SelectionTranslationToolStripMenuItem.Enabled = true;
             }
             //発言内に自分以外のユーザーが含まれてればフォロー状態全表示を有効に
             MatchCollection ma = Regex.Matches(this.PostBrowser.DocumentText, @"href=""https?://twitter.com/(#!/)?(?<ScreenName>[a-zA-Z0-9_]+)(/status(es)?/[0-9]+)?""");
@@ -10336,11 +10314,6 @@ namespace OpenTween
                 }
             }
             this.FriendshipAllMenuItem.Enabled = fAllFlag;
-
-            if (_curPost == null)
-                TranslationToolStripMenuItem.Enabled = false;
-            else
-                TranslationToolStripMenuItem.Enabled = true;
 
             e.Cancel = false;
         }
@@ -10739,7 +10712,7 @@ namespace OpenTween
 
                 _reply_to_id = 0;
                 _reply_to_name = "";
-                
+
                 StatusText.Text = " RT @" + _curPost.ScreenName + ": " + HttpUtility.HtmlDecode(rtdata);
 
                 StatusText.SelectionStart = 0;
@@ -12947,36 +12920,6 @@ namespace OpenTween
         private void OpenOwnHomeMenuItem_Click(object sender, EventArgs e)
         {
             OpenUriAsync(MyCommon.TwitterUrl + tw.Username);
-        }
-
-        private void doTranslation(string str)
-        {
-            Bing _bing = new Bing();
-            string buf = "";
-            if (string.IsNullOrEmpty(str)) return;
-            string srclng = "";
-            string dstlng = SettingDialog.TranslateLanguage;
-            string msg = "";
-            if (srclng != dstlng && _bing.Translate("", dstlng, str, out buf))
-            {
-                PostBrowser.DocumentText = createDetailHtml(buf);
-            }
-            else
-            {
-                if (msg.StartsWith("Err:"))
-                    StatusLabel.Text = msg;
-            }
-        }
-
-        private void TranslationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!this.ExistCurrentPost) return;
-            doTranslation(_curPost.TextFromApi);
-        }
-
-        private void SelectionTranslationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            doTranslation(WebBrowser_GetSelectionText(ref PostBrowser));
         }
 
         private bool ExistCurrentPost

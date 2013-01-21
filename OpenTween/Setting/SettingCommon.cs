@@ -145,7 +145,6 @@ namespace OpenTween
         public MyCommon.EVENTTYPE IsMyEventNotifyFlag = MyCommon.EVENTTYPE.All;
         public bool ForceEventNotify = false;
         public bool FavEventUnread = true;
-        public string TranslateLanguage = Properties.Resources.TranslateDefaultLanguage;
         public string EventSoundFile = "";
         public bool PlaySound = false;
         public bool UnreadManage = true;

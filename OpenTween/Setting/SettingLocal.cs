@@ -36,7 +36,7 @@ namespace OpenTween
     [Serializable]
     public class SettingLocal : SettingBase<SettingLocal>, IDisposable
     {
-#region Settingクラス基本
+        #region Settingクラス基本
         public static SettingLocal Load()
         {
             return LoadSettings();
@@ -46,7 +46,7 @@ namespace OpenTween
         {
             SaveSettings(this);
         }
-#endregion
+        #endregion
 
         [NonSerialized]
         private FontConverter _fc = new FontConverter();
@@ -59,7 +59,6 @@ namespace OpenTween
         public int AdSplitterDistance = 350;
         public Size FormSize = new Size(600, 500);
         public string StatusText = "";
-        public bool UseRecommendStatus = false;
         public int Width1 = 48;
         public int Width2 = 80;
         public int Width3 = 290;

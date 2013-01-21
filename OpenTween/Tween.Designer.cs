@@ -125,8 +125,6 @@
             this.ListManageUserContextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator33 = new System.Windows.Forms.ToolStripSeparator();
             this.UseHashtagMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectionTranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TranslationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DateTimeLabel = new System.Windows.Forms.Label();
             this.SourceLinkLabel = new System.Windows.Forms.LinkLabel();
             this.ContextMenuSource = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -579,7 +577,7 @@
             this.SplitContainer1.Panel2.Controls.Add(this.SplitContainer3);
             this.SplitContainer1.Panel2MinSize = 23;
             this.SplitContainer1.Size = new System.Drawing.Size(574, 405);
-            this.SplitContainer1.SplitterDistance = 240;
+            this.SplitContainer1.SplitterDistance = 244;
             this.SplitContainer1.SplitterWidth = 2;
             this.SplitContainer1.TabIndex = 0;
             this.SplitContainer1.TabStop = false;
@@ -591,7 +589,7 @@
             this.TimelinePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimelinePanel.Location = new System.Drawing.Point(0, 0);
             this.TimelinePanel.Name = "TimelinePanel";
-            this.TimelinePanel.Size = new System.Drawing.Size(570, 236);
+            this.TimelinePanel.Size = new System.Drawing.Size(570, 240);
             this.TimelinePanel.TabIndex = 0;
             // 
             // ListTab
@@ -607,7 +605,7 @@
             this.ListTab.Multiline = true;
             this.ListTab.Name = "ListTab";
             this.ListTab.SelectedIndex = 0;
-            this.ListTab.Size = new System.Drawing.Size(570, 236);
+            this.ListTab.Size = new System.Drawing.Size(570, 240);
             this.ListTab.TabIndex = 0;
             this.ListTab.TabStop = false;
             this.ListTab.SelectedIndexChanged += new System.EventHandler(this.ListTab_SelectedIndexChanged);
@@ -770,7 +768,7 @@
             this.ImageSelectionPanel.Location = new System.Drawing.Point(0, 0);
             this.ImageSelectionPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ImageSelectionPanel.Name = "ImageSelectionPanel";
-            this.ImageSelectionPanel.Size = new System.Drawing.Size(570, 236);
+            this.ImageSelectionPanel.Size = new System.Drawing.Size(570, 240);
             this.ImageSelectionPanel.TabIndex = 1;
             this.ImageSelectionPanel.Visible = false;
             this.ImageSelectionPanel.VisibleChanged += new System.EventHandler(this.ImageSelectionPanel_VisibleChanged);
@@ -784,7 +782,7 @@
             this.ImageSelectedPicture.Location = new System.Drawing.Point(0, 0);
             this.ImageSelectedPicture.Margin = new System.Windows.Forms.Padding(4);
             this.ImageSelectedPicture.Name = "ImageSelectedPicture";
-            this.ImageSelectedPicture.Size = new System.Drawing.Size(570, 208);
+            this.ImageSelectedPicture.Size = new System.Drawing.Size(570, 212);
             this.ImageSelectedPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ImageSelectedPicture.TabIndex = 5;
             this.ImageSelectedPicture.TabStop = false;
@@ -798,7 +796,7 @@
             this.ImagePathPanel.Controls.Add(this.ImageCancelButton);
             this.ImagePathPanel.Controls.Add(this.Label1);
             this.ImagePathPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ImagePathPanel.Location = new System.Drawing.Point(0, 208);
+            this.ImagePathPanel.Location = new System.Drawing.Point(0, 212);
             this.ImagePathPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ImagePathPanel.Name = "ImagePathPanel";
             this.ImagePathPanel.Padding = new System.Windows.Forms.Padding(3);
@@ -893,7 +891,7 @@
             this.ProfilePanel.Location = new System.Drawing.Point(0, 0);
             this.ProfilePanel.Margin = new System.Windows.Forms.Padding(4);
             this.ProfilePanel.Name = "ProfilePanel";
-            this.ProfilePanel.Size = new System.Drawing.Size(570, 236);
+            this.ProfilePanel.Size = new System.Drawing.Size(570, 240);
             this.ProfilePanel.TabIndex = 2;
             this.ProfilePanel.Visible = false;
             // 
@@ -913,7 +911,7 @@
             // 
             this.SplitContainer3.Panel2.Controls.Add(this.tweetThumbnail1);
             this.SplitContainer3.Panel2Collapsed = true;
-            this.SplitContainer3.Size = new System.Drawing.Size(570, 159);
+            this.SplitContainer3.Size = new System.Drawing.Size(570, 155);
             this.SplitContainer3.SplitterDistance = 355;
             this.SplitContainer3.TabIndex = 2;
             this.SplitContainer3.TabStop = false;
@@ -939,8 +937,8 @@
             this.SplitContainer2.Panel2.Controls.Add(this.PostButton);
             this.SplitContainer2.Panel2.Resize += new System.EventHandler(this.SplitContainer2_Panel2_Resize);
             this.SplitContainer2.Panel2MinSize = 19;
-            this.SplitContainer2.Size = new System.Drawing.Size(570, 159);
-            this.SplitContainer2.SplitterDistance = 132;
+            this.SplitContainer2.Size = new System.Drawing.Size(570, 155);
+            this.SplitContainer2.SplitterDistance = 128;
             this.SplitContainer2.SplitterWidth = 2;
             this.SplitContainer2.TabIndex = 1;
             this.SplitContainer2.TabStop = false;
@@ -966,7 +964,7 @@
             this.TableLayoutPanel1.RowCount = 2;
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(570, 132);
+            this.TableLayoutPanel1.Size = new System.Drawing.Size(570, 128);
             this.TableLayoutPanel1.TabIndex = 1;
             // 
             // UserPicture
@@ -1121,7 +1119,7 @@
             this.PostBrowser.Location = new System.Drawing.Point(62, 21);
             this.PostBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.PostBrowser.Name = "PostBrowser";
-            this.PostBrowser.Size = new System.Drawing.Size(504, 107);
+            this.PostBrowser.Size = new System.Drawing.Size(504, 103);
             this.PostBrowser.TabIndex = 6;
             this.PostBrowser.TabStop = false;
             this.PostBrowser.WebBrowserShortcutsEnabled = false;
@@ -1151,11 +1149,9 @@
             this.IdFilterAddMenuItem,
             this.ListManageUserContextToolStripMenuItem,
             this.ToolStripSeparator33,
-            this.UseHashtagMenuItem,
-            this.SelectionTranslationToolStripMenuItem,
-            this.TranslationToolStripMenuItem});
+            this.UseHashtagMenuItem});
             this.ContextMenuPostBrowser.Name = "ContextMenuStrip4";
-            this.ContextMenuPostBrowser.Size = new System.Drawing.Size(240, 386);
+            this.ContextMenuPostBrowser.Size = new System.Drawing.Size(240, 342);
             this.ContextMenuPostBrowser.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuPostBrowser_Opening);
             // 
             // SelectionSearchContextMenuItem
@@ -1313,22 +1309,6 @@
             this.UseHashtagMenuItem.Size = new System.Drawing.Size(239, 22);
             this.UseHashtagMenuItem.Text = "ハッシュタグを固定(&H)";
             this.UseHashtagMenuItem.Click += new System.EventHandler(this.UseHashtagMenuItem_Click);
-            // 
-            // SelectionTranslationToolStripMenuItem
-            // 
-            this.SelectionTranslationToolStripMenuItem.Name = "SelectionTranslationToolStripMenuItem";
-            this.SelectionTranslationToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.SelectionTranslationToolStripMenuItem.Text = "選択した文字列を翻訳";
-            this.SelectionTranslationToolStripMenuItem.Visible = false;
-            this.SelectionTranslationToolStripMenuItem.Click += new System.EventHandler(this.SelectionTranslationToolStripMenuItem_Click);
-            // 
-            // TranslationToolStripMenuItem
-            // 
-            this.TranslationToolStripMenuItem.Name = "TranslationToolStripMenuItem";
-            this.TranslationToolStripMenuItem.ShortcutKeyDisplayString = "Alt+Shift+T";
-            this.TranslationToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
-            this.TranslationToolStripMenuItem.Text = "この発言を翻訳";
-            this.TranslationToolStripMenuItem.Click += new System.EventHandler(this.TranslationToolStripMenuItem_Click);
             // 
             // DateTimeLabel
             // 
@@ -3107,8 +3087,6 @@
         internal System.Windows.Forms.ToolStripMenuItem ListManageUserContextToolStripMenuItem;
         internal System.Windows.Forms.ToolStripSeparator ToolStripSeparator33;
         internal System.Windows.Forms.ToolStripMenuItem UseHashtagMenuItem;
-        internal System.Windows.Forms.ToolStripMenuItem SelectionTranslationToolStripMenuItem;
-        internal System.Windows.Forms.ToolStripMenuItem TranslationToolStripMenuItem;
         internal System.Windows.Forms.Label DateTimeLabel;
         internal System.Windows.Forms.LinkLabel SourceLinkLabel;
         internal System.Windows.Forms.ContextMenuStrip ContextMenuSource;

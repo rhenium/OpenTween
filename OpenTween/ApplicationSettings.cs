@@ -143,14 +143,5 @@ namespace OpenTween
         /// TINAMI APIキー
         /// </summary>
         public const string TINAMIApiKey = "4fc9d8d562ab1";
-
-        //=====================================================================
-        // Windows Azure Marketplace
-        // https://datamarket.azure.com/account/keys から取得できます。
-
-        /// <summary>
-        /// Windows Azure Marketplace アカウントキー
-        /// </summary>
-        public const string AzureMarketplaceKey = "UlOODyR2rVH0lfweya1VuY5KjE7L0ZjvQKQWlYgWsPw=";
     }
 }
