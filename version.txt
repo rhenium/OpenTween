@@ -1,5 +1,19 @@
-1.0.7-beta1:2-2.5b
+1.0.9-beta1:2-2.6a
 http://re4k.info/build/OpenTweenA/
+
+==== Ver 1.0.9-beta1:2-2.6a(2013/01/21)
+ * OpenTween の変更をマージ (6ad91e0924fa26993131dc5bc454bb6456ae8ab0)
+ * v1.0.7 のみに存在する、アニメーションGifのサムネイル表示に関連した重要な修正を含んでいます
+
+ * FIX: http://m.tbs.jp/tv/ で始まるURLを含むツイートを開くと発生するエラーの対策 (thx @WhiteWeathercoc!)
+ * FIX: ディスプレイ設定が96dpiの環境で発言詳細欄のアイコンが正方形に表示されない不具合の修正 (thx @5px!)
+ * FIX: PublicSearch利用時に発生することのあるエラーの対策
+ * FIX: アニメーションGifを使用した画像をサムネイル表示すると表示が壊れる問題の修正 (thx @hama_kai!)
+
+==== Ver 1.0.8-beta1:2-2.6(2013/01/**)
+ * OpenTween の変更をマージ (111815c423d4f1d70f6f298c221ebd805b655856)
+ * Access level が、Read, write, and direct messages でないとエラーが出るのを抑制（公式コンシューマキーなどでは Read and write でもDMが使えるにもかかわらずエラーが出るため）
+ * URL 表示を変更。長い URL が http://～～/～～/～～… と途中で切られてしまうのを変更。t.coを経由せずに飛ぶように（ダメかも）
 
 ==== Ver 1.0.7-beta1:2-2.5b(2013/01/13)
  * OpenTween のコミットをマージ (bd3657402a8df6b9c76081c49e4e2702793f9665)
