@@ -407,7 +407,7 @@
             this.StatusLabelUrl.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.StatusLabelUrl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.StatusLabelUrl.Name = "StatusLabelUrl";
-            this.StatusLabelUrl.Size = new System.Drawing.Size(313, 22);
+            this.StatusLabelUrl.Size = new System.Drawing.Size(344, 22);
             this.StatusLabelUrl.Spring = true;
             this.StatusLabelUrl.Text = "ToolStripStatusLabel1";
             this.StatusLabelUrl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -467,7 +467,7 @@
             this.ToolStripShowStolenTweetWithColorMenuItem});
             this.ContextMenuPostMode.Name = "ContextMenuStripPostMode";
             this.ContextMenuPostMode.OwnerItem = this.HashStripSplitButton;
-            this.ContextMenuPostMode.Size = new System.Drawing.Size(298, 264);
+            this.ContextMenuPostMode.Size = new System.Drawing.Size(298, 220);
             // 
             // MultiLineMenuItem
             // 
@@ -579,7 +579,7 @@
             this.SplitContainer1.Panel2.Controls.Add(this.SplitContainer3);
             this.SplitContainer1.Panel2MinSize = 23;
             this.SplitContainer1.Size = new System.Drawing.Size(574, 405);
-            this.SplitContainer1.SplitterDistance = 238;
+            this.SplitContainer1.SplitterDistance = 240;
             this.SplitContainer1.SplitterWidth = 2;
             this.SplitContainer1.TabIndex = 0;
             this.SplitContainer1.TabStop = false;
@@ -591,7 +591,7 @@
             this.TimelinePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimelinePanel.Location = new System.Drawing.Point(0, 0);
             this.TimelinePanel.Name = "TimelinePanel";
-            this.TimelinePanel.Size = new System.Drawing.Size(570, 234);
+            this.TimelinePanel.Size = new System.Drawing.Size(570, 236);
             this.TimelinePanel.TabIndex = 0;
             // 
             // ListTab
@@ -607,7 +607,7 @@
             this.ListTab.Multiline = true;
             this.ListTab.Name = "ListTab";
             this.ListTab.SelectedIndex = 0;
-            this.ListTab.Size = new System.Drawing.Size(570, 234);
+            this.ListTab.Size = new System.Drawing.Size(570, 236);
             this.ListTab.TabIndex = 0;
             this.ListTab.TabStop = false;
             this.ListTab.SelectedIndexChanged += new System.EventHandler(this.ListTab_SelectedIndexChanged);
@@ -770,7 +770,7 @@
             this.ImageSelectionPanel.Location = new System.Drawing.Point(0, 0);
             this.ImageSelectionPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ImageSelectionPanel.Name = "ImageSelectionPanel";
-            this.ImageSelectionPanel.Size = new System.Drawing.Size(570, 234);
+            this.ImageSelectionPanel.Size = new System.Drawing.Size(570, 236);
             this.ImageSelectionPanel.TabIndex = 1;
             this.ImageSelectionPanel.Visible = false;
             this.ImageSelectionPanel.VisibleChanged += new System.EventHandler(this.ImageSelectionPanel_VisibleChanged);
@@ -784,7 +784,7 @@
             this.ImageSelectedPicture.Location = new System.Drawing.Point(0, 0);
             this.ImageSelectedPicture.Margin = new System.Windows.Forms.Padding(4);
             this.ImageSelectedPicture.Name = "ImageSelectedPicture";
-            this.ImageSelectedPicture.Size = new System.Drawing.Size(570, 206);
+            this.ImageSelectedPicture.Size = new System.Drawing.Size(570, 208);
             this.ImageSelectedPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ImageSelectedPicture.TabIndex = 5;
             this.ImageSelectedPicture.TabStop = false;
@@ -798,7 +798,7 @@
             this.ImagePathPanel.Controls.Add(this.ImageCancelButton);
             this.ImagePathPanel.Controls.Add(this.Label1);
             this.ImagePathPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ImagePathPanel.Location = new System.Drawing.Point(0, 206);
+            this.ImagePathPanel.Location = new System.Drawing.Point(0, 208);
             this.ImagePathPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ImagePathPanel.Name = "ImagePathPanel";
             this.ImagePathPanel.Padding = new System.Windows.Forms.Padding(3);
@@ -893,7 +893,7 @@
             this.ProfilePanel.Location = new System.Drawing.Point(0, 0);
             this.ProfilePanel.Margin = new System.Windows.Forms.Padding(4);
             this.ProfilePanel.Name = "ProfilePanel";
-            this.ProfilePanel.Size = new System.Drawing.Size(570, 234);
+            this.ProfilePanel.Size = new System.Drawing.Size(570, 236);
             this.ProfilePanel.TabIndex = 2;
             this.ProfilePanel.Visible = false;
             // 
@@ -913,7 +913,7 @@
             // 
             this.SplitContainer3.Panel2.Controls.Add(this.tweetThumbnail1);
             this.SplitContainer3.Panel2Collapsed = true;
-            this.SplitContainer3.Size = new System.Drawing.Size(570, 161);
+            this.SplitContainer3.Size = new System.Drawing.Size(570, 159);
             this.SplitContainer3.SplitterDistance = 355;
             this.SplitContainer3.TabIndex = 2;
             this.SplitContainer3.TabStop = false;
@@ -939,8 +939,8 @@
             this.SplitContainer2.Panel2.Controls.Add(this.PostButton);
             this.SplitContainer2.Panel2.Resize += new System.EventHandler(this.SplitContainer2_Panel2_Resize);
             this.SplitContainer2.Panel2MinSize = 19;
-            this.SplitContainer2.Size = new System.Drawing.Size(570, 161);
-            this.SplitContainer2.SplitterDistance = 134;
+            this.SplitContainer2.Size = new System.Drawing.Size(570, 159);
+            this.SplitContainer2.SplitterDistance = 132;
             this.SplitContainer2.SplitterWidth = 2;
             this.SplitContainer2.TabIndex = 1;
             this.SplitContainer2.TabStop = false;
@@ -966,7 +966,7 @@
             this.TableLayoutPanel1.RowCount = 2;
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(570, 134);
+            this.TableLayoutPanel1.Size = new System.Drawing.Size(570, 132);
             this.TableLayoutPanel1.TabIndex = 1;
             // 
             // UserPicture
@@ -1121,7 +1121,7 @@
             this.PostBrowser.Location = new System.Drawing.Point(62, 21);
             this.PostBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.PostBrowser.Name = "PostBrowser";
-            this.PostBrowser.Size = new System.Drawing.Size(504, 109);
+            this.PostBrowser.Size = new System.Drawing.Size(504, 107);
             this.PostBrowser.TabIndex = 6;
             this.PostBrowser.TabStop = false;
             this.PostBrowser.WebBrowserShortcutsEnabled = false;
@@ -2958,8 +2958,8 @@
             // TweenMain
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(574, 456);
             this.Controls.Add(this.ToolStripContainer1);
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
