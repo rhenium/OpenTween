@@ -255,6 +255,7 @@
             this.ToolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.VerUpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.TwitterApiStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ApiInfoMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ApiInfoTLMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -577,7 +578,7 @@
             this.SplitContainer1.Panel2.Controls.Add(this.SplitContainer3);
             this.SplitContainer1.Panel2MinSize = 23;
             this.SplitContainer1.Size = new System.Drawing.Size(574, 405);
-            this.SplitContainer1.SplitterDistance = 244;
+            this.SplitContainer1.SplitterDistance = 248;
             this.SplitContainer1.SplitterWidth = 2;
             this.SplitContainer1.TabIndex = 0;
             this.SplitContainer1.TabStop = false;
@@ -589,7 +590,7 @@
             this.TimelinePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TimelinePanel.Location = new System.Drawing.Point(0, 0);
             this.TimelinePanel.Name = "TimelinePanel";
-            this.TimelinePanel.Size = new System.Drawing.Size(570, 240);
+            this.TimelinePanel.Size = new System.Drawing.Size(570, 244);
             this.TimelinePanel.TabIndex = 0;
             // 
             // ListTab
@@ -605,7 +606,7 @@
             this.ListTab.Multiline = true;
             this.ListTab.Name = "ListTab";
             this.ListTab.SelectedIndex = 0;
-            this.ListTab.Size = new System.Drawing.Size(570, 240);
+            this.ListTab.Size = new System.Drawing.Size(570, 244);
             this.ListTab.TabIndex = 0;
             this.ListTab.TabStop = false;
             this.ListTab.SelectedIndexChanged += new System.EventHandler(this.ListTab_SelectedIndexChanged);
@@ -768,7 +769,7 @@
             this.ImageSelectionPanel.Location = new System.Drawing.Point(0, 0);
             this.ImageSelectionPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ImageSelectionPanel.Name = "ImageSelectionPanel";
-            this.ImageSelectionPanel.Size = new System.Drawing.Size(570, 240);
+            this.ImageSelectionPanel.Size = new System.Drawing.Size(570, 244);
             this.ImageSelectionPanel.TabIndex = 1;
             this.ImageSelectionPanel.Visible = false;
             this.ImageSelectionPanel.VisibleChanged += new System.EventHandler(this.ImageSelectionPanel_VisibleChanged);
@@ -782,7 +783,7 @@
             this.ImageSelectedPicture.Location = new System.Drawing.Point(0, 0);
             this.ImageSelectedPicture.Margin = new System.Windows.Forms.Padding(4);
             this.ImageSelectedPicture.Name = "ImageSelectedPicture";
-            this.ImageSelectedPicture.Size = new System.Drawing.Size(570, 212);
+            this.ImageSelectedPicture.Size = new System.Drawing.Size(570, 216);
             this.ImageSelectedPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ImageSelectedPicture.TabIndex = 5;
             this.ImageSelectedPicture.TabStop = false;
@@ -796,7 +797,7 @@
             this.ImagePathPanel.Controls.Add(this.ImageCancelButton);
             this.ImagePathPanel.Controls.Add(this.Label1);
             this.ImagePathPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ImagePathPanel.Location = new System.Drawing.Point(0, 212);
+            this.ImagePathPanel.Location = new System.Drawing.Point(0, 216);
             this.ImagePathPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ImagePathPanel.Name = "ImagePathPanel";
             this.ImagePathPanel.Padding = new System.Windows.Forms.Padding(3);
@@ -891,7 +892,7 @@
             this.ProfilePanel.Location = new System.Drawing.Point(0, 0);
             this.ProfilePanel.Margin = new System.Windows.Forms.Padding(4);
             this.ProfilePanel.Name = "ProfilePanel";
-            this.ProfilePanel.Size = new System.Drawing.Size(570, 240);
+            this.ProfilePanel.Size = new System.Drawing.Size(570, 244);
             this.ProfilePanel.TabIndex = 2;
             this.ProfilePanel.Visible = false;
             // 
@@ -911,7 +912,7 @@
             // 
             this.SplitContainer3.Panel2.Controls.Add(this.tweetThumbnail1);
             this.SplitContainer3.Panel2Collapsed = true;
-            this.SplitContainer3.Size = new System.Drawing.Size(570, 155);
+            this.SplitContainer3.Size = new System.Drawing.Size(570, 151);
             this.SplitContainer3.SplitterDistance = 355;
             this.SplitContainer3.TabIndex = 2;
             this.SplitContainer3.TabStop = false;
@@ -937,8 +938,8 @@
             this.SplitContainer2.Panel2.Controls.Add(this.PostButton);
             this.SplitContainer2.Panel2.Resize += new System.EventHandler(this.SplitContainer2_Panel2_Resize);
             this.SplitContainer2.Panel2MinSize = 19;
-            this.SplitContainer2.Size = new System.Drawing.Size(570, 155);
-            this.SplitContainer2.SplitterDistance = 128;
+            this.SplitContainer2.Size = new System.Drawing.Size(570, 151);
+            this.SplitContainer2.SplitterDistance = 124;
             this.SplitContainer2.SplitterWidth = 2;
             this.SplitContainer2.TabIndex = 1;
             this.SplitContainer2.TabStop = false;
@@ -964,7 +965,7 @@
             this.TableLayoutPanel1.RowCount = 2;
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.TableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel1.Size = new System.Drawing.Size(570, 128);
+            this.TableLayoutPanel1.Size = new System.Drawing.Size(570, 124);
             this.TableLayoutPanel1.TabIndex = 1;
             // 
             // UserPicture
@@ -1119,7 +1120,7 @@
             this.PostBrowser.Location = new System.Drawing.Point(62, 21);
             this.PostBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.PostBrowser.Name = "PostBrowser";
-            this.PostBrowser.Size = new System.Drawing.Size(504, 103);
+            this.PostBrowser.Size = new System.Drawing.Size(504, 99);
             this.PostBrowser.TabIndex = 6;
             this.PostBrowser.TabStop = false;
             this.PostBrowser.WebBrowserShortcutsEnabled = false;
@@ -2382,6 +2383,7 @@
             this.ToolStripSeparator16,
             this.VerUpMenuItem,
             this.ToolStripSeparator14,
+            this.TwitterApiStatusToolStripMenuItem,
             this.ApiInfoMenuItem,
             this.ApiInfoTLMenuItem,
             this.ToolStripSeparator7,
@@ -2424,19 +2426,26 @@
             this.ToolStripSeparator14.Name = "ToolStripSeparator14";
             this.ToolStripSeparator14.Size = new System.Drawing.Size(248, 6);
             // 
+            // TwitterApiStatusToolStripMenuItem
+            // 
+            this.TwitterApiStatusToolStripMenuItem.Name = "TwitterApiStatusToolStripMenuItem";
+            this.TwitterApiStatusToolStripMenuItem.Size = new System.Drawing.Size(251, 22);
+            this.TwitterApiStatusToolStripMenuItem.Text = "Twitter API 稼働状況";
+            this.TwitterApiStatusToolStripMenuItem.Click += new System.EventHandler(this.TwitterApiStatusToolStripMenuItem_Click);
+            // 
             // ApiInfoMenuItem
             // 
             this.ApiInfoMenuItem.Name = "ApiInfoMenuItem";
             this.ApiInfoMenuItem.Size = new System.Drawing.Size(251, 22);
             this.ApiInfoMenuItem.Text = "API情報";
-            this.ApiInfoMenuItem.Click += new System.EventHandler(this.ApiInfoMenuItem_Click);
+            this.ApiInfoMenuItem.Click += new System.EventHandler(this.ApiUsageInfoMenuItem_Click);
             // 
             // ApiInfoTLMenuItem
             // 
             this.ApiInfoTLMenuItem.Name = "ApiInfoTLMenuItem";
             this.ApiInfoTLMenuItem.Size = new System.Drawing.Size(251, 22);
             this.ApiInfoTLMenuItem.Text = "API情報(タイムラインアカウント)";
-            this.ApiInfoTLMenuItem.Click += new System.EventHandler(this.ApiInfoTLMenuItem_Click);
+            this.ApiInfoTLMenuItem.Click += new System.EventHandler(this.ApiUsageInfoTLMenuItem_Click);
             // 
             // ToolStripSeparator7
             // 
@@ -3297,5 +3306,6 @@
         private System.Windows.Forms.ToolStripMenuItem MainMenuReadAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MainMenuUnreadAllToolStripMenuItem;
         private TweetThumbnail tweetThumbnail1;
+        private System.Windows.Forms.ToolStripMenuItem TwitterApiStatusToolStripMenuItem;
     }
 }
