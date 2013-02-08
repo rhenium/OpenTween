@@ -1,5 +1,9 @@
 更新履歴
 
+==== Ver 1.0.9-beta1:2-2.7(2013/02/**)
+ * upsilon(@kim_upsilon)氏の https://github.com/upsilon/OpenTween/commit/yacq-filterexpression2 から取り込み
+ * NEW: 振り分けルールで Yacq が使用可能に 
+
 ==== Ver 1.0.9-beta1:2-2.6d(2013/02/08)
  * OpenTween の変更をマージ (6e5b93a1ccda64474d44db1a9925ed4d6b7e8cbe)
  * NEW: .NET Framework 4.0 Client Profile での動作に対応 (今後Full版のインストールは不要になります)
