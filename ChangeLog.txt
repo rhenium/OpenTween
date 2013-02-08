@@ -1,5 +1,12 @@
 更新履歴
 
+==== Ver 1.0.9-beta1:2-2.6d(2013/02/08)
+ * OpenTween の変更をマージ (6e5b93a1ccda64474d44db1a9925ed4d6b7e8cbe)
+ * NEW: .NET Framework 4.0 Client Profile での動作に対応 (今後Full版のインストールは不要になります)
+ * CHG: アイコンのキャッシュ機構を全面的に書き直し
+ * CHG: アイコンの取得先をHTTPSを使用するURLに変更
+ * FIX: 発言詳細欄に表示したツイートに含まれるURLへ無差別にHEADリクエストを飛ばす問題を修正
+
 ==== Ver 1.0.9-beta1:2-2.6c(2013/01/26)
  * OpenTween の変更をマージ (db5ed47256b2bc1c14d90744c590941346706806)
  * NEW: メニューに Twitter API の稼働状況ページへのリンクを追加

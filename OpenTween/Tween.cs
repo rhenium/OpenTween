@@ -47,7 +47,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace OpenTween
 {
@@ -138,7 +138,7 @@ namespace OpenTween
         private Color _clInputBackcolor;      //入力欄背景色
         private Color _clInputFont;           //入力欄文字色
         private Font _fntInputFont;           //入力欄フォント
-        private IDictionary<string, Image> TIconDic;        //アイコン画像リスト
+        private ImageCache IconCache;        //アイコン画像リスト
         private Icon NIconAt;               //At.ico             タスクトレイアイコン：通常時
         private Icon NIconAtRed;            //AtRed.ico          タスクトレイアイコン：通信エラー時
         private Icon NIconAtSmoke;          //AtSmoke.ico        タスクトレイアイコン：オフライン時
@@ -389,10 +389,10 @@ namespace OpenTween
             }
             this._apiGauge.Dispose();
             this._apiGaugeTL.Dispose();
-            if (TIconDic != null)
+            if (IconCache != null)
             {
-                ((ImageDictionary)this.TIconDic).PauseGetImage = true;
-                ((IDisposable)TIconDic).Dispose();
+                this.IconCache.CancelAsync();
+                this.IconCache.Dispose();
             }
             // 終了時にRemoveHandlerしておかないとメモリリークする
             // http://msdn.microsoft.com/ja-jp/library/microsoft.win32.systemevents.powermodechanged.aspx
@@ -861,17 +861,7 @@ namespace OpenTween
             _initial = true;
 
             //アイコンリスト作成
-            try
-            {
-                TIconDic = new ImageDictionary(5);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Please install [.NET Framework 4 (Full)].");
-                Application.Exit();
-                return;
-            }
-            ((ImageDictionary)this.TIconDic).PauseGetImage = false;
+            this.IconCache = new ImageCache();
 
             bool saveRequired = false;
             bool firstRun = false;
@@ -1157,9 +1147,6 @@ namespace OpenTween
             {
                 sz = 16;
             }
-
-            tw.DetailIcon = TIconDic;
-            tltw.DetailIcon = TIconDic;
 
             StatusLabel.Text = Properties.Resources.Form1_LoadText1;       //画面右下の状態表示を変更
             StatusLabelUrl.Text = "";            //画面左下のリンク先URL表示部を初期化
@@ -1848,7 +1835,8 @@ namespace OpenTween
                             string bText = sb.ToString();
                             if (string.IsNullOrEmpty(bText)) return;
 
-                            gh.Notify(nt, post.StatusId.ToString(), title.ToString(), bText, this.TIconDic[post.ImageUrl], post.ImageUrl);
+                            var image = this.IconCache.TryGetFromCache(post.ImageUrl);
+                            gh.Notify(nt, post.StatusId.ToString(), title.ToString(), bText, image == null ? null : image.Image, post.ImageUrl);
                         }
                     }
                     else
@@ -2243,7 +2231,7 @@ namespace OpenTween
             //Google検索（試験実装）
             if (StatusText.Text.StartsWith("Google:", StringComparison.OrdinalIgnoreCase) && StatusText.Text.Trim().Length > 7)
             {
-                string tmp = string.Format(Properties.Resources.SearchItem2Url, HttpUtility.UrlEncode(StatusText.Text.Substring(7)));
+                string tmp = string.Format(Properties.Resources.SearchItem2Url, Uri.EscapeDataString(StatusText.Text.Substring(7)));
                 OpenUriAsync(tmp);
             }
 
@@ -4127,7 +4115,7 @@ namespace OpenTween
                    e.Url.AbsoluteUri.StartsWith("https://twitter.com/search?q=%23"))
                 {
                     //ハッシュタグの場合は、タブで開く
-                    string urlStr = HttpUtility.UrlDecode(e.Url.AbsoluteUri);
+                    string urlStr = Uri.UnescapeDataString(e.Url.AbsoluteUri);
                     int i = urlStr.IndexOf('#');
                     if (i == -1) return;
 
@@ -5215,7 +5203,7 @@ namespace OpenTween
                                  "",
                                  mk.ToString(),
                                  Post.Source};
-                itm = new ImageListViewItem(sitem, (ImageDictionary)this.TIconDic, Post.ImageUrl);
+                itm = new ImageListViewItem(sitem, this.IconCache, Post.ImageUrl);
             }
             else
             {
@@ -5227,7 +5215,7 @@ namespace OpenTween
                                   "",
                                   mk.ToString(),
                                   Post.Source};
-                itm = new ImageListViewItem(sitem, (ImageDictionary)this.TIconDic, Post.ImageUrl);
+                itm = new ImageListViewItem(sitem, this.IconCache, Post.ImageUrl);
             }
             itm.StateImageIndex = Post.StateIndex;
 
@@ -6168,21 +6156,23 @@ namespace OpenTween
             {
                 NameLabel.Text += " (RT:" + _curPost.RetweetedBy + ")";
             }
+
             if (UserPicture.Image != null) UserPicture.Image.Dispose();
-            if (!string.IsNullOrEmpty(_curPost.ImageUrl) && TIconDic[_curPost.ImageUrl] != null)
+            UserPicture.Image = null;
+            if (!string.IsNullOrEmpty(_curPost.ImageUrl))
             {
-                try
+                var image = IconCache.TryGetFromCache(_curPost.ImageUrl);
+                if (image != null)
                 {
-                    UserPicture.Image = new Bitmap(TIconDic[_curPost.ImageUrl]);
+                    try
+                    {
+                        UserPicture.Image = new Bitmap(image.Image);
+                    }
+                    catch (Exception)
+                    {
+                        UserPicture.Image = null;
+                    }
                 }
-                catch (Exception)
-                {
-                    UserPicture.Image = null;
-                }
-            }
-            else
-            {
-                UserPicture.Image = null;
             }
 
             NameLabel.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -9362,7 +9352,7 @@ namespace OpenTween
                     openUrlStr.StartsWith("https://twitter.com/search?q="))
                 {
                     //ハッシュタグの場合は、タブで開く
-                    string urlStr = HttpUtility.UrlDecode(openUrlStr);
+                    string urlStr = Uri.UnescapeDataString(openUrlStr);
                     string hash = urlStr.Substring(urlStr.IndexOf("#"));
                     HashSupl.AddItem(hash);
                     HashMgr.AddHashToHistory(hash.Trim(), false);
@@ -9786,7 +9776,7 @@ namespace OpenTween
                         this.IconNameToolStripMenuItem.Enabled = false;
                         this.IconNameToolStripMenuItem.Text = Properties.Resources.ContextMenuStrip3_OpeningText1;
                     }
-                    if (this.TIconDic[_curPost.ImageUrl] != null)
+                    if (this.IconCache.TryGetFromCache(_curPost.ImageUrl) != null)
                     {
                         this.SaveIconPictureToolStripMenuItem.Enabled = true;
                     }
@@ -9882,7 +9872,7 @@ namespace OpenTween
             {
                 try
                 {
-                    using (Image orgBmp = new Bitmap(TIconDic[name]))
+                    using (Image orgBmp = new Bitmap(IconCache.TryGetFromCache(name).Image))
                     {
                         using (Bitmap bmp2 = new Bitmap(orgBmp.Size.Width, orgBmp.Size.Height))
                         {
@@ -10159,7 +10149,7 @@ namespace OpenTween
                     return;
                 }
 
-                string tmp = string.Format(url, HttpUtility.UrlEncode(_selText));
+                string tmp = string.Format(url, WebUtility.HtmlDecode(_selText));
                 OpenUriAsync(tmp);
             }
         }
@@ -10395,7 +10385,7 @@ namespace OpenTween
                             if (sep < configBrowserPath.Length - 1)
                             {
                                 arg = configBrowserPath.Substring(sep + 1);
-        }
+                            }
                             myPath = arg + " " + myPath;
                             System.Diagnostics.Process.Start(browserPath, myPath);
                         }
@@ -10714,7 +10704,7 @@ namespace OpenTween
                 _reply_to_id = 0;
                 _reply_to_name = "";
 
-                StatusText.Text = " RT @" + _curPost.ScreenName + ": " + HttpUtility.HtmlDecode(rtdata);
+                StatusText.Text = " RT @" + _curPost.ScreenName + ": " + WebUtility.HtmlDecode(rtdata);
 
                 StatusText.SelectionStart = 0;
                 StatusText.Focus();
@@ -10885,7 +10875,7 @@ namespace OpenTween
             e.Result = args.tw.GetInfoApi(args.info);
         }
 
-        private void ApiUsageInfoMenuItem_Click(object sender, EventArgs e)
+        private void ShowApiInfo(Twitter _tw)
         {
             ApiInfo info = new ApiInfo();
             StringBuilder tmp = new StringBuilder();
@@ -10921,12 +10911,12 @@ namespace OpenTween
             MessageBox.Show(tmp.ToString(), Properties.Resources.ApiInfo4, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void ApiInfoMenuItem_Click(object sender, EventArgs e)
+        private void ApiUsageInfoMenuItem_Click(object sender, EventArgs e)
         {
             ShowApiInfo(this.tw);
         }
 
-        private void ApiInfoTLMenuItem_Click(object sender, EventArgs e)
+        private void ApiUsageInfoTLMenuItem_Click(object sender, EventArgs e)
         {
             ShowApiInfo(this.tltw);
         }
@@ -11300,7 +11290,7 @@ namespace OpenTween
                 string rtdata = _curPost.Text;
                 rtdata = CreateRetweetUnofficial(rtdata);
 
-                StatusText.Text = " QT @" + _curPost.ScreenName + ": " + HttpUtility.HtmlDecode(rtdata);
+                StatusText.Text = " QT @" + _curPost.ScreenName + ": " + WebUtility.HtmlDecode(rtdata);
                 if (_curPost.RetweetedId == 0)
                 {
                     _reply_to_id = _curPost.StatusId;
@@ -12103,7 +12093,7 @@ namespace OpenTween
             this._apiGaugeTL.Control.Size = new Size(70, 22);
             this._apiGaugeTL.Control.Margin = new Padding(0, 3, 0, 2);
             this._apiGaugeTL.GaugeHeight = 8;
-            this._apiGaugeTL.Control.DoubleClick += this.ApiInfoTLMenuItem_Click;
+            this._apiGaugeTL.Control.DoubleClick += this.ApiUsageInfoTLMenuItem_Click;
             this.StatusStrip1.Items.Insert(2, this._apiGauge);
             this.StatusStrip1.Items.Insert(3, this._apiGaugeTL);
 
@@ -12524,10 +12514,10 @@ namespace OpenTween
         private void CacheInfoMenuItem_Click(object sender, EventArgs e)
         {
             StringBuilder buf = new StringBuilder();
-            buf.AppendFormat("キャッシュメモリ容量         : {0}bytes({1}MB)" + Environment.NewLine, ((ImageDictionary)TIconDic).CacheMemoryLimit, ((ImageDictionary)TIconDic).CacheMemoryLimit / 1048576);
-            buf.AppendFormat("物理メモリ使用割合           : {0}%" + Environment.NewLine, ((ImageDictionary)TIconDic).PhysicalMemoryLimit);
-            buf.AppendFormat("キャッシュエントリ保持数     : {0}" + Environment.NewLine, ((ImageDictionary)TIconDic).CacheCount);
-            buf.AppendFormat("キャッシュエントリ破棄数     : {0}" + Environment.NewLine, ((ImageDictionary)TIconDic).CacheRemoveCount);
+            //buf.AppendFormat("キャッシュメモリ容量         : {0}bytes({1}MB)" + Environment.NewLine, IconCache.CacheMemoryLimit, ((ImageDictionary)IconCache).CacheMemoryLimit / 1048576);
+            //buf.AppendFormat("物理メモリ使用割合           : {0}%" + Environment.NewLine, IconCache.PhysicalMemoryLimit);
+            buf.AppendFormat("キャッシュエントリ保持数     : {0}" + Environment.NewLine, IconCache.CacheCount);
+            buf.AppendFormat("キャッシュエントリ破棄数     : {0}" + Environment.NewLine, IconCache.CacheRemoveCount);
             MessageBox.Show(buf.ToString(), "アイコンキャッシュ使用状況");
         }
 
@@ -13125,7 +13115,7 @@ namespace OpenTween
         private void CopyTweet()
         {
             if (_curPost == null || (_curPost.IsDeleted && !_cfgCommon.ShowDeleted)) return;
-            string clstr = HttpUtility.HtmlDecode(CreateRetweetUnofficial(_curPost.Text));
+            string clstr = WebUtility.HtmlDecode(CreateRetweetUnofficial(_curPost.Text));
             try
             {
                 Clipboard.SetDataObject(clstr, false, 5, 100);

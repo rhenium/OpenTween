@@ -94,7 +94,7 @@ namespace OpenTween
                 _info.ScreenName = user.ScreenName;
                 _info.Location = user.Location;
                 _info.Description = user.Description;
-                _info.ImageUrl = new Uri(user.ProfileImageUrl);
+                _info.ImageUrl = new Uri(user.ProfileImageUrlHttps);
                 _info.Url = user.Url;
                 _info.Protect = user.Protected;
                 _info.FriendsCount = user.FriendsCount;
@@ -411,7 +411,7 @@ namespace OpenTween
                     e.Url.AbsoluteUri.StartsWith("https://twitter.com/search?q=%23"))
                 {
                     //ハッシュタグの場合は、タブで開く
-                    string urlStr = HttpUtility.UrlDecode(e.Url.AbsoluteUri);
+                    string urlStr = Uri.UnescapeDataString(e.Url.AbsoluteUri);
                     string hash = urlStr.Substring(urlStr.IndexOf("#"));
                     MyOwner.HashSupl.AddItem(hash);
                     MyOwner.HashMgr.AddHashToHistory(hash.Trim(), false);
@@ -702,7 +702,7 @@ namespace OpenTween
             try
             {
                 res = MyOwner.TwitterInstance.GetUserInfo(_info.ScreenName, ref user);
-                Image img = (new HttpVarious()).GetImage(user.ProfileImageUrl);
+                Image img = (new HttpVarious()).GetImage(user.ProfileImageUrlHttps);
                 if (img != null)
                 {
                     UserPicture.Image = img;

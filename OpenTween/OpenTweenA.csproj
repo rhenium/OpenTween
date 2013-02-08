@@ -12,21 +12,7 @@
     <AssemblyName>OpenTweenA</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,7 +23,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,8 +35,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>OpenTween.MyApplication</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\4b.ico</ApplicationIcon>
@@ -60,9 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -122,6 +104,7 @@
     <Compile Include="HashtagManage.Designer.cs">
       <DependentUpon>HashtagManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageCache.cs" />
     <Compile Include="ListAvailable.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,17 +126,20 @@
     <Compile Include="DetailsListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LRUCacheDictionary.cs" />
+    <Compile Include="MemoryImage.cs" />
     <Compile Include="MorseCode.cs" />
     <Compile Include="OTPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="OTWebClient.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TabsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabsDialog.Designer.cs">
+      <DependentUpon>TabsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Thumbnail\Services\Foursquare.cs" />
     <Compile Include="Thumbnail\Services\ImgAzyobuziNet.cs" />
@@ -170,6 +156,12 @@
     <Compile Include="Thumbnail\Services\Youtube.cs" />
     <Compile Include="Thumbnail\ThumbnailGenerator.cs" />
     <Compile Include="Thumbnail\ThumbnailInfo.cs" />
+    <Compile Include="TweetPool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TweetPool.Designer.cs">
+      <DependentUpon>TweetPool.cs</DependentUpon>
+    </Compile>
     <Compile Include="TweetThumbnail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -201,7 +193,6 @@
     <Compile Include="Thumbnail\MapThumb.cs" />
     <Compile Include="Thumbnail\MapThumbOSM.cs" />
     <Compile Include="ListElement.cs" />
-    <Compile Include="ImageDictionary.cs" />
     <Compile Include="ImageListViewItem.cs" />
     <Compile Include="MyCommon.cs" />
     <Compile Include="MyLists.cs">
@@ -221,6 +212,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RadixConvert.cs" />
     <Compile Include="SearchWord.cs">
       <SubType>Form</SubType>
@@ -234,12 +230,6 @@
     <Compile Include="Setting\SettingTabs.cs" />
     <Compile Include="Setting\SettingLocal.cs" />
     <Compile Include="ShortUrl.cs" />
-    <Compile Include="TabsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TabsDialog.Designer.cs">
-      <DependentUpon>TabsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="ShowUserInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,12 +255,6 @@
     <Compile Include="ToolStripLabelHistory.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="TweetPool.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TweetPool.Designer.cs">
-      <DependentUpon>TweetPool.cs</DependentUpon>
-    </Compile>
     <Compile Include="Twitter.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="WebBrowserController.cs" />
@@ -285,11 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EventViewerDialog.resx">
       <DependentUpon>EventViewerDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FilterDialog.resx">
       <DependentUpon>FilterDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="HashtagManage.resx">
       <DependentUpon>HashtagManage.cs</DependentUpon>
@@ -306,6 +288,12 @@
     <EmbeddedResource Include="AppendSettingDialog.resx">
       <DependentUpon>AppendSettingDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabsDialog.resx">
+      <DependentUpon>TabsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TweetPool.resx">
+      <DependentUpon>TweetPool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TweetThumbnail.resx">
       <DependentUpon>TweetThumbnail.cs</DependentUpon>
@@ -327,14 +315,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchWord.resx">
       <DependentUpon>SearchWord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TabsDialog.resx">
-      <DependentUpon>TabsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShowUserInfo.resx">
       <DependentUpon>ShowUserInfo.cs</DependentUpon>
@@ -346,34 +331,6 @@
     <EmbeddedResource Include="TweenAboutBox.resx">
       <DependentUpon>TweenAboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TweetPool.resx">
-      <DependentUpon>TweetPool.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\ChangeLog.txt">
-      <Link>ChangeLog.txt</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\version.txt">
-      <Link>version.txt</Link>
-    </Content>
-    <Content Include="Resources\3b.ico" />
-    <Content Include="Resources\4b.ico" />
-    <Content Include="Resources\5b.ico" />
-    <Content Include="Resources\5g.ico" />
-    <Content Include="Resources\5r.ico" />
-    <Content Include="Resources\5y.ico" />
-    <Content Include="Resources\6b.ico" />
-    <Content Include="Resources\6g.ico" />
-    <Content Include="Resources\Description.txt" />
-    <Content Include="Resources\InitialImage.png" />
-    <Content Include="Resources\LogoImage.png" />
-    <Content Include="Resources\MultiMediaImage.png" />
-    <Content Include="Resources\re.ico" />
-    <Content Include="Resources\re2.ico" />
-    <Content Include="Resources\re3.ico" />
-    <Content Include="Resources\re4.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE">
@@ -392,33 +349,32 @@
       <Link>LICENSE.LGPL-3</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="..\ChangeLog.txt">
+      <Link>ChangeLog.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\README.md">
       <Link>README.md</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 および x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows インストーラー 4.5
-</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <Content Include="Resources\3b.ico" />
+    <Content Include="Resources\4b.ico" />
+    <Content Include="Resources\5b.ico" />
+    <Content Include="Resources\5g.ico" />
+    <Content Include="Resources\5r.ico" />
+    <Content Include="Resources\5y.ico" />
+    <Content Include="Resources\6b.ico" />
+    <Content Include="Resources\6g.ico" />
+    <Content Include="Resources\Description.txt" />
+    <Content Include="Resources\InitialImage.png" />
+    <Content Include="Resources\LogoImage.png" />
+    <Content Include="Resources\MultiMediaImage.png" />
+    <Content Include="Resources\re.ico" />
+    <Content Include="Resources\re2.ico" />
+    <Content Include="Resources\re3.ico" />
+    <Content Include="Resources\re4.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

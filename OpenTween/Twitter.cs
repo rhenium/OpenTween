@@ -135,7 +135,6 @@ namespace OpenTween
         private string _uname;
         private int _iconSz;
         private bool _getIcon;
-        private IDictionary<string, Image> _dIcon;
 
         private bool _tinyUrlResolve;
         private bool _restrictFavCheck;
@@ -407,7 +406,7 @@ namespace OpenTween
 
         private string GetPlainText(string orgData)
         {
-            return HttpUtility.HtmlDecode(Regex.Replace(orgData, "(?<tagStart><a [^>]+>)(?<text>[^<]+)(?<tagEnd></a>)", "${text}"));
+            return WebUtility.HtmlDecode(Regex.Replace(orgData, "(?<tagStart><a [^>]+>)(?<text>[^<]+)(?<tagEnd></a>)", "${text}"));
         }
 
         // htmlの簡易サニタイズ(詳細表示に不要なタグの除去)
@@ -1787,18 +1786,6 @@ namespace OpenTween
         }
         #endregion
 
-        public IDictionary<string, Image> DetailIcon
-        {
-            get
-            {
-                return _dIcon;
-            }
-            set
-            {
-                _dIcon = value;
-            }
-        }
-
         public bool ReadOwnPost
         {
             get
@@ -2147,7 +2134,7 @@ namespace OpenTween
                 post.UserId = user.Id;
                 post.ScreenName = user.ScreenName;
                 post.Nickname = user.Name.Trim();
-                post.ImageUrl = user.ProfileImageUrl;
+                post.ImageUrl = user.ProfileImageUrlHttps;
                 post.IsProtect = user.Protected;
 
                 //Retweetした人
@@ -2181,7 +2168,7 @@ namespace OpenTween
                 post.UserId = user.Id;
                 post.ScreenName = user.ScreenName;
                 post.Nickname = user.Name.Trim();
-                post.ImageUrl = user.ProfileImageUrl;
+                post.ImageUrl = user.ProfileImageUrlHttps;
                 post.IsProtect = user.Protected;
                 post.IsMe = post.ScreenName.ToLower().Equals(_uname);
 
@@ -2194,7 +2181,7 @@ namespace OpenTween
             post.Text = CreateHtmlAnchor(ref textFromApi, post.ReplyToList, entities, post.Media);
             post.TextFromApi = textFromApi;
             post.TextFromApi = this.ReplaceTextFromApi(post.TextFromApi, entities);
-            post.TextFromApi = HttpUtility.HtmlDecode(post.TextFromApi);
+            post.TextFromApi = WebUtility.HtmlDecode(post.TextFromApi);
             post.TextFromApi = post.TextFromApi.Replace("<3", "\u2661");
 
             //Source整形
@@ -2325,7 +2312,7 @@ namespace OpenTween
             //本文
             post.TextFromApi = status.Text;
             var entities = status.Entities;
-            post.Source = HttpUtility.HtmlDecode(status.Source);
+            post.Source = WebUtility.HtmlDecode(status.Source);
             post.InReplyToStatusId = status.InReplyToStatusId;
             post.InReplyToUser = status.ToUser;
             post.InReplyToUserId = !status.ToUserId.HasValue ? 0 : (long)status.ToUserId;
@@ -2349,7 +2336,7 @@ namespace OpenTween
             string textFromApi = post.TextFromApi;
             post.Text = this.CreateHtmlAnchor(ref textFromApi, post.ReplyToList, entities, post.Media);
             post.TextFromApi = this.ReplaceTextFromApi(post.TextFromApi, entities);
-            post.TextFromApi = HttpUtility.HtmlDecode(post.TextFromApi);
+            post.TextFromApi = WebUtility.HtmlDecode(post.TextFromApi);
             post.TextFromApi = post.TextFromApi.Replace("<3", "\u2661");
 
             //Source整形
@@ -2867,7 +2854,7 @@ namespace OpenTween
                     post.TextFromApi = message.Text;
                     //HTMLに整形
                     post.Text = CreateHtmlAnchor(post.TextFromApi, post.ReplyToList, post.Media);
-                    post.TextFromApi = HttpUtility.HtmlDecode(post.TextFromApi);
+                    post.TextFromApi = WebUtility.HtmlDecode(post.TextFromApi);
                     post.TextFromApi = post.TextFromApi.Replace("<3", "\u2661");
                     post.IsFav = false;
 
@@ -2907,7 +2894,7 @@ namespace OpenTween
                     post.UserId = user.Id;
                     post.ScreenName = user.ScreenName;
                     post.Nickname = user.Name.Trim();
-                    post.ImageUrl = user.ProfileImageUrl;
+                    post.ImageUrl = user.ProfileImageUrlHttps;
                     post.IsProtect = user.Protected;
                 }
                 catch (Exception ex)
@@ -3102,7 +3089,7 @@ namespace OpenTween
                         post.UserId = user.Id;
                         post.ScreenName = user.ScreenName;
                         post.Nickname = user.Name.Trim();
-                        post.ImageUrl = user.ProfileImageUrl;
+                        post.ImageUrl = user.ProfileImageUrlHttps;
                         post.IsProtect = user.Protected;
 
                         //Retweetした人
@@ -3133,7 +3120,7 @@ namespace OpenTween
                         post.UserId = user.Id;
                         post.ScreenName = user.ScreenName;
                         post.Nickname = user.Name.Trim();
-                        post.ImageUrl = user.ProfileImageUrl;
+                        post.ImageUrl = user.ProfileImageUrlHttps;
                         post.IsProtect = user.Protected;
                         post.IsMe = post.ScreenName.ToLower().Equals(_uname);
                     }
@@ -3142,7 +3129,7 @@ namespace OpenTween
                     post.Text = CreateHtmlAnchor(ref textFromApi, post.ReplyToList, entities, post.Media);
                     post.TextFromApi = textFromApi;
                     post.TextFromApi = this.ReplaceTextFromApi(post.TextFromApi, entities);
-                    post.TextFromApi = HttpUtility.HtmlDecode(post.TextFromApi);
+                    post.TextFromApi = WebUtility.HtmlDecode(post.TextFromApi);
                     post.TextFromApi = post.TextFromApi.Replace("<3", "\u2661");
                     //Source整形
                     CreateSource(post);
@@ -4097,7 +4084,7 @@ namespace OpenTween
                 if (mS.Success)
                 {
                     post.SourceHtml = string.Copy(ShortUrl.Resolve(PreProcessUrl(post.Source), false));
-                    post.Source = HttpUtility.HtmlDecode(mS.Result("${source}"));
+                    post.Source = WebUtility.HtmlDecode(mS.Result("${source}"));
                 }
                 else
                 {
@@ -4597,7 +4584,7 @@ namespace OpenTween
                     break;
                 case "favorite":
                 case "unfavorite":
-                    evt.Target = "@" + eventData.TargetObject.User.ScreenName + ":" + HttpUtility.HtmlDecode(eventData.TargetObject.Text);
+                    evt.Target = "@" + eventData.TargetObject.User.ScreenName + ":" + WebUtility.HtmlDecode(eventData.TargetObject.Text);
                     evt.Id = eventData.TargetObject.Id;
                     if (AppendSettingDialog.Instance.IsRemoveSameEvent)
                     {

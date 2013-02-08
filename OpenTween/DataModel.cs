@@ -175,8 +175,8 @@ namespace OpenTween
             public int FollowersCount;
             [DataMember(Name = "url")]
             public string Url;
-            [DataMember(Name = "profile_image_url")]
-            public string ProfileImageUrl;
+            [DataMember(Name = "profile_image_url_https")]
+            public string ProfileImageUrlHttps;
             [DataMember(Name = "notifications")]
             public string Notifications;
             [DataMember(Name = "profile_text_color")]
@@ -187,8 +187,8 @@ namespace OpenTween
             public string IdStr;
             [DataMember(Name = "lang")]
             public string Lang;
-            [DataMember(Name = "profile_background_image_url")]
-            public string ProfileBackgroundImageUrl;
+            [DataMember(Name = "profile_background_image_url_https")]
+            public string ProfileBackgroundImageUrlHttps;
             [DataMember(Name = "screen_name")]
             public string ScreenName;
             [DataMember(Name = "name")]
