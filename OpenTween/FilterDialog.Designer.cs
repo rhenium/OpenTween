@@ -46,7 +46,6 @@
             this.OptMove = new System.Windows.Forms.RadioButton();
             this.RadioAND = new System.Windows.Forms.RadioButton();
             this.Label8 = new System.Windows.Forms.Label();
-            this.CheckURL = new System.Windows.Forms.CheckBox();
             this.ButtonOK = new System.Windows.Forms.Button();
             this.RadioPLUS = new System.Windows.Forms.RadioButton();
             this.CheckRegex = new System.Windows.Forms.CheckBox();
@@ -79,7 +78,6 @@
             this.CheckExCaseSensitive = new System.Windows.Forms.CheckBox();
             this.RadioExAnd = new System.Windows.Forms.RadioButton();
             this.Label1 = new System.Windows.Forms.Label();
-            this.CheckExURL = new System.Windows.Forms.CheckBox();
             this.RadioExPLUS = new System.Windows.Forms.RadioButton();
             this.CheckExRegex = new System.Windows.Forms.CheckBox();
             this.Label2 = new System.Windows.Forms.Label();
@@ -211,12 +209,6 @@
             // 
             resources.ApplyResources(this.Label8, "Label8");
             this.Label8.Name = "Label8";
-            // 
-            // CheckURL
-            // 
-            resources.ApplyResources(this.CheckURL, "CheckURL");
-            this.CheckURL.Name = "CheckURL";
-            this.CheckURL.UseVisualStyleBackColor = true;
             // 
             // ButtonOK
             // 
@@ -412,7 +404,6 @@
             this.GroupExclude.Controls.Add(this.CheckExCaseSensitive);
             this.GroupExclude.Controls.Add(this.RadioExAnd);
             this.GroupExclude.Controls.Add(this.Label1);
-            this.GroupExclude.Controls.Add(this.CheckExURL);
             this.GroupExclude.Controls.Add(this.RadioExPLUS);
             this.GroupExclude.Controls.Add(this.CheckExRegex);
             this.GroupExclude.Controls.Add(this.Label2);
@@ -467,12 +458,6 @@
             // 
             resources.ApplyResources(this.Label1, "Label1");
             this.Label1.Name = "Label1";
-            // 
-            // CheckExURL
-            // 
-            resources.ApplyResources(this.CheckExURL, "CheckExURL");
-            this.CheckExURL.Name = "CheckExURL";
-            this.CheckExURL.UseVisualStyleBackColor = true;
             // 
             // RadioExPLUS
             // 
@@ -531,7 +516,6 @@
             this.GroupMatch.Controls.Add(this.CheckCaseSensitive);
             this.GroupMatch.Controls.Add(this.RadioAND);
             this.GroupMatch.Controls.Add(this.Label8);
-            this.GroupMatch.Controls.Add(this.CheckURL);
             this.GroupMatch.Controls.Add(this.RadioPLUS);
             this.GroupMatch.Controls.Add(this.CheckRegex);
             this.GroupMatch.Controls.Add(this.Label9);
@@ -640,7 +624,6 @@
         internal System.Windows.Forms.RadioButton OptMove;
         internal System.Windows.Forms.RadioButton RadioAND;
         internal System.Windows.Forms.Label Label8;
-        internal System.Windows.Forms.CheckBox CheckURL;
         internal System.Windows.Forms.Button ButtonOK;
         internal System.Windows.Forms.RadioButton RadioPLUS;
         internal System.Windows.Forms.CheckBox CheckRegex;
@@ -672,7 +655,6 @@
         internal System.Windows.Forms.CheckBox CheckExCaseSensitive;
         internal System.Windows.Forms.RadioButton RadioExAnd;
         internal System.Windows.Forms.Label Label1;
-        internal System.Windows.Forms.CheckBox CheckExURL;
         internal System.Windows.Forms.RadioButton RadioExPLUS;
         internal System.Windows.Forms.CheckBox CheckExRegex;
         internal System.Windows.Forms.Label Label2;

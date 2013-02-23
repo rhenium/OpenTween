@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -2481,7 +2482,6 @@ namespace OpenTween
             original.BodyFilter = modified.BodyFilter;
             original.NameFilter = modified.NameFilter;
             original.SearchBoth = modified.SearchBoth;
-            original.SearchUrl = modified.SearchUrl;
             original.UseRegex = modified.UseRegex;
             original.CaseSensitive = modified.CaseSensitive;
             original.IsRt = modified.IsRt;
@@ -2490,7 +2490,6 @@ namespace OpenTween
             original.ExBodyFilter = modified.ExBodyFilter;
             original.ExNameFilter = modified.ExNameFilter;
             original.ExSearchBoth = modified.ExSearchBoth;
-            original.ExSearchUrl = modified.ExSearchUrl;
             original.ExUseRegex = modified.ExUseRegex;
             original.ExCaseSensitive = modified.ExCaseSensitive;
             original.IsExRt = modified.IsExRt;
@@ -2626,7 +2625,6 @@ namespace OpenTween
         private string _name = "";
         private List<string> _body = new List<string>();
         private bool _searchBoth = true;
-        private bool _searchUrl = false;
         private bool _caseSensitive = false;
         private bool _useRegex = false;
         private bool _isRt = false;
@@ -2634,7 +2632,6 @@ namespace OpenTween
         private string _exname = "";
         private List<string> _exbody = new List<string>();
         private bool _exsearchBoth = true;
-        private bool _exsearchUrl = false;
         private bool _exuseRegex = false;
         private bool _excaseSensitive = false;
         private bool _isExRt = false;
@@ -2693,10 +2690,6 @@ namespace OpenTween
                 {
                     fs.Append(Properties.Resources.SetFiltersText7);
                 }
-                if (_searchUrl)
-                {
-                    fs.Append(Properties.Resources.SetFiltersText8);
-                }
                 if (_caseSensitive)
                 {
                     fs.Append(Properties.Resources.SetFiltersText13);
@@ -2754,10 +2747,6 @@ namespace OpenTween
                 if (_exuseRegex)
                 {
                     fs.Append(Properties.Resources.SetFiltersText7);
-                }
-                if (_exsearchUrl)
-                {
-                    fs.Append(Properties.Resources.SetFiltersText8);
                 }
                 if (_excaseSensitive)
                 {
@@ -2936,30 +2925,6 @@ namespace OpenTween
             }
         }
 
-        public bool SearchUrl
-        {
-            get
-            {
-                return _searchUrl;
-            }
-            set
-            {
-                _searchUrl = value;
-            }
-        }
-
-        public bool ExSearchUrl
-        {
-            get
-            {
-                return _exsearchUrl;
-            }
-            set
-            {
-                _exsearchUrl = value;
-            }
-        }
-
         public bool CaseSensitive
         {
             get
@@ -3128,18 +3093,9 @@ namespace OpenTween
         public MyCommon.HITRESULT IsHit(PostClass post)
         {
             var bHit = true;
-            string tBody;
-            string tSource;
-            if (_searchUrl)
-            {
-                tBody = post.Text;
-                tSource = post.SourceHtml;
-            }
-            else
-            {
-                tBody = post.TextFromApi;
-                tSource = post.Source;
-            }
+            string tBody = post.Text;
+            string tSource = post.SourceHtml;
+
             //検索オプション
             System.StringComparison compOpt;
             System.Text.RegularExpressions.RegexOptions rgOpt;
@@ -3252,16 +3208,8 @@ namespace OpenTween
             if (bHit)
             {
                 //除外判定
-                if (_exsearchUrl)
-                {
-                    tBody = post.Text;
-                    tSource = post.SourceHtml;
-                }
-                else
-                {
-                    tBody = post.TextFromApi;
-                    tSource = post.Source;
-                }
+                tBody = post.Text;
+                tSource = post.SourceHtml;
 
                 var exFlag = false;
                 if (!string.IsNullOrEmpty(_exname) || _exbody.Count > 0)
@@ -3438,11 +3386,9 @@ namespace OpenTween
                    (this.SetMark == other.SetMark) &
                    (this.NameFilter == other.NameFilter) &
                    (this.SearchBoth == other.SearchBoth) &
-                   (this.SearchUrl == other.SearchUrl) &
                    (this.UseRegex == other.UseRegex) &
                    (this.ExNameFilter == other.ExNameFilter) &
                    (this.ExSearchBoth == other.ExSearchBoth) &
-                   (this.ExSearchUrl == other.ExSearchUrl) &
                    (this.ExUseRegex == other.ExUseRegex) &
                    (this.IsRt == other.IsRt) &
                    (this.Source == other.Source) &
@@ -3474,11 +3420,9 @@ namespace OpenTween
             destination.SetMark = this.SetMark;
             destination.NameFilter = this.NameFilter;
             destination.SearchBoth = this.SearchBoth;
-            destination.SearchUrl = this.SearchUrl;
             destination.UseRegex = this.UseRegex;
             destination.ExNameFilter = this.ExNameFilter;
             destination.ExSearchBoth = this.ExSearchBoth;
-            destination.ExSearchUrl = this.ExSearchUrl;
             destination.ExUseRegex = this.ExUseRegex;
             destination.IsRt = this.IsRt;
             destination.Source = this.Source;
@@ -3502,12 +3446,10 @@ namespace OpenTween
                    this.BodyFilter.GetHashCode() ^
                    this.NameFilter.GetHashCode() ^
                    this.SearchBoth.GetHashCode() ^
-                   this.SearchUrl.GetHashCode() ^
                    this.UseRegex.GetHashCode() ^
                    this.ExBodyFilter.GetHashCode() ^
                    this.ExNameFilter.GetHashCode() ^
                    this.ExSearchBoth.GetHashCode() ^
-                   this.ExSearchUrl.GetHashCode() ^
                    this.ExUseRegex.GetHashCode() ^
                    this.IsRt.GetHashCode() ^
                    this.Source.GetHashCode() ^

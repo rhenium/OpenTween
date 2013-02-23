@@ -9100,7 +9100,6 @@ namespace OpenTween
                     fc.MoveFrom = mv;
                     fc.SetMark = mk;
                     fc.UseRegex = false;
-                    fc.SearchUrl = false;
                     _statuses.Tabs[tabName].AddFilter(fc);
                 }
             }
@@ -11446,7 +11445,6 @@ namespace OpenTween
                 fc.MoveFrom = mv;
                 fc.SetMark = mk;
                 fc.UseRegex = false;
-                fc.SearchUrl = false;
                 _statuses.Tabs[tabName].AddFilter(fc);
 
                 try

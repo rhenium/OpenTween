@@ -127,13 +127,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 120</value>
-  </data>
-  <data name="Label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>43, 96</value>
   </data>
   <data name="Label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 15</value>
+    <value>40, 12</value>
   </data>
   <data name="Label5.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -157,13 +154,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="ButtonClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>852, 691</value>
-  </data>
-  <data name="ButtonClose.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>682, 553</value>
   </data>
   <data name="ButtonClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonClose.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -184,13 +178,10 @@
     <value>0</value>
   </data>
   <data name="ButtonRuleMove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>428, 261</value>
-  </data>
-  <data name="ButtonRuleMove.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>342, 209</value>
   </data>
   <data name="ButtonRuleMove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonRuleMove.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -217,13 +208,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckRetweet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 105</value>
-  </data>
-  <data name="CheckRetweet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 84</value>
   </data>
   <data name="CheckRetweet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 19</value>
+    <value>84, 16</value>
   </data>
   <data name="CheckRetweet.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -244,13 +232,10 @@
     <value>3</value>
   </data>
   <data name="ButtonRuleCopy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>326, 261</value>
-  </data>
-  <data name="ButtonRuleCopy.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>261, 209</value>
   </data>
   <data name="ButtonRuleCopy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonRuleCopy.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -271,13 +256,10 @@
     <value>1</value>
   </data>
   <data name="TextSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 116</value>
-  </data>
-  <data name="TextSource.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>89, 93</value>
   </data>
   <data name="TextSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+    <value>96, 19</value>
   </data>
   <data name="TextSource.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -301,13 +283,10 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonRuleDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>164, 261</value>
-  </data>
-  <data name="ButtonRuleDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>131, 209</value>
   </data>
   <data name="ButtonRuleDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 29</value>
+    <value>34, 23</value>
   </data>
   <data name="ButtonRuleDown.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -337,13 +316,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckLambda.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 132</value>
-  </data>
-  <data name="CheckLambda.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 106</value>
   </data>
   <data name="CheckLambda.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 19</value>
+    <value>63, 16</value>
   </data>
   <data name="CheckLambda.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -376,13 +352,10 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonRuleUp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>112, 261</value>
-  </data>
-  <data name="ButtonRuleUp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>90, 209</value>
   </data>
   <data name="ButtonRuleUp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 29</value>
+    <value>34, 23</value>
   </data>
   <data name="ButtonRuleUp.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -406,13 +379,10 @@
     <value>True</value>
   </data>
   <data name="CheckCaseSensitive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 78</value>
-  </data>
-  <data name="CheckCaseSensitive.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 62</value>
   </data>
   <data name="CheckCaseSensitive.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 19</value>
+    <value>102, 16</value>
   </data>
   <data name="CheckCaseSensitive.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -436,13 +406,10 @@
     <value>True</value>
   </data>
   <data name="CheckMark.Location" type="System.Drawing.Point, System.Drawing">
-    <value>55, 78</value>
-  </data>
-  <data name="CheckMark.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>44, 62</value>
   </data>
   <data name="CheckMark.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 19</value>
+    <value>70, 16</value>
   </data>
   <data name="CheckMark.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -463,13 +430,10 @@
     <value>0</value>
   </data>
   <data name="ButtonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>645, 330</value>
-  </data>
-  <data name="ButtonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>516, 264</value>
   </data>
   <data name="ButtonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonCancel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -493,13 +457,10 @@
     <value>True</value>
   </data>
   <data name="OptCopy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 50</value>
-  </data>
-  <data name="OptCopy.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>15, 40</value>
   </data>
   <data name="OptCopy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 19</value>
+    <value>123, 16</value>
   </data>
   <data name="OptCopy.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -523,13 +484,10 @@
     <value>True</value>
   </data>
   <data name="OptMove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 22</value>
-  </data>
-  <data name="OptMove.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>15, 18</value>
   </data>
   <data name="OptMove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 19</value>
+    <value>120, 16</value>
   </data>
   <data name="OptMove.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -553,13 +511,10 @@
     <value>True</value>
   </data>
   <data name="RadioAND.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 35</value>
-  </data>
-  <data name="RadioAND.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 28</value>
   </data>
   <data name="RadioAND.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 19</value>
+    <value>71, 16</value>
   </data>
   <data name="RadioAND.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -583,13 +538,10 @@
     <value>True</value>
   </data>
   <data name="Label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>234, 13</value>
-  </data>
-  <data name="Label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>187, 10</value>
   </data>
   <data name="Label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 15</value>
+    <value>53, 12</value>
   </data>
   <data name="Label8.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -609,44 +561,11 @@
   <data name="&gt;&gt;Label8.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="CheckURL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CheckURL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 50</value>
-  </data>
-  <data name="CheckURL.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="CheckURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 19</value>
-  </data>
-  <data name="CheckURL.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="CheckURL.Text" xml:space="preserve">
-    <value>URL検索</value>
-  </data>
-  <data name="&gt;&gt;CheckURL.Name" xml:space="preserve">
-    <value>CheckURL</value>
-  </data>
-  <data name="&gt;&gt;CheckURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CheckURL.Parent" xml:space="preserve">
-    <value>GroupMatch</value>
-  </data>
-  <data name="&gt;&gt;CheckURL.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="ButtonOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>548, 330</value>
-  </data>
-  <data name="ButtonOK.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>438, 264</value>
   </data>
   <data name="ButtonOK.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonOK.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -670,13 +589,10 @@
     <value>True</value>
   </data>
   <data name="RadioPLUS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 81</value>
-  </data>
-  <data name="RadioPLUS.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 65</value>
   </data>
   <data name="RadioPLUS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 19</value>
+    <value>71, 16</value>
   </data>
   <data name="RadioPLUS.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -694,19 +610,16 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;RadioPLUS.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="CheckRegex.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="CheckRegex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 22</value>
-  </data>
-  <data name="CheckRegex.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 18</value>
   </data>
   <data name="CheckRegex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 19</value>
+    <value>72, 16</value>
   </data>
   <data name="CheckRegex.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -724,19 +637,16 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;CheckRegex.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="LabelTabType.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="LabelTabType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 430</value>
-  </data>
-  <data name="LabelTabType.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 344</value>
   </data>
   <data name="LabelTabType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 15</value>
+    <value>76, 12</value>
   </data>
   <data name="LabelTabType.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -757,16 +667,13 @@
     <value>1</value>
   </data>
   <data name="ListTabs.ItemHeight" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>12</value>
   </data>
   <data name="ListTabs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 22</value>
-  </data>
-  <data name="ListTabs.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 18</value>
   </data>
   <data name="ListTabs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 229</value>
+    <value>113, 184</value>
   </data>
   <data name="ListTabs.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -790,13 +697,10 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 259</value>
-  </data>
-  <data name="ButtonDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>87, 207</value>
   </data>
   <data name="ButtonDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 29</value>
+    <value>34, 23</value>
   </data>
   <data name="ButtonDown.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -817,13 +721,10 @@
     <value>4</value>
   </data>
   <data name="ButtonAddTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 296</value>
-  </data>
-  <data name="ButtonAddTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 237</value>
   </data>
   <data name="ButtonAddTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 29</value>
+    <value>113, 23</value>
   </data>
   <data name="ButtonAddTab.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -844,13 +745,10 @@
     <value>5</value>
   </data>
   <data name="ButtonNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 261</value>
-  </data>
-  <data name="ButtonNew.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>9, 209</value>
   </data>
   <data name="ButtonNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonNew.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -874,13 +772,10 @@
     <value>Marlett, 9pt, style=Bold</value>
   </data>
   <data name="ButtonUp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 259</value>
-  </data>
-  <data name="ButtonUp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 207</value>
   </data>
   <data name="ButtonUp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 29</value>
+    <value>34, 23</value>
   </data>
   <data name="ButtonUp.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -904,13 +799,10 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonDeleteTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 332</value>
-  </data>
-  <data name="ButtonDeleteTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 266</value>
   </data>
   <data name="ButtonDeleteTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 29</value>
+    <value>113, 23</value>
   </data>
   <data name="ButtonDeleteTab.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -937,13 +829,10 @@
     <value>True</value>
   </data>
   <data name="Label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 538</value>
-  </data>
-  <data name="Label10.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 430</value>
   </data>
   <data name="Label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 15</value>
+    <value>66, 12</value>
   </data>
   <data name="Label10.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -967,13 +856,10 @@
     <value>NoControl</value>
   </data>
   <data name="ButtonRenameTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 369</value>
-  </data>
-  <data name="ButtonRenameTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 295</value>
   </data>
   <data name="ButtonRenameTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 29</value>
+    <value>113, 23</value>
   </data>
   <data name="ButtonRenameTab.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1003,13 +889,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckProtected.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 460</value>
-  </data>
-  <data name="CheckProtected.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 367</value>
   </data>
   <data name="CheckProtected.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 19</value>
+    <value>65, 16</value>
   </data>
   <data name="CheckProtected.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1033,13 +916,10 @@
     <value>True</value>
   </data>
   <data name="Label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 409</value>
-  </data>
-  <data name="Label13.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>6, 327</value>
   </data>
   <data name="Label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 15</value>
+    <value>56, 12</value>
   </data>
   <data name="Label13.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1063,13 +943,10 @@
     <value>Bottom, Left</value>
   </data>
   <data name="ComboSound.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 556</value>
-  </data>
-  <data name="ComboSound.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 445</value>
   </data>
   <data name="ComboSound.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 23</value>
+    <value>113, 20</value>
   </data>
   <data name="ComboSound.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1093,13 +970,10 @@
     <value>True</value>
   </data>
   <data name="CheckManageRead.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 487</value>
-  </data>
-  <data name="CheckManageRead.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 389</value>
   </data>
   <data name="CheckManageRead.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 19</value>
+    <value>72, 16</value>
   </data>
   <data name="CheckManageRead.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1129,13 +1003,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckNotifyNew.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 515</value>
-  </data>
-  <data name="CheckNotifyNew.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 411</value>
   </data>
   <data name="CheckNotifyNew.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 19</value>
+    <value>96, 16</value>
   </data>
   <data name="CheckNotifyNew.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1156,16 +1027,10 @@
     <value>12</value>
   </data>
   <data name="GroupTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 11</value>
-  </data>
-  <data name="GroupTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="GroupTab.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 9</value>
   </data>
   <data name="GroupTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 596</value>
+    <value>127, 477</value>
   </data>
   <data name="GroupTab.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1186,13 +1051,10 @@
     <value>1</value>
   </data>
   <data name="ButtonEdit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>216, 261</value>
-  </data>
-  <data name="ButtonEdit.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>173, 209</value>
   </data>
   <data name="ButtonEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonEdit.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1213,13 +1075,10 @@
     <value>5</value>
   </data>
   <data name="ButtonDelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>664, 262</value>
-  </data>
-  <data name="ButtonDelete.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>531, 210</value>
   </data>
   <data name="ButtonDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>75, 23</value>
   </data>
   <data name="ButtonDelete.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1246,16 +1105,13 @@
     <value>True</value>
   </data>
   <data name="ListFilters.ItemHeight" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>12</value>
   </data>
   <data name="ListFilters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 24</value>
-  </data>
-  <data name="ListFilters.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>9, 19</value>
   </data>
   <data name="ListFilters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>745, 229</value>
+    <value>597, 184</value>
   </data>
   <data name="ListFilters.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1276,13 +1132,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="Label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>545, 190</value>
-  </data>
-  <data name="Label11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>436, 152</value>
   </data>
   <data name="Label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 92</value>
+    <value>157, 74</value>
   </data>
   <data name="Label11.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1312,13 +1165,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckExLambDa.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 132</value>
-  </data>
-  <data name="CheckExLambDa.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 106</value>
   </data>
   <data name="CheckExLambDa.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 19</value>
+    <value>63, 16</value>
   </data>
   <data name="CheckExLambDa.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -1342,13 +1192,10 @@
     <value>0</value>
   </data>
   <data name="TextExSource.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 116</value>
-  </data>
-  <data name="TextExSource.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>89, 93</value>
   </data>
   <data name="TextExSource.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+    <value>96, 19</value>
   </data>
   <data name="TextExSource.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1372,13 +1219,10 @@
     <value>NoControl</value>
   </data>
   <data name="Label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>54, 120</value>
-  </data>
-  <data name="Label12.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>43, 96</value>
   </data>
   <data name="Label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 15</value>
+    <value>40, 12</value>
   </data>
   <data name="Label12.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1405,13 +1249,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckExRetweet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 105</value>
-  </data>
-  <data name="CheckExRetweet.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 84</value>
   </data>
   <data name="CheckExRetweet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 19</value>
+    <value>84, 16</value>
   </data>
   <data name="CheckExRetweet.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1438,13 +1279,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckExCaseSensitive.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 78</value>
-  </data>
-  <data name="CheckExCaseSensitive.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 62</value>
   </data>
   <data name="CheckExCaseSensitive.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 19</value>
+    <value>102, 16</value>
   </data>
   <data name="CheckExCaseSensitive.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1471,13 +1309,10 @@
     <value>NoControl</value>
   </data>
   <data name="RadioExAnd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 35</value>
-  </data>
-  <data name="RadioExAnd.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 28</value>
   </data>
   <data name="RadioExAnd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 19</value>
+    <value>71, 16</value>
   </data>
   <data name="RadioExAnd.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1504,13 +1339,10 @@
     <value>NoControl</value>
   </data>
   <data name="Label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>234, 13</value>
-  </data>
-  <data name="Label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>187, 10</value>
   </data>
   <data name="Label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 15</value>
+    <value>53, 12</value>
   </data>
   <data name="Label1.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1530,39 +1362,6 @@
   <data name="&gt;&gt;Label1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="CheckExURL.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CheckExURL.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CheckExURL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 50</value>
-  </data>
-  <data name="CheckExURL.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="CheckExURL.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 19</value>
-  </data>
-  <data name="CheckExURL.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="CheckExURL.Text" xml:space="preserve">
-    <value>URL検索</value>
-  </data>
-  <data name="&gt;&gt;CheckExURL.Name" xml:space="preserve">
-    <value>CheckExURL</value>
-  </data>
-  <data name="&gt;&gt;CheckExURL.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CheckExURL.Parent" xml:space="preserve">
-    <value>GroupExclude</value>
-  </data>
-  <data name="&gt;&gt;CheckExURL.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="RadioExPLUS.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1570,13 +1369,10 @@
     <value>NoControl</value>
   </data>
   <data name="RadioExPLUS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 81</value>
-  </data>
-  <data name="RadioExPLUS.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>8, 65</value>
   </data>
   <data name="RadioExPLUS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 19</value>
+    <value>71, 16</value>
   </data>
   <data name="RadioExPLUS.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1594,7 +1390,7 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;RadioExPLUS.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="CheckExRegex.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1603,13 +1399,10 @@
     <value>NoControl</value>
   </data>
   <data name="CheckExRegex.Location" type="System.Drawing.Point, System.Drawing">
-    <value>374, 22</value>
-  </data>
-  <data name="CheckExRegex.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>299, 18</value>
   </data>
   <data name="CheckExRegex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 19</value>
+    <value>72, 16</value>
   </data>
   <data name="CheckExRegex.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1627,7 +1420,7 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;CheckExRegex.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="Label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1636,13 +1429,10 @@
     <value>NoControl</value>
   </data>
   <data name="Label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 61</value>
-  </data>
-  <data name="Label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>86, 49</value>
   </data>
   <data name="Label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 15</value>
+    <value>114, 12</value>
   </data>
   <data name="Label2.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1660,7 +1450,7 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;Label2.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="Label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1669,13 +1459,10 @@
     <value>NoControl</value>
   </data>
   <data name="Label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>195, 36</value>
-  </data>
-  <data name="Label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>156, 29</value>
   </data>
   <data name="Label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 15</value>
+    <value>29, 12</value>
   </data>
   <data name="Label3.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1693,7 +1480,7 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;Label3.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1702,13 +1489,10 @@
     <value>NoControl</value>
   </data>
   <data name="Label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 13</value>
-  </data>
-  <data name="Label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>86, 10</value>
   </data>
   <data name="Label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 15</value>
+    <value>56, 12</value>
   </data>
   <data name="Label4.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1726,16 +1510,13 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="ExUID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 32</value>
-  </data>
-  <data name="ExUID.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>89, 26</value>
   </data>
   <data name="ExUID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 22</value>
+    <value>61, 19</value>
   </data>
   <data name="ExUID.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1750,16 +1531,13 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;ExUID.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="ExMSG1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 32</value>
-  </data>
-  <data name="ExMSG1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>189, 26</value>
   </data>
   <data name="ExMSG1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 22</value>
+    <value>103, 19</value>
   </data>
   <data name="ExMSG1.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1774,16 +1552,13 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;ExMSG1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="ExMSG2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 80</value>
-  </data>
-  <data name="ExMSG2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>89, 64</value>
   </data>
   <data name="ExMSG2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 22</value>
+    <value>204, 19</value>
   </data>
   <data name="ExMSG2.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1798,19 +1573,13 @@
     <value>GroupExclude</value>
   </data>
   <data name="&gt;&gt;ExMSG2.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="GroupExclude.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 190</value>
-  </data>
-  <data name="GroupExclude.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="GroupExclude.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 152</value>
   </data>
   <data name="GroupExclude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>530, 168</value>
+    <value>424, 134</value>
   </data>
   <data name="GroupExclude.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1834,13 +1603,10 @@
     <value>True</value>
   </data>
   <data name="Label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 61</value>
-  </data>
-  <data name="Label9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>86, 49</value>
   </data>
   <data name="Label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 15</value>
+    <value>114, 12</value>
   </data>
   <data name="Label9.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1858,19 +1624,16 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;Label9.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="Label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>195, 36</value>
-  </data>
-  <data name="Label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>156, 29</value>
   </data>
   <data name="Label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 15</value>
+    <value>29, 12</value>
   </data>
   <data name="Label7.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1888,19 +1651,16 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;Label7.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="Label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>108, 13</value>
-  </data>
-  <data name="Label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>86, 10</value>
   </data>
   <data name="Label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 15</value>
+    <value>56, 12</value>
   </data>
   <data name="Label6.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1918,16 +1678,13 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;Label6.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>11</value>
   </data>
   <data name="UID.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 32</value>
-  </data>
-  <data name="UID.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>89, 26</value>
   </data>
   <data name="UID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 22</value>
+    <value>61, 19</value>
   </data>
   <data name="UID.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1942,16 +1699,13 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;UID.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>12</value>
   </data>
   <data name="MSG1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>236, 32</value>
-  </data>
-  <data name="MSG1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>189, 26</value>
   </data>
   <data name="MSG1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 22</value>
+    <value>103, 19</value>
   </data>
   <data name="MSG1.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1966,16 +1720,13 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;MSG1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>13</value>
   </data>
   <data name="MSG2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 80</value>
-  </data>
-  <data name="MSG2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>89, 64</value>
   </data>
   <data name="MSG2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 22</value>
+    <value>204, 19</value>
   </data>
   <data name="MSG2.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1990,19 +1741,13 @@
     <value>GroupMatch</value>
   </data>
   <data name="&gt;&gt;MSG2.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>14</value>
   </data>
   <data name="GroupMatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 22</value>
-  </data>
-  <data name="GroupMatch.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="GroupMatch.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>6, 18</value>
   </data>
   <data name="GroupMatch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>530, 160</value>
+    <value>424, 128</value>
   </data>
   <data name="GroupMatch.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2023,16 +1768,10 @@
     <value>2</value>
   </data>
   <data name="GroupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>545, 22</value>
-  </data>
-  <data name="GroupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="GroupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>436, 18</value>
   </data>
   <data name="GroupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>194, 122</value>
+    <value>155, 98</value>
   </data>
   <data name="GroupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -2053,16 +1792,10 @@
     <value>3</value>
   </data>
   <data name="EditFilterGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 298</value>
-  </data>
-  <data name="EditFilterGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="EditFilterGroup.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>9, 238</value>
   </data>
   <data name="EditFilterGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>750, 366</value>
+    <value>600, 293</value>
   </data>
   <data name="EditFilterGroup.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -2083,16 +1816,10 @@
     <value>8</value>
   </data>
   <data name="GroupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 11</value>
-  </data>
-  <data name="GroupBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="GroupBox2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>142, 9</value>
   </data>
   <data name="GroupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>769, 672</value>
+    <value>615, 538</value>
   </data>
   <data name="GroupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2119,13 +1846,10 @@
     <value>39</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>120, 120</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>961, 729</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>769, 583</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

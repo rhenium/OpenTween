@@ -221,7 +221,6 @@ namespace OpenTween
             MSG1.Enabled = true;
             MSG2.Enabled = false;
             CheckRegex.Checked = false;
-            CheckURL.Checked = false;
             CheckCaseSensitive.Checked = false;
             CheckRetweet.Checked = false;
             CheckLambda.Checked = false;
@@ -239,7 +238,6 @@ namespace OpenTween
             ExMSG1.Enabled = true;
             ExMSG2.Enabled = false;
             CheckExRegex.Checked = false;
-            CheckExURL.Checked = false;
             CheckExCaseSensitive.Checked = false;
             CheckExRetweet.Checked = false;
             CheckExLambDa.Checked = false;
@@ -277,7 +275,6 @@ namespace OpenTween
             MSG1.Enabled = true;
             MSG2.Enabled = false;
             CheckRegex.Checked = false;
-            CheckURL.Checked = false;
             CheckCaseSensitive.Checked = false;
             CheckRetweet.Checked = false;
             CheckLambda.Checked = false;
@@ -292,7 +289,6 @@ namespace OpenTween
             ExMSG1.Enabled = true;
             ExMSG2.Enabled = false;
             CheckExRegex.Checked = false;
-            CheckExURL.Checked = false;
             CheckExCaseSensitive.Checked = false;
             CheckExRetweet.Checked = false;
             CheckExLambDa.Checked = false;
@@ -440,7 +436,6 @@ namespace OpenTween
                 }
                 TextSource.Text = fc.Source;
                 CheckRegex.Checked = fc.UseRegex;
-                CheckURL.Checked = fc.SearchUrl;
                 CheckCaseSensitive.Checked = fc.CaseSensitive;
                 CheckRetweet.Checked = fc.IsRt;
                 CheckLambda.Checked = fc.UseLambda;
@@ -482,7 +477,6 @@ namespace OpenTween
                 }
                 TextExSource.Text = fc.ExSource;
                 CheckExRegex.Checked = fc.ExUseRegex;
-                CheckExURL.Checked = fc.ExSearchUrl;
                 CheckExCaseSensitive.Checked = fc.ExCaseSensitive;
                 CheckExRetweet.Checked = fc.IsExRt;
                 CheckExLambDa.Checked = fc.ExUseLambda;
@@ -516,7 +510,6 @@ namespace OpenTween
                 MSG2.Text = "";
                 TextSource.Text = "";
                 CheckRegex.Checked = false;
-                CheckURL.Checked = false;
                 CheckCaseSensitive.Checked = false;
                 CheckRetweet.Checked = false;
                 CheckLambda.Checked = false;
@@ -531,7 +524,6 @@ namespace OpenTween
                 ExMSG2.Text = "";
                 TextExSource.Text = "";
                 CheckExRegex.Checked = false;
-                CheckExURL.Checked = false;
                 CheckExCaseSensitive.Checked = false;
                 CheckExRetweet.Checked = false;
                 CheckExLambDa.Checked = false;
@@ -616,7 +608,6 @@ namespace OpenTween
             }
 
             ft.UseRegex = CheckRegex.Checked;
-            ft.SearchUrl = CheckURL.Checked;
             ft.CaseSensitive = CheckCaseSensitive.Checked;
             ft.IsRt = CheckRetweet.Checked;
             ft.UseLambda = CheckLambda.Checked;
@@ -650,7 +641,6 @@ namespace OpenTween
             }
 
             ft.ExUseRegex = CheckExRegex.Checked;
-            ft.ExSearchUrl = CheckExURL.Checked;
             ft.ExCaseSensitive = CheckExCaseSensitive.Checked;
             ft.IsExRt = CheckExRetweet.Checked;
             ft.ExUseLambda = CheckExLambDa.Checked;
