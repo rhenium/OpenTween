@@ -46,7 +46,7 @@ namespace OpenTween
         /// <summary>
         /// フィードバック送信先 (Twitter)
         /// </summary>
-        public const string FeedbackTwitterName = "@re4k";
+        public const string FeedbackTwitterName = "@cn";
 
         //=====================================================================
         // Web サイト
