@@ -71,9 +71,9 @@
     <Compile Include="TwitterTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenTween\OpenTween.csproj">
+    <ProjectReference Include="..\OpenTweenA\OpenTweenA.csproj">
       <Project>{3D8995C7-BDF3-4273-9F9D-DDD902F6A101}</Project>
-      <Name>OpenTween</Name>
+      <Name>OpenTweenA</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
