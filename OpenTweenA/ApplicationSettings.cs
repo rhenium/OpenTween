@@ -37,16 +37,16 @@ namespace OpenTween
         //=====================================================================
         // フィードバック送信先
         // 異常終了時などにエラーログ等とともに表示されます。
-        
+
         /// <summary>
         /// フィードバック送信先 (メール)
         /// </summary>
-        public const string FeedbackEmailAddress = "kim.upsilon@bucyou.net";
+        public const string FeedbackEmailAddress = "contact@re4k.info";
 
         /// <summary>
         /// フィードバック送信先 (Twitter)
         /// </summary>
-        public const string FeedbackTwitterName = "@kim_upsilon";
+        public const string FeedbackTwitterName = "@cn";
 
         //=====================================================================
         // Web サイト
@@ -54,7 +54,7 @@ namespace OpenTween
         /// <summary>
         /// 「ヘルプ」メニューの「(アプリ名) ウェブサイト」クリック時に外部ブラウザで表示する URL
         /// </summary>
-        public const string WebsiteUrl = "http://sourceforge.jp/projects/opentween/wiki/FrontPage";
+        public const string WebsiteUrl = "https://github.com/rhenium/OpenTween";
 
         /// <summary>
         /// 「ヘルプ」メニューの「ショートカットキー一覧」クリック時に外部ブラウザで表示する URL
@@ -74,7 +74,7 @@ namespace OpenTween
         /// version.txt のフォーマットについては http://sourceforge.jp/projects/opentween/wiki/VersionTxt を参照。
         /// 派生プロジェクトなどでこの機能を無効にする場合は null をセットして下さい。
         /// </remarks>
-        public static readonly string VersionInfoUrl = "http://www.opentween.org/status/version.txt";
+        public static readonly string VersionInfoUrl = "http://example.com/version.txt";
 
         //=====================================================================
         // Twitter
@@ -83,8 +83,8 @@ namespace OpenTween
         /// <summary>
         /// Twitter コンシューマーキー
         /// </summary>
-        public const string TwitterConsumerKey = "ST6eAABKDRKTqbN7pPo2A";
-        public const string TwitterConsumerSecret = "BJMEiivrXlqGESzdb8D0bvLfNYf3fifXRDMFjMogXg";
+        public const string TwitterConsumerKey = "Hnds3Xbg9H8eHOUq1R9hFg";
+        public const string TwitterConsumerSecret = "R5wYVHpJgAvUmYGVGdftrpPy9iFUVEwZE1vBsI4";
 
         //=====================================================================
         // Lockerz (旧Plixi)
