@@ -170,58 +170,6 @@ namespace OpenTween
 
         //private List<PostClass> _deletemessages = new List<PostClass>();
 
-        public string Authenticate(string username, string password)
-        {
-            HttpStatusCode res;
-            var content = "";
-
-            MyCommon.TwitterApiInfo.Reset();
-            try
-            {
-                res = twCon.AuthUserAndPass(username, password, ref content);
-            }
-            catch(Exception ex)
-            {
-                return "Err:" + ex.Message;
-            }
-
-            switch (res)
-            {
-            case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
-                _uname = username.ToLower();
-                if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
-                return "";
-            case HttpStatusCode.Unauthorized:
-                {
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
-                    var errMsg = GetErrorMessageJson(content);
-                    if (string.IsNullOrEmpty(errMsg))
-                    {
-                        return Properties.Resources.Unauthorized + Environment.NewLine + content;
-                    }
-                    else
-                    {
-                        return "Auth error:" + errMsg;
-                    }
-                }
-            case HttpStatusCode.Forbidden:
-                {
-                    var errMsg = GetErrorMessageJson(content);
-                    if (string.IsNullOrEmpty(errMsg))
-                    {
-                        return "Err:Forbidden";
-                    }
-                    else
-                    {
-                        return "Err:" + errMsg;
-                    }
-                }
-            default:
-                return "Err:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
-            }
-        }
-
         public string StartAuthentication(ref string pinPageUrl)
         {
             //OAuth PIN Flow
@@ -359,15 +307,17 @@ namespace OpenTween
             }
         }
 
-        public void Initialize(string token, string tokenSecret, string username, long userId)
+        public void Initialize(string consumerKey, string consumerSecret, string token, string tokenSecret, string username, long userId)
         {
             //OAuth認証
-            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(tokenSecret) || string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(consumerKey) || string.IsNullOrEmpty(consumerSecret) ||
+                string.IsNullOrEmpty(token) || string.IsNullOrEmpty(tokenSecret) ||
+                string.IsNullOrEmpty(username) || userId < 0)
             {
                 Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
             }
             MyCommon.TwitterApiInfo.Reset();
-            twCon.Initialize(token, tokenSecret, username, userId);
+            twCon.Initialize(consumerKey, consumerSecret, token, tokenSecret, username, userId);
             _uname = username.ToLower();
             if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
         }
@@ -1612,14 +1562,6 @@ namespace OpenTween
             }
         }
 
-        public string Password
-        {
-            get
-            {
-                return twCon.Password;
-            }
-        }
-
         private static MyCommon.ACCOUNT_STATE _accountState = MyCommon.ACCOUNT_STATE.Valid;
         public static MyCommon.ACCOUNT_STATE AccountState
         {
@@ -1828,22 +1770,6 @@ namespace OpenTween
             get
             {
                 return _bio;
-            }
-        }
-
-        public bool UseSsl
-        {
-            set
-            {
-                HttpTwitter.UseSsl = value;
-                if (value)
-                {
-                    _protocol = "https://";
-                }
-                else
-                {
-                    _protocol = "http://";
-                }
             }
         }
 
@@ -4153,6 +4079,22 @@ namespace OpenTween
                 _hashList.Clear();
             }
             return hashArray;
+        }
+
+        public string ConsumerKey
+        {
+            get
+            {
+                return twCon.ConsumerKey;
+            }
+        }
+
+        public string ConsumerSecret
+        {
+            get
+            {
+                return twCon.ConsumerSecret;
+            }
         }
 
         public string AccessToken

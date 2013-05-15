@@ -161,7 +161,7 @@ namespace OpenTween
                 {
                     if (u.Username.ToLower() == ((UserAccount)this.AuthUserCombo.SelectedItem).Username.ToLower())
                     {
-                        tw.Initialize(u.Token, u.TokenSecret, u.Username, u.UserId);
+                        tw.Initialize(u.ConsumerKey, u.ConsumerSecret, u.Token, u.TokenSecret, u.Username, u.UserId);
                         if (u.UserId == 0)
                         {
                             tw.VerifyCredentials();
@@ -174,36 +174,9 @@ namespace OpenTween
             else
             {
                 tw.ClearAuthInfo();
-                tw.Initialize("", "", "", 0);
+                tw.Initialize("", "", "", "", "", 0);
             }
 
-#if UA
-            //フォロー
-            if (this.FollowCheckBox.Checked)
-            {
-                //現在の設定内容で通信
-                HttpConnection.ProxyType ptype;
-                if (RadioProxyNone.Checked)
-                {
-                    ptype = HttpConnection.ProxyType.None;
-                }
-                else if (RadioProxyIE.Checked)
-                {
-                    ptype = HttpConnection.ProxyType.IE;
-                }
-                else
-                {
-                    ptype = HttpConnection.ProxyType.Specified;
-                }
-                string padr = TextProxyAddress.Text.Trim();
-                int pport = int.Parse(TextProxyPort.Text.Trim());
-                string pusr = TextProxyUser.Text.Trim();
-                string ppw = TextProxyPassword.Text.Trim();
-                HttpConnection.InitializeConnection(20, ptype, padr, pport, pusr, ppw);
-
-                string ret = tw.PostFollowCommand(ApplicationSettings.FeedbackTwitterName);
-            }
-#endif
             IntervalChangedEventArgs arg = new IntervalChangedEventArgs();
             bool isIntervalChanged = false;
 
@@ -526,7 +499,7 @@ namespace OpenTween
                     {
                         if (u.UserId == this.InitialUserId)
                         {
-                            tw.Initialize(u.Token, u.TokenSecret, u.Username, u.UserId);
+                            tw.Initialize(u.ConsumerKey, u.ConsumerSecret, u.Token, u.TokenSecret, u.Username, u.UserId);
                             userSet = true;
                             break;
                         }
@@ -537,7 +510,7 @@ namespace OpenTween
                 if (!userSet)
                 {
                     tw.ClearAuthInfo();
-                    tw.Initialize("", "", "", 0);
+                    tw.Initialize("", "", "", "", "", 0);
                 }
             }
 
@@ -569,10 +542,6 @@ namespace OpenTween
             this.GroupBox2.Visible = false;
 #endif
             tw = ((TweenMain)this.Owner).TwitterInstance;
-            string uname = tw.Username;
-            string pw = tw.Password;
-            string tk = tw.AccessToken;
-            string tks = tw.AccessTokenSecret;
             //this.AuthStateLabel.Enabled = true;
             //this.AuthUserLabel.Enabled = true;
             this.AuthClearButton.Enabled = true;
@@ -1712,7 +1681,7 @@ namespace OpenTween
             HttpConnection.InitializeConnection(20, ptype, padr, pport, pusr, ppw);
             HttpTwitter.TwitterUrl = TwitterAPIText.Text.Trim();
             HttpTwitter.TwitterSearchUrl = TwitterSearchAPIText.Text.Trim();
-            tw.Initialize("", "", "", 0);
+            tw.Initialize(ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, "", "", "", 0);
             //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
             //this.AuthUserLabel.Text = "";
             string pinPageUrl = "";
@@ -1751,6 +1720,8 @@ namespace OpenTween
                 UserAccount user = new UserAccount();
                 user.Username = tw.Username;
                 user.UserId = tw.UserId;
+                user.ConsumerKey = tw.ConsumerKey;
+                user.ConsumerSecret = tw.ConsumerSecret;
                 user.Token = tw.AccessToken;
                 user.TokenSecret = tw.AccessTokenSecret;
 

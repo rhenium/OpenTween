@@ -39,31 +39,19 @@ namespace OpenTween
         ///<summary>
         ///OAuthのアクセストークン取得先URI
         ///</summary>
-        private const string AccessTokenUrlXAuth = "https://api.twitter.com/oauth/access_token";
         private const string RequestTokenUrl = "https://api.twitter.com/oauth/request_token";
         private const string AuthorizeUrl = "https://api.twitter.com/oauth/authorize";
         private const string AccessTokenUrl = "https://api.twitter.com/oauth/access_token";
 
-        private static string _protocol = "http://";
+        private static string _protocol = "https://";
 
         private const string PostMethod = "POST";
         private const string GetMethod = "GET";
 
-        private IHttpConnection httpCon; //HttpConnectionApi or HttpConnectionOAuth
+        private HttpConnectionOAuth httpCon;
         private HttpVarious httpConVar = new HttpVarious();
 
-        private enum AuthMethod
-        {
-            OAuth,
-            Basic,
-        }
-        private AuthMethod connectionType = AuthMethod.Basic;
-
         private string requestToken;
-
-        private static string tk = "";
-        private static string tks = "";
-        private static string un = "";
 
         private Dictionary<string, string> apiStatusHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -76,25 +64,40 @@ namespace OpenTween
             {"X-MediaRateLimit-Reset", ""},
         };
 
-        public void Initialize(string accessToken,
-                                        string accessTokenSecret,
-                                        string username,
-                                        long userId)
+        public void Initialize(string consumerKey,
+                               string consumerSecret,
+                               string accessToken,
+                               string accessTokenSecret,
+                               string username,
+                               long userId)
         {
             //for OAuth
             HttpOAuthApiProxy con = new HttpOAuthApiProxy();
-            if (tk != accessToken || tks != accessTokenSecret ||
-                    un != username || connectionType != AuthMethod.OAuth)
-            {
-                // 以前の認証状態よりひとつでも変化があったらhttpヘッダより読み取ったカウントは初期化
-                tk = accessToken;
-                tks = accessTokenSecret;
-                un = username;
-            }
-            con.Initialize(ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, accessToken, accessTokenSecret, username, userId, "screen_name", "user_id");
+            con.Initialize(consumerKey, consumerSecret, accessToken, accessTokenSecret, username, userId, "screen_name", "user_id");
             httpCon = con;
-            connectionType = AuthMethod.OAuth;
             requestToken = "";
+        }
+
+        public string ConsumerKey
+        {
+            get
+            {
+                if (httpCon != null)
+                    return ((HttpConnectionOAuth)httpCon).ConsumerKey;
+                else
+                    return "";
+            }
+        }
+
+        public string ConsumerSecret
+        {
+            get
+            {
+                if (httpCon != null)
+                    return ((HttpConnectionOAuth)httpCon).ConsumerSecret;
+                else
+                    return "";
+            }
         }
 
         public string AccessToken
@@ -146,14 +149,6 @@ namespace OpenTween
             }
         }
 
-        public string Password
-        {
-            get
-            {
-                return "";
-            }
-        }
-
         public bool AuthGetRequestToken(ref string content)
         {
             Uri authUri = null;
@@ -167,14 +162,9 @@ namespace OpenTween
             return ((HttpOAuthApiProxy)httpCon).AuthenticatePinFlow(AccessTokenUrl, requestToken, pin);
         }
 
-        public HttpStatusCode AuthUserAndPass(string username, string password, ref string content)
-        {
-            return httpCon.Authenticate(new Uri(AccessTokenUrlXAuth), username, password, ref content);
-        }
-
         public void ClearAuthInfo()
         {
-            this.Initialize("", "", "", 0);
+            this.Initialize("", "", "", "", "", 0);
         }
 
         public static bool UseSsl
@@ -1061,7 +1051,7 @@ namespace OpenTween
         public object Clone()
         {
             HttpTwitter myCopy = new HttpTwitter();
-            myCopy.Initialize(this.AccessToken, this.AccessTokenSecret, this.AuthenticatedUsername, this.AuthenticatedUserId);
+            myCopy.Initialize(this.ConsumerKey, this.ConsumerSecret, this.AccessToken, this.AccessTokenSecret, this.AuthenticatedUsername, this.AuthenticatedUserId);
             return myCopy;
         }
     }

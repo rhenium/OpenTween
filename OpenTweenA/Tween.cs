@@ -653,7 +653,7 @@ namespace OpenTween
 
             //認証関連
             if (string.IsNullOrEmpty(_cfgCommon.Token)) _cfgCommon.UserName = "";
-            tw.Initialize(_cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.UserName, _cfgCommon.UserId);
+            tw.Initialize(_cfgCommon.ConsumerKey, _cfgCommon.ConsumerSecret, _cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.UserName, _cfgCommon.UserId);
 
             SettingDialog.UserAccounts = _cfgCommon.UserAccounts;
 
@@ -1346,6 +1346,8 @@ namespace OpenTween
                     UserAccount account = new UserAccount();
                     account.Username = _cfgCommon.UserName;
                     account.UserId = _cfgCommon.UserId;
+                    account.ConsumerKey = _cfgCommon.ConsumerKey;
+                    account.ConsumerSecret = _cfgCommon.ConsumerSecret;
                     account.Token = _cfgCommon.Token;
                     account.TokenSecret = _cfgCommon.TokenSecret;
 
@@ -4485,7 +4487,7 @@ namespace OpenTween
                 cmbLang.Items.Add("sv");
                 cmbLang.Items.Add("th");
                 if (_statuses.ContainsTab(tabName)) cmbLang.Text = _statuses.Tabs[tabName].SearchLang;
-            
+
                 lbl.Text = "Search(C-S-f)";
                 lbl.Name = "label1";
                 lbl.Dock = DockStyle.Left;
@@ -4517,11 +4519,11 @@ namespace OpenTween
             _listCustom.AllowColumnReorder = true;
             if (!_iconCol)
             {
-                _listCustom.Columns.AddRange(new ColumnHeader[] {_colHd1, _colHd2, _colHd3, _colHd4, _colHd5, _colHd6, _colHd7, _colHd8});
+                _listCustom.Columns.AddRange(new ColumnHeader[] { _colHd1, _colHd2, _colHd3, _colHd4, _colHd5, _colHd6, _colHd7, _colHd8 });
             }
             else
             {
-                _listCustom.Columns.AddRange(new ColumnHeader[] {_colHd1, _colHd3});
+                _listCustom.Columns.AddRange(new ColumnHeader[] { _colHd1, _colHd3 });
             }
             _listCustom.ContextMenuStrip = this.ContextMenuOperate;
             _listCustom.Dock = DockStyle.Fill;
@@ -4651,7 +4653,7 @@ namespace OpenTween
             }
 
             if (tabType == MyCommon.TabUsageType.PublicSearch) pnl.ResumeLayout(false);
-        
+
             _tabPage.ResumeLayout(false);
 
             this.SplitContainer1.Panel1.ResumeLayout(false);
@@ -5091,7 +5093,7 @@ namespace OpenTween
                 {
                     pLen += url.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
                 }
-                
+
                 //if (m.Result("${url}").Length > SettingDialog.TwitterConfiguration.ShortUrlLength)
                 //{
                 //    pLen += m.Result("${url}").Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
@@ -5149,7 +5151,7 @@ namespace OpenTween
                 catch (Exception)
                 {
                     //不正な要求に対する間に合わせの応答
-                    string[] sitem = {"", "", "", "", "", "", "", ""};
+                    string[] sitem = { "", "", "", "", "", "", "", "" };
                     e.Item = new ImageListViewItem(sitem, "");
                 }
             }
@@ -5168,7 +5170,7 @@ namespace OpenTween
                 _postCache = _statuses[_curTab.Text, StartIndex, EndIndex]; //配列で取得
                 _itemCacheIndex = StartIndex;
 
-                _itemCache = new ListViewItem[0] {};
+                _itemCache = new ListViewItem[0] { };
                 Array.Resize(ref _itemCache, _postCache.Length);
 
                 for (int i = 0; i < _postCache.Length; i++)
@@ -5230,7 +5232,7 @@ namespace OpenTween
             ImageListViewItem itm;
             if (Post.RetweetedId == 0)
             {
-                string[] sitem= {"",
+                string[] sitem = {"",
                                  Post.Nickname,
                                  Post.IsDeleted ? "(DELETED)" : Post.TextSingleLine,
                                  Post.CreatedAt.ToString(SettingDialog.DateTimeFormat),
@@ -5717,7 +5719,7 @@ namespace OpenTween
             }
             try
             {
-    RETRY:
+            RETRY:
                 if (UseRegex)
                 {
                     // 正規表現検索
@@ -6019,9 +6021,9 @@ namespace OpenTween
             }
 
             // 改行2つで前後パートを分割（前半がバージョン番号など、後半が詳細テキスト）
-            string[] msgPart = retMsg.Split(new string[] {"\n\n", "\r\n\r\n"}, 2, StringSplitOptions.None);
+            string[] msgPart = retMsg.Split(new string[] { "\n\n", "\r\n\r\n" }, 2, StringSplitOptions.None);
 
-            string[] msgHeader = msgPart[0].Split(new string[] {"\n", "\r\n"}, StringSplitOptions.None);
+            string[] msgHeader = msgPart[0].Split(new string[] { "\n", "\r\n" }, StringSplitOptions.None);
             string msgBody = msgPart.Length == 2 ? msgPart[1] : "";
 
             msgBody = Regex.Replace(msgBody, "(?<!\r)\n", "\r\n"); // LF -> CRLF
@@ -6231,7 +6233,7 @@ namespace OpenTween
                 sb.AppendFormat("IsProtect      : {0}<br>", _curPost.IsProtect.ToString());
                 sb.AppendFormat("IsRead         : {0}<br>", _curPost.IsRead.ToString());
                 sb.AppendFormat("IsReply        : {0}<br>", _curPost.IsReply.ToString());
-            
+
                 foreach (string nm in _curPost.ReplyToList)
                 {
                     sb.AppendFormat("ReplyToList    : {0}<br>", nm);
@@ -7455,7 +7457,7 @@ namespace OpenTween
                                  where post.StatusId == inReplyToId
                                  let index = tab.IndexOf(post.StatusId)
                                  where index != -1
-                                 select new {Tab = tab, Index = index};
+                                 select new { Tab = tab, Index = index };
 
             try
             {
@@ -7524,7 +7526,7 @@ namespace OpenTween
                                 where indexOf > -1
                                 orderby isForward ? indexOf : indexOf * -1
                                 orderby t.Value != curTabClass
-                                select new {Tab = t.Value, Post = p.Value, Index = indexOf};
+                                select new { Tab = t.Value, Post = p.Value, Index = indexOf };
                     try
                     {
                         var postList = posts.ToList();
@@ -7561,7 +7563,7 @@ namespace OpenTween
                                 where indexOf > -1
                                 orderby indexOf
                                 orderby t.Value != curTabClass
-                                select new {Tab = t.Value, Index = indexOf};
+                                select new { Tab = t.Value, Index = indexOf };
                     try
                     {
                         var post = posts.First();
@@ -7759,7 +7761,8 @@ namespace OpenTween
             {
                 _cfgCommon.UserName = tw.Username;
                 _cfgCommon.UserId = tw.UserId;
-                _cfgCommon.Password = tw.Password;
+                _cfgCommon.ConsumerKey = tw.ConsumerKey;
+                _cfgCommon.ConsumerSecret = tw.ConsumerSecret;
                 _cfgCommon.Token = tw.AccessToken;
                 _cfgCommon.TokenSecret = tw.AccessTokenSecret;
                 _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
@@ -10061,7 +10064,7 @@ namespace OpenTween
             UrlConvert(MyCommon.UrlConverter.Uxnu);
         }
 
-        private void UrlConvertAutoToolStripMenuItem_Click(object sender, EventArgs e) 
+        private void UrlConvertAutoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!UrlConvert(SettingDialog.AutoShortUrlFirst))
             {
@@ -10630,7 +10633,7 @@ namespace OpenTween
             if (flg) LView.Invalidate(bnd);
         }
 
-        private void SelectListItem(DetailsListView LView , int[] Index, int FocusedIndex)
+        private void SelectListItem(DetailsListView LView, int[] Index, int FocusedIndex)
         {
             //複数
             Rectangle bnd = new Rectangle();
@@ -10824,8 +10827,6 @@ namespace OpenTween
                     MessageBox.Show(Properties.Resources.ReAuthorizeText);
                     SettingStripMenuItem_Click(null, null);
                 }
-
-                //
             }
             _initial = false;
 
@@ -11141,7 +11142,7 @@ namespace OpenTween
             public string id;
         }
 
-        private void RemoveCommand_DoWork(object sender , DoWorkEventArgs e)
+        private void RemoveCommand_DoWork(object sender, DoWorkEventArgs e)
         {
             FollowRemoveCommandArgs arg = (FollowRemoveCommandArgs)e.Argument;
             e.Result = arg.tw.PostRemoveCommand(arg.id);
@@ -12253,7 +12254,7 @@ namespace OpenTween
             get { return SettingDialog.PreviewEnable; }
         }
 
-#region "画像投稿"
+        #region "画像投稿"
         private void ImageSelectMenuItem_Click(object sender, EventArgs e)
         {
             if (ImageSelectionPanel.Visible == true)
@@ -12488,7 +12489,7 @@ namespace OpenTween
                 }
             }
         }
-#endregion
+        #endregion
 
         private void ListManageToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -12630,7 +12631,7 @@ namespace OpenTween
             this._modifySettingCommon = true;
         }
 
-#region "Userstream"
+        #region "Userstream"
         private bool _isActiveUserstream = false;
 
         private void tw_PostDeleted(long id)
@@ -12639,7 +12640,7 @@ namespace OpenTween
             {
                 if (InvokeRequired && !IsDisposed)
                 {
-                    Invoke((Action) (() =>
+                    Invoke((Action)(() =>
                            {
                                _statuses.RemovePostReserve(id);
                                if (_curTab != null && _statuses.Tabs[_curTab.Text].Contains(id))
@@ -12811,7 +12812,7 @@ namespace OpenTween
                 }
                 if (ev.Event == "unfavorite" && ev.Username.ToLower().Equals(tw.Username.ToLower()))
                 {
-                    RemovePostFromFavTab(new long[] {ev.Id});
+                    RemovePostFromFavTab(new long[] { ev.Id });
                 }
             }
         }
@@ -12980,7 +12981,7 @@ namespace OpenTween
             }
             this.TopMost = this.SettingDialog.AlwaysTop;
         }
-#endregion
+        #endregion
 
         private void TweenRestartMenuItem_Click(object sender, EventArgs e)
         {
@@ -13204,7 +13205,7 @@ namespace OpenTween
         {
             if (Form.ActiveForm == null)
             {
-                this.BeginInvoke((Action) (() =>
+                this.BeginInvoke((Action)(() =>
                 {
                     this.Visible = true;
                     if (this.WindowState == FormWindowState.Minimized) this.WindowState = FormWindowState.Normal;

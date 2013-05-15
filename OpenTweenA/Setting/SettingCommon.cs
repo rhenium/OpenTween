@@ -51,58 +51,10 @@ namespace OpenTween
         public List<UserAccount> UserAccounts;
         public string UserName = "";
 
-        [XmlIgnore]
-        public string Password = "";
-        public string EncryptPassword
-        {
-            get { return Encrypt(Password); }
-            set { Password = Decrypt(value); }
-        }
-
+        public string ConsumerKey = "";
+        public string ConsumerSecret = "";
         public string Token = "";
-        [XmlIgnore]
         public string TokenSecret = "";
-        public string EncryptTokenSecret
-        {
-            get { return Encrypt(TokenSecret); }
-            set { TokenSecret = Decrypt(value); }
-        }
-
-        private string Encrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    return MyCommon.EncryptString(password);
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
-            }
-            else
-            {
-                return "";
-            }
-        }
-        private string Decrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    password = MyCommon.DecryptString(password);
-                }
-                catch (Exception)
-                {
-                    password = "";
-                }
-            }
-            return password;
-        }
 
         public long UserId = 0;
         public List<string> TabList;
@@ -166,14 +118,8 @@ namespace OpenTween
         public bool HashIsNotAddToAtReply = true;
         public bool PreviewEnable = true;
 
-        [XmlIgnore]
         public string OutputzKey = "";
-        public string EncryptOutputzKey
-        {
-            get { return Encrypt(OutputzKey); }
-            set { OutputzKey = Decrypt(value); }
-        }
-
+        
         public MyCommon.OutputzUrlmode OutputzUrlMode = MyCommon.OutputzUrlmode.twittercom;
         public MyCommon.UrlConverter AutoShortUrlFirst = MyCommon.UrlConverter.Uxnu;
         public bool UseUnreadStyle = true;
@@ -222,8 +168,6 @@ namespace OpenTween
         public int MapThumbnailZoom = 15;
         public MapProvider MapThumbnailProvider = MapProvider.OpenStreetMap;
         public bool IsListsIncludeRts = false;
-        public long GAFirst = 0;
-        public long GALast = 0;
         public bool TabMouseLock = false;
         public bool IsRemoveSameEvent = false;
         public bool IsUseNotifyGrowl = false;
@@ -233,51 +177,11 @@ namespace OpenTween
     {
         public string Username = "";
         public long UserId = 0;
-        public long GAFirst = 0;
-        public long GALast = 0;
+        public string ConsumerKey = "";
+        public string ConsumerSecret = "";
         public string Token = "";
-        [XmlIgnore]
         public string TokenSecret = "";
-        public string EncryptTokenSecret
-        {
-            get { return Encrypt(TokenSecret); }
-            set { TokenSecret = Decrypt(value); }
-        }
-        private string Encrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    return MyCommon.EncryptString(password);
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
-            }
-            else
-            {
-                return "";
-            }
-        }
-        private string Decrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    password = MyCommon.DecryptString(password);
-                }
-                catch (Exception)
-                {
-                    password = "";
-                }
-            }
-            return password;
-        }
+
         public override string ToString()
         {
             return this.Username;

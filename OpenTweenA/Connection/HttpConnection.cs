@@ -33,15 +33,24 @@ using System.Collections.Generic;
 using System.IO.Compression;
 using System.Drawing;
 
-///<summary>
-///HttpWebRequest,HttpWebResponseを使用した基本的な通信機能を提供する
-///</summary>
-///<remarks>
-///プロキシ情報などを設定するため、使用前に静的メソッドInitializeConnectionを呼び出すこと。
-///通信方式によって必要になるHTTPヘッダの付加などは、派生クラスで行う。
-///</remarks>
 namespace OpenTween
 {
+    /// <summary>
+    /// APIメソッドの処理が終了し呼び出し元へ戻る直前に呼ばれるデリゲート
+    /// </summary>
+    /// <param name="sender">メソッド名</param>
+    /// <param name="code">APIメソッドの返したHTTPステータスコード</param>
+    /// <param name="content">APIメソッドの処理結果</param>
+    /// <remarks>contentはNothingになることがあるのでチェックを必ず行うこと</remarks>
+    public delegate void CallbackDelegate(object sender, ref HttpStatusCode code, ref string content);
+
+    ///<summary>
+    ///HttpWebRequest,HttpWebResponseを使用した基本的な通信機能を提供する
+    ///</summary>
+    ///<remarks>
+    ///プロキシ情報などを設定するため、使用前に静的メソッドInitializeConnectionを呼び出すこと。
+    ///通信方式によって必要になるHTTPヘッダの付加などは、派生クラスで行う。
+    ///</remarks>
     public class HttpConnection
     {
         ///<summary>

@@ -25,7 +25,6 @@
 // Boston, MA 02110-1301, USA.
 
 using HttpConnection = OpenTween.HttpConnection;
-using IHttpConnection = OpenTween.IHttpConnection;
 using DateTime = System.DateTime;
 using DateTimeKind = System.DateTimeKind;
 using Random = System.Random;
@@ -59,7 +58,7 @@ namespace OpenTween
 	/// <remarks>
 	/// 使用前に認証情報を設定する。認証確認を伴う場合はAuthenticate系のメソッドを、認証不要な場合はInitializeを呼ぶこと。
 	/// </remarks>
-	abstract public class HttpConnectionOAuth : HttpConnection, IHttpConnection
+	abstract public class HttpConnectionOAuth : HttpConnection
 	{
 		/// <summary>
 		/// OAuth署名のoauth_timestamp算出用基準日付（1970/1/1 00:00:00）
@@ -327,73 +326,6 @@ namespace OpenTween
 			}
 		}
 
-        public HttpStatusCode Authenticate(Uri accessTokenUrl, string username, string password, ref string content)
-        {
-            return this.AuthenticateXAuth(accessTokenUrl, username, password, ref content);
-        }
-
-		/// <summary>
-		/// OAuth認証のアクセストークン取得。xAuth方式
-		/// </summary>
-		/// <param name="accessTokenUrl">アクセストークンの取得先URL</param>
-		/// <param name="username">認証用ユーザー名</param>
-		/// <param name="password">認証用パスワード</param>
-		/// <returns>取得結果真偽値</returns>
-		public HttpStatusCode AuthenticateXAuth( Uri accessTokenUrl, string username, string password, ref string content )
-		{
-			// ユーザー・パスワードチェック
-			if ( string.IsNullOrEmpty( username ) || string.IsNullOrEmpty( password ) )
-				throw new Exception( "Sequence error.(username or password is blank)" );
-
-			// xAuthの拡張パラメータ設定
-			Dictionary< string, string > parameter = new Dictionary< string, string >();
-			parameter.Add( "x_auth_mode", "client_auth" );
-			parameter.Add( "x_auth_username", username );
-			parameter.Add( "x_auth_password", password );
-
-			// アクセストークン取得
-			HttpStatusCode httpCode = this.GetOAuthToken( accessTokenUrl, "", "", parameter, ref content );
-			if ( httpCode != HttpStatusCode.OK )
-				return httpCode;
-			NameValueCollection accessTokenData = base.ParseQueryString( content );
-
-			if ( accessTokenData != null )
-			{
-				this.token = accessTokenData[ "oauth_token" ];
-				this.tokenSecret = accessTokenData[ "oauth_token_secret" ];
-
-				// サービスごとの独自拡張対応
-				if ( !string.IsNullOrEmpty(this.userIdentKey) )
-					this.authorizedUsername = accessTokenData[ this.userIdentKey ];
-				else
-					this.authorizedUsername = "";
-
-				if ( !string.IsNullOrEmpty(this.userIdIdentKey) )
-				{
-					try
-					{
-                        this.authorizedUserId = Convert.ToInt64( accessTokenData[ this.userIdIdentKey ] );
-					}
-					catch ( Exception )
-					{
-						this.authorizedUserId = 0;
-					}
-				}
-				else
-				{
-					this.authorizedUserId = 0;
-				}
-
-				if ( string.IsNullOrEmpty(token) )
-					throw new InvalidDataException( "Token is null." );
-				return HttpStatusCode.OK;
-			}
-			else
-			{
-				throw new InvalidDataException( "Return value is null." );
-			}
-		}
-
 		/// <summary>
 		/// OAuth認証のリクエストトークン取得。リクエストトークンと組み合わせた認証用のUriも生成する
 		/// </summary>
@@ -587,6 +519,22 @@ namespace OpenTween
 			this.authorizedUsername = username;
 			this.authorizedUserId = userId;
 		}
+
+        /// <summary>
+        /// コンシューマーキー
+        /// </summary>
+        public string ConsumerKey
+        {
+            get { return this.consumerKey; }
+        }
+
+        /// <summary>
+        /// コンシューマーシークレット
+        /// </summary>
+        public string ConsumerSecret
+        {
+            get { return this.consumerSecret; }
+        }
 
 		/// <summary>
 		/// アクセストークン
