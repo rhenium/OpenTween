@@ -167,17 +167,6 @@ namespace OpenTween
             this.Initialize("", "", "", "", "", 0);
         }
 
-        public static bool UseSsl
-        {
-            set
-            {
-                if (value)
-                    _protocol = "https://";
-                else
-                    _protocol = "http://";
-            }
-        }
-
         public HttpStatusCode UpdateStatus(string status, long replyToId, ref string content)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();

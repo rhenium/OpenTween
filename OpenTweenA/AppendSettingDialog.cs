@@ -401,7 +401,6 @@ namespace OpenTween
                 GetFav = chkGetFav.Checked;
                 IsMonospace = CheckMonospace.Checked;
                 ReadOldPosts = CheckReadOldPosts.Checked;
-                UseSsl = CheckUseSsl.Checked;
                 BitlyUser = TextBitlyId.Text;
                 BitlyPwd = TextBitlyPw.Text;
                 ShowGrid = CheckShowGrid.Checked;
@@ -777,7 +776,6 @@ namespace OpenTween
             chkGetFav.Checked = GetFav;
             CheckMonospace.Checked = IsMonospace;
             CheckReadOldPosts.Checked = ReadOldPosts;
-            CheckUseSsl.Checked = UseSsl;
             TextBitlyId.Text = BitlyUser;
             TextBitlyPw.Text = BitlyPwd;
             TextBitlyId.Modified = false;
@@ -1354,7 +1352,6 @@ namespace OpenTween
         public bool GetFav { get; set; }
         public bool IsMonospace { get; set; }
         public bool ReadOldPosts { get; set; }
-        public bool UseSsl { get; set; }
         public string BitlyUser { get; set; }
         public string BitlyPwd { get; set; }
         public bool ShowGrid { get; set; }

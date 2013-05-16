@@ -776,7 +776,6 @@ namespace OpenTween
             SettingDialog.ReadOwnPost = _cfgCommon.ReadOwnPost;
             SettingDialog.GetFav = _cfgCommon.GetFav;
             SettingDialog.ReadOldPosts = _cfgCommon.ReadOldPosts;
-            SettingDialog.UseSsl = _cfgCommon.UseSsl;
             SettingDialog.BitlyUser = _cfgCommon.BilyUser;
             SettingDialog.BitlyPwd = _cfgCommon.BitlyPwd;
             SettingDialog.ShowGrid = _cfgCommon.ShowGrid;
@@ -991,7 +990,6 @@ namespace OpenTween
 
             tw.RestrictFavCheck = SettingDialog.RestrictFavCheck;
             tw.ReadOwnPost = SettingDialog.ReadOwnPost;
-            tw.UseSsl = SettingDialog.UseSsl;
             ShortUrl.IsResolve = SettingDialog.TinyUrlResolve;
             ShortUrl.IsForceResolve = SettingDialog.ShortUrlForceResolve;
             ShortUrl.BitlyId = SettingDialog.BitlyUser;
@@ -3927,7 +3925,6 @@ namespace OpenTween
                     tw.TinyUrlResolve = SettingDialog.TinyUrlResolve;
                     tw.RestrictFavCheck = SettingDialog.RestrictFavCheck;
                     tw.ReadOwnPost = SettingDialog.ReadOwnPost;
-                    tw.UseSsl = SettingDialog.UseSsl;
                     ShortUrl.IsResolve = SettingDialog.TinyUrlResolve;
                     ShortUrl.IsForceResolve = SettingDialog.ShortUrlForceResolve;
                     ShortUrl.BitlyId = SettingDialog.BitlyUser;
@@ -7827,7 +7824,6 @@ namespace OpenTween
                     _cfgCommon.WideSpaceConvert = this.IdeographicSpaceToSpaceToolStripMenuItem.Checked;
                 }
                 _cfgCommon.ReadOldPosts = SettingDialog.ReadOldPosts;
-                _cfgCommon.UseSsl = SettingDialog.UseSsl;
                 _cfgCommon.BilyUser = SettingDialog.BitlyUser;
                 _cfgCommon.BitlyPwd = SettingDialog.BitlyPwd;
                 _cfgCommon.ShowGrid = SettingDialog.ShowGrid;

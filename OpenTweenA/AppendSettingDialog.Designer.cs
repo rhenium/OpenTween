@@ -177,7 +177,6 @@
             this.Label31 = new System.Windows.Forms.Label();
             this.TwitterAPIText = new System.Windows.Forms.TextBox();
             this.Label8 = new System.Windows.Forms.Label();
-            this.CheckUseSsl = new System.Windows.Forms.CheckBox();
             this.Label64 = new System.Windows.Forms.Label();
             this.ConnectionTimeOut = new System.Windows.Forms.TextBox();
             this.Label63 = new System.Windows.Forms.Label();
@@ -1672,7 +1671,6 @@
             this.ConnectionPanel.Controls.Add(this.Label31);
             this.ConnectionPanel.Controls.Add(this.TwitterAPIText);
             this.ConnectionPanel.Controls.Add(this.Label8);
-            this.ConnectionPanel.Controls.Add(this.CheckUseSsl);
             this.ConnectionPanel.Controls.Add(this.Label64);
             this.ConnectionPanel.Controls.Add(this.ConnectionTimeOut);
             this.ConnectionPanel.Controls.Add(this.Label63);
@@ -1702,13 +1700,6 @@
             resources.ApplyResources(this.Label8, "Label8");
             this.Label8.Name = "Label8";
             this.ToolTip1.SetToolTip(this.Label8, resources.GetString("Label8.ToolTip"));
-            // 
-            // CheckUseSsl
-            // 
-            resources.ApplyResources(this.CheckUseSsl, "CheckUseSsl");
-            this.CheckUseSsl.Name = "CheckUseSsl";
-            this.ToolTip1.SetToolTip(this.CheckUseSsl, resources.GetString("CheckUseSsl.ToolTip"));
-            this.CheckUseSsl.UseVisualStyleBackColor = true;
             // 
             // Label64
             // 
@@ -2805,7 +2796,6 @@
         internal System.Windows.Forms.Label Label31;
         internal System.Windows.Forms.TextBox TwitterAPIText;
         internal System.Windows.Forms.Label Label8;
-        internal System.Windows.Forms.CheckBox CheckUseSsl;
         internal System.Windows.Forms.Label Label64;
         internal System.Windows.Forms.TextBox ConnectionTimeOut;
         internal System.Windows.Forms.Label Label63;
