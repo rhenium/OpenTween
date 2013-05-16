@@ -81,6 +81,7 @@ namespace OpenTween
         public string ProxyAddress = "127.0.0.1";
         public int ProxyPort = 80;
         public string ProxyUser = "";
+        public string ProxyPassword = "";
         public bool StatusMultiline = false;
         public int StatusTextHeight = 38;
         public int PreviewDistance = -1;
@@ -251,49 +252,6 @@ namespace OpenTween
         {
             get { return _cc.ConvertToString(ColorDetailLink); }
             set { ColorDetailLink = (Color)_cc.ConvertFromString(value); }
-        }
-
-        [XmlIgnore]
-        public string ProxyPassword = "";
-        public string EncryptProxyPassword
-        {
-            get
-            {
-                string pwd = ProxyPassword;
-                if (string.IsNullOrEmpty(pwd)) pwd = "";
-                if (pwd.Length > 0)
-                {
-                    try
-                    {
-                        return MyCommon.EncryptString(pwd);
-                    }
-                    catch (Exception)
-                    {
-                        return "";
-                    }
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                string pwd = value;
-                if (string.IsNullOrEmpty(pwd)) pwd = "";
-                if (pwd.Length > 0)
-                {
-                    try
-                    {
-                        pwd = MyCommon.DecryptString(pwd);
-                    }
-                    catch (Exception)
-                    {
-                        pwd = "";
-                    }
-                }
-                ProxyPassword = pwd;
-            }
         }
 
         public void Dispose()
