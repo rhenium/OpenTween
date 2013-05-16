@@ -501,9 +501,6 @@
   <data name="Label42.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="TextBoxOutputzKey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 19</value>
-  </data>
   <data name="CheckFollowEvent.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 16</value>
   </data>
@@ -611,9 +608,6 @@
   </data>
   <data name="&gt;&gt;Label17.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="TextBoxOutputzKey.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="OneWayLv.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 21</value>
@@ -961,9 +955,6 @@
   </data>
   <data name="&gt;&gt;chkGetFav.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;CheckOutputz.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Label18.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1453,9 +1444,6 @@
   <data name="&gt;&gt;Label66.Parent" xml:space="preserve">
     <value>GetCountPanel</value>
   </data>
-  <data name="&gt;&gt;TextBoxOutputzKey.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
   <data name="CheckAtIdSupple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1756,9 +1744,6 @@
   <data name="NotifyPanel.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="CheckOutputz.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="Label64.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1857,9 +1842,6 @@
   </data>
   <data name="TextBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>34, 19</value>
-  </data>
-  <data name="ComboBoxOutputzUrlmode.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
   </data>
   <data name="Label1.Text" xml:space="preserve">
     <value>サポート用アカウントのフォローをお勧めしています。</value>
@@ -2581,9 +2563,6 @@
   <data name="btnAtTarget.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
   </data>
-  <data name="&gt;&gt;ComboBoxOutputzUrlmode.Parent" xml:space="preserve">
-    <value>CooperatePanel</value>
-  </data>
   <data name="CheckEventNotify.Text" xml:space="preserve">
     <value>次のイベントを受信したときにバルーンで通知する(UserStream有効時のみ)</value>
   </data>
@@ -2764,9 +2743,6 @@
   <data name="Label28.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;TextBoxOutputzKey.Parent" xml:space="preserve">
-    <value>CooperatePanel</value>
-  </data>
   <data name="CheckUseRecommendStatus.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -2799,9 +2775,6 @@
   </data>
   <data name="RadioProxySpecified.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="ComboBoxOutputzUrlmode.Items" xml:space="preserve">
-    <value>twitter.com</value>
   </data>
   <data name="TextProxyPort.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -3031,9 +3004,6 @@
   <data name="HotkeyCode.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;ComboBoxOutputzUrlmode.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
   <data name="&gt;&gt;lblDetailLink.Name" xml:space="preserve">
     <value>lblDetailLink</value>
   </data>
@@ -3072,9 +3042,6 @@
   </data>
   <data name="ComboDispTitle.Items7" xml:space="preserve">
     <value>発言数/フォロー数/フォロワー数</value>
-  </data>
-  <data name="CheckOutputz.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="ListTextCountApi.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 19</value>
@@ -3721,9 +3688,6 @@
   <data name="Label6.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="ComboBoxOutputzUrlmode.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="&gt;&gt;LabelPostAndGet.Parent" xml:space="preserve">
     <value>GetPeriodPanel</value>
   </data>
@@ -3994,9 +3958,6 @@
   <data name="btnUnread.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="CheckOutputz.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
   <data name="&gt;&gt;lblInputFont.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
@@ -4053,9 +4014,6 @@
   </data>
   <data name="ComboBoxTranslateLanguage.Items20" xml:space="preserve">
     <value>Belarusian</value>
-  </data>
-  <data name="&gt;&gt;CheckOutputz.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="SplitContainer1.Panel1.ToolTip" xml:space="preserve">
     <value />
@@ -4705,9 +4663,6 @@
   <data name="CooperatePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="&gt;&gt;CheckOutputz.Parent" xml:space="preserve">
-    <value>CooperatePanel</value>
-  </data>
   <data name="CheckFavoritesEvent.Text" xml:space="preserve">
     <value>Fav追加した、またはFav追加された</value>
   </data>
@@ -4980,9 +4935,6 @@ Growl.CoreLibrary.DLL</value>
   </data>
   <data name="&gt;&gt;Label40.Parent" xml:space="preserve">
     <value>MapThumbnailGroupBox</value>
-  </data>
-  <data name="&gt;&gt;TextBoxOutputzKey.Name" xml:space="preserve">
-    <value>TextBoxOutputzKey</value>
   </data>
   <data name="CheckStartupVersion.Size" type="System.Drawing.Size, System.Drawing">
     <value>129, 16</value>
@@ -5388,9 +5340,6 @@ Growl.CoreLibrary.DLL</value>
   <data name="&gt;&gt;IsRemoveSameFavEventCheckBox.Name" xml:space="preserve">
     <value>IsRemoveSameFavEventCheckBox</value>
   </data>
-  <data name="ComboBoxOutputzUrlmode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 20</value>
-  </data>
   <data name="MapThumbnailWidthTextBox.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -5567,9 +5516,6 @@ Growl.CoreLibrary.DLL</value>
   </data>
   <data name="lblAtFromTarget.Location" type="System.Drawing.Point, System.Drawing">
     <value>227, 118</value>
-  </data>
-  <data name="TextBoxOutputzKey.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
   </data>
   <data name="&gt;&gt;HotkeyCode.Parent" xml:space="preserve">
     <value>GroupBox3</value>
@@ -5980,9 +5926,6 @@ Growl.CoreLibrary.DLL</value>
   <data name="&gt;&gt;Label12.Parent" xml:space="preserve">
     <value>TweetActPanel</value>
   </data>
-  <data name="CheckOutputz.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 16</value>
-  </data>
   <data name="btnAtFromTarget.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -6206,9 +6149,6 @@ Growl.CoreLibrary.DLL</value>
   </data>
   <data name="CreateAccountButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>186, 23</value>
-  </data>
-  <data name="&gt;&gt;CheckOutputz.Name" xml:space="preserve">
-    <value>CheckOutputz</value>
   </data>
   <data name="&gt;&gt;lblFav.ZOrder" xml:space="preserve">
     <value>20</value>
@@ -6526,9 +6466,6 @@ Growl.CoreLibrary.DLL</value>
     <value>LabelUserStreamActive</value>
   </data>
   <data name="&gt;&gt;TimelinePeriod.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TextBoxOutputzKey.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;PubSearchPeriod.Parent" xml:space="preserve">
@@ -7056,20 +6993,11 @@ Growl.CoreLibrary.DLL</value>
   <data name="lblInputBackcolor.Location" type="System.Drawing.Point, System.Drawing">
     <value>227, 193</value>
   </data>
-  <data name="TextBoxOutputzKey.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 44</value>
-  </data>
-  <data name="CheckOutputz.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 22</value>
-  </data>
   <data name="&gt;&gt;CheckListMemberRemovedEvent.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="&gt;&gt;BrowserPathText.ZOrder" xml:space="preserve">
     <value>11</value>
-  </data>
-  <data name="CheckOutputz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="CheckCloseToExit.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 114</value>
@@ -7413,9 +7341,6 @@ Growl.CoreLibrary.DLL</value>
   <data name="&gt;&gt;RadioProxyIE.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;ComboBoxOutputzUrlmode.Name" xml:space="preserve">
-    <value>ComboBoxOutputzUrlmode</value>
-  </data>
   <data name="Label69.Size" type="System.Drawing.Size, System.Drawing">
     <value>123, 12</value>
   </data>
@@ -7635,9 +7560,6 @@ Growl.CoreLibrary.DLL</value>
   <data name="ListsPeriod.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="ComboBoxOutputzUrlmode.Items1" xml:space="preserve">
-    <value>twitter.com/username</value>
-  </data>
   <data name="btnAtSelf.Text" xml:space="preserve">
     <value>背景色</value>
   </data>
@@ -7736,9 +7658,6 @@ Growl.CoreLibrary.DLL</value>
   </data>
   <data name="&gt;&gt;CheckFavRestrict.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="CheckOutputz.Text" xml:space="preserve">
-    <value>Outputzに対応する</value>
   </data>
   <data name="&gt;&gt;MapThumbnailGroupBox.Parent" xml:space="preserve">
     <value>CooperatePanel</value>
@@ -7916,9 +7835,6 @@ Growl.CoreLibrary.DLL</value>
   </data>
   <data name="ShortenTcoCheck.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
-  </data>
-  <data name="ComboBoxOutputzUrlmode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>205, 72</value>
   </data>
   <data name="TextBox3.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -8774,9 +8690,6 @@ Growl.CoreLibrary.DLL</value>
   </data>
   <data name="TextProxyPort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>Disable</value>
-  </data>
-  <data name="&gt;&gt;ComboBoxOutputzUrlmode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lblListBackcolor.Text" xml:space="preserve">
     <value>This is sample.</value>

@@ -157,7 +157,6 @@ namespace OpenTween
         private bool _readOwnPost;
         private List<string> _hashList = new List<string>();
 
-        private Outputz op = new Outputz();
         //max_idで古い発言を取得するために保持（lists分は個別タブで管理）
         private long minHomeTimeline = long.MaxValue;
         private long minMentions = long.MaxValue;
@@ -539,14 +538,8 @@ namespace OpenTween
                 {
                     return "OK:Delaying?";
                 }
-                if (op.Post(postStr.Length))
-                {
-                    return "";
-                }
-                else
-                {
-                    return "Outputz:Failed";
-                }
+
+                return "";
             case HttpStatusCode.NotFound:
                 return "";
             case HttpStatusCode.Forbidden:
@@ -642,14 +635,8 @@ namespace OpenTween
                 {
                     return "OK:Delaying?";
                 }
-                if (op.Post(postStr.Length))
-                {
-                    return "";
-                }
-                else
-                {
-                    return "Outputz:Failed";
-                }
+
+                return "";
             case HttpStatusCode.NotFound:
                 return "";
             case HttpStatusCode.Forbidden:
@@ -748,14 +735,7 @@ namespace OpenTween
                 _location = status.Sender.Location;
                 _bio = status.Sender.Description;
 
-                if (op.Post(postStr.Length))
-                {
-                    return "";
-                }
-                else
-                {
-                    return "Outputz:Failed";
-                }
+                return "";
             case HttpStatusCode.Forbidden:
             case HttpStatusCode.BadRequest:
                 {

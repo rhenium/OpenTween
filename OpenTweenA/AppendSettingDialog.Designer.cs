@@ -153,12 +153,9 @@
             this.UserAppointUrlText = new System.Windows.Forms.TextBox();
             this.ComboBoxTranslateLanguage = new System.Windows.Forms.ComboBox();
             this.Label29 = new System.Windows.Forms.Label();
-            this.CheckOutputz = new System.Windows.Forms.CheckBox();
             this.CheckNicoms = new System.Windows.Forms.CheckBox();
-            this.TextBoxOutputzKey = new System.Windows.Forms.TextBox();
             this.Label60 = new System.Windows.Forms.Label();
             this.Label59 = new System.Windows.Forms.Label();
-            this.ComboBoxOutputzUrlmode = new System.Windows.Forms.ComboBox();
             this.ProxyPanel = new System.Windows.Forms.Panel();
             this.Label55 = new System.Windows.Forms.Label();
             this.TextProxyPassword = new System.Windows.Forms.TextBox();
@@ -1283,12 +1280,9 @@
             this.CooperatePanel.Controls.Add(this.UserAppointUrlText);
             this.CooperatePanel.Controls.Add(this.ComboBoxTranslateLanguage);
             this.CooperatePanel.Controls.Add(this.Label29);
-            this.CooperatePanel.Controls.Add(this.CheckOutputz);
             this.CooperatePanel.Controls.Add(this.CheckNicoms);
-            this.CooperatePanel.Controls.Add(this.TextBoxOutputzKey);
             this.CooperatePanel.Controls.Add(this.Label60);
             this.CooperatePanel.Controls.Add(this.Label59);
-            this.CooperatePanel.Controls.Add(this.ComboBoxOutputzUrlmode);
             this.CooperatePanel.Name = "CooperatePanel";
             this.ToolTip1.SetToolTip(this.CooperatePanel, resources.GetString("CooperatePanel.ToolTip"));
             // 
@@ -1519,27 +1513,12 @@
             this.Label29.Name = "Label29";
             this.ToolTip1.SetToolTip(this.Label29, resources.GetString("Label29.ToolTip"));
             // 
-            // CheckOutputz
-            // 
-            resources.ApplyResources(this.CheckOutputz, "CheckOutputz");
-            this.CheckOutputz.Name = "CheckOutputz";
-            this.ToolTip1.SetToolTip(this.CheckOutputz, resources.GetString("CheckOutputz.ToolTip"));
-            this.CheckOutputz.UseVisualStyleBackColor = true;
-            this.CheckOutputz.CheckedChanged += new System.EventHandler(this.CheckOutputz_CheckedChanged);
-            // 
             // CheckNicoms
             // 
             resources.ApplyResources(this.CheckNicoms, "CheckNicoms");
             this.CheckNicoms.Name = "CheckNicoms";
             this.ToolTip1.SetToolTip(this.CheckNicoms, resources.GetString("CheckNicoms.ToolTip"));
             this.CheckNicoms.UseVisualStyleBackColor = true;
-            // 
-            // TextBoxOutputzKey
-            // 
-            resources.ApplyResources(this.TextBoxOutputzKey, "TextBoxOutputzKey");
-            this.TextBoxOutputzKey.Name = "TextBoxOutputzKey";
-            this.ToolTip1.SetToolTip(this.TextBoxOutputzKey, resources.GetString("TextBoxOutputzKey.ToolTip"));
-            this.TextBoxOutputzKey.Validating += new System.ComponentModel.CancelEventHandler(this.TextBoxOutputzKey_Validating);
             // 
             // Label60
             // 
@@ -1552,17 +1531,6 @@
             resources.ApplyResources(this.Label59, "Label59");
             this.Label59.Name = "Label59";
             this.ToolTip1.SetToolTip(this.Label59, resources.GetString("Label59.ToolTip"));
-            // 
-            // ComboBoxOutputzUrlmode
-            // 
-            resources.ApplyResources(this.ComboBoxOutputzUrlmode, "ComboBoxOutputzUrlmode");
-            this.ComboBoxOutputzUrlmode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxOutputzUrlmode.FormattingEnabled = true;
-            this.ComboBoxOutputzUrlmode.Items.AddRange(new object[] {
-            resources.GetString("ComboBoxOutputzUrlmode.Items"),
-            resources.GetString("ComboBoxOutputzUrlmode.Items1")});
-            this.ComboBoxOutputzUrlmode.Name = "ComboBoxOutputzUrlmode";
-            this.ToolTip1.SetToolTip(this.ComboBoxOutputzUrlmode, resources.GetString("ComboBoxOutputzUrlmode.ToolTip"));
             // 
             // ProxyPanel
             // 
@@ -2772,12 +2740,9 @@
         internal System.Windows.Forms.TextBox UserAppointUrlText;
         internal System.Windows.Forms.ComboBox ComboBoxTranslateLanguage;
         internal System.Windows.Forms.Label Label29;
-        internal System.Windows.Forms.CheckBox CheckOutputz;
         internal System.Windows.Forms.CheckBox CheckNicoms;
-        internal System.Windows.Forms.TextBox TextBoxOutputzKey;
         internal System.Windows.Forms.Label Label60;
         internal System.Windows.Forms.Label Label59;
-        internal System.Windows.Forms.ComboBox ComboBoxOutputzUrlmode;
         internal System.Windows.Forms.Panel ProxyPanel;
         internal System.Windows.Forms.Label Label55;
         internal System.Windows.Forms.TextBox TextProxyPassword;

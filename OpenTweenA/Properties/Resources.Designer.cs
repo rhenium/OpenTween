@@ -625,6 +625,8 @@ namespace OpenTween.Properties {
         /// <summary>
         ///   更新履歴
         ///
+        ///==== OpenTweenA
+        ///
         ///==== Ver 1.1.1-beta1(2013/xx/xx)
         ///
         ///==== Ver 1.1.0(2013/05/15)
@@ -635,7 +637,7 @@ namespace OpenTween.Properties {
         /// * FIX: スペースが含まれているURLをブラウザで開こうとするとURLが分断されて複数のタブが開いてしまう問題を修正 (thx @5px!)
         /// * FIX: 画面更新時にInvalidOperationExceptionのエラーが発生する不具合を修正
         /// * FIX: 関連発言表示が非公開アカウントのツイートに対して機能しない問題を修正
-        /// * FIX: 言語設定が英語の状態でリスト管理 [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// * FI [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -2670,15 +2672,6 @@ namespace OpenTween.Properties {
         internal static string TabUsageTypeName_UserTimeline {
             get {
                 return ResourceManager.GetString("TabUsageTypeName_UserTimeline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   復活の呪文を指定してください。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string TextBoxOutputzKey_Validating {
-            get {
-                return ResourceManager.GetString("TextBoxOutputzKey_Validating", resourceCulture);
             }
         }
         
