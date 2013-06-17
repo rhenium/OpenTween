@@ -526,27 +526,6 @@ namespace OpenTween
                 tw == null || UserAccounts == null ? -1
                 : UserAccounts.IndexOf(tw.UserAccount);
 
-
-            //if (tw.Username == "")
-            //{
-            //    //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4
-            //    //this.AuthUserLabel.Text = ""
-            //    //this.Save.Enabled = false
-            //}
-            //else
-            //{
-            //    //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click3;
-            //    //if (TwitterApiInfo.AccessLevel == ApiAccessLevel.ReadWrite)
-            //    //{
-            //    //    this.AuthStateLabel.Text += "(xAuth)";
-            //    //}
-            //    //else if (TwitterApiInfo.AccessLevel == ApiAccessLevel.ReadWriteAndDirectMessage)
-            //    //{
-            //    //    this.AuthStateLabel.Text += "(OAuth)";
-            //    //}
-            //    //this.AuthUserLabel.Text = tw.Username;
-            //}
-
             this.StartupUserstreamCheck.Checked = UserstreamStartup;
             UserstreamPeriod.Text = UserstreamPeriodInt.ToString();
             TimelinePeriod.Text = TimelinePeriodInt.ToString();
@@ -1699,7 +1678,7 @@ namespace OpenTween
 
         private void DisplayApiMaxCount()
         {
-            var limit = MyCommon.TwitterApiInfo.AccessLimit;
+            var limit = tw.TwitterApiInfo.AccessLimit;
             if (limit != null)
             {
                 LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, limit.AccessLimitCount - limit.AccessLimitRemain, limit.AccessLimitCount);
@@ -1788,10 +1767,10 @@ namespace OpenTween
 
             if (tw != null)
             {
-                var limit = MyCommon.TwitterApiInfo.AccessLimit;
+                var limit = tw.TwitterApiInfo.AccessLimit;
                 if (limit == null)
                 {
-                    if (Twitter.AccountState == MyCommon.ACCOUNT_STATE.Valid)
+                    if (tw.AccountState == MyCommon.ACCOUNT_STATE.Valid)
                     {
                         Task.Factory.StartNew(() => tw.GetInfoApi10()) //取得エラー時はinfoCountは初期状態（値：-1）
                             .ContinueWith(t =>

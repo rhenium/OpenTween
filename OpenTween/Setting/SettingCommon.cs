@@ -51,7 +51,7 @@ namespace OpenTween
         }
         #endregion
 
-        public BindingList<UserAccount> UserAccounts;
+        public BindingList<UserAccount> UserAccounts = new BindingList<UserAccount>();
         public int CurrentAccountId = 0;
         [XmlIgnore]
         public UserAccount CurrentAccount

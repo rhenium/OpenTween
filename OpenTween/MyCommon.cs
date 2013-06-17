@@ -526,115 +526,6 @@ namespace OpenTween
             values[idx_to] = moved_value;
         }
 
-        public static string EncryptString(string str)
-        {
-            if (string.IsNullOrEmpty(str)) return "";
-
-            //文字列をバイト型配列にする
-            var bytesIn = Encoding.UTF8.GetBytes(str);
-
-            //DESCryptoServiceProviderオブジェクトの作成
-            using (var des = new DESCryptoServiceProvider())
-            {
-                //共有キーと初期化ベクタを決定
-                //パスワードをバイト配列にする
-                var bytesKey = Encoding.UTF8.GetBytes("_tween_encrypt_key_");
-                //共有キーと初期化ベクタを設定
-                des.Key = ResizeBytesArray(bytesKey, des.Key.Length);
-                des.IV = ResizeBytesArray(bytesKey, des.IV.Length);
-
-                MemoryStream msOut = null;
-                ICryptoTransform desdecrypt = null;
-
-                try
-                {
-                    //暗号化されたデータを書き出すためのMemoryStream
-                    msOut = new MemoryStream();
-
-                    //DES暗号化オブジェクトの作成
-                    desdecrypt = des.CreateEncryptor();
-
-                    //書き込むためのCryptoStreamの作成
-                    using (CryptoStream cryptStream = new CryptoStream(msOut, desdecrypt, CryptoStreamMode.Write))
-                    {
-                        //Disposeが重複して呼ばれないようにする
-                        MemoryStream msTmp = msOut;
-                        msOut = null;
-                        desdecrypt = null;
-
-                        //書き込む
-                        cryptStream.Write(bytesIn, 0, bytesIn.Length);
-                        cryptStream.FlushFinalBlock();
-                        //暗号化されたデータを取得
-                        var bytesOut = msTmp.ToArray();
-
-                        //Base64で文字列に変更して結果を返す
-                        return Convert.ToBase64String(bytesOut);
-                    }
-                }
-                finally
-                {
-                    if (msOut != null) msOut.Dispose();
-                    if (desdecrypt != null) desdecrypt.Dispose();
-                }
-            }
-        }
-
-        public static string DecryptString(string str)
-        {
-            if (string.IsNullOrEmpty(str)) return "";
-
-            //DESCryptoServiceProviderオブジェクトの作成
-            using (var des = new System.Security.Cryptography.DESCryptoServiceProvider())
-            {
-                //共有キーと初期化ベクタを決定
-                //パスワードをバイト配列にする
-                var bytesKey = Encoding.UTF8.GetBytes("_tween_encrypt_key_");
-                //共有キーと初期化ベクタを設定
-                des.Key = ResizeBytesArray(bytesKey, des.Key.Length);
-                des.IV = ResizeBytesArray(bytesKey, des.IV.Length);
-
-                //Base64で文字列をバイト配列に戻す
-                var bytesIn = Convert.FromBase64String(str);
-
-                MemoryStream msIn = null;
-                ICryptoTransform desdecrypt = null;
-                CryptoStream cryptStreem = null;
-
-                try
-                {
-                    //暗号化されたデータを読み込むためのMemoryStream
-                    msIn = new MemoryStream(bytesIn);
-                    //DES復号化オブジェクトの作成
-                    desdecrypt = des.CreateDecryptor();
-                    //読み込むためのCryptoStreamの作成
-                    cryptStreem = new CryptoStream(msIn, desdecrypt, CryptoStreamMode.Read);
-
-                    //Disposeが重複して呼ばれないようにする
-                    msIn = null;
-                    desdecrypt = null;
-
-                    //復号化されたデータを取得するためのStreamReader
-                    using (StreamReader srOut = new StreamReader(cryptStreem, Encoding.UTF8))
-                    {
-                        //Disposeが重複して呼ばれないようにする
-                        cryptStreem = null;
-
-                        //復号化されたデータを取得する
-                        var result = srOut.ReadToEnd();
-
-                        return result;
-                    }
-                }
-                finally
-                {
-                    if (msIn != null) msIn.Dispose();
-                    if (desdecrypt != null) desdecrypt.Dispose();
-                    if (cryptStreem != null) cryptStreem.Dispose();
-                }
-            }
-        }
-
         public static byte[] ResizeBytesArray(byte[] bytes,
                                     int newSize)
         {
@@ -698,9 +589,6 @@ namespace OpenTween
             }
             return GetAssemblyName() + "/" + fileVersion;
         }
-
-        public static TwitterApiStatus TwitterApiInfo = new TwitterApiStatus();
-        public static TwitterApiStatus11 TwitterApiInfo11 = new TwitterApiStatus11();
 
         public static bool IsAnimatedGif(string filename)
         {

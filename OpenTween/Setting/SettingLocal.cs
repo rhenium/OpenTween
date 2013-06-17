@@ -253,48 +253,7 @@ namespace OpenTween
             set { ColorDetailLink = (Color)_cc.ConvertFromString(value); }
         }
 
-        [XmlIgnore]
         public string ProxyPassword = "";
-        public string EncryptProxyPassword
-        {
-            get
-            {
-                string pwd = ProxyPassword;
-                if (string.IsNullOrEmpty(pwd)) pwd = "";
-                if (pwd.Length > 0)
-                {
-                    try
-                    {
-                        return MyCommon.EncryptString(pwd);
-                    }
-                    catch (Exception)
-                    {
-                        return "";
-                    }
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            set
-            {
-                string pwd = value;
-                if (string.IsNullOrEmpty(pwd)) pwd = "";
-                if (pwd.Length > 0)
-                {
-                    try
-                    {
-                        pwd = MyCommon.DecryptString(pwd);
-                    }
-                    catch (Exception)
-                    {
-                        pwd = "";
-                    }
-                }
-                ProxyPassword = pwd;
-            }
-        }
 
         public void Dispose()
         {

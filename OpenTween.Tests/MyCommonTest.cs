@@ -69,18 +69,6 @@ namespace OpenTween
             return copy;
         }
 
-        [Test]
-        public void EncryptStringTest()
-        {
-            var str = "hogehoge";
-
-            var crypto = MyCommon.EncryptString(str);
-            Assert.That(crypto, Is.Not.EqualTo(str));
-
-            var decrypt = MyCommon.DecryptString(crypto);
-            Assert.That(decrypt, Is.EqualTo(str));
-        }
-
         [TestCase(new byte[] { 0x01, 0x02 }, 3, Result = new byte[] { 0x01, 0x02, 0x00 })]
         [TestCase(new byte[] { 0x01, 0x02 }, 2, Result = new byte[] { 0x01, 0x02 })]
         [TestCase(new byte[] { 0x01, 0x02 }, 1, Result = new byte[] { 0x03 })]

@@ -147,6 +147,10 @@ namespace OpenTween
         private string _bio = "";
         private string _protocol = "https://";
 
+        public TwitterApiStatus TwitterApiInfo = new TwitterApiStatus();
+        public TwitterApiStatus11 TwitterApiInfo11 = new TwitterApiStatus11();
+
+
         //プロパティからアクセスされる共通情報
         private int _iconSz;
         private bool _getIcon;
@@ -175,18 +179,18 @@ namespace OpenTween
             get
             {
                 if (HttpTwitter.API11Enabled)
-                    return MyCommon.TwitterApiInfo11.AccessLevel;
+                    return TwitterApiInfo11.AccessLevel;
                 else
-                    return MyCommon.TwitterApiInfo.AccessLevel;
+                    return TwitterApiInfo.AccessLevel;
             }
         }
 
         protected void ResetApiStatus()
         {
             if (HttpTwitter.API11Enabled)
-                MyCommon.TwitterApiInfo11.Reset();
+                TwitterApiInfo11.Reset();
             else
-                MyCommon.TwitterApiInfo.Reset();
+                TwitterApiInfo.Reset();
         }
 
         public string StartAuthentication(ref string pinPageUrl)
@@ -230,7 +234,7 @@ namespace OpenTween
                 }
             }
 
-            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+            AccountState = MyCommon.ACCOUNT_STATE.Valid;
             this.ResetApiStatus();
             if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
             return "";
@@ -252,7 +256,7 @@ namespace OpenTween
 
             if (res == HttpStatusCode.OK)
             {
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 TwitterDataModel.User user;
                 try
                 {
@@ -301,7 +305,7 @@ namespace OpenTween
         {
             if (account == null)
             {
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
             }
             else
             {
@@ -313,7 +317,7 @@ namespace OpenTween
 
         public Twitter(string consumerKey, string consumerSecret)
         {
-            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+            AccountState = MyCommon.ACCOUNT_STATE.Invalid;
             twCon = new HttpTwitter(new OAuthConsumer(consumerKey, consumerSecret));
             this.ResetApiStatus();
             if (AppendSettingDialog.Instance.UserstreamStartup) ReconnectUserStream();
@@ -453,7 +457,7 @@ namespace OpenTween
             }
         }
 
-        static private PostInfo _prev = new PostInfo("", "", "", "");
+        private PostInfo _prev = new PostInfo("", "", "", "");
         private bool IsPostRestricted(TwitterDataModel.Status status)
         {
             var _current = new PostInfo("", "", "", "");
@@ -487,7 +491,7 @@ namespace OpenTween
 
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             postStr = postStr.Trim();
 
@@ -510,7 +514,7 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 TwitterDataModel.Status status;
                 try
                 {
@@ -575,7 +579,7 @@ namespace OpenTween
                 return "Warn:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
             case HttpStatusCode.Unauthorized:
                 {
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     var errMsg = GetErrorMessageJson(content);
                     if (string.IsNullOrEmpty(errMsg))
                     {
@@ -595,7 +599,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             postStr = postStr.Trim();
 
@@ -613,7 +617,7 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 TwitterDataModel.Status status;
                 try
                 {
@@ -678,7 +682,7 @@ namespace OpenTween
                 return "Warn:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
             case HttpStatusCode.Unauthorized:
                 {
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     var errMsg = GetErrorMessageJson(content);
                     if (string.IsNullOrEmpty(errMsg))
                     {
@@ -698,12 +702,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
-
-            if (this.AccessLevel == TwitterApiAccessLevel.Read || this.AccessLevel == TwitterApiAccessLevel.ReadWrite)
-            {
-                return "Auth Err:try to re-authorization.";
-            }
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             postStr = postStr.Trim();
 
@@ -724,7 +723,7 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 TwitterDataModel.Directmessage status;
                 try
                 {
@@ -784,7 +783,7 @@ namespace OpenTween
                 return "Warn:" + res.ToString();
             case HttpStatusCode.Unauthorized:
                 {
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     var errMsg = GetErrorMessageJson(content);
                     if (string.IsNullOrEmpty(errMsg))
                     {
@@ -804,7 +803,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
 
@@ -820,10 +819,10 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 return "";
             case HttpStatusCode.Unauthorized:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                 return Properties.Resources.Unauthorized;
             case HttpStatusCode.NotFound:
                 return "";
@@ -835,7 +834,7 @@ namespace OpenTween
         public string PostRetweet(long id, bool read)
         {
             if (MyCommon._endingFlag) return "";
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             //データ部分の生成
             var target = id;
@@ -863,7 +862,7 @@ namespace OpenTween
             if (res == HttpStatusCode.Unauthorized)
             {
                 //Blockユーザーの発言をRTすると認証エラー返る
-                //Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid
+                //AccountState = MyCommon.ACCOUNT_STATE.Invalid
                 return Properties.Resources.Unauthorized + " or blocked user.";
             }
             else if (res != HttpStatusCode.OK)
@@ -871,7 +870,7 @@ namespace OpenTween
                 return "Err:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
             }
 
-            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+            AccountState = MyCommon.ACCOUNT_STATE.Valid;
 
             TwitterDataModel.Status status;
             try
@@ -917,12 +916,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
-
-            if (this.AccessLevel == TwitterApiAccessLevel.Read || this.AccessLevel == TwitterApiAccessLevel.ReadWrite)
-            {
-                return "Auth Err:try to re-authorization.";
-            }
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
 
@@ -941,10 +935,10 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 return "";
             case HttpStatusCode.Unauthorized:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                 return Properties.Resources.Unauthorized;
             case HttpStatusCode.NotFound:
                 return "";
@@ -957,7 +951,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -974,10 +968,10 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 return "";
             case HttpStatusCode.Unauthorized:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                 return Properties.Resources.Unauthorized;
             case HttpStatusCode.Forbidden:
                 var errMsg = GetErrorMessageJson(content);
@@ -998,7 +992,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1015,10 +1009,10 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 return "";
             case HttpStatusCode.Unauthorized:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                 return Properties.Resources.Unauthorized;
             case HttpStatusCode.Forbidden:
                 var errMsg = GetErrorMessageJson(content);
@@ -1039,7 +1033,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1056,10 +1050,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     return "";
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.Forbidden:
                     var errMsg = GetErrorMessageJson(content);
@@ -1080,7 +1074,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1097,10 +1091,10 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 return "";
             case HttpStatusCode.Unauthorized:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                 return Properties.Resources.Unauthorized;
             case HttpStatusCode.Forbidden:
                 var errMsg = GetErrorMessageJson(content);
@@ -1121,7 +1115,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1138,10 +1132,10 @@ namespace OpenTween
             switch (res)
             {
             case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                AccountState = MyCommon.ACCOUNT_STATE.Valid;
                 return "";
             case HttpStatusCode.Unauthorized:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                 return Properties.Resources.Unauthorized;
             case HttpStatusCode.Forbidden:
                 var errMsg = GetErrorMessageJson(content);
@@ -1162,7 +1156,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1198,7 +1192,7 @@ namespace OpenTween
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 default:
                     return "Err:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
@@ -1209,7 +1203,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1226,7 +1220,7 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     try
                     {
                         user = MyCommon.CreateDataFromJson<TwitterDataModel.User>(content);
@@ -1245,7 +1239,7 @@ namespace OpenTween
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     var errMsg = GetErrorMessageJson(content);
                     if (string.IsNullOrEmpty(errMsg))
                     {
@@ -1262,7 +1256,7 @@ namespace OpenTween
 
         public string GetStatus_Retweeted_Count(long StatusId, ref int retweeted_count)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             if (MyCommon._endingFlag) return "";
 
@@ -1280,10 +1274,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -1318,7 +1312,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             //if (this.favQueue == null) this.favQueue = new FavoriteQueue(this)
 
@@ -1340,12 +1334,12 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     //this.favQueue.FavoriteCacheStart();
                     if (!_restrictFavCheck) return "";
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.Forbidden:
                     var errMsg = GetErrorMessageJson(content);
@@ -1384,7 +1378,7 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     TwitterDataModel.Status status;
                     try
                     {
@@ -1409,7 +1403,7 @@ namespace OpenTween
                         return "NG(Restricted?)";
                     }
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -1422,7 +1416,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             //if (this.favQueue == null) this.favQueue = new FavoriteQueue(this)
 
@@ -1445,10 +1439,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     return "";
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.Forbidden:
                     var errMsg = GetErrorMessageJson(content);
@@ -1469,7 +1463,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1485,10 +1479,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     return "";
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.Forbidden:
                     var errMsg = GetErrorMessageJson(content);
@@ -1509,7 +1503,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -1525,10 +1519,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     return "";
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.Forbidden:
                     var errMsg = GetErrorMessageJson(content);
@@ -1561,8 +1555,8 @@ namespace OpenTween
             }
         }
 
-        private static MyCommon.ACCOUNT_STATE _accountState = MyCommon.ACCOUNT_STATE.Valid;
-        public static MyCommon.ACCOUNT_STATE AccountState
+        private MyCommon.ACCOUNT_STATE _accountState = MyCommon.ACCOUNT_STATE.Valid;
+        public MyCommon.ACCOUNT_STATE AccountState
         {
             get
             {
@@ -1793,7 +1787,7 @@ namespace OpenTween
                                 bool more,
                                 bool startup)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             if (MyCommon._endingFlag) return "";
 
@@ -1844,10 +1838,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -1871,7 +1865,7 @@ namespace OpenTween
                                          TabClass tab,
                                          bool more)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             if (MyCommon._endingFlag) return "";
 
@@ -1907,10 +1901,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     return "Err:@" + userName + "'s Tweets are protected.";
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -1953,7 +1947,7 @@ namespace OpenTween
                                    Int64 id,
                                    ref PostClass post)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             if (MyCommon._endingFlag) return "";
 
@@ -1971,10 +1965,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -2436,10 +2430,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -2454,7 +2448,7 @@ namespace OpenTween
         /// startStatusId からリプライ先の発言を辿る。発言は posts 以外からは検索しない。
         /// </summary>
         /// <returns>posts の中から検索されたリプライチェインの末端</returns>
-        internal static PostClass FindTopOfReplyChain(IDictionary<Int64, PostClass> posts, Int64 startStatusId)
+        internal PostClass FindTopOfReplyChain(IDictionary<Int64, PostClass> posts, Int64 startStatusId)
         {
             if (!posts.ContainsKey(startStatusId))
                 throw new ArgumentException("startStatusId (" + startStatusId + ") が posts の中から見つかりませんでした。");
@@ -2573,7 +2567,7 @@ namespace OpenTween
         private string GetRelatedResultsApi(PostClass post,
                                             IDictionary<Int64, PostClass> relatedPosts)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             if (MyCommon._endingFlag) return "";
 
@@ -2597,10 +2591,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -2898,12 +2892,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return "";
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
-
-            if (this.AccessLevel == TwitterApiAccessLevel.Read || this.AccessLevel == TwitterApiAccessLevel.ReadWrite)
-            {
-                return "Auth Err:try to re-authorization.";
-            }
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -2941,10 +2930,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -2955,12 +2944,12 @@ namespace OpenTween
             return CreateDirectMessagesFromJson(content, gType, read);
         }
 
-        static int page_ = 1;
+        int page_ = 1;
         public string GetFavoritesApi(bool read,
                             MyCommon.WORKERTYPE gType,
                             bool more)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             if (MyCommon._endingFlag) return "";
 
@@ -2995,10 +2984,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3195,7 +3184,7 @@ namespace OpenTween
 
         private string FollowerApi(ref long cursor)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -3211,10 +3200,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3266,7 +3255,7 @@ namespace OpenTween
 
         private string NoRetweetApi(ref long cursor)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -3282,10 +3271,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3336,10 +3325,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3371,7 +3360,7 @@ namespace OpenTween
 
         private string GetListsApi10()
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -3392,10 +3381,10 @@ namespace OpenTween
                 switch (res)
                 {
                     case HttpStatusCode.OK:
-                        Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                        AccountState = MyCommon.ACCOUNT_STATE.Valid;
                         break;
                     case HttpStatusCode.Unauthorized:
-                        Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                        AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                         return Properties.Resources.Unauthorized;
                     case HttpStatusCode.BadRequest:
                         return "Err:API Limits?";
@@ -3437,10 +3426,10 @@ namespace OpenTween
                 switch (res)
                 {
                     case HttpStatusCode.OK:
-                        Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                        AccountState = MyCommon.ACCOUNT_STATE.Valid;
                         break;
                     case HttpStatusCode.Unauthorized:
-                        Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                        AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                         return Properties.Resources.Unauthorized;
                     case HttpStatusCode.BadRequest:
                         return "Err:API Limits?";
@@ -3472,7 +3461,7 @@ namespace OpenTween
 
         private string GetListsApi11()
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             IEnumerable<ListElement> lists;
@@ -3490,10 +3479,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3530,10 +3519,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3578,10 +3567,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3609,10 +3598,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3651,7 +3640,7 @@ namespace OpenTween
 
         public string GetListMembers(string list_id, List<UserInfo> lists, ref long cursor)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -3669,10 +3658,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3703,7 +3692,7 @@ namespace OpenTween
 
         public string CreateListApi(string listName, bool isPrivate, string description)
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -3720,10 +3709,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3753,7 +3742,7 @@ namespace OpenTween
         {
             value = false;
 
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -3770,10 +3759,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -3814,10 +3803,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:" + GetErrorMessageJson(content);
@@ -3846,10 +3835,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:" + GetErrorMessageJson(content);
@@ -4154,7 +4143,7 @@ namespace OpenTween
 
         public TwitterApiStatus GetInfoApi10()
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return null;
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return null;
 
             if (MyCommon._endingFlag) return null;
 
@@ -4175,21 +4164,21 @@ namespace OpenTween
             try
             {
                 var limit = MyCommon.CreateDataFromJson<TwitterDataModel.RateLimitStatus>(content);
-                MyCommon.TwitterApiInfo.UpdateFromApi(limit);
+                TwitterApiInfo.UpdateFromApi(limit);
 
-                return MyCommon.TwitterApiInfo;
+                return TwitterApiInfo;
             }
             catch(Exception ex)
             {
                 MyCommon.TraceOut(ex, MethodBase.GetCurrentMethod().Name + " " + content);
-                MyCommon.TwitterApiInfo.Reset();
+                TwitterApiInfo.Reset();
                 return null;
             }
         }
 
         public TwitterApiStatus11 GetInfoApi11()
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return null;
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return null;
 
             if (MyCommon._endingFlag) return null;
 
@@ -4209,20 +4198,20 @@ namespace OpenTween
 
             try
             {
-                MyCommon.TwitterApiInfo11.UpdateFromJson(content);
-                return MyCommon.TwitterApiInfo11;
+                TwitterApiInfo11.UpdateFromJson(content);
+                return TwitterApiInfo11;
             }
             catch (Exception ex)
             {
                 MyCommon.TraceOut(ex, MethodBase.GetCurrentMethod().Name + " " + content);
-                MyCommon.TwitterApiInfo.Reset();
+                TwitterApiInfo.Reset();
                 return null;
             }
         }
 
         public string GetBlockUserIds()
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
+            if (AccountState != MyCommon.ACCOUNT_STATE.Valid) return "";
 
             HttpStatusCode res = HttpStatusCode.BadRequest;
             var content = "";
@@ -4239,10 +4228,10 @@ namespace OpenTween
             switch (res)
             {
                 case HttpStatusCode.OK:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     break;
                 case HttpStatusCode.Unauthorized:
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                    AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                     return Properties.Resources.Unauthorized;
                 case HttpStatusCode.BadRequest:
                     return "Err:API Limits?";
@@ -4289,15 +4278,11 @@ namespace OpenTween
             }
         }
 
-        private UserAccount _UserAccount;
         public UserAccount UserAccount
         {
             get
             {
-                if (_UserAccount != null)
-                    return _UserAccount;
-                else
-                    return (_UserAccount = new UserAccount(this.Credential, this.UserId, this.Username));
+                return new UserAccount(this.Credential, this.UserId, this.Username);
             }
 
         }
@@ -4673,7 +4658,7 @@ namespace OpenTween
             {
                 StopUserStream();
             }
-            userStream = new TwitterUserstream(twCon);
+            userStream = new TwitterUserstream(this);
             userStream.StatusArrived += userStream_StatusArrived;
             userStream.Started += userStream_Started;
             userStream.Stopped += userStream_Stopped;
@@ -4706,6 +4691,7 @@ namespace OpenTween
             public event Action<string> StatusArrived;
             public event Action Stopped;
             public event Action Started;
+            private Twitter tw;
             private HttpTwitter twCon;
 
             private Thread _streamThread;
@@ -4714,9 +4700,10 @@ namespace OpenTween
             private bool _allAtreplies = false;
             private string _trackwords = "";
 
-            public TwitterUserstream(HttpTwitter twitterConnection)
+            public TwitterUserstream(Twitter tw)
             {
-                twCon = (HttpTwitter)twitterConnection.Clone();
+                this.tw = tw;
+                this.twCon = (HttpTwitter)tw.twCon.Clone();
             }
 
             public void Start(bool allAtReplies, string trackwords)
@@ -4787,10 +4774,10 @@ namespace OpenTween
                         switch (res)
                         {
                             case HttpStatusCode.OK:
-                                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                                tw.AccountState = MyCommon.ACCOUNT_STATE.Valid;
                                 break;
                             case HttpStatusCode.Unauthorized:
-                                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+                                tw.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
                                 sleepSec = 120;
                                 continue;
                         }
@@ -4804,7 +4791,7 @@ namespace OpenTween
 
                         sr = new StreamReader(st);
 
-                        while (_streamActive && !sr.EndOfStream && Twitter.AccountState == MyCommon.ACCOUNT_STATE.Valid)
+                        while (_streamActive && !sr.EndOfStream && tw.AccountState == MyCommon.ACCOUNT_STATE.Valid)
                         {
                             if (StatusArrived != null)
                             {
@@ -4813,7 +4800,7 @@ namespace OpenTween
                             //this.LastTime = Now;
                         }
 
-                        if (sr.EndOfStream || Twitter.AccountState == MyCommon.ACCOUNT_STATE.Invalid)
+                        if (sr.EndOfStream || tw.AccountState == MyCommon.ACCOUNT_STATE.Invalid)
                         {
                             sleepSec = 30;
                             //MyCommon.TraceOut("Stop:EndOfStream")

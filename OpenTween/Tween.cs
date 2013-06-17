@@ -553,8 +553,6 @@ namespace OpenTween
 
             SecurityManager = new InternetSecurityManager(PostBrowser);
 
-            MyCommon.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
-            MyCommon.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
             Microsoft.Win32.SystemEvents.PowerModeChanged += SystemEvents_PowerModeChanged;
 
             string[] cmdArgs = Environment.GetCommandLineArgs();
@@ -651,13 +649,13 @@ namespace OpenTween
             SettingDialog.TwitterSearchApiUrl = _cfgCommon.TwitterSearchUrl;
 
             //認証関連
-            if (_cfgCommon.UserAccounts == null)
-                _cfgCommon.UserAccounts = new BindingList<UserAccount>();
             if (_cfgCommon.CurrentAccount != null)
+            {
                 tw = new Twitter(_cfgCommon.CurrentAccount);
+                tw.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+                tw.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+            }
             
-            SettingDialog.UserAccounts = _cfgCommon.UserAccounts;
-
             SettingDialog.TimelinePeriodInt = _cfgCommon.TimelinePeriod;
             SettingDialog.ReplyPeriodInt = _cfgCommon.ReplyPeriod;
             SettingDialog.DMPeriodInt = _cfgCommon.DMPeriod;
@@ -888,6 +886,8 @@ namespace OpenTween
                 SettingDialog.ShowInTaskbar = true;
 
                 //設定せずにキャンセルされた場合はプログラム終了
+                SettingDialog.UserAccounts = new BindingList<UserAccount>(new List<UserAccount>(_cfgCommon.UserAccounts));
+
                 var res = SettingDialog.ShowDialog(this);
                 var cur = (UserAccount)SettingDialog.AuthUserCombo.SelectedItem;
                 if (res == DialogResult.Cancel || cur == null)
@@ -897,7 +897,11 @@ namespace OpenTween
                 }
                 else
                 {
+                    _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
                     tw = new Twitter(cur);
+                    tw.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+                    tw.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+                    StartUserStream();
                 }
                 SettingDialog.ShowInTaskbar = false;
                 //新しい設定を反映
@@ -1254,19 +1258,6 @@ namespace OpenTween
             _ignoreConfigSave = false;
             this.TweenMain_Resize(null, null);
             if (saveRequired) SaveConfigsAll(false);
-
-            if (tw.Username == null)
-            {
-                tw.VerifyCredentials();
-            }
-            foreach (UserAccount ua in SettingDialog.UserAccounts)
-            {
-                if (ua.UserId == 0 && ua.Username.ToLower() == tw.Username.ToLower())
-                {
-                    ua.UserId = tw.UserId;
-                    break;
-                }
-            }
 
             if (firstRun)
             {
@@ -2384,17 +2375,17 @@ namespace OpenTween
             this.BringToFront();
         }
 
-        private static int errorCount = 0;
+        private int errorCount = 0;
 
-        private static bool CheckAccountValid()
+        private bool CheckAccountValid()
         {
-            if (Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid)
+            if (tw.AccountState != MyCommon.ACCOUNT_STATE.Valid)
             {
                 errorCount += 1;
                 if (errorCount > 5)
                 {
                     errorCount = 0;
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    tw.AccountState = MyCommon.ACCOUNT_STATE.Valid;
                     return true;
                 }
                 return false;
@@ -2558,7 +2549,7 @@ namespace OpenTween
                                 ret == "Err:Status is a duplicate." ||
                                 args.status.status.StartsWith("D", StringComparison.OrdinalIgnoreCase) ||
                                 args.status.status.StartsWith("DM", StringComparison.OrdinalIgnoreCase) ||
-                                Twitter.AccountState != MyCommon.ACCOUNT_STATE.Valid)
+                                tw.AccountState != MyCommon.ACCOUNT_STATE.Valid)
                                 break;
                         }
                     }
@@ -3889,6 +3880,7 @@ namespace OpenTween
 
             try
             {
+                SettingDialog.UserAccounts = new BindingList<UserAccount>(new List<UserAccount>(_cfgCommon.UserAccounts));
                 result = SettingDialog.ShowDialog(this);
             }
             catch (Exception)
@@ -3900,11 +3892,15 @@ namespace OpenTween
             {
                 lock (_syncObject)
                 {
+                    _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
                     var cur = (UserAccount)SettingDialog.AuthUserCombo.SelectedItem;
                     if (!cur.Equals(tw.UserAccount))
                     {
                         tw.Dispose();
                         tw = new Twitter(cur);
+                        tw.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+                        tw.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+                        StartUserStream();
                         doGetFollowersMenu();
                     }
                     tw.TinyUrlResolve = SettingDialog.TinyUrlResolve;
@@ -4161,7 +4157,7 @@ namespace OpenTween
                     {
                     }
 
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+                    tw.AccountState = MyCommon.ACCOUNT_STATE.Valid;
 
                     this.TopMost = SettingDialog.AlwaysTop;
                 }
@@ -7741,7 +7737,6 @@ namespace OpenTween
             _modifySettingCommon = false;
             lock (_syncObject)
             {
-                _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
                 _cfgCommon.CurrentAccount = tw.UserAccount;
                 _cfgCommon.UserstreamStartup = SettingDialog.UserstreamStartup;
                 _cfgCommon.UserstreamPeriod = SettingDialog.UserstreamPeriodInt;
@@ -9475,12 +9470,12 @@ namespace OpenTween
                         var endpointName = (e as TwitterApiStatus11.AccessLimitUpdatedEventArgs).EndpointName;
                         if (endpointName == "/statuses/home_timeline" || endpointName == null)
                         {
-                            this._apiGauge.ApiLimit = MyCommon.TwitterApiInfo11.AccessLimit["/statuses/home_timeline"];
+                            this._apiGauge.ApiLimit = tw.TwitterApiInfo11.AccessLimit["/statuses/home_timeline"];
                         }
                     }
                     else if (sender is TwitterApiStatus && !this._apiGauge.API11Enabled)
                     {
-                        this._apiGauge.ApiLimit = MyCommon.TwitterApiInfo.AccessLimit;
+                        this._apiGauge.ApiLimit = tw.TwitterApiInfo.AccessLimit;
                     }
                 }
             }
@@ -10803,11 +10798,12 @@ namespace OpenTween
                     GetTimeline(MyCommon.WORKERTYPE.Configuration, 0, 0, "");
 
                 // 権限チェック read/write権限(xAuthで取得したトークン)の場合は再認証を促す
-                if (MyCommon.TwitterApiInfo.AccessLevel == TwitterApiAccessLevel.ReadWrite)
-                {
-                    MessageBox.Show(Properties.Resources.ReAuthorizeText);
-                    SettingStripMenuItem_Click(null, null);
-                }
+                // 公式クライアントのキーは read/write 権限でも DM 読み書き可能だったり
+                //if (tw.TwitterApiInfo.AccessLevel == TwitterApiAccessLevel.ReadWrite)
+                //{
+                //    MessageBox.Show(Properties.Resources.ReAuthorizeText);
+                //    SettingStripMenuItem_Click(null, null);
+                //}
 
                 //
             }
@@ -12209,9 +12205,9 @@ namespace OpenTween
                 (s as ToolStripAPIGauge).API11Enabled = api11Enabled;
 
                 if (api11Enabled)
-                    MyCommon.TwitterApiInfo11.Reset();
+                    tw.TwitterApiInfo11.Reset();
                 else
-                    MyCommon.TwitterApiInfo.Reset();
+                    tw.TwitterApiInfo.Reset();
             };
             this.StatusStrip1.Items.Insert(2, this._apiGauge);
 
