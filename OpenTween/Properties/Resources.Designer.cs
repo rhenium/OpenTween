@@ -626,6 +626,9 @@ namespace OpenTween.Properties {
         ///   更新履歴
         ///
         ///==== Ver 1.1.2-beta1(2013/xx/xx)
+        /// * NEW: 画像アップロード対応サービスについっぷるフォトを追加
+        /// * CHG: 画像アップロード対応サービスから Lockerz を削除 (API廃止のため)
+        /// * FIX: Twitpic, yfrog, img.ly に画像をアップロードすることができない問題を修正
         ///
         ///==== Ver 1.1.1(2013/06/11)
         /// * 当バージョンから Twitter API v1.1 に対応しています
@@ -634,11 +637,7 @@ namespace OpenTween.Properties {
         ///
         /// * NEW: API v1.1 に対応
         /// * NEW: サムネイル画像表示の右クリックメニューにGoogle画像検索を開くための項目を追加 (thx @moccos!)
-        /// * FIX: 画像投稿画面をキャンセルした場合にタイムライン表示に復帰できない不具合を修正 (thx @polka_roco_!)
-        ///
-        ///==== Ver 1.1.0(2013/05/15)
-        /// * NEW: タブの表示位置を画面上部に変更可能に (thx @aokomoriuta!)
-        /// * NEW: mobile.twitter.c [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
+        /// * FIX: 画像投稿画面をキャンセルした場合にタイム [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -2682,15 +2681,6 @@ namespace OpenTween.Properties {
         internal static string TabUsageTypeName_UserTimeline {
             get {
                 return ResourceManager.GetString("TabUsageTypeName_UserTimeline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   復活の呪文を指定してください。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string TextBoxOutputzKey_Validating {
-            get {
-                return ResourceManager.GetString("TextBoxOutputzKey_Validating", resourceCulture);
             }
         }
         

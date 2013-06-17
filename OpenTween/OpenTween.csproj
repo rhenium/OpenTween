@@ -207,7 +207,6 @@
     <Compile Include="OpenURL.Designer.cs">
       <DependentUpon>OpenURL.cs</DependentUpon>
     </Compile>
-    <Compile Include="Outputz.cs" />
     <Compile Include="PictureBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -328,6 +327,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AppendSettingDialog.zh-CHS.resx">
       <DependentUpon>AppendSettingDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ListManage.zh-CHS.resx">
       <DependentUpon>ListManage.cs</DependentUpon>

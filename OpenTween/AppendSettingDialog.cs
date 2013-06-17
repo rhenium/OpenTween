@@ -378,18 +378,6 @@ namespace OpenTween
                 AlwaysTop = CheckAlwaysTop.Checked;
                 UrlConvertAuto = CheckAutoConvertUrl.Checked;
                 ShortenTco = ShortenTcoCheck.Checked;
-                OutputzEnabled = CheckOutputz.Checked;
-                OutputzKey = TextBoxOutputzKey.Text.Trim();
-
-                switch (ComboBoxOutputzUrlmode.SelectedIndex)
-                {
-                    case 0:
-                        OutputzUrlmode = MyCommon.OutputzUrlmode.twittercom;
-                        break;
-                    case 1:
-                        OutputzUrlmode = MyCommon.OutputzUrlmode.twittercomWithUsername;
-                        break;
-                }
 
                 Nicoms = CheckNicoms.Checked;
                 UseUnreadStyle = chkUnreadStyle.Checked;
@@ -691,19 +679,6 @@ namespace OpenTween
             CheckAutoConvertUrl.Checked = UrlConvertAuto;
             ShortenTcoCheck.Checked = ShortenTco;
             ShortenTcoCheck.Enabled = CheckAutoConvertUrl.Checked;
-            CheckOutputz.Checked = OutputzEnabled;
-            TextBoxOutputzKey.Text = OutputzKey;
-
-            switch (OutputzUrlmode)
-            {
-                case MyCommon.OutputzUrlmode.twittercom:
-                    ComboBoxOutputzUrlmode.SelectedIndex = 0;
-                    break;
-                case MyCommon.OutputzUrlmode.twittercomWithUsername:
-                    ComboBoxOutputzUrlmode.SelectedIndex = 1;
-                    break;
-            }
-
             CheckNicoms.Checked = Nicoms;
             chkUnreadStyle.Checked = UseUnreadStyle;
             CmbDateTimeFormat.Text = DateTimeFormat;
@@ -778,8 +753,6 @@ namespace OpenTween
             HotkeyText.Enabled = HotkeyEnabled;
             HotkeyCode.Enabled = HotkeyEnabled;
             ChkNewMentionsBlink.Checked = BlinkNewMentions;
-
-            CheckOutputz_CheckedChanged(sender, e);
 
             GetMoreTextCountApi.Text = MoreCountApi.ToString();
             FirstTextCountApi.Text = FirstCountApi.ToString();
@@ -1284,9 +1257,6 @@ namespace OpenTween
         public bool AlwaysTop { get; set; }
         public bool UrlConvertAuto { get; set; }
         public bool ShortenTco { get; set; }
-        public bool OutputzEnabled { get; set; }
-        public string OutputzKey { get; set; }
-        public MyCommon.OutputzUrlmode OutputzUrlmode { get; set; }
         public bool Nicoms { get; set; }
         public MyCommon.UrlConverter AutoShortUrlFirst { get; set; }
         public bool UseUnreadStyle { get; set; }
@@ -1356,38 +1326,6 @@ namespace OpenTween
                 MessageBox.Show(Properties.Resources.TextProxyPort_ValidatingText2);
                 e.Cancel = true;
                 return;
-            }
-        }
-
-        private void CheckOutputz_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CheckOutputz.Checked == true)
-            {
-                Label59.Enabled = true;
-                Label60.Enabled = true;
-                TextBoxOutputzKey.Enabled = true;
-                ComboBoxOutputzUrlmode.Enabled = true;
-            }
-            else
-            {
-                Label59.Enabled = false;
-                Label60.Enabled = false;
-                TextBoxOutputzKey.Enabled = false;
-                ComboBoxOutputzUrlmode.Enabled = false;
-            }
-        }
-
-        private void TextBoxOutputzKey_Validating(object sender, CancelEventArgs e)
-        {
-            if (CheckOutputz.Checked)
-            {
-                TextBoxOutputzKey.Text = TextBoxOutputzKey.Text.Trim();
-                if (TextBoxOutputzKey.Text.Length == 0)
-                {
-                    MessageBox.Show(Properties.Resources.TextBoxOutputzKey_Validating);
-                    e.Cancel = true;
-                    return;
-                }
             }
         }
 

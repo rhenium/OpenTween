@@ -115,7 +115,6 @@ namespace OpenTween
         public bool AlwaysTop = false;
         public string CultureCode = "";
         public bool UrlConvertAuto = false;
-        public bool Outputz = false;
         public int SortColumn = 3;
         public int SortOrder = 1;
         public bool IsMonospace = false;
@@ -129,8 +128,6 @@ namespace OpenTween
         public bool HashIsHead = false;
         public bool HashIsNotAddToAtReply = true;
         public bool PreviewEnable = true;
-        public string OutputzKey = "";
-        public MyCommon.OutputzUrlmode OutputzUrlMode = MyCommon.OutputzUrlmode.twittercom;
         public MyCommon.UrlConverter AutoShortUrlFirst = MyCommon.UrlConverter.Uxnu;
         public bool UseUnreadStyle = true;
         public string DateTimeFormat = "yyyy/MM/dd H:mm:ss";
