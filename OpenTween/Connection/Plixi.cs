@@ -178,10 +178,9 @@ namespace OpenTween
 		}
 
 		public Plixi( Twitter twitter )
-			: base( new Uri( "http://api.twitter.com/" ), new Uri( "https://api.twitter.com/1/account/verify_credentials.json" ) )
+            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1/account/verify_credentials.json"))
 		{
 			this.tw = twitter;
-            base.Initialize( ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, tw.AccessToken, tw.AccessTokenSecret, "", "" );
 		}
 	}
 }

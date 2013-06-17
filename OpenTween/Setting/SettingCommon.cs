@@ -25,10 +25,13 @@
 // Boston, MA 02110-1301, USA.
 
 using System;
+using System.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using OpenTween.Thumbnail;
+using OpenTween.Connection;
+using System.ComponentModel;
 
 namespace OpenTween
 {
@@ -48,63 +51,24 @@ namespace OpenTween
         }
         #endregion
 
-        public List<UserAccount> UserAccounts;
-        public string UserName = "";
-
+        public BindingList<UserAccount> UserAccounts;
+        public int CurrentAccountId = 0;
         [XmlIgnore]
-        public string Password = "";
-        public string EncryptPassword
+        public UserAccount CurrentAccount
         {
-            get { return Encrypt(Password); }
-            set { Password = Decrypt(value); }
-        }
-
-        public string Token = "";
-        [XmlIgnore]
-        public string TokenSecret = "";
-        public string EncryptTokenSecret
-        {
-            get { return Encrypt(TokenSecret); }
-            set { TokenSecret = Decrypt(value); }
-        }
-
-        private string Encrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
+            get
             {
-                try
-                {
-                    return MyCommon.EncryptString(password);
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
+                if (UserAccounts != null && UserAccounts.Count > CurrentAccountId)
+                    return UserAccounts[CurrentAccountId];
+                else
+                    return null;
             }
-            else
+            set
             {
-                return "";
+                CurrentAccountId = UserAccounts.IndexOf(UserAccounts.First(item => item.ConsumerKey == value.ConsumerKey && item.Token == value.Token));
             }
         }
-        private string Decrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    password = MyCommon.DecryptString(password);
-                }
-                catch (Exception)
-                {
-                    password = "";
-                }
-            }
-            return password;
-        }
 
-        public long UserId = 0;
         public List<string> TabList;
         public int TimelinePeriod = 90;
         public int ReplyPeriod = 180;
@@ -165,15 +129,7 @@ namespace OpenTween
         public bool HashIsHead = false;
         public bool HashIsNotAddToAtReply = true;
         public bool PreviewEnable = true;
-
-        [XmlIgnore]
         public string OutputzKey = "";
-        public string EncryptOutputzKey
-        {
-            get { return Encrypt(OutputzKey); }
-            set { OutputzKey = Decrypt(value); }
-        }
-
         public MyCommon.OutputzUrlmode OutputzUrlMode = MyCommon.OutputzUrlmode.twittercom;
         public MyCommon.UrlConverter AutoShortUrlFirst = MyCommon.UrlConverter.Uxnu;
         public bool UseUnreadStyle = true;
@@ -229,58 +185,69 @@ namespace OpenTween
         public bool IsUseNotifyGrowl = false;
     }
 
-    public class UserAccount
+    public class UserAccount : IEquatable<UserAccount>
     {
-        public string Username = "";
-        public long UserId = 0;
-        public long GAFirst = 0;
-        public long GALast = 0;
-        public string Token = "";
-        [XmlIgnore]
-        public string TokenSecret = "";
-        public string EncryptTokenSecret
-        {
-            get { return Encrypt(TokenSecret); }
-            set { TokenSecret = Decrypt(value); }
-        }
-        private string Encrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    return MyCommon.EncryptString(password);
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
-            }
-            else
-            {
-                return "";
-            }
-        }
-        private string Decrypt(string password)
-        {
-            if (String.IsNullOrEmpty(password)) password = "";
-            if (password.Length > 0)
-            {
-                try
-                {
-                    password = MyCommon.DecryptString(password);
-                }
-                catch (Exception)
-                {
-                    password = "";
-                }
-            }
-            return password;
-        }
+        public string ConsumerKey;
+        public string ConsumerSecret;
+        public string Token;
+        public string TokenSecret;
+        public long UserId;
+        public string Username;
+
         public override string ToString()
         {
             return this.Username;
         }
+
+        [XmlIgnore]
+        public OAuthCredential Credential
+        {
+            get
+            {
+                return new OAuthCredential(ConsumerKey, ConsumerSecret, Token, TokenSecret);
+            }
+        }
+
+        // serialize
+        private UserAccount() { }
+
+        public UserAccount(OAuthCredential credenatial, long userId, string username)
+            : this(credenatial.Consumer.Key, credenatial.Consumer.Secret, credenatial.Token, credenatial.TokenSecret, userId, username)
+        { }
+
+        public UserAccount(string consumerKey, string consumerSecret, string token, string tokenSecret, long userId, string username)
+        {
+            this.ConsumerKey = consumerKey;
+            this.ConsumerSecret = consumerSecret;
+            this.Token = token;
+            this.TokenSecret = tokenSecret;
+            this.UserId = userId;
+            this.Username = username;
+        }
+
+        public bool Equals(UserAccount other)
+        {
+            return other != null &&
+                this.ConsumerKey == other.ConsumerKey &&
+                this.ConsumerSecret == other.ConsumerSecret &&
+                this.Token == other.Token &&
+                this.TokenSecret == other.TokenSecret &&
+                this.UserId == other.UserId;
+        }
+
+        public override int GetHashCode()
+        {
+            return
+                this.ConsumerKey.GetHashCode() ^
+                this.ConsumerSecret.GetHashCode() ^
+                this.Token.GetHashCode() ^
+                this.TokenSecret.GetHashCode() ^
+                this.UserId.GetHashCode();
+        }
+
+        /*public static bool operator ==(UserAccount current, UserAccount other)
+        {
+            return current != null && current.Equals(other);
+        }*/
     }
 }

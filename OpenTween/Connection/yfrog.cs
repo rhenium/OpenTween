@@ -172,12 +172,11 @@ namespace OpenTween
 			return false;
 		}
 
-		public yfrog( Twitter twitter )
-			: base( new Uri( "http://api.twitter.com/" ), new Uri( "https://api.twitter.com/1/account/verify_credentials.xml" ) )
-		{
-			this.tw = twitter;
-            this.Initialize( ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, this.tw.AccessToken, this.tw.AccessTokenSecret, "", "" );
-		}
+        public yfrog(Twitter twitter)
+            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1/account/verify_credentials.xml"))
+        {
+            this.tw = twitter;
+        }
 
 		public bool Configuration( string key, object value )
 		{

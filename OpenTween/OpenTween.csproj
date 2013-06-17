@@ -80,7 +80,6 @@
       <DependentUpon>AuthDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Bing.cs" />
-    <Compile Include="Connection\HttpOAuthApiProxy.cs" />
     <Compile Include="Connection\HttpTwitter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -90,6 +89,8 @@
     <Compile Include="Connection\IHttpConnection.cs" />
     <Compile Include="Connection\imgly.cs" />
     <Compile Include="Connection\IMultimediaShareService.cs" />
+    <Compile Include="Connection\OAuthConsumer.cs" />
+    <Compile Include="Connection\OAuthCredential.cs" />
     <Compile Include="EventViewerDialog.cs">
       <SubType>Form</SubType>
     </Compile>

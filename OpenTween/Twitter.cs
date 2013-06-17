@@ -42,6 +42,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using OpenTween.Api;
+using OpenTween.Connection;
 
 namespace OpenTween
 {
@@ -147,7 +148,6 @@ namespace OpenTween
         private string _protocol = "https://";
 
         //プロパティからアクセスされる共通情報
-        private string _uname;
         private int _iconSz;
         private bool _getIcon;
 
@@ -166,7 +166,7 @@ namespace OpenTween
 
         //private FavoriteQueue favQueue;
 
-        private HttpTwitter twCon = new HttpTwitter();
+        private HttpTwitter twCon;
 
         //private List<PostClass> _deletemessages = new List<PostClass>();
 
@@ -189,71 +189,23 @@ namespace OpenTween
                 MyCommon.TwitterApiInfo.Reset();
         }
 
-        public string Authenticate(string username, string password)
+        public string StartAuthentication(ref string pinPageUrl)
         {
-            HttpStatusCode res;
-            var content = "";
-
-            this.ResetApiStatus();
             try
             {
-                res = twCon.AuthUserAndPass(username, password, ref content);
+                pinPageUrl = twCon.GetAuthorizeUri().ToString();
             }
             catch(Exception ex)
             {
-                return "Err:" + ex.Message;
-            }
-
-            switch (res)
-            {
-            case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
-                _uname = username.ToLower();
-                if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
-                return "";
-            case HttpStatusCode.Unauthorized:
+                var errMsg = GetErrorMessageJson(ex.Message);
+                if (string.IsNullOrEmpty(errMsg))
                 {
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
-                    var errMsg = GetErrorMessageJson(content);
-                    if (string.IsNullOrEmpty(errMsg))
-                    {
-                        return Properties.Resources.Unauthorized + Environment.NewLine + content;
-                    }
-                    else
-                    {
-                        return "Auth error:" + errMsg;
-                    }
+                    return "Auth error: " + ex.Message;
                 }
-            case HttpStatusCode.Forbidden:
+                else
                 {
-                    var errMsg = GetErrorMessageJson(content);
-                    if (string.IsNullOrEmpty(errMsg))
-                    {
-                        return "Err:Forbidden";
-                    }
-                    else
-                    {
-                        return "Err:" + errMsg;
-                    }
+                    return "Auth error: " + errMsg;
                 }
-            default:
-                return "Err:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
-            }
-        }
-
-        public string StartAuthentication(ref string pinPageUrl)
-        {
-            //OAuth PIN Flow
-            bool res;
-
-            this.ResetApiStatus();
-            try
-            {
-                res = twCon.AuthGetRequestToken(ref pinPageUrl);
-            }
-            catch(Exception)
-            {
-                return "Err:" + "Failed to access auth server.";
             }
 
             return "";
@@ -261,61 +213,27 @@ namespace OpenTween
 
         public string Authenticate(string pinCode)
         {
-            HttpStatusCode res;
-            var content = "";
-
-            this.ResetApiStatus();
             try
             {
-                res = twCon.AuthGetAccessToken(pinCode);
+                twCon.Authorize(pinCode);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return "Err:" + "Failed to access auth acc server.";
+                var errMsg = GetErrorMessageJson(ex.Message);
+                if (string.IsNullOrEmpty(errMsg))
+                {
+                    return "Auth error: " + ex.Message;
+                }
+                else
+                {
+                    return "Auth error: " + errMsg;
+                }
             }
 
-            switch (res)
-            {
-            case HttpStatusCode.OK:
-                Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
-                _uname = Username.ToLower();
-                if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
-                return "";
-            case HttpStatusCode.Unauthorized:
-                {
-                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
-                    var errMsg = GetErrorMessageJson(content);
-                    if (string.IsNullOrEmpty(errMsg))
-                    {
-                        return "Check the PIN or retry." + Environment.NewLine + content;
-                    }
-                    else
-                    {
-                        return "Auth error:" + errMsg;
-                    }
-                }
-            case HttpStatusCode.Forbidden:
-                {
-                    var errMsg = GetErrorMessageJson(content);
-                    if (string.IsNullOrEmpty(errMsg))
-                    {
-                        return "Err:Forbidden";
-                    }
-                    else
-                    {
-                        return "Err:" + errMsg;
-                    }
-                }
-            default:
-                return "Err:" + res.ToString() + "(" + MethodBase.GetCurrentMethod().Name + ")";
-            }
-        }
-
-        public void ClearAuthInfo()
-        {
-            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
             this.ResetApiStatus();
-            twCon.ClearAuthInfo();
+            if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
+            return "";
         }
 
         public void VerifyCredentials()
@@ -344,7 +262,8 @@ namespace OpenTween
                 {
                     return;
                 }
-                twCon.AuthenticatedUserId = user.Id;
+                twCon.UserId = user.Id;
+                twCon.Username = user.ScreenName;
             }
         }
 
@@ -378,17 +297,26 @@ namespace OpenTween
             }
         }
 
-        public void Initialize(string token, string tokenSecret, string username, long userId)
+        public Twitter(UserAccount account)
         {
-            //OAuth認証
-            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(tokenSecret) || string.IsNullOrEmpty(username))
+            if (account == null)
             {
                 Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
             }
+            else
+            {
+                twCon = new HttpTwitter(account.Credential, account.UserId, account.Username);
+            }
             this.ResetApiStatus();
-            twCon.Initialize(token, tokenSecret, username, userId);
-            _uname = username.ToLower();
-            if (AppendSettingDialog.Instance.UserstreamStartup) this.ReconnectUserStream();
+            if (AppendSettingDialog.Instance.UserstreamStartup) ReconnectUserStream();
+        }
+
+        public Twitter(string consumerKey, string consumerSecret)
+        {
+            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Invalid;
+            twCon = new HttpTwitter(new OAuthConsumer(consumerKey, consumerSecret));
+            this.ResetApiStatus();
+            if (AppendSettingDialog.Instance.UserstreamStartup) ReconnectUserStream();
         }
 
         public string PreProcessUrl(string orgData)
@@ -1240,7 +1168,7 @@ namespace OpenTween
             var content = "";
             try
             {
-                res = twCon.ShowFriendships(_uname, screenName, ref content);
+                res = twCon.ShowFriendships(this.Username, screenName, ref content);
             }
             catch(Exception ex)
             {
@@ -1621,7 +1549,7 @@ namespace OpenTween
         {
             get
             {
-                return twCon.AuthenticatedUsername;
+                return twCon.Username;
             }
         }
 
@@ -1629,15 +1557,7 @@ namespace OpenTween
         {
             get
             {
-                return twCon.AuthenticatedUserId;
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return twCon.Password;
+                return twCon.UserId;
             }
         }
 
@@ -2154,7 +2074,7 @@ namespace OpenTween
                 //Retweetした人
                 post.RetweetedBy = status.User.ScreenName;
                 post.RetweetedByUserId = status.User.Id;
-                post.IsMe = post.RetweetedBy.ToLower().Equals(_uname);
+                post.IsMe = post.RetweetedBy.ToLower().Equals(this.Username.ToLower());
             }
             else
             {
@@ -2184,7 +2104,7 @@ namespace OpenTween
                 post.Nickname = user.Name.Trim();
                 post.ImageUrl = user.ProfileImageUrlHttps;
                 post.IsProtect = user.Protected;
-                post.IsMe = post.ScreenName.ToLower().Equals(_uname);
+                post.IsMe = post.ScreenName.ToLower().Equals(this.Username.ToLower());
 
                 //幻覚fav対策
                 var tc = TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites);
@@ -2201,7 +2121,7 @@ namespace OpenTween
             //Source整形
             CreateSource(post);
 
-            post.IsReply = post.ReplyToList.Contains(_uname);
+            post.IsReply = post.ReplyToList.Contains(this.Username.ToLower());
             post.IsExcludeReply = false;
 
             if (post.IsMe)
@@ -2390,7 +2310,7 @@ namespace OpenTween
             post.Nickname = status.FromUserName.Trim();
             post.ImageUrl = status.ProfileImageUrl;
             post.IsProtect = false;
-            post.IsMe = post.ScreenName.ToLower().Equals(this._uname);
+            post.IsMe = post.ScreenName.ToLower().Equals(this.Username.ToLower());
 
             //幻覚fav対策
             var tc = TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites);
@@ -2406,7 +2326,7 @@ namespace OpenTween
             //Source整形
             this.CreateSource(post);
 
-            post.IsReply = post.ReplyToList.Contains(this._uname);
+            post.IsReply = post.ReplyToList.Contains(this.Username.ToLower());
             post.IsExcludeReply = false;
             post.IsOwl = false;
             post.IsDm = false;
@@ -2917,7 +2837,7 @@ namespace OpenTween
                     TwitterDataModel.User user;
                     if (gType == MyCommon.WORKERTYPE.UserStream)
                     {
-                        if (twCon.AuthenticatedUsername.Equals(message.Recipient.ScreenName, StringComparison.CurrentCultureIgnoreCase))
+                        if (this.Username.Equals(message.Recipient.ScreenName, StringComparison.CurrentCultureIgnoreCase))
                         {
                             user = message.Sender;
                             post.IsMe = false;
@@ -3150,7 +3070,7 @@ namespace OpenTween
 
                         //Retweetした人
                         post.RetweetedBy = status.User.ScreenName;
-                        post.IsMe = post.RetweetedBy.ToLower().Equals(_uname);
+                        post.IsMe = post.RetweetedBy.ToLower().Equals(this.Username.ToLower());
                     }
                     else
                     {
@@ -3178,7 +3098,7 @@ namespace OpenTween
                         post.Nickname = user.Name.Trim();
                         post.ImageUrl = user.ProfileImageUrlHttps;
                         post.IsProtect = user.Protected;
-                        post.IsMe = post.ScreenName.ToLower().Equals(_uname);
+                        post.IsMe = post.ScreenName.ToLower().Equals(this.Username.ToLower());
                     }
                     //HTMLに整形
                     string textFromApi = post.TextFromApi;
@@ -3191,7 +3111,7 @@ namespace OpenTween
                     CreateSource(post);
 
                     post.IsRead = read;
-                    post.IsReply = post.ReplyToList.Contains(_uname);
+                    post.IsReply = post.ReplyToList.Contains(this.Username.ToLower());
                     post.IsExcludeReply = false;
 
                     if (post.IsMe)
@@ -4361,20 +4281,25 @@ namespace OpenTween
             return hashArray;
         }
 
-        public string AccessToken
+        public OAuthCredential Credential
         {
             get
             {
-                return twCon.AccessToken;
+                return twCon.Credential;
             }
         }
 
-        public string AccessTokenSecret
+        private UserAccount _UserAccount;
+        public UserAccount UserAccount
         {
             get
             {
-                return twCon.AccessTokenSecret;
+                if (_UserAccount != null)
+                    return _UserAccount;
+                else
+                    return (_UserAccount = new UserAccount(this.Credential, this.UserId, this.Username));
             }
+
         }
 
 #region "UserStream"
@@ -4618,7 +4543,7 @@ namespace OpenTween
                 case "access_revoked":
                     return;
                 case "follow":
-                    if (eventData.Target.ScreenName.ToLower().Equals(_uname))
+                    if (eventData.Target.ScreenName.ToLower().Equals(this.Username.ToLower()))
                     {
                         if (!this.followerId.Contains(eventData.Source.Id)) this.followerId.Add(eventData.Source.Id);
                     }
@@ -4646,7 +4571,7 @@ namespace OpenTween
                         var post = TabInformations.GetInstance()[eventData.TargetObject.Id];
                         if (eventData.Event == "favorite")
                         {
-                            if (evt.Username.ToLower().Equals(_uname))
+                            if (evt.Username.ToLower().Equals(this.Username.ToLower()))
                             {
                                 post.IsFav = true;
                                 TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites).Add(post.StatusId, post.IsRead, false);
@@ -4673,7 +4598,7 @@ namespace OpenTween
                         }
                         else
                         {
-                            if (evt.Username.ToLower().Equals(_uname))
+                            if (evt.Username.ToLower().Equals(this.Username.ToLower()))
                             {
                                 post.IsFav = false;
                             }

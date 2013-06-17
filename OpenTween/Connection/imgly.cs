@@ -177,11 +177,10 @@ namespace OpenTween
 			return true;
 		}
 
-		public imgly( Twitter twitter )
-			: base( new Uri( "http://api.twitter.com/" ), new Uri( "https://api.twitter.com/1/account/verify_credentials.json" ) )
-		{
-			this.tw = twitter;
-            this.Initialize( ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, tw.AccessToken, tw.AccessTokenSecret, "", "" );
-		}
+        public imgly(Twitter twitter)
+            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1/account/verify_credentials.json"))
+        {
+            this.tw = twitter;
+        }
 	}
 }

@@ -37,6 +37,7 @@ using System.IO;
 using System.Resources;
 using OpenTween.Thumbnail;
 using System.Threading.Tasks;
+using OpenTween.Connection;
 
 namespace OpenTween
 {
@@ -59,15 +60,22 @@ namespace OpenTween
         public int MapThumbnailWidth;
         public int MapThumbnailZoom;
         public bool IsListStatusesIncludeRts;
-        public List<UserAccount> UserAccounts;
-        private long InitialUserId;
+        public BindingList<UserAccount> UserAccounts_;
+        public BindingList<UserAccount> UserAccounts
+        {
+            get { return UserAccounts_; }
+            set
+            {
+                UserAccounts_ = value;
+                UserAccountBindingSource.DataSource = value;
+
+            }
+        }
         public bool TabMouseLock;
         public bool IsRemoveSameEvent;
         public bool IsNotifyUseGrowl;
 
         public TwitterDataModel.Configuration TwitterConfiguration = new TwitterDataModel.Configuration();
-
-        private string _pin;
 
         public class IntervalChangedEventArgs : EventArgs
         {
@@ -148,33 +156,6 @@ namespace OpenTween
             else
             {
                 _ValidationError = false;
-            }
-
-            this.UserAccounts.Clear();
-            foreach (object u in this.AuthUserCombo.Items)
-            {
-                this.UserAccounts.Add((UserAccount)u);
-            }
-            if (this.AuthUserCombo.SelectedIndex > -1)
-            {
-                foreach (UserAccount u in this.UserAccounts)
-                {
-                    if (u.Username.ToLower() == ((UserAccount)this.AuthUserCombo.SelectedItem).Username.ToLower())
-                    {
-                        tw.Initialize(u.Token, u.TokenSecret, u.Username, u.UserId);
-                        if (u.UserId == 0)
-                        {
-                            tw.VerifyCredentials();
-                            u.UserId = tw.UserId;
-                        }
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                tw.ClearAuthInfo();
-                tw.Initialize("", "", "", 0);
             }
 
 #if UA
@@ -509,39 +490,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return;
 
-            if (this.DialogResult == DialogResult.Cancel)
-            {
-                //キャンセル時は画面表示時のアカウントに戻す
-                //キャンセル時でも認証済みアカウント情報は保存する
-                this.UserAccounts.Clear();
-                foreach (object u in this.AuthUserCombo.Items)
-                {
-                    this.UserAccounts.Add((UserAccount)u);
-                }
-                //アクティブユーザーを起動時のアカウントに戻す（起動時アカウントなければ何もしない）
-                bool userSet = false;
-                if (this.InitialUserId > 0)
-                {
-                    foreach (UserAccount u in this.UserAccounts)
-                    {
-                        if (u.UserId == this.InitialUserId)
-                        {
-                            tw.Initialize(u.Token, u.TokenSecret, u.Username, u.UserId);
-                            userSet = true;
-                            break;
-                        }
-                    }
-                }
-                //認証済みアカウントが削除されていた場合、もしくは起動時アカウントがなかった場合は、
-                //アクティブユーザーなしとして初期化
-                if (!userSet)
-                {
-                    tw.ClearAuthInfo();
-                    tw.Initialize("", "", "", 0);
-                }
-            }
-
-            if (tw != null && string.IsNullOrEmpty(tw.Username) && e.CloseReason == CloseReason.None)
+            if (this.DialogResult == DialogResult.OK && (UserAccount)AuthUserCombo.SelectedItem == null && e.CloseReason == CloseReason.None)
             {
                 if (MessageBox.Show(Properties.Resources.Setting_FormClosing1, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
                 {
@@ -569,13 +518,14 @@ namespace OpenTween
             this.GroupBox2.Visible = false;
 #endif
             tw = ((TweenMain)this.Owner).TwitterInstance;
-            string uname = tw.Username;
-            string pw = tw.Password;
-            string tk = tw.AccessToken;
-            string tks = tw.AccessTokenSecret;
             //this.AuthStateLabel.Enabled = true;
             //this.AuthUserLabel.Enabled = true;
             this.AuthClearButton.Enabled = true;
+
+            AuthUserCombo.SelectedIndex =
+                tw == null || UserAccounts == null ? -1
+                : UserAccounts.IndexOf(tw.UserAccount);
+
 
             //if (tw.Username == "")
             //{
@@ -596,21 +546,6 @@ namespace OpenTween
             //    //}
             //    //this.AuthUserLabel.Text = tw.Username;
             //}
-
-            this.AuthUserCombo.Items.Clear();
-            if (this.UserAccounts.Count > 0)
-            {
-                this.AuthUserCombo.Items.AddRange(this.UserAccounts.ToArray());
-                foreach (UserAccount u in this.UserAccounts)
-                {
-                    if (u.UserId == tw.UserId)
-                    {
-                        this.AuthUserCombo.SelectedItem = u;
-                        this.InitialUserId = u.UserId;
-                        break;
-                    }
-                }
-            }
 
             this.StartupUserstreamCheck.Checked = UserstreamStartup;
             UserstreamPeriod.Text = UserstreamPeriodInt.ToString();
@@ -1687,7 +1622,7 @@ namespace OpenTween
             lblRetweet.ForeColor = Color.FromKnownColor(System.Drawing.KnownColor.Green);
         }
 
-        private bool StartAuth()
+        private string PrepareAuth(Twitter auth)
         {
             //現在の設定内容で通信
             HttpConnection.ProxyType ptype;
@@ -1703,126 +1638,63 @@ namespace OpenTween
             {
                 ptype = HttpConnection.ProxyType.Specified;
             }
-            string padr = TextProxyAddress.Text.Trim();
-            int pport = int.Parse(TextProxyPort.Text.Trim());
-            string pusr = TextProxyUser.Text.Trim();
-            string ppw = TextProxyPassword.Text.Trim();
 
             //通信基底クラス初期化
-            HttpConnection.InitializeConnection(20, ptype, padr, pport, pusr, ppw);
+            HttpConnection.InitializeConnection(20, ptype, TextProxyAddress.Text.Trim(), int.Parse(TextProxyPort.Text.Trim()), TextProxyUser.Text, TextProxyPassword.Text);
             HttpTwitter.TwitterUrl = TwitterAPIText.Text.Trim();
-            HttpTwitter.TwitterSearchUrl = TwitterSearchAPIText.Text.Trim();
-            tw.Initialize("", "", "", 0);
-            //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
-            //this.AuthUserLabel.Text = "";
             string pinPageUrl = "";
-            string rslt = tw.StartAuthentication(ref pinPageUrl);
+            var rslt = auth.StartAuthentication(ref pinPageUrl);
             if (string.IsNullOrEmpty(rslt))
             {
-                string pin = AuthDialog.DoAuth(this, pinPageUrl);
-                if (!string.IsNullOrEmpty(pin))
-                {
-                    this._pin = pin;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return pinPageUrl;
             }
             else
             {
                 MessageBox.Show(Properties.Resources.AuthorizeButton_Click2 + Environment.NewLine + rslt, "Authenticate", MessageBoxButtons.OK);
-                return false;
+                return null;
             }
         }
 
-        private bool PinAuth()
+        private bool PinAuth(Twitter auth, string pin)
         {
-            string pin = this._pin;   //PIN Code
-
-            string rslt = tw.Authenticate(pin);
+            string rslt = auth.Authenticate(pin);
             if (string.IsNullOrEmpty(rslt))
             {
                 MessageBox.Show(Properties.Resources.AuthorizeButton_Click1, "Authenticate", MessageBoxButtons.OK);
-                //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click3;
-                //this.AuthUserLabel.Text = tw.Username;
-                int idx = -1;
-                UserAccount user = new UserAccount();
-                user.Username = tw.Username;
-                user.UserId = tw.UserId;
-                user.Token = tw.AccessToken;
-                user.TokenSecret = tw.AccessTokenSecret;
-
-                foreach (object u in this.AuthUserCombo.Items)
-                {
-                    if (((UserAccount)u).Username.ToLower() == tw.Username.ToLower())
-                    {
-                        idx = this.AuthUserCombo.Items.IndexOf(u);
-                        break;
-                    }
-                }
-                if (idx > -1)
-                {
-                    this.AuthUserCombo.Items.RemoveAt(idx);
-                    this.AuthUserCombo.Items.Insert(idx, user);
-                    this.AuthUserCombo.SelectedIndex = idx;
-                }
-                else
-                {
-                    this.AuthUserCombo.SelectedIndex = this.AuthUserCombo.Items.Add(user);
-                }
-                //if (TwitterApiInfo.AccessLevel = ApiAccessLevel.ReadWrite)
-                //{
-                //    this.AuthStateLabel.Text += "(xAuth)";
-                //}
-                //else if (TwitterApiInfo.AccessLevel == ApiAccessLevel.ReadWriteAndDirectMessage)
-                //{
-                //    this.AuthStateLabel.Text += "(OAuth)";
-                //}
+                UserAccounts.Add(auth.UserAccount);
                 return true;
             }
             else
             {
                 MessageBox.Show(Properties.Resources.AuthorizeButton_Click2 + Environment.NewLine + rslt, "Authenticate", MessageBoxButtons.OK);
-                //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
-                //this.AuthUserLabel.Text = "";
                 return false;
             }
         }
 
         private void StartAuthButton_Click(object sender, EventArgs e)
         {
-            //this.Save.Enabled = false;
-            if (StartAuth())
+            var auth = new Twitter(ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret);
+            var authUrl = PrepareAuth(auth);
+            if (authUrl != null)
             {
-                if (PinAuth())
+                var pin = AuthDialog.DoAuth(this, authUrl);
+                if (pin != null)
                 {
-                    CalcApiUsing();
-                    //this.Save.Enabled = true;
+                    if (PinAuth(auth, pin))
+                    {
+                        CalcApiUsing();
+                    }
                 }
             }
         }
 
         private void AuthClearButton_Click(object sender, EventArgs e)
         {
-            //tw.ClearAuthInfo();
-            //this.AuthStateLabel.Text = Properties.Resources.AuthorizeButton_Click4;
-            //this.AuthUserLabel.Text = "";
-            if (this.AuthUserCombo.SelectedIndex > -1)
+            if (AuthUserCombo.SelectedIndex > -1)
             {
-                this.AuthUserCombo.Items.RemoveAt(this.AuthUserCombo.SelectedIndex);
-                if (this.AuthUserCombo.Items.Count > 0)
-                {
-                    this.AuthUserCombo.SelectedIndex = 0;
-                }
-                else
-                {
-                    this.AuthUserCombo.SelectedIndex = -1;
-                }
+                UserAccounts.RemoveAt(AuthUserCombo.SelectedIndex);
+                CalcApiUsing();
             }
-            //this.Save.Enabled = false;
-            CalcApiUsing();
         }
 
         private void DisplayApiMaxCount()
@@ -1939,14 +1811,14 @@ namespace OpenTween
                 {
                     LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, UsingApi, limit.AccessLimitCount);
                 }
+
+                LabelPostAndGet.Visible = CheckPostAndGet.Checked && !tw.UserStreamEnabled;
+                LabelUserStreamActive.Visible = tw.UserStreamEnabled;
+
+                LabelApiUsingUserStreamEnabled.Text = string.Format(Properties.Resources.SettingAPIUse2, (ApiLists + ApiUserTimeline).ToString());
+                LabelApiUsingUserStreamEnabled.Visible = tw.UserStreamEnabled;
             }
 
-
-            LabelPostAndGet.Visible = CheckPostAndGet.Checked && !tw.UserStreamEnabled;
-            LabelUserStreamActive.Visible = tw.UserStreamEnabled;
-
-            LabelApiUsingUserStreamEnabled.Text = string.Format(Properties.Resources.SettingAPIUse2, (ApiLists + ApiUserTimeline).ToString());
-            LabelApiUsingUserStreamEnabled.Visible = tw.UserStreamEnabled;
         }
 
         private void CheckPostAndGet_CheckedChanged(object sender, EventArgs e)

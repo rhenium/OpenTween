@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      kim_upsilon (@kim_upsilon) <https://upsilo.net/~upsilon/>
+//           (c) 2013      rhenium (@cn) <http://rhe.jp/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -30,10 +31,12 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using OpenTween.Connection;
+using OpenTween.Api;
 
 namespace OpenTween
 {
-    public class HttpTwitter : ICloneable
+    public class HttpTwitter : HttpConnectionOAuth, ICloneable
     {
         /// <summary>
         /// API v1.1 を有効にする否か
@@ -48,31 +51,22 @@ namespace OpenTween
         ///<summary>
         ///OAuthのアクセストークン取得先URI
         ///</summary>
-        private const string AccessTokenUrlXAuth = "https://api.twitter.com/oauth/access_token";
         private const string RequestTokenUrl = "https://api.twitter.com/oauth/request_token";
         private const string AuthorizeUrl = "https://api.twitter.com/oauth/authorize";
         private const string AccessTokenUrl = "https://api.twitter.com/oauth/access_token";
+        private const string ApiHost = "api.twitter.com";
 
         private static string _protocol = "http://";
 
-        private const string PostMethod = "POST";
-        private const string GetMethod = "GET";
+        static HttpTwitter()
+        {
+            API11Enabled = true;
+        }
 
-        private IHttpConnection httpCon; //HttpConnectionApi or HttpConnectionOAuth
         private HttpVarious httpConVar = new HttpVarious();
 
-        private enum AuthMethod
-        {
-            OAuth,
-            Basic,
-        }
-        private AuthMethod connectionType = AuthMethod.Basic;
-
-        private string requestToken;
-
-        private static string tk = "";
-        private static string tks = "";
-        private static string un = "";
+        public TwitterApiStatus TwitterApiInfo = new TwitterApiStatus();
+        public TwitterApiStatus11 TwitterApiInfo11 = new TwitterApiStatus11();
 
         private Dictionary<string, string> apiStatusHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -88,111 +82,9 @@ namespace OpenTween
             {"X-MediaRateLimit-Reset", ""},
         };
 
-        static HttpTwitter()
-        {
-            HttpTwitter.API11Enabled = true;
-        }
+        public long UserId { get; set; }
 
-        public void Initialize(string accessToken,
-                                        string accessTokenSecret,
-                                        string username,
-                                        long userId)
-        {
-            //for OAuth
-            HttpOAuthApiProxy con = new HttpOAuthApiProxy();
-            if (tk != accessToken || tks != accessTokenSecret ||
-                    un != username || connectionType != AuthMethod.OAuth)
-            {
-                // 以前の認証状態よりひとつでも変化があったらhttpヘッダより読み取ったカウントは初期化
-                tk = accessToken;
-                tks = accessTokenSecret;
-                un = username;
-            }
-            con.Initialize(ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, accessToken, accessTokenSecret, username, userId, "screen_name", "user_id");
-            httpCon = con;
-            connectionType = AuthMethod.OAuth;
-            requestToken = "";
-        }
-
-        public string AccessToken
-        {
-            get
-            {
-                if (httpCon != null)
-                    return ((HttpConnectionOAuth)httpCon).AccessToken;
-                else
-                    return "";
-            }
-        }
-
-        public string AccessTokenSecret
-        {
-            get
-            {
-                if (httpCon != null)
-                    return ((HttpConnectionOAuth)httpCon).AccessTokenSecret;
-                else
-                    return "";
-            }
-        }
-
-        public string AuthenticatedUsername
-        {
-            get
-            {
-                if (httpCon != null)
-                    return httpCon.AuthUsername;
-                else
-                    return "";
-            }
-        }
-
-        public long AuthenticatedUserId
-        {
-            get
-            {
-                if (httpCon != null)
-                    return httpCon.AuthUserId;
-                else
-                    return 0;
-            }
-            set
-            {
-                if (httpCon != null)
-                    httpCon.AuthUserId = value;
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return "";
-            }
-        }
-
-        public bool AuthGetRequestToken(ref string content)
-        {
-            Uri authUri = null;
-            bool result = ((HttpOAuthApiProxy)httpCon).AuthenticatePinFlowRequest(RequestTokenUrl, AuthorizeUrl, ref requestToken, ref authUri);
-            content = authUri.ToString();
-            return result;
-        }
-
-        public HttpStatusCode AuthGetAccessToken(string pin)
-        {
-            return ((HttpOAuthApiProxy)httpCon).AuthenticatePinFlow(AccessTokenUrl, requestToken, pin);
-        }
-
-        public HttpStatusCode AuthUserAndPass(string username, string password, ref string content)
-        {
-            return httpCon.Authenticate(new Uri(AccessTokenUrlXAuth), username, password, ref content);
-        }
-
-        public void ClearAuthInfo()
-        {
-            this.Initialize("", "", "", 0);
-        }
+        public string Username { get; set; }
 
         public static bool UseSsl
         {
@@ -205,6 +97,41 @@ namespace OpenTween
             }
         }
 
+        public HttpTwitter(OAuthCredential credential, long userId, string username)
+            : base(credential)
+        {
+            this.UserId = userId;
+            this.Username = username;
+        }
+
+        public HttpTwitter(OAuthConsumer consumer)
+            : base(consumer)
+        { }
+
+        protected override string GetAuthorizationHeader(string method, Uri uri, Dictionary<string, string> parameter = null, string realm = null)
+        {
+            if (_twitterUrl != ApiHost)
+            {
+                return base.GetAuthorizationHeader(method, new Uri(uri.ToString().Replace(uri.Scheme + "://" + _twitterUrl, uri.Scheme + "://" + ApiHost)), parameter, realm);
+            }
+            else
+            {
+                return base.GetAuthorizationHeader(method, uri, parameter, realm);
+            }
+        }
+
+        public Uri GetAuthorizeUri(){
+            GetRequestCredential(new Uri(RequestTokenUrl));
+            return new Uri(AuthorizeUrl + "?oauth_token=" + this.Credential.Token);
+        }
+
+        public void Authorize(string pin)
+        {
+            var nvc = GetAccessCredential(new Uri(AccessTokenUrl), pin);
+            this.UserId = int.Parse(nvc["user_id"]);
+            this.Username = nvc["screen_name"];
+        }
+
         public HttpStatusCode UpdateStatus(string status, long replyToId, ref string content)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
@@ -213,7 +140,7 @@ namespace OpenTween
             param.Add("include_entities", "true");
             //if (AppendSettingDialog.Instance.ShortenTco && AppendSettingDialog.Instance.UrlConvertAuto) param.Add("wrap_links", "true")
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/update.json" : "/1/statuses/update.json"),
                 param,
                 ref content,
@@ -233,7 +160,7 @@ namespace OpenTween
             List<KeyValuePair<string, FileInfo>> binary = new List<KeyValuePair<string, FileInfo>>();
             binary.Add(new KeyValuePair<string, FileInfo>("media[]", mediaFile));
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 HttpTwitter.API11Enabled ? CreateTwitterUri("/1.1/statuses/update_with_media.json") : new Uri("https://upload.twitter.com/1/statuses/update_with_media.json"),
                 param,
                 binary,
@@ -246,7 +173,7 @@ namespace OpenTween
         {
             string content = null;
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/destroy/" + id + ".json" : "/1/statuses/destroy/" + id + ".json"),
                 null,
                 ref content,
@@ -261,7 +188,7 @@ namespace OpenTween
             param.Add("screen_name", sendto);
             //if (AppendSettingDialog.Instance.ShortenTco && AppendSettingDialog.Instance.UrlConvertAuto) param.Add("wrap_links", "true")
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/direct_messages/new.json" : "/1/direct_messages/new.json"),
                 param,
                 ref content,
@@ -277,7 +204,7 @@ namespace OpenTween
             if (HttpTwitter.API11Enabled)
                 param.Add("id", id.ToString());
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/direct_messages/destroy.json" : "/1/direct_messages/destroy/" + id + ".json"),
                 param,
                 ref content,
@@ -290,7 +217,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/retweet/" + id + ".json" : "/1/statuses/retweet/" + id + ".json"),
                 param,
                 ref content,
@@ -303,7 +230,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", screenName);
             param.Add("include_entities", "true");
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/users/show.json" : "/1/users/show.json"),
                 param,
                 ref content,
@@ -316,7 +243,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", screenName);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/friendships/create.json" : "/1/friendships/create.json"),
                 param,
                 ref content,
@@ -329,7 +256,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", screenName);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/friendships/destroy.json" : "/1/friendships/destroy.json"),
                 param,
                 ref content,
@@ -342,7 +269,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", screenName);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/blocks/create.json" : "/1/blocks/create.json"),
                 param,
                 ref content,
@@ -355,7 +282,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", screenName);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/blocks/destroy.json" : "/1/blocks/destroy.json"),
                 param,
                 ref content,
@@ -368,7 +295,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", screenName);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/users/report_spam.json" : "/1/report_spam.json"),
                 param,
                 ref content,
@@ -382,7 +309,7 @@ namespace OpenTween
             param.Add("source_screen_name", souceScreenName);
             param.Add("target_screen_name", targetScreenName);
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/friendships/show.json" : "/1/friendships/show.json"),
                 param,
                 ref content,
@@ -394,7 +321,7 @@ namespace OpenTween
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("include_entities", "true");
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/show/" + id + ".json" : "/1/statuses/show/" + id + ".json"),
                 param,
                 ref content,
@@ -408,7 +335,7 @@ namespace OpenTween
             if (HttpTwitter.API11Enabled)
                 param.Add("id", id.ToString());
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/favorites/create.json" : "/1/favorites/create/" + id + ".json"),
                 param,
                 ref content,
@@ -422,7 +349,7 @@ namespace OpenTween
             if (HttpTwitter.API11Enabled)
                 param.Add("id", id.ToString());
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/favorites/destroy.json" : "/1/favorites/destroy/" + id + ".json"),
                 param,
                 ref content,
@@ -442,7 +369,7 @@ namespace OpenTween
 
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/home_timeline.json" : "/1/statuses/home_timeline.json"),
                 param,
                 ref content,
@@ -471,7 +398,7 @@ namespace OpenTween
             param.Add("include_rts", "true");
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/user_timeline.json" : "/1/statuses/user_timeline.json"),
                 param,
                 ref content,
@@ -493,7 +420,7 @@ namespace OpenTween
 
             // TODO: API v1.1 に存在しない API (旧 API で代替)
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri("/1/statuses/public_timeline.json"),
                 param,
                 ref content,
@@ -513,7 +440,7 @@ namespace OpenTween
 
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/mentions_timeline.json" : "/1/statuses/mentions.json"),
                 param,
                 ref content,
@@ -532,7 +459,7 @@ namespace OpenTween
                 param.Add("since_id", since_id.ToString());
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/direct_messages.json" : "/1/direct_messages.json"),
                 param,
                 ref content,
@@ -551,7 +478,7 @@ namespace OpenTween
                 param.Add("since_id", since_id.ToString());
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/direct_messages/sent.json" : "/1/direct_messages/sent.json"),
                 param,
                 ref content,
@@ -571,7 +498,7 @@ namespace OpenTween
 
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/favorites/list.json" : "/1/favorites.json"),
                 param,
                 ref content,
@@ -586,10 +513,10 @@ namespace OpenTween
             string[] paramstr;
             if (string.IsNullOrEmpty(querystr)) return HttpStatusCode.BadRequest;
 
-            tmp = querystr.Split(new char[] {'?', '&'}, StringSplitOptions.RemoveEmptyEntries);
+            tmp = querystr.Split(new char[] { '?', '&' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string tmp2 in tmp)
             {
-                paramstr = tmp2.Split(new char[] {'='});
+                paramstr = tmp2.Split(new char[] { '=' });
                 param.Add(paramstr[0], paramstr[1]);
             }
 
@@ -635,7 +562,7 @@ namespace OpenTween
 
             param.Add("result_type", "recent");
             param.Add("include_entities", "true");
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 HttpTwitter.API11Enabled ? this.CreateTwitterUri("/1.1/search/tweets.json") : this.CreateTwitterSearchUri("/search.json"),
                 param,
                 ref content,
@@ -645,7 +572,7 @@ namespace OpenTween
 
         public HttpStatusCode SavedSearches(ref string content)
         {
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/saved_searches/list.json" : "/1/saved_searches.json"),
                 null,
                 ref content,
@@ -658,7 +585,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("cursor", cursor.ToString());
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/followers/ids.json" : "/1/followers/ids.json"),
                 param,
                 ref content,
@@ -671,7 +598,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("cursor", cursor.ToString());
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/friendships/no_retweets/ids.json" : "/1/friendships/no_retweet_ids.json"),
                 param,
                 ref content,
@@ -681,7 +608,7 @@ namespace OpenTween
 
         public HttpStatusCode RateLimitStatus(ref string content)
         {
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/application/rate_limit_status.json" : "/1/account/rate_limit_status.json"),
                 null,
                 ref content,
@@ -698,7 +625,7 @@ namespace OpenTween
             if (cursor != null)
                 param.Add("cursor", cursor.Value.ToString()); // API v1
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/list.json" : "/1/lists.json"),
                 param,
                 ref content,
@@ -719,7 +646,7 @@ namespace OpenTween
             if (mode != null) param.Add("mode", mode);
             if (description != null) param.Add("description", description);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/update.json" : "/1/lists/update.json"),
                 param,
                 ref content,
@@ -733,7 +660,7 @@ namespace OpenTween
             param.Add("screen_name", user);
             param.Add("list_id", list_id);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/destroy.json" : "/1/lists/destroy.json"),
                 param,
                 ref content,
@@ -749,7 +676,7 @@ namespace OpenTween
             if (cursor != null)
                 param.Add("cursor", cursor.Value.ToString()); // API v1
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/subscriptions.json" : "/1/lists/subscriptions.json"),
                 param,
                 ref content,
@@ -772,7 +699,7 @@ namespace OpenTween
                 param.Add("since_id", since_id.ToString());
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/statuses.json" : "/1/lists/statuses.json"),
                 param,
                 ref content,
@@ -792,7 +719,7 @@ namespace OpenTween
             if (!string.IsNullOrEmpty(description))
                 param.Add("description", description);
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/create.json" : "/1/lists/create.json"),
                 param,
                 ref content,
@@ -806,7 +733,7 @@ namespace OpenTween
             param.Add("screen_name", user);
             param.Add("list_id", list_id);
             param.Add("cursor", cursor.ToString());
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/members.json" : "/1/lists/members.json"),
                 param,
                 ref content,
@@ -819,7 +746,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("list_id", list_id);
             param.Add("screen_name", memberName);
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/members/create.json" : "/1/lists/members/create.json"),
                 param,
                 ref content,
@@ -834,7 +761,7 @@ namespace OpenTween
         //    //param.Add("screen_name", user)
         //    //param.Add("list_id", list_id)
         //    //param.Add("member_screen_name", memberName)
-        //    //return httpCon.GetContent(PostMethod,
+        //    //return GetContent(PostMethod,
         //    //                          CreateTwitterUri("/1/lists/members/create.json"),
         //    //                          param,
         //    //                          ref content,
@@ -842,7 +769,7 @@ namespace OpenTween
         //    //                          null)
         //    Dictionary<string, string> param = new Dictionary<string, string>();
         //    param.Add("id", memberName)
-        //    return httpCon.GetContent(PostMethod,
+        //    return GetContent(PostMethod,
         //                              CreateTwitterUri("/1/" + user + "/" + list_id + "/members.json"),
         //                              param,
         //                              ref content,
@@ -855,7 +782,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", memberName);
             param.Add("list_id", list_id);
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/members/destroy.json" : "/1/lists/members/destroy.json"),
                 param,
                 ref content,
@@ -869,7 +796,7 @@ namespace OpenTween
         //    //param.Add("screen_name", user)
         //    //param.Add("list_id", list_id)
         //    //param.Add("member_screen_name", memberName)
-        //    //return httpCon.GetContent(PostMethod,
+        //    //return GetContent(PostMethod,
         //    //                          CreateTwitterUri("/1/lists/members/destroy.json"),
         //    //                          param,
         //    //                          ref content,
@@ -878,7 +805,7 @@ namespace OpenTween
         //    Dictionary<string, string> param = new Dictionary<string, string>();
         //    param.Add("id", memberName)
         //    param.Add("_method", "DELETE")
-        //    return httpCon.GetContent(PostMethod,
+        //    return GetContent(PostMethod,
         //                              CreateTwitterUri("/1/" + user + "/" + list_id + "/members.json"),
         //                              param,
         //                              ref content,
@@ -893,7 +820,7 @@ namespace OpenTween
             Dictionary<string, string> param = new Dictionary<string, string>();
             param.Add("screen_name", memberName);
             param.Add("list_id", list_id);
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/lists/members/show.json" : "/1/lists/members/show.json"),
                 param,
                 ref content,
@@ -913,7 +840,7 @@ namespace OpenTween
             if (HttpTwitter.API11Enabled)
                 param.Add("id", statusid.ToString());
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/statuses/retweeters/ids.json" : "/1/statuses/" + statusid + "/retweeted_by/ids.json"),
                 param,
                 ref content,
@@ -931,7 +858,7 @@ namespace OpenTween
             param.Add("description", WebUtility.HtmlEncode(description));
             param.Add("include_entities", "true");
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/account/update_profile.json" : "/1/account/update_profile.json"),
                 param,
                 ref content,
@@ -944,7 +871,7 @@ namespace OpenTween
             List<KeyValuePair<string, FileInfo>> binary = new List<KeyValuePair<string, FileInfo>>();
             binary.Add(new KeyValuePair<string, FileInfo>("image", imageFile));
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/account/update_profile_image.json" : "/1/account/update_profile_image.json"),
                 null,
                 binary,
@@ -963,7 +890,7 @@ namespace OpenTween
 
             // TODO: API v1.1 に存在しない API (旧 API で代替)
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri("/1/related_results/show.json"),
                 param,
                 ref content,
@@ -973,7 +900,7 @@ namespace OpenTween
 
         public HttpStatusCode GetBlockUserIds(ref string content)
         {
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/blocks/ids.json" : "/1/blocks/blocking/ids.json"),
                 null,
                 ref content,
@@ -983,7 +910,7 @@ namespace OpenTween
 
         public HttpStatusCode GetConfiguration(ref string content)
         {
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/help/configuration.json" : "/1/help/configuration.json"),
                 null,
                 ref content,
@@ -993,7 +920,7 @@ namespace OpenTween
 
         public HttpStatusCode VerifyCredentials(ref string content)
         {
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUri(HttpTwitter.API11Enabled ? "/1.1/account/verify_credentials.json" : "/1/account/verify_credentials.json"),
                 null,
                 ref content,
@@ -1032,7 +959,6 @@ namespace OpenTween
             set
             {
                 _twitterUrl = value;
-                HttpOAuthApiProxy.ProxyHost = value;
             }
         }
 
@@ -1048,7 +974,7 @@ namespace OpenTween
         private void GetApiCallback(Object sender, HttpStatusCode code, string content)
         {
             if (code < HttpStatusCode.InternalServerError)
-                MyCommon.TwitterApiInfo.UpdateFromHeader(this.apiStatusHeaders);
+                TwitterApiInfo.UpdateFromHeader(this.apiStatusHeaders);
         }
 
         private CallbackDelegate CreateApi11Calllback(string endpointName)
@@ -1056,7 +982,7 @@ namespace OpenTween
             return (sender, code, content) =>
             {
                 if (code < HttpStatusCode.InternalServerError)
-                    MyCommon.TwitterApiInfo11.UpdateFromHeader(this.apiStatusHeaders, endpointName);
+                    TwitterApiInfo11.UpdateFromHeader(this.apiStatusHeaders, endpointName);
             };
         }
 
@@ -1073,7 +999,7 @@ namespace OpenTween
             if (!string.IsNullOrEmpty(trackwords))
                 param.Add("track", trackwords);
 
-            return httpCon.GetContent(GetMethod,
+            return GetContent(GetMethod,
                 CreateTwitterUserStreamUri(HttpTwitter.API11Enabled ? "/1.1/user.json" : "/2/user.json"),
                 param,
                 ref content,
@@ -1090,23 +1016,16 @@ namespace OpenTween
             if (!string.IsNullOrEmpty(trackwords))
                 param.Add("track", string.Join(",", trackwords.Split(" ".ToCharArray())));
 
-            return httpCon.GetContent(PostMethod,
+            return GetContent(PostMethod,
                 CreateTwitterStreamUri(HttpTwitter.API11Enabled ? "/1.1/statuses/filter.json" : "/1/statuses/filter.json"),
                 param,
                 ref content,
                 userAgent);
         }
 
-        public void RequestAbort()
-        {
-            httpCon.RequestAbort();
-        }
-
         public object Clone()
         {
-            HttpTwitter myCopy = new HttpTwitter();
-            myCopy.Initialize(this.AccessToken, this.AccessTokenSecret, this.AuthenticatedUsername, this.AuthenticatedUserId);
-            return myCopy;
+            return new HttpTwitter(Credential, UserId, Username);
         }
     }
 }

@@ -5,6 +5,7 @@
 //           (c) 2010-2011 anis774 (@anis774) <http://d.hatena.ne.jp/anis774/>
 //           (c) 2010-2011 fantasticswallow (@f_swallow) <http://twitter.com/f_swallow>
 //           (c) 2011      spinor (@tplantd) <http://d.hatena.ne.jp/spinor/>
+//           (c) 2013      rhenium (@cn) <http://rhe.jp/>
 // All rights reserved.
 // 
 // This file is part of OpenTween.
@@ -24,32 +25,16 @@
 // the Free Software Foundation, Inc., 51 Franklin Street - Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-using HttpConnection = OpenTween.HttpConnection;
-using IHttpConnection = OpenTween.IHttpConnection;
-using DateTime = System.DateTime;
-using DateTimeKind = System.DateTimeKind;
-using Random = System.Random;
-using HttpWebRequest = System.Net.HttpWebRequest;
-using HttpStatusCode = System.Net.HttpStatusCode;
-using Uri = System.Uri;
+using OpenTween.Connection;
+using System;
 using System.Collections.Generic; // for Dictionary<TKey, TValue>, List<T>, KeyValuePair<TKey, TValue>, SortedDictionary<TKey, TValue>
-using CallbackDelegate = OpenTween.CallbackDelegate;
-using StackFrame = System.Diagnostics.StackFrame;
-using FileInfo = System.IO.FileInfo;
-using Stream = System.IO.Stream;
-using HttpWebResponse = System.Net.HttpWebResponse;
-using WebException = System.Net.WebException;
-using WebExceptionStatus = System.Net.WebExceptionStatus;
-using Exception = System.Exception;
-using NameValueCollection = System.Collections.Specialized.NameValueCollection;
-using Convert = System.Convert;
-using InvalidDataException = System.IO.InvalidDataException;
-using UriBuilder = System.UriBuilder;
-using Environment = System.Environment;
-using StringBuilder = System.Text.StringBuilder;
-using HttpRequestHeader = System.Net.HttpRequestHeader;
-using HMACSHA1 = System.Security.Cryptography.HMACSHA1;
-using Encoding = System.Text.Encoding;
+using System.Collections.Specialized;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace OpenTween
 {
@@ -59,7 +44,7 @@ namespace OpenTween
 	/// <remarks>
 	/// 使用前に認証情報を設定する。認証確認を伴う場合はAuthenticate系のメソッドを、認証不要な場合はInitializeを呼ぶこと。
 	/// </remarks>
-	abstract public class HttpConnectionOAuth : HttpConnection, IHttpConnection
+	public abstract class HttpConnectionOAuth : HttpConnection, IHttpConnection
 	{
 		/// <summary>
 		/// OAuth署名のoauth_timestamp算出用基準日付（1970/1/1 00:00:00）
@@ -72,46 +57,11 @@ namespace OpenTween
 		private static readonly Random NonceRandom = new Random();
 
 		/// <summary>
-		/// OAuthのアクセストークン。永続化可能（ユーザー取り消しの可能性はある）。
+		/// OAuthのアクセストークン
 		/// </summary>
-		private string token = "";
+        public OAuthCredential Credential { get; private set; }
 
-		/// <summary>
-		/// OAuthの署名作成用秘密アクセストークン。永続化可能（ユーザー取り消しの可能性はある）。
-		/// </summary>
-		private string tokenSecret = "";
-
-		/// <summary>
-		/// OAuthのコンシューマー鍵
-		/// </summary>
-		private string consumerKey;
-
-		/// <summary>
-		/// OAuthの署名作成用秘密コンシューマーデータ
-		/// </summary>
-		protected string consumerSecret;
-
-		/// <summary>
-		/// 認証成功時の応答でユーザー情報を取得する場合のキー。設定しない場合は、AuthUsernameもブランクのままとなる
-		/// </summary>
-		private string userIdentKey = "";
-
-		/// <summary>
-		/// 認証成功時の応答でユーザーID情報を取得する場合のキー。設定しない場合は、AuthUserIdもブランクのままとなる
-		/// </summary>
-		private string userIdIdentKey = "";
-
-		/// <summary>
-		/// 認証完了時の応答からuserIdentKey情報に基づいて取得するユーザー情報
-		/// </summary>
-		private string authorizedUsername = "";
-
-		/// <summary>
-		/// 認証完了時の応答からuserIdentKey情報に基づいて取得するユーザー情報
-		/// </summary>
-		private long authorizedUserId;
-
-		/// <summary>
+        /// <summary>
 		/// Stream用のHttpWebRequest
 		/// </summary>
 		private HttpWebRequest streamReq = null;
@@ -134,12 +84,12 @@ namespace OpenTween
 		                                  CallbackDelegate callback )
 		{
 			// 認証済かチェック
-			if ( string.IsNullOrEmpty( token ) )
+			if (this.Credential == null)
 				return HttpStatusCode.Unauthorized;
 
 			HttpWebRequest webReq = this.CreateRequest( method, requestUri, param, false );
 			// OAuth認証ヘッダを付加
-			this.AppendOAuthInfo( webReq, param, token, tokenSecret );
+            this.AppendOAuthInfo(webReq, param);
 
 			HttpStatusCode code;
 			if ( content == null )
@@ -167,12 +117,12 @@ namespace OpenTween
 		                                  CallbackDelegate callback )
 		{
 			// 認証済かチェック
-			if ( string.IsNullOrEmpty( token ) )
+			if (this.Credential == null)
 				return HttpStatusCode.Unauthorized;
 
 			HttpWebRequest webReq = this.CreateRequest( method, requestUri, param, binary, false );
 			// OAuth認証ヘッダを付加
-			this.AppendOAuthInfo( webReq, null, token, tokenSecret );
+            this.AppendOAuthInfo(webReq, null);
 
 			HttpStatusCode code;
 			if ( content == null )
@@ -203,7 +153,7 @@ namespace OpenTween
 		                                  string userAgent )
 		{
 			// 認証済かチェック
-			if ( string.IsNullOrEmpty( token ) )
+			if (this.Credential == null)
 				return HttpStatusCode.Unauthorized;
 
 			this.RequestAbort();
@@ -213,7 +163,7 @@ namespace OpenTween
 				this.streamReq.UserAgent = userAgent;
 
 			// OAuth認証ヘッダを付加
-			this.AppendOAuthInfo( this.streamReq, param, token, tokenSecret );
+            this.AppendOAuthInfo(this.streamReq, param);
 
 			try
 			{
@@ -247,26 +197,6 @@ namespace OpenTween
 
 		#region "認証処理"
 		/// <summary>
-		/// OAuth認証の開始要求（リクエストトークン取得）。PIN入力用の前段
-		/// </summary>
-		/// <remarks>
-		/// 呼び出し元では戻されたurlをブラウザで開き、認証完了後PIN入力を受け付けて、リクエストトークンと共にAuthenticatePinFlowを呼び出す
-		/// </remarks>
-		/// <param name="requestTokenUrl">リクエストトークンの取得先URL</param>
-		/// <param name="authorizeUrl">ブラウザで開く認証用URLのベース</param>
-		/// <param name="requestToken">[OUT]認証要求で戻されるリクエストトークン。使い捨て</param>
-		/// <param name="authUri">[OUT]requestUriを元に生成された認証用URL。通常はリクエストトークンをクエリとして付加したUri</param>
-		/// <returns>取得結果真偽値</returns>
-		public bool AuthenticatePinFlowRequest( string requestTokenUrl, string authorizeUrl, ref string requestToken, ref Uri authUri )
-		{
-			// PIN-based flow
-            authUri = this.GetAuthenticatePageUri( requestTokenUrl, authorizeUrl, ref requestToken );
-			if ( authUri == null )
-				return false;
-			return true;
-		}
-
-		/// <summary>
 		/// OAuth認証のアクセストークン取得。PIN入力用の後段
 		/// </summary>
 		/// <remarks>
@@ -276,122 +206,12 @@ namespace OpenTween
 		/// <param name="requestToken">AuthenticatePinFlowRequestで取得したリクエストトークン</param>
 		/// <param name="pinCode">Webで認証後に表示されるPINコード</param>
 		/// <returns>取得結果真偽値</returns>
-		public HttpStatusCode AuthenticatePinFlow( string accessTokenUrl, string requestToken, string pinCode )
+        protected NameValueCollection GetAccessCredential(Uri accessTokenUri, string oauthVerifier)
 		{
-			// PIN-based flow
-			if ( string.IsNullOrEmpty( requestToken ) )
-				throw new Exception( "Sequence error.(requestToken is blank)" );
-
-			// アクセストークン取得
-			string content = "";
-			NameValueCollection accessTokenData;
-			HttpStatusCode httpCode = this.GetOAuthToken( new Uri( accessTokenUrl ), pinCode, requestToken, null, ref content );
-			if ( httpCode != HttpStatusCode.OK )
-				return httpCode;
-			accessTokenData = base.ParseQueryString( content );
-
-			if ( accessTokenData != null )
-			{
-				this.token = accessTokenData[ "oauth_token" ];
-				this.tokenSecret = accessTokenData[ "oauth_token_secret" ];
-
-				// サービスごとの独自拡張対応
-				if ( !string.IsNullOrEmpty(this.userIdentKey) )
-					this.authorizedUsername = accessTokenData[ this.userIdentKey ];
-				else
-					this.authorizedUsername = "";
-
-				if ( !string.IsNullOrEmpty(this.userIdIdentKey) )
-				{
-					try
-					{
-						this.authorizedUserId = Convert.ToInt64( accessTokenData[ this.userIdIdentKey ] );
-					}
-					catch ( Exception )
-					{
-						this.authorizedUserId = 0;
-					}
-				}
-				else
-				{
-					this.authorizedUserId = 0;
-				}
-
-				if ( string.IsNullOrEmpty(token) )
-					throw new InvalidDataException( "Token is null." );
-				return HttpStatusCode.OK;
-			}
-			else
-			{
-                throw new InvalidDataException( "Return value is null." );
-			}
-		}
-
-        public HttpStatusCode Authenticate(Uri accessTokenUrl, string username, string password, ref string content)
-        {
-            return this.AuthenticateXAuth(accessTokenUrl, username, password, ref content);
-        }
-
-		/// <summary>
-		/// OAuth認証のアクセストークン取得。xAuth方式
-		/// </summary>
-		/// <param name="accessTokenUrl">アクセストークンの取得先URL</param>
-		/// <param name="username">認証用ユーザー名</param>
-		/// <param name="password">認証用パスワード</param>
-		/// <returns>取得結果真偽値</returns>
-		public HttpStatusCode AuthenticateXAuth( Uri accessTokenUrl, string username, string password, ref string content )
-		{
-			// ユーザー・パスワードチェック
-			if ( string.IsNullOrEmpty( username ) || string.IsNullOrEmpty( password ) )
-				throw new Exception( "Sequence error.(username or password is blank)" );
-
-			// xAuthの拡張パラメータ設定
-			Dictionary< string, string > parameter = new Dictionary< string, string >();
-			parameter.Add( "x_auth_mode", "client_auth" );
-			parameter.Add( "x_auth_username", username );
-			parameter.Add( "x_auth_password", password );
-
-			// アクセストークン取得
-			HttpStatusCode httpCode = this.GetOAuthToken( accessTokenUrl, "", "", parameter, ref content );
-			if ( httpCode != HttpStatusCode.OK )
-				return httpCode;
-			NameValueCollection accessTokenData = base.ParseQueryString( content );
-
-			if ( accessTokenData != null )
-			{
-				this.token = accessTokenData[ "oauth_token" ];
-				this.tokenSecret = accessTokenData[ "oauth_token_secret" ];
-
-				// サービスごとの独自拡張対応
-				if ( !string.IsNullOrEmpty(this.userIdentKey) )
-					this.authorizedUsername = accessTokenData[ this.userIdentKey ];
-				else
-					this.authorizedUsername = "";
-
-				if ( !string.IsNullOrEmpty(this.userIdIdentKey) )
-				{
-					try
-					{
-                        this.authorizedUserId = Convert.ToInt64( accessTokenData[ this.userIdIdentKey ] );
-					}
-					catch ( Exception )
-					{
-						this.authorizedUserId = 0;
-					}
-				}
-				else
-				{
-					this.authorizedUserId = 0;
-				}
-
-				if ( string.IsNullOrEmpty(token) )
-					throw new InvalidDataException( "Token is null." );
-				return HttpStatusCode.OK;
-			}
-			else
-			{
-				throw new InvalidDataException( "Return value is null." );
-			}
+            var parameter = new Dictionary<string, string>() { { "oauth_verifier", oauthVerifier } };
+            NameValueCollection ret;
+            this.Credential = GetOAuthCredential(accessTokenUri, parameter, out ret);
+            return ret;
 		}
 
 		/// <summary>
@@ -401,76 +221,31 @@ namespace OpenTween
 		/// <param name="authorizeUrl">ブラウザで開く認証用URLのベース</param>
 		/// <param name="requestToken">[OUT]取得したリクエストトークン</param>
 		/// <returns>取得結果真偽値</returns>
-		private Uri GetAuthenticatePageUri( string requestTokenUrl, string authorizeUrl, ref string requestToken )
+        protected NameValueCollection GetRequestCredential(Uri requestTokenUri, string oauthCallback = "oob")
 		{
-			const string tokenKey = "oauth_token";
-
-			// リクエストトークン取得
-			string content = "";
-			NameValueCollection reqTokenData;
-			if ( this.GetOAuthToken( new Uri( requestTokenUrl ), "", "", null, ref content, callbackUrl: "oob" ) != HttpStatusCode.OK )
-				return null;
-			reqTokenData = base.ParseQueryString( content );
-
-			if ( reqTokenData != null )
-			{
-				requestToken = reqTokenData[ tokenKey ];
-				// Uri生成
-				UriBuilder ub = new UriBuilder( authorizeUrl );
-				ub.Query = string.Format( "{0}={1}", tokenKey, requestToken );
-				return ub.Uri;
-			}
-			else
-			{
-				return null;
-			}
+            var parameter = new Dictionary<string, string>() { { "oauth_callback", oauthCallback } };
+            NameValueCollection ret;
+            this.Credential = GetOAuthCredential(requestTokenUri, parameter, out ret);
+            return ret;
 		}
 
-		/// <summary>
-		/// OAuth認証のトークン取得共通処理
-		/// </summary>
-		/// <param name="requestUri">各種トークンの取得先URL</param>
-		/// <param name="pinCode">PINフロー時のアクセストークン取得時に設定。それ以外は空文字列</param>
-		/// <param name="requestToken">PINフロー時のリクエストトークン取得時に設定。それ以外は空文字列</param>
-		/// <param name="parameter">追加パラメータ。xAuthで使用</param>
-		/// <returns>取得結果のデータ。正しく取得出来なかった場合はNothing</returns>
-		private HttpStatusCode GetOAuthToken( Uri requestUri, string pinCode, string requestToken, Dictionary< string , string > parameter, ref string content, string callbackUrl = null )
-		{
-			HttpWebRequest webReq = null;
-			// HTTPリクエスト生成。PINコードもパラメータも未指定の場合はGETメソッドで通信。それ以外はPOST
-			if ( string.IsNullOrEmpty( pinCode ) && parameter != null )
-				webReq = this.CreateRequest( "GET", requestUri, null, false );
-			else
-				webReq = this.CreateRequest( "POST", requestUri, parameter, false ); // ボディに追加パラメータ書き込み
-
-			// OAuth関連パラメータ準備。追加パラメータがあれば追加
-			Dictionary< string, string > query = new Dictionary< string, string >();
-			if ( parameter != null )
-				foreach ( KeyValuePair< string, string > kvp in parameter )
-					query.Add( kvp.Key, kvp.Value );
-
-			// PINコードが指定されていればパラメータに追加
-			if ( ! string.IsNullOrEmpty( pinCode ) )
-				query.Add( "oauth_verifier", pinCode );
-
-			// コールバックURLが指定されていればパラメータに追加
-			if (!string.IsNullOrEmpty(callbackUrl))
-				query.Add("oauth_callback", callbackUrl);
-
-			// OAuth関連情報をHTTPリクエストに追加
-			this.AppendOAuthInfo( webReq, query, requestToken, "" );
-
-			// HTTP応答取得
-			Dictionary< string, string > header = new Dictionary< string, string >() { { "Date", "" } };
-			HttpStatusCode responseCode = this.GetResponse( webReq, out content, header, false );
-			if ( responseCode == HttpStatusCode.OK )
-				return responseCode;
-
-			if ( !string.IsNullOrEmpty( header[ "Date" ] ) )
-				content += Environment.NewLine + "Check the Date & Time of this computer." + Environment.NewLine
-				+ "Server:" + DateTime.Parse( header[ "Date" ] ).ToString() + "  PC:" + DateTime.Now.ToString();
-			return responseCode;
-		}
+        private OAuthCredential GetOAuthCredential(Uri uri, Dictionary<string, string> parameter, out NameValueCollection ret)
+        {
+            var req = this.CreateRequest("POST", uri, parameter, false);
+            AppendOAuthInfo(req, parameter);
+            var header = new Dictionary<string, string>();
+            string body;
+            var code = GetResponse(req, out body, header, false);
+            if (code == HttpStatusCode.OK)
+            {
+                ret = ParseQueryString(body);
+                return new OAuthCredential(this.Credential.Consumer, ret["oauth_token"], ret["oauth_token_secret"]);
+            }
+            else
+            {
+                throw new Exception(body); // response body
+            }
+        }
 		#endregion // 認証処理
 
 		#region "OAuth認証用ヘッダ作成・付加処理"
@@ -481,40 +256,42 @@ namespace OpenTween
 		/// <param name="query">OAuth追加情報＋クエリ or POSTデータ</param>
 		/// <param name="token">アクセストークン、もしくはリクエストトークン。未取得なら空文字列</param>
 		/// <param name="tokenSecret">アクセストークンシークレット。認証処理では空文字列</param>
-		protected virtual void AppendOAuthInfo( HttpWebRequest webRequest, Dictionary< string, string > query, string token, string tokenSecret )
-		{
-			// OAuth共通情報取得
-			Dictionary< string, string > parameter = this.GetOAuthParameter( token );
-			// OAuth共通情報にquery情報を追加
-			if ( query != null )
-				foreach ( KeyValuePair< string, string > item in query )
-					parameter.Add( item.Key, item.Value );
-			// 署名の作成・追加
-			parameter.Add( "oauth_signature", this.CreateSignature( tokenSecret, webRequest.Method, webRequest.RequestUri, parameter ) );
-			// HTTPリクエストのヘッダに追加
-			StringBuilder sb = new StringBuilder( "OAuth " );
-			foreach ( KeyValuePair< string, string > item in parameter )
-				// 各種情報のうち、oauth_で始まる情報のみ、ヘッダに追加する。各情報はカンマ区切り、データはダブルクォーテーションで括る
-				if ( item.Key.StartsWith("oauth_") )
-					sb.AppendFormat( "{0}=\"{1}\",", item.Key, this.UrlEncode( item.Value ) );
-			webRequest.Headers.Add( HttpRequestHeader.Authorization, sb.ToString() );
-		}
+        protected virtual void AppendOAuthInfo(HttpWebRequest req, Dictionary<string, string> parameter)
+        {
+            req.Headers.Add(HttpRequestHeader.Authorization, GetAuthorizationHeader(req.Method, req.RequestUri, parameter));
+        }
+
+        protected virtual string GetAuthorizationHeader(string method, Uri uri, Dictionary<string, string> parameters = null, string realm = null)
+        {
+            // OAuth共通情報取得
+            var oauthParameter = this.GetOAuthParameter();
+            // 署名の作成・追加
+            oauthParameter.Add("oauth_signature", this.CreateSignature(Credential.TokenSecret, method, uri, oauthParameter, parameters));
+            // HTTPリクエストのヘッダに追加
+            var mg = string.Join(", ",
+                oauthParameter
+                .Where(item => item.Key.StartsWith("oauth_") || item.Key == "realm")
+                .Select(item => item.Key + "=\"" + UrlEncode(item.Value) + "\""));
+            if (!string.IsNullOrEmpty(realm))
+                mg = "realm=\"" + realm + "\", " + mg;
+            return "OAuth " + mg;
+        }
 
 		/// <summary>
 		/// OAuthで使用する共通情報を取得する
 		/// </summary>
 		/// <param name="token">アクセストークン、もしくはリクエストトークン。未取得なら空文字列</param>
 		/// <returns>OAuth情報のディクショナリ</returns>
-		protected Dictionary< string, string > GetOAuthParameter( string token )
+		protected Dictionary< string, string > GetOAuthParameter()
 		{
 			Dictionary< string, string > parameter = new Dictionary< string, string >();
-			parameter.Add( "oauth_consumer_key", this.consumerKey );
+			parameter.Add( "oauth_consumer_key", this.Credential.Consumer.Key );
 			parameter.Add( "oauth_signature_method", "HMAC-SHA1" );
 			parameter.Add( "oauth_timestamp", Convert.ToInt64( ( DateTime.UtcNow - HttpConnectionOAuth.UnixEpoch ).TotalSeconds ).ToString() ); // epoch秒
 			parameter.Add( "oauth_nonce", HttpConnectionOAuth.NonceRandom.Next( 123400, 9999999 ).ToString() );
 			parameter.Add( "oauth_version", "1.0" );
-			if ( !string.IsNullOrEmpty( token ) )
-				parameter.Add( "oauth_token", token ); // トークンがあれば追加
+            if (!string.IsNullOrEmpty(Credential.Token))
+                parameter.Add("oauth_token", Credential.Token); // トークンがあれば追加
 			return parameter;
 		}
 
@@ -524,12 +301,15 @@ namespace OpenTween
 		/// <param name="tokenSecret">アクセストークン秘密鍵</param>
 		/// <param name="method">HTTPメソッド文字列</param>
 		/// <param name="uri">アクセス先Uri</param>
-		/// <param name="parameter">クエリ、もしくはPOSTデータ</param>
+		/// <param name="oauthParameters">クエリ、もしくはPOSTデータ</param>
 		/// <returns>署名文字列</returns>
-		protected virtual string CreateSignature( string tokenSecret, string method, Uri uri, Dictionary< string, string > parameter )
+		protected string CreateSignature( string tokenSecret, string method, Uri uri, Dictionary< string, string > oauthParameters, Dictionary<string,string> parameters )
 		{
 			// パラメタをソート済みディクショナリに詰替（OAuthの仕様）
-			SortedDictionary< string, string > sorted = new SortedDictionary< string, string >( parameter );
+            SortedDictionary<string, string> sorted = new SortedDictionary<string, string>(oauthParameters);
+            if (parameters != null)
+                foreach (var item in parameters)
+                    sorted.Add(item.Key, item.Value);
 			// URLエンコード済みのクエリ形式文字列に変換
 			string paramString = this.CreateQueryString( sorted );
 			// アクセス先URLの整形
@@ -537,7 +317,7 @@ namespace OpenTween
 			// 署名のベース文字列生成（&区切り）。クエリ形式文字列は再エンコードする
 			string signatureBase = string.Format( "{0}&{1}&{2}", method, this.UrlEncode( url ), this.UrlEncode( paramString ) );
 			// 署名鍵の文字列をコンシューマー秘密鍵とアクセストークン秘密鍵から生成（&区切り。アクセストークン秘密鍵なくても&残すこと）
-			string key = this.UrlEncode( this.consumerSecret ) + "&";
+			string key = this.UrlEncode( this.Credential.Consumer.Secret ) + "&";
 			if ( !string.IsNullOrEmpty( tokenSecret ) )
 				key += this.UrlEncode( tokenSecret );
 			// 鍵生成＆署名生成
@@ -552,21 +332,10 @@ namespace OpenTween
 		/// <summary>
 		/// 初期化。各種トークンの設定とユーザー識別情報設定
 		/// </summary>
-		/// <param name="consumerKey">コンシューマー鍵</param>
-		/// <param name="consumerSecret">コンシューマー秘密鍵</param>
-		/// <param name="accessToken">アクセストークン</param>
-		/// <param name="accessTokenSecret">アクセストークン秘密鍵</param>
-		/// <param name="userIdentifier">アクセストークン取得時に得られるユーザー識別情報。不要なら空文字列</param>
-		public void Initialize( string consumerKey, string consumerSecret,
-		                        string accessToken, string accessTokenSecret,
-		                        string userIdentifier, string userIdIdentifier )
+        /// <param name="credential">アクセスクレデンシャル</param>
+		public HttpConnectionOAuth(OAuthCredential credential)
 		{
-			this.consumerKey = consumerKey;
-			this.consumerSecret = consumerSecret;
-			this.token = accessToken;
-			this.tokenSecret = accessTokenSecret;
-			this.userIdentKey = userIdentifier;
-			this.userIdIdentKey = userIdIdentifier;
+            this.Credential = credential;
 		}
 
 		/// <summary>
@@ -578,47 +347,8 @@ namespace OpenTween
 		/// <param name="accessTokenSecret">アクセストークン秘密鍵</param>
 		/// <param name="username">認証済みユーザー名</param>
 		/// <param name="userIdentifier">アクセストークン取得時に得られるユーザー識別情報。不要なら空文字列</param>
-		public void Initialize( string consumerKey, string consumerSecret,
-		                        string accessToken, string accessTokenSecret,
-		                        string username, long userId,
-		                        string userIdentifier, string userIdIdentifier )
-		{
-			this.Initialize( consumerKey, consumerSecret, accessToken, accessTokenSecret, userIdentifier, userIdIdentifier );
-			this.authorizedUsername = username;
-			this.authorizedUserId = userId;
-		}
-
-		/// <summary>
-		/// アクセストークン
-		/// </summary>
-		public string AccessToken
-		{
-			get { return this.token; }
-		}
-
-		/// <summary>
-		/// アクセストークン秘密鍵
-		/// </summary>
-		public string AccessTokenSecret
-		{
-			get { return this.tokenSecret; }
-		}
-
-		/// <summary>
-		/// 認証済みユーザー名
-		/// </summary>
-		public string AuthUsername
-		{
-			get { return this.authorizedUsername; }
-		}
-
-		/// <summary>
-		/// 認証済みユーザーId
-		/// </summary>
-		public long AuthUserId
-		{
-			get { return this.authorizedUserId; }
-			set { this.authorizedUserId = value; }
-		}
+        public HttpConnectionOAuth(OAuthConsumer consumer)
+            : this(new OAuthCredential(consumer, null, null))
+        { }
 	}
 }

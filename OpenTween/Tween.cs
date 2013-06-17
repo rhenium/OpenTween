@@ -28,26 +28,24 @@
 //"c:\Program Files\Microsoft.NET\SDK\v2.0\Bin\sgen.exe" /f /a:"$(TargetPath)"
 //"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\sgen.exe" /f /a:"$(TargetPath)"
 
+using OpenTween.Api;
+using OpenTween.OpenTweenCustomControl;
+using OpenTween.Thumbnail;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using OpenTween.OpenTweenCustomControl;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using System.Threading;
-using System.Media;
-using System.Web;
 using System.Diagnostics;
-using OpenTween.Thumbnail;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Media;
 using System.Net;
-using OpenTween.Api;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OpenTween
 {
@@ -99,7 +97,7 @@ namespace OpenTween
         private bool _modifySettingAtId = false;
 
         //twitter解析部
-        private Twitter tw = new Twitter();
+        private Twitter tw;
 
         //Growl呼び出し部
         private GrowlHelper gh = new GrowlHelper(Application.ProductName);
@@ -653,9 +651,11 @@ namespace OpenTween
             SettingDialog.TwitterSearchApiUrl = _cfgCommon.TwitterSearchUrl;
 
             //認証関連
-            if (string.IsNullOrEmpty(_cfgCommon.Token)) _cfgCommon.UserName = "";
-            tw.Initialize(_cfgCommon.Token, _cfgCommon.TokenSecret, _cfgCommon.UserName, _cfgCommon.UserId);
-
+            if (_cfgCommon.UserAccounts == null)
+                _cfgCommon.UserAccounts = new BindingList<UserAccount>();
+            if (_cfgCommon.CurrentAccount != null)
+                tw = new Twitter(_cfgCommon.CurrentAccount);
+            
             SettingDialog.UserAccounts = _cfgCommon.UserAccounts;
 
             SettingDialog.TimelinePeriodInt = _cfgCommon.TimelinePeriod;
@@ -881,23 +881,23 @@ namespace OpenTween
             bool firstRun = false;
 
             //ユーザー名、パスワードが未設定なら設定画面を表示（初回起動時など）
-            if (string.IsNullOrEmpty(tw.Username))
+            if (tw == null)
             {
                 saveRequired = true;
                 firstRun = true;
                 SettingDialog.ShowInTaskbar = true;
 
                 //設定せずにキャンセルされた場合はプログラム終了
-                if (SettingDialog.ShowDialog(this) == DialogResult.Cancel)
+                var res = SettingDialog.ShowDialog(this);
+                var cur = (UserAccount)SettingDialog.AuthUserCombo.SelectedItem;
+                if (res == DialogResult.Cancel || cur == null)
                 {
                     Application.Exit();  //強制終了
                     return;
                 }
-                //設定されたが、依然ユーザー名とパスワードが未設定ならプログラム終了
-                if (string.IsNullOrEmpty(tw.Username))
+                else
                 {
-                    Application.Exit();  //強制終了
-                    return;
+                    tw = new Twitter(cur);
                 }
                 SettingDialog.ShowInTaskbar = false;
                 //新しい設定を反映
@@ -1255,17 +1255,9 @@ namespace OpenTween
             this.TweenMain_Resize(null, null);
             if (saveRequired) SaveConfigsAll(false);
 
-            if (tw.UserId == 0)
+            if (tw.Username == null)
             {
                 tw.VerifyCredentials();
-                foreach (UserAccount ua in _cfgCommon.UserAccounts)
-                {
-                    if (ua.Username.ToLower() == tw.Username.ToLower())
-                    {
-                        ua.UserId = tw.UserId;
-                        break;
-                    }
-                }
             }
             foreach (UserAccount ua in SettingDialog.UserAccounts)
             {
@@ -1339,20 +1331,6 @@ namespace OpenTween
         private void LoadConfig()
         {
             _cfgCommon = SettingCommon.Load();
-            if (_cfgCommon.UserAccounts == null || _cfgCommon.UserAccounts.Count == 0)
-            {
-                _cfgCommon.UserAccounts = new List<UserAccount>();
-                if (!string.IsNullOrEmpty(_cfgCommon.UserName))
-                {
-                    UserAccount account = new UserAccount();
-                    account.Username = _cfgCommon.UserName;
-                    account.UserId = _cfgCommon.UserId;
-                    account.Token = _cfgCommon.Token;
-                    account.TokenSecret = _cfgCommon.TokenSecret;
-
-                    _cfgCommon.UserAccounts.Add(account);
-                }
-            }
             _cfgLocal = SettingLocal.Load();
             List<TabClass> tabs = SettingTabs.Load().Tabs;
             foreach (TabClass tb in tabs)
@@ -3908,7 +3886,6 @@ namespace OpenTween
         private void SettingStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            string uid = tw.Username.ToLower();
 
             try
             {
@@ -3923,6 +3900,13 @@ namespace OpenTween
             {
                 lock (_syncObject)
                 {
+                    var cur = (UserAccount)SettingDialog.AuthUserCombo.SelectedItem;
+                    if (!cur.Equals(tw.UserAccount))
+                    {
+                        tw.Dispose();
+                        tw = new Twitter(cur);
+                        doGetFollowersMenu();
+                    }
                     tw.TinyUrlResolve = SettingDialog.TinyUrlResolve;
                     tw.RestrictFavCheck = SettingDialog.RestrictFavCheck;
                     tw.ReadOwnPost = SettingDialog.ReadOwnPost;
@@ -3941,11 +3925,11 @@ namespace OpenTween
                                                         SettingDialog.ProxyUser,
                                                         SettingDialog.ProxyPassword);
                     this.CreatePictureServices();
-    #if UA
+#if UA
                     this.SplitContainer4.Panel2.Controls.RemoveAt(0);
                     this.ab = new AdsBrowser();
                     this.SplitContainer4.Panel2.Controls.Add(ab);
-    #endif
+#endif
                     try
                     {
                         if (SettingDialog.TabIconDisp)
@@ -4167,8 +4151,6 @@ namespace OpenTween
                         _hookGlobalHotkey.RegisterOriginalHotkey(SettingDialog.HotkeyKey, SettingDialog.HotkeyValue, modKey);
                     }
 
-                    if (uid != tw.Username) this.doGetFollowersMenu();
-
                     SetImageServiceCombo();
                     if (SettingDialog.IsNotifyUseGrowl) gh.RegisterGrowl();
                     try
@@ -4178,13 +4160,14 @@ namespace OpenTween
                     catch (Exception)
                     {
                     }
+
+                    Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
+
+                    this.TopMost = SettingDialog.AlwaysTop;
                 }
+
+                SaveConfigsAll(false);
             }
-
-            Twitter.AccountState = MyCommon.ACCOUNT_STATE.Valid;
-
-            this.TopMost = SettingDialog.AlwaysTop;
-            SaveConfigsAll(false);
         }
 
         /// <summary>
@@ -7758,12 +7741,8 @@ namespace OpenTween
             _modifySettingCommon = false;
             lock (_syncObject)
             {
-                _cfgCommon.UserName = tw.Username;
-                _cfgCommon.UserId = tw.UserId;
-                _cfgCommon.Password = tw.Password;
-                _cfgCommon.Token = tw.AccessToken;
-                _cfgCommon.TokenSecret = tw.AccessTokenSecret;
                 _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
+                _cfgCommon.CurrentAccount = tw.UserAccount;
                 _cfgCommon.UserstreamStartup = SettingDialog.UserstreamStartup;
                 _cfgCommon.UserstreamPeriod = SettingDialog.UserstreamPeriodInt;
                 _cfgCommon.TimelinePeriod = SettingDialog.TimelinePeriodInt;

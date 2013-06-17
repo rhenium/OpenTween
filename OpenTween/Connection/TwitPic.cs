@@ -112,7 +112,7 @@ namespace OpenTween
 			// Twitterへの投稿
 			// 投稿メッセージの再構成
 			if ( message.Length + AppendSettingDialog.Instance.TwitterConfiguration.CharactersReservedPerMedia + 1 > 140 )
-				message = message.Substring( 0, 140 - AppendSettingDialog.Instance.TwitterConfiguration.CharactersReservedPerMedia - 1 ) + " " + url;
+                message = message.Substring(0, 140 - AppendSettingDialog.Instance.TwitterConfiguration.CharactersReservedPerMedia - 1) + " " + url;
 			else
 				message += " " + url;
 
@@ -190,10 +190,9 @@ namespace OpenTween
 		}
 
 		public TwitPic( Twitter twitter )
-			: base( new Uri( "http://api.twitter.com/" ), new Uri( "https://api.twitter.com/1/account/verify_credentials.json" ) )
+            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1/account/verify_credentials.json"))
 		{
 			this.tw = twitter;
-            this.Initialize( ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret, tw.AccessToken, tw.AccessTokenSecret, "", "" );
 		}
 	}
 }
