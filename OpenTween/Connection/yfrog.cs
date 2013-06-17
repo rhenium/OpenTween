@@ -173,7 +173,7 @@ namespace OpenTween
 		}
 
         public yfrog(Twitter twitter)
-            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1/account/verify_credentials.xml"))
+            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1.1/account/verify_credentials.xml"))
         {
             this.tw = twitter;
         }

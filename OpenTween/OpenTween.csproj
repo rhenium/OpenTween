@@ -91,6 +91,7 @@
     <Compile Include="Connection\IMultimediaShareService.cs" />
     <Compile Include="Connection\OAuthConsumer.cs" />
     <Compile Include="Connection\OAuthCredential.cs" />
+    <Compile Include="Connection\TwipplePhoto.cs" />
     <Compile Include="EventViewerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,7 +123,6 @@
     <Compile Include="ListManage.Designer.cs">
       <DependentUpon>ListManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Connection\Plixi.cs" />
     <Compile Include="Connection\TwitPic.cs" />
     <Compile Include="Connection\TwitterPhoto.cs" />
     <Compile Include="Connection\TwitVideo.cs" />

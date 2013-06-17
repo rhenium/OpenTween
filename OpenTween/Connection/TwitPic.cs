@@ -190,7 +190,7 @@ namespace OpenTween
 		}
 
 		public TwitPic( Twitter twitter )
-            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1/account/verify_credentials.json"))
+            : base(twitter.Credential, new Uri("http://api.twitter.com/"), new Uri("https://api.twitter.com/1.1/account/verify_credentials.json"))
 		{
 			this.tw = twitter;
 		}

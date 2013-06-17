@@ -29,6 +29,7 @@
 //"C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Bin\sgen.exe" /f /a:"$(TargetPath)"
 
 using OpenTween.Api;
+using OpenTween.Connection;
 using OpenTween.OpenTweenCustomControl;
 using OpenTween.Thumbnail;
 using System;
@@ -1277,8 +1278,8 @@ namespace OpenTween
                 {"TwitPic", new TwitPic(tw)},
                 {"img.ly", new imgly(tw)},
                 {"yfrog", new yfrog(tw)},
-                {"lockerz", new Plixi(tw)},
-                {"Twitter", new TwitterPhoto(tw)}
+                {"Twitter", new TwitterPhoto(tw)},
+                {"ついっぷるフォト", new TwipplePhoto(tw)}
             };
         }
 
@@ -12442,11 +12443,12 @@ namespace OpenTween
             string svc = "";
             if (ImageServiceCombo.SelectedIndex > -1) svc = ImageServiceCombo.SelectedItem.ToString();
             ImageServiceCombo.Items.Clear();
-            ImageServiceCombo.Items.Add("TwitPic");
-            ImageServiceCombo.Items.Add("img.ly");
-            ImageServiceCombo.Items.Add("yfrog");
-            ImageServiceCombo.Items.Add("lockerz");
-            ImageServiceCombo.Items.Add("Twitter");
+            
+            // Add service names to combobox
+            foreach (var key in pictureService.Keys)
+            {
+                ImageServiceCombo.Items.Add(key);
+            }
 
             if (string.IsNullOrEmpty(svc))
             {
