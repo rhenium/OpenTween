@@ -886,7 +886,7 @@ namespace OpenTween
                 SettingDialog.UserAccounts = new BindingList<UserAccount>(new List<UserAccount>(_cfgCommon.UserAccounts));
 
                 var res = SettingDialog.ShowDialog(this);
-                var cur = (UserAccount)SettingDialog.AuthUserCombo.SelectedItem;
+                var cur = (UserAccount)SettingDialog.UserAccountsListBox.SelectedItem;
                 if (res == DialogResult.Cancel || cur == null)
                 {
                     Application.Exit();  //強制終了
@@ -3876,7 +3876,7 @@ namespace OpenTween
                 lock (_syncObject)
                 {
                     _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
-                    var cur = (UserAccount)SettingDialog.AuthUserCombo.SelectedItem;
+                    var cur = (UserAccount)SettingDialog.UserAccountsListBox.SelectedItem;
                     if (!cur.Equals(tw.UserAccount))
                     {
                         tw.Dispose();

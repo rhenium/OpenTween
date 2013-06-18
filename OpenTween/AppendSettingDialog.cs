@@ -478,7 +478,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return;
 
-            if (this.DialogResult == DialogResult.OK && (UserAccount)AuthUserCombo.SelectedItem == null && e.CloseReason == CloseReason.None)
+            if (this.DialogResult == DialogResult.OK && (UserAccount)UserAccountsListBox.SelectedItem == null && e.CloseReason == CloseReason.None)
             {
                 if (MessageBox.Show(Properties.Resources.Setting_FormClosing1, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
                 {
@@ -499,18 +499,12 @@ namespace OpenTween
 
         private void Setting_Load(object sender, EventArgs e)
         {
-#if UA
-            this.FollowCheckBox.Text = string.Format(this.FollowCheckBox.Text, ApplicationSettings.FeedbackTwitterName);
-            this.GroupBox2.Visible = true;
-#else
-            this.GroupBox2.Visible = false;
-#endif
             tw = ((TweenMain)this.Owner).TwitterInstance;
             //this.AuthStateLabel.Enabled = true;
             //this.AuthUserLabel.Enabled = true;
             this.AuthClearButton.Enabled = true;
 
-            AuthUserCombo.SelectedIndex =
+            UserAccountsListBox.SelectedIndex =
                 tw == null || UserAccounts == null ? -1
                 : UserAccounts.IndexOf(tw.UserAccount);
 
@@ -1607,9 +1601,9 @@ namespace OpenTween
 
         private void AuthClearButton_Click(object sender, EventArgs e)
         {
-            if (AuthUserCombo.SelectedIndex > -1)
+            if (UserAccountsListBox.SelectedIndex > -1)
             {
-                UserAccounts.RemoveAt(AuthUserCombo.SelectedIndex);
+                UserAccounts.RemoveAt(UserAccountsListBox.SelectedIndex);
                 CalcApiUsing();
             }
         }
