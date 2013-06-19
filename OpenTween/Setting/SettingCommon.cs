@@ -52,6 +52,7 @@ namespace OpenTween
         #endregion
 
         public BindingList<UserAccount> UserAccounts = new BindingList<UserAccount>();
+        public int[] TimelineAccountIds = new int[0];
         public int CurrentAccountId = 0;
         [XmlIgnore]
         public UserAccount CurrentAccount
@@ -241,10 +242,5 @@ namespace OpenTween
                 this.TokenSecret.GetHashCode() ^
                 this.UserId.GetHashCode();
         }
-
-        /*public static bool operator ==(UserAccount current, UserAccount other)
-        {
-            return current != null && current.Equals(other);
-        }*/
     }
 }

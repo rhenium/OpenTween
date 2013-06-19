@@ -2247,6 +2247,7 @@
             this.UserAccountsListBox.FormattingEnabled = true;
             resources.ApplyResources(this.UserAccountsListBox, "UserAccountsListBox");
             this.UserAccountsListBox.Name = "UserAccountsListBox";
+            this.UserAccountsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             // 
             // button1
             // 

@@ -4311,6 +4311,7 @@ namespace OpenTween
             public DateTime CreatedAt { get; set; }
             public string Event { get; set; }
             public string Username { get; set; }
+            public long UserId { get; set; }
             public string Target { get; set; }
             public Int64 Id { get; set; }
             public bool IsMe { get; set; }
@@ -4505,6 +4506,7 @@ namespace OpenTween
             evt.CreatedAt = MyCommon.DateTimeParse(eventData.CreatedAt);
             evt.Event = eventData.Event;
             evt.Username = eventData.Source.ScreenName;
+            evt.UserId = eventData.Source.Id;
             evt.IsMe = evt.Username.ToLower().Equals(this.Username.ToLower());
             evt.Eventtype = EventNameToEventType(evt.Event);
             switch (eventData.Event)

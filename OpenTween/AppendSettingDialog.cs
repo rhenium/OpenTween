@@ -44,7 +44,8 @@ namespace OpenTween
     public partial class AppendSettingDialog : Form
     {
         private static AppendSettingDialog _instance = new AppendSettingDialog();
-        private Twitter tw;
+        internal List<Twitter> TimelineTwitters;
+        private Twitter current;
         private HttpConnection.ProxyType _MyProxyType;
 
         private bool _ValidationError = false;
@@ -478,7 +479,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return;
 
-            if (this.DialogResult == DialogResult.OK && (UserAccount)UserAccountsListBox.SelectedItem == null && e.CloseReason == CloseReason.None)
+            if (this.DialogResult == DialogResult.OK && UserAccountsListBox.SelectedItems.Count == 0 && e.CloseReason == CloseReason.None)
             {
                 if (MessageBox.Show(Properties.Resources.Setting_FormClosing1, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
                 {
@@ -499,14 +500,19 @@ namespace OpenTween
 
         private void Setting_Load(object sender, EventArgs e)
         {
-            tw = ((TweenMain)this.Owner).TwitterInstance;
+            current = ((TweenMain)this.Owner).TwitterInstance;
             //this.AuthStateLabel.Enabled = true;
             //this.AuthUserLabel.Enabled = true;
             this.AuthClearButton.Enabled = true;
 
-            UserAccountsListBox.SelectedIndex =
-                tw == null || UserAccounts == null ? -1
-                : UserAccounts.IndexOf(tw.UserAccount);
+            UserAccountsListBox.ClearSelected();
+            if (TimelineTwitters != null)
+            {
+                foreach (var t in TimelineTwitters)
+                {
+                    UserAccountsListBox.SetSelected(UserAccounts.IndexOf(t.UserAccount), true);
+                }
+            }
 
             this.StartupUserstreamCheck.Checked = UserstreamStartup;
             UserstreamPeriod.Text = UserstreamPeriodInt.ToString();
@@ -1601,16 +1607,15 @@ namespace OpenTween
 
         private void AuthClearButton_Click(object sender, EventArgs e)
         {
-            if (UserAccountsListBox.SelectedIndex > -1)
+            foreach (var i in UserAccountsListBox.SelectedIndices.Cast<int>())
             {
-                UserAccounts.RemoveAt(UserAccountsListBox.SelectedIndex);
-                CalcApiUsing();
+                UserAccounts.RemoveAt(i);
             }
         }
 
         private void DisplayApiMaxCount()
         {
-            var limit = tw.TwitterApiInfo.AccessLimit;
+            var limit = current.TwitterApiInfo.AccessLimit;
             if (limit != null)
             {
                 LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, limit.AccessLimitCount - limit.AccessLimitRemain, limit.AccessLimitCount);
@@ -1697,14 +1702,14 @@ namespace OpenTween
                 }
             }
 
-            if (tw != null)
+            if (current != null)
             {
-                var limit = tw.TwitterApiInfo.AccessLimit;
+                var limit = current.TwitterApiInfo.AccessLimit;
                 if (limit == null)
                 {
-                    if (tw.AccountState == MyCommon.ACCOUNT_STATE.Valid)
+                    if (current.AccountState == MyCommon.ACCOUNT_STATE.Valid)
                     {
-                        Task.Factory.StartNew(() => tw.GetInfoApi10()) //取得エラー時はinfoCountは初期状態（値：-1）
+                        Task.Factory.StartNew(() => current.GetInfoApi10()) //取得エラー時はinfoCountは初期状態（値：-1）
                             .ContinueWith(t =>
                             {
                                 if (this.IsHandleCreated && !this.IsDisposed)
@@ -1723,11 +1728,11 @@ namespace OpenTween
                     LabelApiUsing.Text = string.Format(Properties.Resources.SettingAPIUse1, UsingApi, limit.AccessLimitCount);
                 }
 
-                LabelPostAndGet.Visible = CheckPostAndGet.Checked && !tw.UserStreamEnabled;
-                LabelUserStreamActive.Visible = tw.UserStreamEnabled;
+                LabelPostAndGet.Visible = CheckPostAndGet.Checked && !current.UserStreamEnabled;
+                LabelUserStreamActive.Visible = current.UserStreamEnabled;
 
                 LabelApiUsingUserStreamEnabled.Text = string.Format(Properties.Resources.SettingAPIUse2, (ApiLists + ApiUserTimeline).ToString());
-                LabelApiUsingUserStreamEnabled.Visible = tw.UserStreamEnabled;
+                LabelApiUsingUserStreamEnabled.Visible = current.UserStreamEnabled;
             }
 
         }
