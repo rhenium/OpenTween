@@ -11868,6 +11868,11 @@ namespace OpenTween
             get { return current; }
         }
 
+        public List<Twitter> BackInstances
+        {
+            get { return back; }
+        }
+
         private void SplitContainer3_SplitterMoved(object sender, SplitterEventArgs e)
         {
             if (this.WindowState == FormWindowState.Normal && !_initialLayout)

@@ -2052,7 +2052,7 @@ namespace OpenTween
                 //Retweetした人
                 post.RetweetedBy = status.User.ScreenName;
                 post.RetweetedByUserId = status.User.Id;
-                post.IsMe = post.RetweetedBy.ToLower().Equals(this.Username.ToLower());
+                post.IsMe = IsMe(post.RetweetedByUserId);
             }
             else
             {
@@ -2082,7 +2082,7 @@ namespace OpenTween
                 post.Nickname = user.Name.Trim();
                 post.ImageUrl = user.ProfileImageUrlHttps;
                 post.IsProtect = user.Protected;
-                post.IsMe = post.ScreenName.ToLower().Equals(this.Username.ToLower());
+                post.IsMe = IsMe(post.UserId);
 
                 //幻覚fav対策
                 var tc = TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites);
@@ -2098,8 +2098,8 @@ namespace OpenTween
 
             //Source整形
             CreateSource(post);
-
-            post.IsReply = post.ReplyToList.Contains(this.Username.ToLower());
+            
+            post.IsReply = post.ReplyToList.Any(s => IsMe(s));
             post.IsExcludeReply = false;
 
             if (post.IsMe)
@@ -2288,7 +2288,7 @@ namespace OpenTween
             post.Nickname = status.FromUserName.Trim();
             post.ImageUrl = status.ProfileImageUrl;
             post.IsProtect = false;
-            post.IsMe = post.ScreenName.ToLower().Equals(this.Username.ToLower());
+            post.IsMe = IsMe(post.UserId);
 
             //幻覚fav対策
             var tc = TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites);
@@ -2304,7 +2304,7 @@ namespace OpenTween
             //Source整形
             this.CreateSource(post);
 
-            post.IsReply = post.ReplyToList.Contains(this.Username.ToLower());
+            post.IsReply = post.ReplyToList.Any(IsMe);
             post.IsExcludeReply = false;
             post.IsOwl = false;
             post.IsDm = false;
@@ -2815,7 +2815,7 @@ namespace OpenTween
                     TwitterDataModel.User user;
                     if (gType == MyCommon.WORKERTYPE.UserStream)
                     {
-                        if (this.Username.Equals(message.Recipient.ScreenName, StringComparison.CurrentCultureIgnoreCase))
+                        if (IsMe(message.Recipient.Id))
                         {
                             user = message.Sender;
                             post.IsMe = false;
@@ -3043,7 +3043,7 @@ namespace OpenTween
 
                         //Retweetした人
                         post.RetweetedBy = status.User.ScreenName;
-                        post.IsMe = post.RetweetedBy.ToLower().Equals(this.Username.ToLower());
+                        post.IsMe = IsMe(post.RetweetedByUserId);
                     }
                     else
                     {
@@ -3071,7 +3071,7 @@ namespace OpenTween
                         post.Nickname = user.Name.Trim();
                         post.ImageUrl = user.ProfileImageUrlHttps;
                         post.IsProtect = user.Protected;
-                        post.IsMe = post.ScreenName.ToLower().Equals(this.Username.ToLower());
+                        post.IsMe = IsMe(post.UserId);
                     }
                     //HTMLに整形
                     string textFromApi = post.TextFromApi;
@@ -3084,7 +3084,7 @@ namespace OpenTween
                     CreateSource(post);
 
                     post.IsRead = read;
-                    post.IsReply = post.ReplyToList.Contains(this.Username.ToLower());
+                    post.IsReply = post.ReplyToList.Any(IsMe);
                     post.IsExcludeReply = false;
 
                     if (post.IsMe)
@@ -3136,7 +3136,7 @@ namespace OpenTween
         public string GetFollowersApi()
         {
             if (MyCommon._endingFlag) return "";
-            if (UserId != CurrentTwitter.UserId) return "not current Twitter ?? this is bug";
+            if (UserId != CurrentTwitter.UserId) throw new Exception("not current Twitter ?? this is bug");
             var backup = followerId;
 
             followerId = new List<long>();
@@ -4277,7 +4277,17 @@ namespace OpenTween
             }
         }
 
-#region "UserStream"
+        private bool IsMe(long userId)
+        {
+            return CurrentTwitter.UserId == userId || ((TweenMain)AppendSettingDialog.Instance.Owner).BackInstances.Any(t => t.UserId == userId);
+        }
+
+        private bool IsMe(string username)
+        {
+            return CurrentTwitter.Username == username || ((TweenMain)AppendSettingDialog.Instance.Owner).BackInstances.Any(t => t.Username == username);
+        }
+
+        #region "UserStream"
         private string trackWord_ = "";
         public string TrackWord
         {
@@ -4513,17 +4523,18 @@ namespace OpenTween
             evt.Event = eventData.Event;
             evt.Username = eventData.Source.ScreenName;
             evt.UserId = eventData.Source.Id;
-            evt.IsMe = evt.Username.ToLower().Equals(this.Username.ToLower());
+            evt.IsMe = evt.UserId == UserId;
             evt.Eventtype = EventNameToEventType(evt.Event);
             switch (eventData.Event)
             {
                 case "access_revoked":
                     return;
                 case "follow":
-                    if (eventData.Target.Id == ((TweenMain)AppendSettingDialog.Instance.Owner).TwitterInstance.UserId)
+                    if (eventData.Target.Id == UserId)
                     {
-                        if (!CurrentTwitter.followerId.Contains(eventData.Source.Id))
-                            CurrentTwitter.followerId.Add(eventData.Source.Id);
+                        // カレントアカウント以外では無駄になるが…。
+                        if (!this.followerId.Contains(eventData.Source.Id))
+                            this.followerId.Add(eventData.Source.Id);
                         evt.Target = "";
                     }
                     break;
@@ -4545,7 +4556,7 @@ namespace OpenTween
                         var post = TabInformations.GetInstance()[eventData.TargetObject.Id];
                         if (eventData.Event == "favorite")
                         {
-                            if (evt.Username.ToLower().Equals(this.Username.ToLower()))
+                            if (IsMe(evt.UserId))
                             {
                                 post.IsFav = true;
                                 TabInformations.GetInstance().GetTabByType(MyCommon.TabUsageType.Favorites).Add(post.StatusId, post.IsRead, false);
@@ -4572,7 +4583,7 @@ namespace OpenTween
                         }
                         else
                         {
-                            if (evt.Username.ToLower().Equals(this.Username.ToLower()))
+                            if (IsMe(evt.UserId))
                             {
                                 post.IsFav = false;
                             }
