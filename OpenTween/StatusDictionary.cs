@@ -1879,26 +1879,16 @@ namespace OpenTween
         {
             lock (LockObj)
             {
-                if (follower.Count > 0)
+                foreach (var post in _statuses.Values)
                 {
-                    foreach (var post in _statuses.Values)
+                    //if (post.UserId = 0 || post.IsDm) Continue For
+                    if (post.IsMe)
                     {
-                        //if (post.UserId = 0 || post.IsDm) Continue For
-                        if (post.IsMe)
-                        {
-                            post.IsOwl = false;
-                        }
-                        else
-                        {
-                            post.IsOwl = !follower.Contains(post.UserId);
-                        }
+                        post.IsOwl = false;
                     }
-                }
-                else
-                {
-                    foreach (var id in _statuses.Keys)
+                    else
                     {
-                        _statuses[id].IsOwl = false;
+                        post.IsOwl = !follower.Contains(post.UserId);
                     }
                 }
             }

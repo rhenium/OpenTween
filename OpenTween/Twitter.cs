@@ -135,7 +135,7 @@ namespace OpenTween
 
         delegate void GetIconImageDelegate(PostClass post);
         private readonly object LockObj = new object();
-        private List<long> followerId = new List<long>();
+        public List<long> followerId = new List<long>();
         private bool _GetFollowerResult = false;
         private List<long> noRTId = new List<long>();
         private bool _GetNoRetweetResult = false;
@@ -2108,7 +2108,7 @@ namespace OpenTween
             }
             else
             {
-                if (followerId.Count > 0) post.IsOwl = !followerId.Contains(post.UserId);
+                post.IsOwl = !CurrentTwitter.followerId.Contains(post.UserId);
             }
 
             post.IsDm = false;
@@ -3093,7 +3093,7 @@ namespace OpenTween
                     }
                     else
                     {
-                        if (followerId.Count > 0) post.IsOwl = !followerId.Contains(post.UserId);
+                        post.IsOwl = !CurrentTwitter.followerId.Contains(post.UserId);
                     }
 
                     post.IsDm = false;
@@ -3136,23 +3136,21 @@ namespace OpenTween
         public string GetFollowersApi()
         {
             if (MyCommon._endingFlag) return "";
-            long cursor = -1;
-            var tmpFollower = new List<long>(followerId);
+            if (UserId != CurrentTwitter.UserId) return "not current Twitter ?? this is bug";
+            var backup = followerId;
 
-            followerId.Clear();
+            followerId = new List<long>();
+            long cursor = -1;
             do
             {
                 var ret = FollowerApi(ref cursor);
                 if (!string.IsNullOrEmpty(ret))
                 {
-                    followerId.Clear();
-                    followerId.AddRange(tmpFollower);
+                    followerId = backup;
                     _GetFollowerResult = false;
                     return ret;
                 }
             } while (cursor > 0);
-
-            TabInformations.GetInstance().RefreshOwl(followerId);
 
             _GetFollowerResult = true;
             return "";
@@ -4271,6 +4269,14 @@ namespace OpenTween
 
         }
 
+        public Twitter CurrentTwitter
+        {
+            get
+            {
+                return ((TweenMain)AppendSettingDialog.Instance.Owner).TwitterInstance;
+            }
+        }
+
 #region "UserStream"
         private string trackWord_ = "";
         public string TrackWord
@@ -4514,15 +4520,12 @@ namespace OpenTween
                 case "access_revoked":
                     return;
                 case "follow":
-                    if (eventData.Target.ScreenName.ToLower().Equals(this.Username.ToLower()))
+                    if (eventData.Target.Id == ((TweenMain)AppendSettingDialog.Instance.Owner).TwitterInstance.UserId)
                     {
-                        if (!this.followerId.Contains(eventData.Source.Id)) this.followerId.Add(eventData.Source.Id);
+                        if (!CurrentTwitter.followerId.Contains(eventData.Source.Id))
+                            CurrentTwitter.followerId.Add(eventData.Source.Id);
+                        evt.Target = "";
                     }
-                    else
-                    {
-                        return;    //Block後のUndoをすると、SourceとTargetが逆転したfollowイベントが帰ってくるため。
-                    }
-                    evt.Target = "";
                     break;
                 case "unfollow":
                     return;

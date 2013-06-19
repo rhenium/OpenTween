@@ -2558,6 +2558,8 @@ namespace OpenTween
                 case MyCommon.WORKERTYPE.Follower:
                     bw.ReportProgress(50, Properties.Resources.UpdateFollowersMenuItem1_ClickText1);
                     ret = current.GetFollowersApi();
+                    TabInformations.GetInstance().RefreshOwl(current.followerId);
+
                     if (string.IsNullOrEmpty(ret))
                     {
                         ret = current.GetNoRetweetIdsApi();
@@ -13262,7 +13264,7 @@ namespace OpenTween
             if (back != null)
             {
                 toConnect = toConnect.Where(m => !back.Any(t => t.UserAccount.Equals(m)));
-                foreach (var d in back.Where(t => !selectedAccounts.Any(m => m.Equals(t.UserAccount))))
+                foreach (var d in back.Where(t => !selectedAccounts.Any(m => m.Equals(t.UserAccount))).ToArray())
                 {
                     d.Dispose();
                     back.Remove(d);
