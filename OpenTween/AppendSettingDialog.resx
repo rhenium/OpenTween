@@ -259,6 +259,27 @@
   <data name="&gt;&gt;SplitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="UserAccountsCheckedListBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 42</value>
+  </data>
+  <data name="UserAccountsCheckedListBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 298</value>
+  </data>
+  <data name="UserAccountsCheckedListBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;UserAccountsCheckedListBox.Name" xml:space="preserve">
+    <value>UserAccountsCheckedListBox</value>
+  </data>
+  <data name="&gt;&gt;UserAccountsCheckedListBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UserAccountsCheckedListBox.Parent" xml:space="preserve">
+    <value>BasedPanel</value>
+  </data>
+  <data name="&gt;&gt;UserAccountsCheckedListBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>432, 71</value>
   </data>
@@ -281,61 +302,7 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="UserAccountBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>371, 17</value>
-  </metadata>
-  <data name="UserAccountsListBox.ItemHeight" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="UserAccountsListBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 42</value>
-  </data>
-  <data name="UserAccountsListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 136</value>
-  </data>
-  <data name="UserAccountsListBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;UserAccountsListBox.Name" xml:space="preserve">
-    <value>UserAccountsListBox</value>
-  </data>
-  <data name="&gt;&gt;UserAccountsListBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UserAccountsListBox.Parent" xml:space="preserve">
-    <value>BasedPanel</value>
-  </data>
-  <data name="&gt;&gt;UserAccountsListBox.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="CreateAccountButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="CreateAccountButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>315, 331</value>
-  </data>
-  <data name="CreateAccountButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 23</value>
-  </data>
-  <data name="CreateAccountButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="CreateAccountButton.Text" xml:space="preserve">
-    <value>Twitter アカウントを作成する</value>
-  </data>
-  <data name="&gt;&gt;CreateAccountButton.Name" xml:space="preserve">
-    <value>CreateAccountButton</value>
-  </data>
-  <data name="&gt;&gt;CreateAccountButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CreateAccountButton.Parent" xml:space="preserve">
-    <value>BasedPanel</value>
-  </data>
-  <data name="&gt;&gt;CreateAccountButton.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="StartAuthButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -362,7 +329,7 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;StartAuthButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="AuthClearButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -389,7 +356,7 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;AuthClearButton.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -419,7 +386,7 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="BasedPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -7731,6 +7698,9 @@ Growl.CoreLibrary.DLL</value>
   <data name="&gt;&gt;SplitContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="UserAccountBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>371, 17</value>
+  </metadata>
   <data name="Save.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>

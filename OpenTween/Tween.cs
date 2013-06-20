@@ -656,9 +656,9 @@ namespace OpenTween
                 current = new Twitter(_cfgCommon.CurrentAccount);
                 current.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
                 current.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
+                RefreshCurrentAccountSelector();
             }
             SetBackAccounts();
-
             
             SettingDialog.TimelinePeriodInt = _cfgCommon.TimelinePeriod;
             SettingDialog.ReplyPeriodInt = _cfgCommon.ReplyPeriod;
@@ -897,9 +897,10 @@ namespace OpenTween
                 else
                 {
                     _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
+                    RefreshCurrentAccountSelector();
                     if(current == null)
-                        ChangeCurrentAccount((UserAccount)SettingDialog.UserAccountsListBox.SelectedItems[0]);
-                    _cfgCommon.TimelineAccountIds = SettingDialog.UserAccountsListBox.SelectedItems.Cast<UserAccount>().Select(u => _cfgCommon.UserAccounts.IndexOf(u)).ToArray();
+                        ChangeCurrentAccount((UserAccount)SettingDialog.UserAccountsCheckedListBox.CheckedItems[0]);
+                    _cfgCommon.TimelineAccountIds = SettingDialog.UserAccountsCheckedListBox.CheckedItems.Cast<UserAccount>().Select(u => _cfgCommon.UserAccounts.IndexOf(u)).ToArray();
                     SetBackAccounts();
                 }
                 SettingDialog.ShowInTaskbar = false;
@@ -3879,8 +3880,8 @@ namespace OpenTween
                 lock (_syncObject)
                 {
                     _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
-
-                    _cfgCommon.TimelineAccountIds = SettingDialog.UserAccountsListBox.SelectedItems.Cast<UserAccount>().Select(u => _cfgCommon.UserAccounts.IndexOf(u)).ToArray();
+                    RefreshCurrentAccountSelector();
+                    _cfgCommon.TimelineAccountIds = SettingDialog.UserAccountsCheckedListBox.CheckedItems.Cast<UserAccount>().Select(u => _cfgCommon.UserAccounts.IndexOf(u)).ToArray();
                     SetBackAccounts();
 
                     current.TinyUrlResolve = SettingDialog.TinyUrlResolve;
@@ -13289,6 +13290,34 @@ namespace OpenTween
                 back.Add(t);
                 StartUserStream(t);
             }
+        }
+
+        private void RefreshCurrentAccountSelector()
+        {
+            var items = _cfgCommon.UserAccounts.Select(u =>
+            {
+                var item = new ToolStripMenuItem(u.ToString(), u.ProfileImage);
+                item.Tag = u;
+                item.Checked = u.Equals(current.UserAccount);
+                item.Click += (_sender, _e) =>
+                {
+                    ChangeCurrentAccount(u);
+                    foreach (var s in CurrentAccountSelectDropDownButton.DropDownItems.Cast<ToolStripMenuItem>())
+                        s.Checked = false;
+                    item.Checked = true;
+                };
+
+                return item;
+            }).ToArray();
+
+            Invoke((Action)(() =>
+            {
+                CurrentAccountSelectDropDownButton.DropDownItems.Clear();
+                CurrentAccountSelectDropDownButton.DropDownItems.AddRange(items);
+            }));
+
+            // current
+
         }
     }
 }

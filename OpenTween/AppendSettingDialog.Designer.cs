@@ -32,6 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppendSettingDialog));
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
+            this.BasedPanel = new System.Windows.Forms.Panel();
+            this.UserAccountsCheckedListBox = new System.Windows.Forms.CheckedListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.StartAuthButton = new System.Windows.Forms.Button();
+            this.AuthClearButton = new System.Windows.Forms.Button();
+            this.Label4 = new System.Windows.Forms.Label();
             this.CooperatePanel = new System.Windows.Forms.Panel();
             this.IsPreviewFoursquareCheckBox = new System.Windows.Forms.CheckBox();
             this.MapThumbnailGroupBox = new System.Windows.Forms.GroupBox();
@@ -111,12 +117,6 @@
             this.Label76 = new System.Windows.Forms.Label();
             this.Label77 = new System.Windows.Forms.Label();
             this.TextBitlyId = new System.Windows.Forms.TextBox();
-            this.BasedPanel = new System.Windows.Forms.Panel();
-            this.UserAccountBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.CreateAccountButton = new System.Windows.Forms.Button();
-            this.StartAuthButton = new System.Windows.Forms.Button();
-            this.AuthClearButton = new System.Windows.Forms.Button();
-            this.Label4 = new System.Windows.Forms.Label();
             this.TweetPrvPanel = new System.Windows.Forms.Panel();
             this.IsListsIncludeRtsCheckBox = new System.Windows.Forms.CheckBox();
             this.HideDuplicatedRetweetsCheck = new System.Windows.Forms.CheckBox();
@@ -275,17 +275,17 @@
             this.lblAtSelf = new System.Windows.Forms.Label();
             this.lblSelf = new System.Windows.Forms.Label();
             this.ButtonBackToDefaultFontColor2 = new System.Windows.Forms.Button();
+            this.UserAccountBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.Save = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.UserAccountsListBox = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
+            this.BasedPanel.SuspendLayout();
             this.CooperatePanel.SuspendLayout();
             this.MapThumbnailGroupBox.SuspendLayout();
             this.StartupPanel.SuspendLayout();
@@ -293,8 +293,6 @@
             this.TweetActPanel.SuspendLayout();
             this.GetCountPanel.SuspendLayout();
             this.ShortUrlPanel.SuspendLayout();
-            this.BasedPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UserAccountBindingSource)).BeginInit();
             this.TweetPrvPanel.SuspendLayout();
             this.NotifyPanel.SuspendLayout();
             this.ProxyPanel.SuspendLayout();
@@ -306,6 +304,7 @@
             this.GroupBox1.SuspendLayout();
             this.FontPanel2.SuspendLayout();
             this.GroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UserAccountBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // SplitContainer1
@@ -352,6 +351,47 @@
             this.TreeViewSetting.ShowLines = false;
             this.TreeViewSetting.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.TreeViewSetting_BeforeSelect);
             this.TreeViewSetting.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSetting_AfterSelect);
+            // 
+            // BasedPanel
+            // 
+            this.BasedPanel.Controls.Add(this.UserAccountsCheckedListBox);
+            this.BasedPanel.Controls.Add(this.button1);
+            this.BasedPanel.Controls.Add(this.StartAuthButton);
+            this.BasedPanel.Controls.Add(this.AuthClearButton);
+            this.BasedPanel.Controls.Add(this.Label4);
+            resources.ApplyResources(this.BasedPanel, "BasedPanel");
+            this.BasedPanel.Name = "BasedPanel";
+            // 
+            // UserAccountsCheckedListBox
+            // 
+            this.UserAccountsCheckedListBox.FormattingEnabled = true;
+            resources.ApplyResources(this.UserAccountsCheckedListBox, "UserAccountsCheckedListBox");
+            this.UserAccountsCheckedListBox.Name = "UserAccountsCheckedListBox";
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // StartAuthButton
+            // 
+            resources.ApplyResources(this.StartAuthButton, "StartAuthButton");
+            this.StartAuthButton.Name = "StartAuthButton";
+            this.StartAuthButton.UseVisualStyleBackColor = true;
+            this.StartAuthButton.Click += new System.EventHandler(this.StartAuthButton_Click);
+            // 
+            // AuthClearButton
+            // 
+            resources.ApplyResources(this.AuthClearButton, "AuthClearButton");
+            this.AuthClearButton.Name = "AuthClearButton";
+            this.AuthClearButton.UseVisualStyleBackColor = true;
+            this.AuthClearButton.Click += new System.EventHandler(this.AuthClearButton_Click);
+            // 
+            // Label4
+            // 
+            resources.ApplyResources(this.Label4, "Label4");
+            this.Label4.Name = "Label4";
             // 
             // CooperatePanel
             // 
@@ -1038,43 +1078,6 @@
             // 
             resources.ApplyResources(this.TextBitlyId, "TextBitlyId");
             this.TextBitlyId.Name = "TextBitlyId";
-            // 
-            // BasedPanel
-            // 
-            this.BasedPanel.Controls.Add(this.button1);
-            this.BasedPanel.Controls.Add(this.UserAccountsListBox);
-            this.BasedPanel.Controls.Add(this.CreateAccountButton);
-            this.BasedPanel.Controls.Add(this.StartAuthButton);
-            this.BasedPanel.Controls.Add(this.AuthClearButton);
-            this.BasedPanel.Controls.Add(this.Label4);
-            resources.ApplyResources(this.BasedPanel, "BasedPanel");
-            this.BasedPanel.Name = "BasedPanel";
-            // 
-            // CreateAccountButton
-            // 
-            resources.ApplyResources(this.CreateAccountButton, "CreateAccountButton");
-            this.CreateAccountButton.Name = "CreateAccountButton";
-            this.CreateAccountButton.UseVisualStyleBackColor = true;
-            this.CreateAccountButton.Click += new System.EventHandler(this.CreateAccountButton_Click);
-            // 
-            // StartAuthButton
-            // 
-            resources.ApplyResources(this.StartAuthButton, "StartAuthButton");
-            this.StartAuthButton.Name = "StartAuthButton";
-            this.StartAuthButton.UseVisualStyleBackColor = true;
-            this.StartAuthButton.Click += new System.EventHandler(this.StartAuthButton_Click);
-            // 
-            // AuthClearButton
-            // 
-            resources.ApplyResources(this.AuthClearButton, "AuthClearButton");
-            this.AuthClearButton.Name = "AuthClearButton";
-            this.AuthClearButton.UseVisualStyleBackColor = true;
-            this.AuthClearButton.Click += new System.EventHandler(this.AuthClearButton_Click);
-            // 
-            // Label4
-            // 
-            resources.ApplyResources(this.Label4, "Label4");
-            this.Label4.Name = "Label4";
             // 
             // TweetPrvPanel
             // 
@@ -2241,20 +2244,6 @@
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
-            // UserAccountsListBox
-            // 
-            this.UserAccountsListBox.DataSource = this.UserAccountBindingSource;
-            this.UserAccountsListBox.FormattingEnabled = true;
-            resources.ApplyResources(this.UserAccountsListBox, "UserAccountsListBox");
-            this.UserAccountsListBox.Name = "UserAccountsListBox";
-            this.UserAccountsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // AppendSettingDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -2275,6 +2264,8 @@
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
+            this.BasedPanel.ResumeLayout(false);
+            this.BasedPanel.PerformLayout();
             this.CooperatePanel.ResumeLayout(false);
             this.CooperatePanel.PerformLayout();
             this.MapThumbnailGroupBox.ResumeLayout(false);
@@ -2289,9 +2280,6 @@
             this.GetCountPanel.PerformLayout();
             this.ShortUrlPanel.ResumeLayout(false);
             this.ShortUrlPanel.PerformLayout();
-            this.BasedPanel.ResumeLayout(false);
-            this.BasedPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.UserAccountBindingSource)).EndInit();
             this.TweetPrvPanel.ResumeLayout(false);
             this.TweetPrvPanel.PerformLayout();
             this.NotifyPanel.ResumeLayout(false);
@@ -2312,6 +2300,7 @@
             this.FontPanel2.ResumeLayout(false);
             this.GroupBox5.ResumeLayout(false);
             this.GroupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UserAccountBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2392,7 +2381,6 @@
         internal System.Windows.Forms.Label Label77;
         internal System.Windows.Forms.TextBox TextBitlyId;
         internal System.Windows.Forms.Panel BasedPanel;
-        internal System.Windows.Forms.Button CreateAccountButton;
         internal System.Windows.Forms.Button StartAuthButton;
         internal System.Windows.Forms.Button AuthClearButton;
         internal System.Windows.Forms.Label Label4;
@@ -2569,6 +2557,6 @@
         internal System.Windows.Forms.CheckBox CheckViewTabBottom;
         private System.Windows.Forms.BindingSource UserAccountBindingSource;
         private System.Windows.Forms.Button button1;
-        internal System.Windows.Forms.ListBox UserAccountsListBox;
+        internal System.Windows.Forms.CheckedListBox UserAccountsCheckedListBox;
     }
 }

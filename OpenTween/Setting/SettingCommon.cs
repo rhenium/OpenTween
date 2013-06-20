@@ -32,6 +32,7 @@ using System.Windows.Forms;
 using OpenTween.Thumbnail;
 using OpenTween.Connection;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace OpenTween
 {
@@ -191,6 +192,7 @@ namespace OpenTween
         public string TokenSecret;
         public long UserId;
         public string Username;
+        public string ProfileImageUrl;
 
         public override string ToString()
         {
@@ -206,14 +208,28 @@ namespace OpenTween
             }
         }
 
+        [XmlIgnore]
+        private Image _ProfileImage;
+        [XmlIgnore]
+        public Image ProfileImage
+        {
+            get
+            {
+                if (_ProfileImage == null)
+                    return (_ProfileImage = new HttpVarious().GetImage(ProfileImageUrl));
+                else
+                    return _ProfileImage;
+            }
+        }
+
         // serialize
         private UserAccount() { }
 
-        public UserAccount(OAuthCredential credenatial, long userId, string username)
-            : this(credenatial.Consumer.Key, credenatial.Consumer.Secret, credenatial.Token, credenatial.TokenSecret, userId, username)
+        public UserAccount(OAuthCredential credenatial, long userId, string username, string profileImageUrl)
+            : this(credenatial.Consumer.Key, credenatial.Consumer.Secret, credenatial.Token, credenatial.TokenSecret, userId, username, profileImageUrl)
         { }
 
-        public UserAccount(string consumerKey, string consumerSecret, string token, string tokenSecret, long userId, string username)
+        public UserAccount(string consumerKey, string consumerSecret, string token, string tokenSecret, long userId, string username, string profileImageUrl)
         {
             this.ConsumerKey = consumerKey;
             this.ConsumerSecret = consumerSecret;
@@ -221,6 +237,7 @@ namespace OpenTween
             this.TokenSecret = tokenSecret;
             this.UserId = userId;
             this.Username = username;
+            this.ProfileImageUrl = profileImageUrl;
         }
 
         public bool Equals(UserAccount other)

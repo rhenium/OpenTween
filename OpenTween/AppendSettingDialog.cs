@@ -479,7 +479,7 @@ namespace OpenTween
         {
             if (MyCommon._endingFlag) return;
 
-            if (this.DialogResult == DialogResult.OK && UserAccountsListBox.SelectedItems.Count == 0 && e.CloseReason == CloseReason.None)
+            if (this.DialogResult == DialogResult.OK && UserAccountsCheckedListBox.CheckedItems.Count == 0 && e.CloseReason == CloseReason.None)
             {
                 if (MessageBox.Show(Properties.Resources.Setting_FormClosing1, "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
                 {
@@ -505,12 +505,13 @@ namespace OpenTween
             //this.AuthUserLabel.Enabled = true;
             this.AuthClearButton.Enabled = true;
 
-            UserAccountsListBox.ClearSelected();
+            UserAccountsCheckedListBox.DataSource = UserAccountBindingSource;
+            for (var i = 0; i < UserAccountsCheckedListBox.Items.Count; i++) UserAccountsCheckedListBox.SetItemChecked(i, false);
             if (TimelineTwitters != null)
             {
                 foreach (var t in TimelineTwitters)
                 {
-                    UserAccountsListBox.SetSelected(UserAccounts.IndexOf(t.UserAccount), true);
+                    UserAccountsCheckedListBox.SetItemChecked(UserAccounts.IndexOf(t.UserAccount), true);
                 }
             }
 
@@ -1607,7 +1608,7 @@ namespace OpenTween
 
         private void AuthClearButton_Click(object sender, EventArgs e)
         {
-            foreach (var i in UserAccountsListBox.SelectedIndices.Cast<int>())
+            foreach (var i in UserAccountsCheckedListBox.CheckedIndices.Cast<int>())
             {
                 UserAccounts.RemoveAt(i);
             }
@@ -2184,11 +2185,6 @@ namespace OpenTween
             {
 //              MessageBox.Show("ブラウザの起動に失敗、またはタイムアウトしました。" + ex.ToString());
             }
-        }
-
-        private void CreateAccountButton_Click(object sender, EventArgs e)
-        {
-            this.OpenUrl("https://twitter.com/signup");
         }
 
         private void CheckAutoConvertUrl_CheckedChanged(object sender, EventArgs e)

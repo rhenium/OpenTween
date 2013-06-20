@@ -86,6 +86,8 @@ namespace OpenTween
 
         public string Username { get; set; }
 
+        public string ProfileImageUrl { get; set; }
+
         public static bool UseSsl
         {
             set
@@ -97,11 +99,12 @@ namespace OpenTween
             }
         }
 
-        public HttpTwitter(OAuthCredential credential, long userId, string username)
+        public HttpTwitter(OAuthCredential credential, long userId, string username, string profileImageUrl)
             : base(credential)
         {
             this.UserId = userId;
             this.Username = username;
+            this.ProfileImageUrl = profileImageUrl;
         }
 
         public HttpTwitter(OAuthConsumer consumer)
@@ -1025,7 +1028,7 @@ namespace OpenTween
 
         public object Clone()
         {
-            return new HttpTwitter(Credential, UserId, Username);
+            return new HttpTwitter(Credential, UserId, Username, ProfileImageUrl);
         }
     }
 }

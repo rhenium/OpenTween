@@ -267,6 +267,7 @@ namespace OpenTween
                 }
                 twCon.UserId = user.Id;
                 twCon.Username = user.ScreenName;
+                twCon.ProfileImageUrl = user.ProfileImageUrlHttps;
             }
         }
 
@@ -308,7 +309,7 @@ namespace OpenTween
             }
             else
             {
-                twCon = new HttpTwitter(account.Credential, account.UserId, account.Username);
+                twCon = new HttpTwitter(account.Credential, account.UserId, account.Username, account.ProfileImageUrl);
             }
             this.ResetApiStatus();
             if (AppendSettingDialog.Instance.UserstreamStartup) ReconnectUserStream();
@@ -1536,6 +1537,14 @@ namespace OpenTween
             get
             {
                 return twCon.UserId;
+            }
+        }
+
+        public string ProfileImageUrl
+        {
+            get
+            {
+                return twCon.ProfileImageUrl;
             }
         }
 
@@ -4264,7 +4273,7 @@ namespace OpenTween
         {
             get
             {
-                return new UserAccount(this.Credential, this.UserId, this.Username);
+                return new UserAccount(this.Credential, this.UserId, this.Username, this.ProfileImageUrl);
             }
 
         }
