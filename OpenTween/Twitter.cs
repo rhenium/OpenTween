@@ -1603,108 +1603,6 @@ namespace OpenTween
             }
             return content;
         }
-
-        public string GetTweenBinary(string strVer)
-        {
-            try
-            {
-                //本体
-                if (!(new HttpVarious()).GetDataToFile("http://tween.sourceforge.jp/Tween" + strVer + ".gz?" + DateTime.Now.ToString("yyMMddHHmmss") + Environment.TickCount.ToString(),
-                                                    Path.Combine(MyCommon.settingPath, "TweenNew.exe")))
-                {
-                    return "Err:Download failed";
-                }
-                //英語リソース
-                if (!Directory.Exists(Path.Combine(MyCommon.settingPath, "en")))
-                {
-                    Directory.CreateDirectory(Path.Combine(MyCommon.settingPath, "en"));
-                }
-                if (!(new HttpVarious()).GetDataToFile("http://tween.sourceforge.jp/TweenResEn" + strVer + ".gz?" + DateTime.Now.ToString("yyMMddHHmmss") + Environment.TickCount.ToString(),
-                                                    Path.Combine(Path.Combine(MyCommon.settingPath, "en"), "Tween.resourcesNew.dll")))
-                {
-                    return "Err:Download failed";
-                }
-                //その他言語圏のリソース。取得失敗しても継続
-                //UIの言語圏のリソース
-                var curCul = "";
-                if (!Thread.CurrentThread.CurrentUICulture.IsNeutralCulture)
-                {
-                    var idx = Thread.CurrentThread.CurrentUICulture.Name.LastIndexOf('-');
-                    if (idx > -1)
-                    {
-                        curCul = Thread.CurrentThread.CurrentUICulture.Name.Substring(0, idx);
-                    }
-                    else
-                    {
-                        curCul = Thread.CurrentThread.CurrentUICulture.Name;
-                    }
-                }
-                else
-                {
-                    curCul = Thread.CurrentThread.CurrentUICulture.Name;
-                }
-                if (!string.IsNullOrEmpty(curCul) && curCul != "en" && curCul != "ja")
-                {
-                    if (!Directory.Exists(Path.Combine(MyCommon.settingPath, curCul)))
-                    {
-                        Directory.CreateDirectory(Path.Combine(MyCommon.settingPath, curCul));
-                    }
-                    if (!(new HttpVarious()).GetDataToFile("http://tween.sourceforge.jp/TweenRes" + curCul + strVer + ".gz?" + DateTime.Now.ToString("yyMMddHHmmss") + Environment.TickCount.ToString(),
-                                                        Path.Combine(Path.Combine(MyCommon.settingPath, curCul), "Tween.resourcesNew.dll")))
-                    {
-                        //return "Err:Download failed";
-                    }
-                }
-                //スレッドの言語圏のリソース
-                string curCul2;
-                if (!Thread.CurrentThread.CurrentCulture.IsNeutralCulture)
-                {
-                    var idx = Thread.CurrentThread.CurrentCulture.Name.LastIndexOf('-');
-                    if (idx > -1)
-                    {
-                        curCul2 = Thread.CurrentThread.CurrentCulture.Name.Substring(0, idx);
-                    }
-                    else
-                    {
-                        curCul2 = Thread.CurrentThread.CurrentCulture.Name;
-                    }
-                }
-                else
-                {
-                    curCul2 = Thread.CurrentThread.CurrentCulture.Name;
-                }
-                if (!string.IsNullOrEmpty(curCul2) && curCul2 != "en" && curCul2 != curCul)
-                {
-                    if (!Directory.Exists(Path.Combine(MyCommon.settingPath, curCul2)))
-                    {
-                        Directory.CreateDirectory(Path.Combine(MyCommon.settingPath, curCul2));
-                    }
-                    if (!(new HttpVarious()).GetDataToFile("http://tween.sourceforge.jp/TweenRes" + curCul2 + strVer + ".gz?" + DateTime.Now.ToString("yyMMddHHmmss") + Environment.TickCount.ToString(),
-                                                    Path.Combine(Path.Combine(MyCommon.settingPath, curCul2), "Tween.resourcesNew.dll")))
-                    {
-                        //return "Err:Download failed";
-                    }
-                }
-
-                //アップデータ
-                if (!(new HttpVarious()).GetDataToFile("http://tween.sourceforge.jp/TweenUp3.gz?" + DateTime.Now.ToString("yyMMddHHmmss") + Environment.TickCount.ToString(),
-                                                    Path.Combine(MyCommon.settingPath, "TweenUp3.exe")))
-                {
-                    return "Err:Download failed";
-                }
-                //シリアライザDLL
-                if (!(new HttpVarious()).GetDataToFile("http://tween.sourceforge.jp/TweenDll" + strVer + ".gz?" + DateTime.Now.ToString("yyMMddHHmmss") + Environment.TickCount.ToString(),
-                                                    Path.Combine(MyCommon.settingPath, "TweenNew.XmlSerializers.dll")))
-                {
-                    return "Err:Download failed";
-                }
-                return "";
-            }
-            catch(Exception)
-            {
-                return "Err:Download failed";
-            }
-        }
 #endregion
 
         public bool ReadOwnPost
@@ -4288,12 +4186,12 @@ namespace OpenTween
 
         private bool IsMe(long userId)
         {
-            return CurrentTwitter.UserId == userId || ((TweenMain)AppendSettingDialog.Instance.Owner).BackInstances.Any(t => t.UserId == userId);
+            return CurrentTwitter.UserId == userId || ((TweenMain)AppendSettingDialog.Instance.Owner).AllTwitterInstances.Any(t => t.UserId == userId);
         }
 
         private bool IsMe(string username)
         {
-            return CurrentTwitter.Username == username || ((TweenMain)AppendSettingDialog.Instance.Owner).BackInstances.Any(t => t.Username == username);
+            return CurrentTwitter.Username == username || ((TweenMain)AppendSettingDialog.Instance.Owner).AllTwitterInstances.Any(t => t.Username == username);
         }
 
         #region "UserStream"

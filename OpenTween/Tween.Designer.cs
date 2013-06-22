@@ -35,6 +35,7 @@
             this.StatusLabelUrl = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusLabel = new OpenTween.OpenTweenCustomControl.ToolStripLabelHistory();
             this.ToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.CurrentAccountSelectDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.HashStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.ContextMenuPostMode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItemUrlMultibyteSplit = new System.Windows.Forms.ToolStripMenuItem();
@@ -312,7 +313,6 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.TimerRefreshIcon = new System.Windows.Forms.Timer(this.components);
             this.PostStateImageList = new System.Windows.Forms.ImageList(this.components);
-            this.CurrentAccountSelectDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.ToolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.ToolStripContainer1.ContentPanel.SuspendLayout();
             this.ToolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -402,6 +402,11 @@
             resources.ApplyResources(this.ToolStripStatusLabel1, "ToolStripStatusLabel1");
             this.ToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1";
+            // 
+            // CurrentAccountSelectDropDownButton
+            // 
+            resources.ApplyResources(this.CurrentAccountSelectDropDownButton, "CurrentAccountSelectDropDownButton");
+            this.CurrentAccountSelectDropDownButton.Name = "CurrentAccountSelectDropDownButton";
             // 
             // HashStripSplitButton
             // 
@@ -2422,11 +2427,6 @@
             this.PostStateImageList.Images.SetKeyName(12, "S12.ico");
             this.PostStateImageList.Images.SetKeyName(13, "S13.ico");
             this.PostStateImageList.Images.SetKeyName(14, "S14.ico");
-            // 
-            // CurrentAccountSelectDropDownButton
-            // 
-            resources.ApplyResources(this.CurrentAccountSelectDropDownButton, "CurrentAccountSelectDropDownButton");
-            this.CurrentAccountSelectDropDownButton.Name = "CurrentAccountSelectDropDownButton";
             // 
             // TweenMain
             // 

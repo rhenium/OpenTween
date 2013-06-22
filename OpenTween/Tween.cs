@@ -98,6 +98,7 @@ namespace OpenTween
         private bool _modifySettingAtId = false;
 
         //twitter解析部
+        private List<Twitter> tws = new List<Twitter>();
         private List<Twitter> back;
         private Twitter current;
 
@@ -549,6 +550,7 @@ namespace OpenTween
         private void Form1_Load(object sender, EventArgs e)
         {
             _ignoreConfigSave = true;
+            _initial = true;
             this.Visible = false;
 
             //Win32Api.SetProxy(HttpConnection.ProxyType.Specified, "127.0.0.1", 8080, "user", "pass")
@@ -651,14 +653,12 @@ namespace OpenTween
             SettingDialog.TwitterSearchApiUrl = _cfgCommon.TwitterSearchUrl;
 
             //認証関連
+            SetAccounts();
             if (_cfgCommon.CurrentAccount != null)
             {
-                current = new Twitter(_cfgCommon.CurrentAccount);
-                current.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
-                current.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
                 RefreshCurrentAccountSelector();
+                ChangeCurrentAccount(tws.First(t => t.UserAccount.Equals(_cfgCommon.CurrentAccount)));
             }
-            SetBackAccounts();
             
             SettingDialog.TimelinePeriodInt = _cfgCommon.TimelinePeriod;
             SettingDialog.ReplyPeriodInt = _cfgCommon.ReplyPeriod;
@@ -870,8 +870,6 @@ namespace OpenTween
                                     _cfgCommon.HashIsNotAddToAtReply);
             if (!string.IsNullOrEmpty(HashMgr.UseHash) && HashMgr.IsPermanent) HashStripSplitButton.Text = HashMgr.UseHash;
 
-            _initial = true;
-
             //アイコンリスト作成
             this.IconCache = new ImageCache();
 
@@ -897,11 +895,10 @@ namespace OpenTween
                 else
                 {
                     _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
+                    SetAccounts();
                     RefreshCurrentAccountSelector();
-                    if(current == null)
-                        ChangeCurrentAccount((UserAccount)SettingDialog.UserAccountsCheckedListBox.CheckedItems[0]);
+                    ChangeCurrentAccount(tws.First());
                     _cfgCommon.TimelineAccountIds = SettingDialog.UserAccountsCheckedListBox.CheckedItems.Cast<UserAccount>().Select(u => _cfgCommon.UserAccounts.IndexOf(u)).ToArray();
-                    SetBackAccounts();
                 }
                 SettingDialog.ShowInTaskbar = false;
                 //新しい設定を反映
@@ -3880,9 +3877,10 @@ namespace OpenTween
                 lock (_syncObject)
                 {
                     _cfgCommon.UserAccounts = SettingDialog.UserAccounts;
+                    SetAccounts();
                     RefreshCurrentAccountSelector();
+                    ChangeCurrentAccount(current); // to check dropdown
                     _cfgCommon.TimelineAccountIds = SettingDialog.UserAccountsCheckedListBox.CheckedItems.Cast<UserAccount>().Select(u => _cfgCommon.UserAccounts.IndexOf(u)).ToArray();
-                    SetBackAccounts();
 
                     current.TinyUrlResolve = SettingDialog.TinyUrlResolve;
                     current.RestrictFavCheck = SettingDialog.RestrictFavCheck;
@@ -11869,9 +11867,9 @@ namespace OpenTween
             get { return current; }
         }
 
-        public List<Twitter> BackInstances
+        public List<Twitter> AllTwitterInstances
         {
-            get { return back; }
+            get { return tws; }
         }
 
         private void SplitContainer3_SplitterMoved(object sender, SplitterEventArgs e)
@@ -12800,7 +12798,7 @@ namespace OpenTween
                     this.PurgeListViewItemCache();
                     ((DetailsListView)_curTab.Tag).Update();
                 }
-                if (ev.Event == "unfavorite" && back.Select(t => t.UserId).Contains(ev.UserId))
+                if (ev.Event == "unfavorite" && tws.Any(t => t.UserId == ev.UserId))
                 {
                     RemovePostFromFavTab(new long[] {ev.Id});
                 }
@@ -12965,7 +12963,7 @@ namespace OpenTween
                 pos.Y = Convert.ToInt32(this.Location.Y + this.Size.Height / 2 - evtDialog.Size.Height / 2);
                 evtDialog.Location = pos;
             }
-            evtDialog.EventSource = back.Aggregate((IEnumerable<Twitter.FormattedEvent>)new List<Twitter.FormattedEvent>(), (m, t) => m.Concat(t.StoredEvent)).ToList();
+            evtDialog.EventSource = tws.Aggregate((IEnumerable<Twitter.FormattedEvent>)new List<Twitter.FormattedEvent>(), (m, t) => m.Concat(t.StoredEvent)).ToList();
             if (!evtDialog.Visible)
             {
                 evtDialog.Show(this);
@@ -13251,61 +13249,86 @@ namespace OpenTween
             this.OpenUriAsync(Twitter.ServiceAvailabilityStatusUrl);
         }
 
-        private void ChangeCurrentAccount(UserAccount account)
+        private void ChangeCurrentAccount(Twitter t)
         {
-            if (current == null || !account.Equals(current.UserAccount))
+            if (current == null || !t.UserAccount.Equals(current.UserAccount))
             {
-                if (current != null) current.Dispose();
-                current = new Twitter(account);
+                if (current != null)
+                {
+                    current.TwitterApiInfo.AccessLimitUpdated -= TwitterApiStatus_AccessLimitUpdated;
+                    current.TwitterApiInfo11.AccessLimitUpdated -= TwitterApiStatus_AccessLimitUpdated;
+                }
+                current = t;
                 current.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
                 current.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
-                if (!_initial) doGetFollowersMenu();
+                if (!_initial && t.followerId.Count() == 0)
+                {
+                    doGetFollowersMenu();
+                }
+
             }
+            foreach (var s in CurrentAccountSelectDropDownButton.DropDownItems.Cast<ToolStripMenuItem>())
+            {
+                s.Checked = false;
+            }
+            var item = CurrentAccountSelectDropDownButton.DropDownItems[tws.IndexOf(t)] as ToolStripMenuItem;
+            item.Checked = true;
+            CurrentAccountSelectDropDownButton.Image = item.Image;
+            CurrentAccountSelectDropDownButton.Text = item.Text;
         }
 
-        private void SetBackAccounts()
+        private void SetAccounts()
         {
-            var selectedAccounts = _cfgCommon.TimelineAccountIds.Select(i => _cfgCommon.UserAccounts[i]);
-            var toConnect = selectedAccounts;
-            if (back != null)
+            var ts = _cfgCommon.UserAccounts.Select(u =>
             {
-                toConnect = toConnect.Where(m => !back.Any(t => t.UserAccount.Equals(m)));
-                foreach (var d in back.Where(t => !selectedAccounts.Any(m => m.Equals(t.UserAccount))).ToArray())
+                var f = tws.FirstOrDefault(t => t.UserAccount.Equals(u));
+                if (f == null)
                 {
-                    d.Dispose();
-                    back.Remove(d);
+                    var t = new Twitter(u);
+                    t.TrackWord = _cfgCommon.TrackWord;
+                    t.AllAtReply = _cfgCommon.AllAtReply;
+                    return t;
+                }
+                else
+                {
+                    return f;
+                }
+            });
+            foreach (var t in tws.Where(t => !ts.Contains(t)))
+            {
+                t.Dispose();
+            }
+
+            tws = ts.ToList();
+
+            // back twitters
+            var selectedTwitters = _cfgCommon.TimelineAccountIds.Select(i => tws[i]);
+            foreach (var t in tws)
+            {
+                if (selectedTwitters.Contains(t))
+                {
+                    StartUserStream(t);
+                }
+                else
+                {
+                    t.NewPostFromStream -= tw_NewPostFromStream;
+                    t.UserStreamStarted -= tw_UserStreamStarted;
+                    t.UserStreamStopped -= tw_UserStreamStopped;
+                    t.PostDeleted -= tw_PostDeleted;
+                    t.UserStreamEventReceived -= tw_UserStreamEventArrived;
+                    t.StopUserStream();
                 }
             }
-            else
-            {
-                back = new List<Twitter>();
-            }
-
-            foreach (var u in toConnect)
-            {
-                var t = new Twitter(u);
-                t.TrackWord = _cfgCommon.TrackWord;
-                t.AllAtReply = _cfgCommon.AllAtReply;
-
-                back.Add(t);
-                StartUserStream(t);
-            }
+            back = selectedTwitters.ToList();
         }
 
         private void RefreshCurrentAccountSelector()
         {
-            var items = _cfgCommon.UserAccounts.Select(u =>
+            var items = tws.Select(t =>
             {
-                var item = new ToolStripMenuItem(u.ToString(), u.ProfileImage);
-                item.Tag = u;
-                item.Checked = u.Equals(current.UserAccount);
-                item.Click += (_sender, _e) =>
-                {
-                    ChangeCurrentAccount(u);
-                    foreach (var s in CurrentAccountSelectDropDownButton.DropDownItems.Cast<ToolStripMenuItem>())
-                        s.Checked = false;
-                    item.Checked = true;
-                };
+                var item = new ToolStripMenuItem(t.UserAccount.ToString(), t.UserAccount.ProfileImage);
+                item.Tag = t;
+                item.Click += (_sender, _e) => ChangeCurrentAccount(t);
 
                 return item;
             }).ToArray();
@@ -13315,9 +13338,6 @@ namespace OpenTween
                 CurrentAccountSelectDropDownButton.DropDownItems.Clear();
                 CurrentAccountSelectDropDownButton.DropDownItems.AddRange(items);
             }));
-
-            // current
-
         }
     }
 }
