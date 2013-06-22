@@ -2134,14 +2134,6 @@ namespace OpenTween
             //整形によって増加する文字数を取得
             int adjustCount = 0;
             string tmpStatus = StatusText.Text.Trim();
-            if (ToolStripMenuItemApiCommandEvasion.Checked)
-            {
-                // APIコマンド回避
-                if (Regex.IsMatch(tmpStatus,
-                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(get|g|fav|follow|f|on|off|stop|quit|leave|l|whois|w|nudge|n|stats|invite|track|untrack|tracks|tracking|\*)([+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]+|$)",
-                    RegexOptions.IgnoreCase)
-                   && tmpStatus.EndsWith(" .") == false) adjustCount += 2;
-            }
 
             if (ToolStripMenuItemUrlMultibyteSplit.Checked)
             {
@@ -2225,11 +2217,7 @@ namespace OpenTween
 
             if (ToolStripMenuItemApiCommandEvasion.Checked)
             {
-                // APIコマンド回避
-                if (Regex.IsMatch(args.status.status,
-                    @"^[+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]*(get|g|fav|follow|f|on|off|stop|quit|leave|l|whois|w|nudge|n|stats|invite|track|untrack|tracks|tracking|\*)([+\-\[\]\s\\.,*/(){}^~|='&%$#""<>?]+|$)",
-                    RegexOptions.IgnoreCase)
-                   && args.status.status.EndsWith(" .") == false) args.status.status += " .";
+                args.status.status = "\ufeff" + args.status.status;
             }
 
             if (ToolStripMenuItemUrlMultibyteSplit.Checked)
