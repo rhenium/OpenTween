@@ -177,11 +177,11 @@ namespace OpenTween
         public int MapThumbnailZoom = 15;
         public MapProvider MapThumbnailProvider = MapProvider.OpenStreetMap;
         public bool IsListsIncludeRts = false;
-        public long GAFirst = 0;
-        public long GALast = 0;
         public bool TabMouseLock = false;
         public bool IsRemoveSameEvent = false;
         public bool IsUseNotifyGrowl = false;
+        public bool SpaceToFocusTimeline = true;
+        public bool AutoCutTweet = false;
     }
 
     public class UserAccount : IEquatable<UserAccount>

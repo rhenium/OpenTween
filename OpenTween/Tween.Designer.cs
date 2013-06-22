@@ -43,7 +43,9 @@
             this.ToolStripMenuItemUrlAutoShorten = new System.Windows.Forms.ToolStripMenuItem();
             this.IdeographicSpaceToSpaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MultiLineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripAutoCutTweetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripFocusLockMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripSpaceToFocusTimelineMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator35 = new System.Windows.Forms.ToolStripSeparator();
             this.ImageSelectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -426,7 +428,9 @@
             this.ToolStripMenuItemUrlAutoShorten,
             this.IdeographicSpaceToSpaceToolStripMenuItem,
             this.MultiLineMenuItem,
+            this.ToolStripAutoCutTweetMenuItem,
             this.ToolStripFocusLockMenuItem,
+            this.ToolStripSpaceToFocusTimelineMenuItem,
             this.ToolStripSeparator35,
             this.ImageSelectMenuItem,
             this.ToolStripSeparator8,
@@ -474,12 +478,26 @@
             resources.ApplyResources(this.MultiLineMenuItem, "MultiLineMenuItem");
             this.MultiLineMenuItem.Click += new System.EventHandler(this.MultiLineMenuItem_Click);
             // 
+            // ToolStripAutoCutTweetMenuItem
+            // 
+            this.ToolStripAutoCutTweetMenuItem.CheckOnClick = true;
+            this.ToolStripAutoCutTweetMenuItem.Name = "ToolStripAutoCutTweetMenuItem";
+            resources.ApplyResources(this.ToolStripAutoCutTweetMenuItem, "ToolStripAutoCutTweetMenuItem");
+            this.ToolStripAutoCutTweetMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripAutoCutTweetMenuItem_CheckedChanged);
+            // 
             // ToolStripFocusLockMenuItem
             // 
             this.ToolStripFocusLockMenuItem.CheckOnClick = true;
             this.ToolStripFocusLockMenuItem.Name = "ToolStripFocusLockMenuItem";
             resources.ApplyResources(this.ToolStripFocusLockMenuItem, "ToolStripFocusLockMenuItem");
             this.ToolStripFocusLockMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripFocusLockMenuItem_CheckedChanged);
+            // 
+            // ToolStripSpaceToFocusTimelineMenuItem
+            // 
+            this.ToolStripSpaceToFocusTimelineMenuItem.CheckOnClick = true;
+            this.ToolStripSpaceToFocusTimelineMenuItem.Name = "ToolStripSpaceToFocusTimelineMenuItem";
+            resources.ApplyResources(this.ToolStripSpaceToFocusTimelineMenuItem, "ToolStripSpaceToFocusTimelineMenuItem");
+            this.ToolStripSpaceToFocusTimelineMenuItem.CheckedChanged += new System.EventHandler(this.ToolStripSpaceToFocusTimelineMenuItem_CheckedChanged);
             // 
             // ToolStripSeparator35
             // 
@@ -2774,6 +2792,8 @@
         private TweetThumbnail tweetThumbnail1;
         private System.Windows.Forms.ToolStripMenuItem TwitterApiStatusToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton CurrentAccountSelectDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripSpaceToFocusTimelineMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripAutoCutTweetMenuItem;
 
     }
 }

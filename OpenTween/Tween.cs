@@ -226,6 +226,8 @@ namespace OpenTween
 
         private ImageListViewItem displayItem;
 
+        private char[] trimChars = new char[] { ' ', '\t', '\r', '\n' };
+
         //URL短縮のUndo用
         private struct urlUndo
         {
@@ -807,6 +809,8 @@ namespace OpenTween
             }
             this.IdeographicSpaceToSpaceToolStripMenuItem.Checked = _cfgCommon.WideSpaceConvert;
             this.ToolStripFocusLockMenuItem.Checked = _cfgCommon.FocusLockToStatusText;
+            this.ToolStripSpaceToFocusTimelineMenuItem.Checked = _cfgCommon.SpaceToFocusTimeline;
+            this.ToolStripAutoCutTweetMenuItem.Checked = _cfgCommon.AutoCutTweet;
 
             //Regex statregex = new Regex("^0*");
             SettingDialog.RecommendStatusText = " [TWNv" + Regex.Replace(MyCommon.fileVersion.Replace(".", ""), "^0*", "") + "]";
@@ -1081,7 +1085,7 @@ namespace OpenTween
             StatusLabel.AutoToolTip = false;
             StatusLabel.ToolTipText = "";
             //文字カウンタ初期化
-            lblLen.Text = GetRestStatusCount(true, false).ToString();
+            lblLen.Text = (140 - GetRestStatusCount(false)).ToString();
 
             ////////////////////////////////////////////////////////////////////////////////
             _statuses.SortOrder = (SortOrder)_cfgCommon.SortOrder;
@@ -2081,29 +2085,12 @@ namespace OpenTween
 
         private void PostButton_Click(object sender, EventArgs e)
         {
-            if (StatusText.Text.Trim().Length == 0)
+            if (StatusText.Text.Trim(trimChars).Length == 0)
             {
                 if (!ImageSelectionPanel.Enabled)
                 {
                     DoRefresh();
                     return;
-                }
-            }
-
-            if (this.ExistCurrentPost && StatusText.Text.Trim() == string.Format("RT @{0}: {1}", _curPost.ScreenName, _curPost.TextFromApi))
-            {
-                DialogResult rtResult = MessageBox.Show(string.Format(Properties.Resources.PostButton_Click1, Environment.NewLine),
-                                                               "Retweet",
-                                                               MessageBoxButtons.YesNoCancel,
-                                                               MessageBoxIcon.Question);
-                switch (rtResult)
-                {
-                    case DialogResult.Yes:
-                        doReTweetOfficial(false);
-                        StatusText.Text = "";
-                        return;
-                    case DialogResult.Cancel:
-                        return;
                 }
             }
 
@@ -2114,16 +2101,7 @@ namespace OpenTween
                 StatusText.SelectionStart = StatusText.Text.Length;
                 UrlConvert(MyCommon.UrlConverter.Nicoms);
             }
-            //if (SettingDialog.UrlConvertAuto)
-            //{
-            //    StatusText.SelectionStart = StatusText.Text.Length;
-            //    UrlConvertAutoToolStripMenuItem_Click(null, null);
-            //}
-            //else if (SettingDialog.Nicoms)
-            //{
-            //    StatusText.SelectionStart = StatusText.Text.Length;
-            //    UrlConvert(UrlConverter.Nicoms);
-            //}
+
             StatusText.SelectionStart = StatusText.Text.Length;
             GetWorkerArg args = new GetWorkerArg();
             args.page = 0;
@@ -2131,41 +2109,14 @@ namespace OpenTween
             args.type = MyCommon.WORKERTYPE.PostMessage;
             CheckReplyTo(StatusText.Text);
 
-            //整形によって増加する文字数を取得
-            int adjustCount = 0;
-            string tmpStatus = StatusText.Text.Trim();
+            var isRemoveFooter = IsRemoveFooter();
 
-            if (ToolStripMenuItemUrlMultibyteSplit.Checked)
+            if (!isRemoveFooter && GetRestStatusCount(false) > 140)
             {
-                // URLと全角文字の切り離し
-                adjustCount += Regex.Matches(tmpStatus, @"https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#^]+").Count;
-            }
-
-            bool isCutOff = false;
-            bool isRemoveFooter = MyCommon.IsKeyDown(Keys.Shift);
-            if (StatusText.Multiline && !SettingDialog.PostCtrlEnter)
-            {
-                //複数行でEnter投稿の場合、Ctrlも押されていたらフッタ付加しない
-                isRemoveFooter = MyCommon.IsKeyDown(Keys.Control);
-            }
-            if (SettingDialog.PostShiftEnter)
-            {
-                isRemoveFooter = MyCommon.IsKeyDown(Keys.Control);
-            }
-            if (!isRemoveFooter && (StatusText.Text.Contains("RT @") || StatusText.Text.Contains("QT @")))
-            {
-                isRemoveFooter = true;
-            }
-            if (GetRestStatusCount(false, !isRemoveFooter) - adjustCount < 0)
-            {
-                if (MessageBox.Show(Properties.Resources.PostLengthOverMessage1, Properties.Resources.PostLengthOverMessage2, MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (ToolStripAutoCutTweetMenuItem.Checked ||
+                    MessageBox.Show(Properties.Resources.PostLengthOverMessage1, Properties.Resources.PostLengthOverMessage2, MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    isCutOff = true;
-                    //if (!SettingDialog.UrlConvertAuto) UrlConvertAutoToolStripMenuItem_Click(null, null);
-                    if (GetRestStatusCount(false, !isRemoveFooter) - adjustCount < 0)
-                    {
-                        isRemoveFooter = true;
-                    }
+                    isRemoveFooter = true;
                 }
                 else
                 {
@@ -2173,80 +2124,13 @@ namespace OpenTween
                 }
             }
 
-            string footer = "";
-            string header = "";
-            if (StatusText.Text.StartsWith("D ") || StatusText.Text.StartsWith("d "))
-            {
-                //DM時は何もつけない
-                footer = "";
-            }
-            else
-            {
-                //ハッシュタグ
-                if (HashMgr.IsNotAddToAtReply)
-                {
-                    if (!string.IsNullOrEmpty(HashMgr.UseHash) && _reply_to_id == 0 && string.IsNullOrEmpty(_reply_to_name))
-                    {
-                        if (HashMgr.IsHead)
-                            header = HashMgr.UseHash + " ";
-                        else
-                            footer = " " + HashMgr.UseHash;
-                    }
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(HashMgr.UseHash))
-                    {
-                        if (HashMgr.IsHead)
-                            header = HashMgr.UseHash + " ";
-                        else
-                            footer = " " + HashMgr.UseHash;
-                    }
-                }
-                if (!isRemoveFooter)
-                {
-                    if (SettingDialog.UseRecommendStatus)
-                        // 推奨ステータスを使用する
-                        footer += SettingDialog.RecommendStatusText;
-                    else
-                        // テキストボックスに入力されている文字列を使用する
-                        footer += " " + SettingDialog.Status.Trim();
-                }
-            }
-            args.status.status = header + StatusText.Text.Trim() + footer;
+            args.status.status = GetPostStatusText(isRemoveFooter);
 
-            if (ToolStripMenuItemApiCommandEvasion.Checked)
-            {
-                args.status.status = "\ufeff" + args.status.status;
-            }
-
-            if (ToolStripMenuItemUrlMultibyteSplit.Checked)
-            {
-                // URLと全角文字の切り離し
-                Match mc2 = Regex.Match(args.status.status, @"https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#^]+");
-                if (mc2.Success) args.status.status = Regex.Replace(args.status.status, @"https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#^]+", "$& ");
-            }
-
-            if (IdeographicSpaceToSpaceToolStripMenuItem.Checked)
-            {
-                // 文中の全角スペースを半角スペース1個にする
-                args.status.status = args.status.status.Replace("　", " ");
-            }
-
-            if (isCutOff && args.status.status.Length > 140)
+            if (GetRestStatusCount(isRemoveFooter) > 140)
             {
                 args.status.status = args.status.status.Substring(0, 140);
-                string AtId = @"(@|＠)[a-z0-9_/]+$";
-                string HashTag = @"(^|[^0-9A-Z&\/\?]+)(#|＃)([0-9A-Z_]*[A-Z_]+)$";
-                string Url = @"https?:\/\/[a-z0-9!\*'\(\);:&=\+\$\/%#\[\]\-_\.,~?]+$"; //簡易判定
-                string pattern = string.Format("({0})|({1})|({2})", AtId, HashTag, Url);
-                Match mc = Regex.Match(args.status.status, pattern, RegexOptions.IgnoreCase);
-                if (mc.Success)
-                {
-                    //さらに@ID、ハッシュタグ、URLと推測される文字列をカットする
-                    args.status.status = args.status.status.Substring(0, 140 - mc.Value.Length);
-                }
-                if (MessageBox.Show(args.status.status, "Post or Cancel?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel) return;
+                if (!ToolStripAutoCutTweetMenuItem.Checked &&
+                    MessageBox.Show(args.status.status, "Post or Cancel?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel) return;
             }
 
             args.status.inReplyToId = _reply_to_id;
@@ -2259,10 +2143,10 @@ namespace OpenTween
                     !string.IsNullOrEmpty(ImagefilePathText.Text))
                 {
                     if (MessageBox.Show(Properties.Resources.PostPictureConfirm1,
-                                       Properties.Resources.PostPictureConfirm2,
-                                       MessageBoxButtons.OKCancel,
-                                       MessageBoxIcon.Question,
-                                       MessageBoxDefaultButton.Button1)
+                                        Properties.Resources.PostPictureConfirm2,
+                                        MessageBoxButtons.OKCancel,
+                                        MessageBoxIcon.Question,
+                                        MessageBoxDefaultButton.Button1)
                                    == DialogResult.Cancel)
                     {
                         TimelinePanel.Visible = true;
@@ -2309,6 +2193,15 @@ namespace OpenTween
                 ((Control)ListTab.SelectedTab.Tag).Focus();
             urlUndoBuffer = null;
             UrlUndoToolStripMenuItem.Enabled = false;  //Undoをできないように設定
+        }
+
+        private bool IsRemoveFooter()
+        {
+            return MyCommon.IsKeyDown(Keys.Shift) ||
+                MyCommon.IsKeyDown(Keys.Control) && StatusText.Multiline && !SettingDialog.PostCtrlEnter ||
+                MyCommon.IsKeyDown(Keys.Control) && SettingDialog.PostShiftEnter ||
+                StatusText.Text.Contains("RT @") ||
+                StatusText.Text.Contains("QT @");
         }
 
         private void EndToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4837,20 +4730,24 @@ namespace OpenTween
 
         private void StatusText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '@')
+            if (StatusText.SelectionStart == 0 ||
+                char.IsWhiteSpace(StatusText.Text.Substring(0, StatusText.SelectionStart).Last()))
             {
-                if (!SettingDialog.UseAtIdSupplement) return;
-                //@マーク
-                int cnt = AtIdSupl.ItemCount;
-                ShowSuplDialog(StatusText, AtIdSupl);
-                if (cnt != AtIdSupl.ItemCount) _modifySettingAtId = true;
-                e.Handled = true;
-            }
-            else if (e.KeyChar == '#')
-            {
-                if (!SettingDialog.UseHashSupplement) return;
-                ShowSuplDialog(StatusText, HashSupl);
-                e.Handled = true;
+                if (e.KeyChar == '@')
+                {
+                    if (!SettingDialog.UseAtIdSupplement) return;
+                    //@マーク
+                    int cnt = AtIdSupl.ItemCount;
+                    ShowSuplDialog(StatusText, AtIdSupl);
+                    if (cnt != AtIdSupl.ItemCount) _modifySettingAtId = true;
+                    e.Handled = true;
+                }
+                else if (e.KeyChar == '#')
+                {
+                    if (!SettingDialog.UseHashSupplement) return;
+                    ShowSuplDialog(StatusText, HashSupl);
+                    e.Handled = true;
+                }
             }
         }
 
@@ -4917,38 +4814,40 @@ namespace OpenTween
         private void StatusText_KeyUp(object sender, KeyEventArgs e)
         {
             //スペースキーで未読ジャンプ
-            if (!e.Alt && !e.Control && !e.Shift)
+            if (this.ToolStripSpaceToFocusTimelineMenuItem.Checked)
             {
-                if (e.KeyCode == Keys.Space || e.KeyCode == Keys.ProcessKey)
+                if (!e.Alt && !e.Control && !e.Shift)
                 {
-                    bool isSpace = false;
-                    foreach (char c in StatusText.Text.ToCharArray())
+                    if (e.KeyCode == Keys.Space || e.KeyCode == Keys.ProcessKey)
                     {
-                        if (c == ' ' || c == '　')
+                        bool isSpace = false;
+                        foreach (char c in StatusText.Text.ToCharArray())
                         {
-                            isSpace = true;
+                            if (c == ' ' || c == '　')
+                            {
+                                isSpace = true;
+                            }
+                            else
+                            {
+                                isSpace = false;
+                                break;
+                            }
                         }
-                        else
+                        if (isSpace)
                         {
-                            isSpace = false;
-                            break;
+                            e.Handled = true;
+                            StatusText.Text = "";
+                            JumpUnreadMenuItem_Click(null, null);
+                            this.StatusText_TextChanged(null, null);
                         }
-                    }
-                    if (isSpace)
-                    {
-                        e.Handled = true;
-                        StatusText.Text = "";
-                        JumpUnreadMenuItem_Click(null, null);
                     }
                 }
             }
-            this.StatusText_TextChanged(null, null);
         }
 
         private void StatusText_TextChanged(object sender, EventArgs e)
         {
-            //文字数カウント
-            int pLen = GetRestStatusCount(true, false);
+            int pLen = 140 - GetRestStatusCount(IsRemoveFooter());
             lblLen.Text = pLen.ToString();
             if (pLen < 0)
             {
@@ -4965,29 +4864,42 @@ namespace OpenTween
             }
         }
 
-        private int GetRestStatusCount(bool isAuto, bool isAddFooter)
+        private string GetPostStatusText(bool isRemoveFooter)
         {
-            //文字数カウント
-            int pLen = 140 - StatusText.Text.Length;
-            if (this.NotifyIcon1 == null || !this.NotifyIcon1.Visible) return pLen;
-            if ((isAuto && !MyCommon.IsKeyDown(Keys.Control) && SettingDialog.PostShiftEnter) ||
-                (isAuto && !MyCommon.IsKeyDown(Keys.Shift) && !SettingDialog.PostShiftEnter) ||
-                (!isAuto && isAddFooter))
+            string footer = "";
+            string header = "";
+            //ハッシュタグ
+            if (!string.IsNullOrEmpty(HashMgr.UseHash) &&
+                (!HashMgr.IsNotAddToAtReply ||
+                _reply_to_id == 0 && string.IsNullOrEmpty(_reply_to_name)))
             {
-                if (SettingDialog.UseRecommendStatus)
-                    pLen -= SettingDialog.RecommendStatusText.Length;
-                else if (SettingDialog.Status.Length > 0)
-                    pLen -= SettingDialog.Status.Length + 1;
+                if (HashMgr.IsHead)
+                {
+                    header = HashMgr.UseHash + " ";
+                }
+                else
+                {
+                    footer = " " + HashMgr.UseHash;
+                }
             }
-            if (!string.IsNullOrEmpty(HashMgr.UseHash))
+            if (!isRemoveFooter)
             {
-                pLen -= HashMgr.UseHash.Length + 1;
+                if (SettingDialog.Status.Length > 0)
+                {
+                    // テキストボックスに入力されている文字列を使用する
+                    footer += " " + SettingDialog.Status;
+                }
             }
-            //foreach (Match m in Regex.Matches(StatusText.Text, "https?:\/\/[-_.!~*//()a-zA-Z0-9;\/?:\@&=+\$,%#^]+"))
-            //{
-            //    pLen += m.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
-            //}
-            foreach (Match m in Regex.Matches(StatusText.Text, Twitter.rgUrl, RegexOptions.IgnoreCase))
+
+            var result = (header + StatusText.Text + footer)
+                .Trim(trimChars)
+                .Replace(Environment.NewLine, "\n");
+            return result;
+        }
+
+        private IEnumerable<Tuple<string, int>> GetPostStatusTextUrls(string text)
+        {
+            foreach (Match m in Regex.Matches(text, Twitter.rgUrl, RegexOptions.IgnoreCase))
             {
                 string before = m.Result("${before}");
                 string url = m.Result("${url}");
@@ -5009,7 +4921,7 @@ namespace OpenTween
                         last_url_invalid_match = Regex.IsMatch(lasturl, Twitter.url_invalid_short_domain, RegexOptions.IgnoreCase);
                         if (!last_url_invalid_match)
                         {
-                            pLen += lasturl.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
+                            yield return new Tuple<string, int>(lasturl, SettingDialog.TwitterConfiguration.ShortUrlLength);
                         }
                     }
 
@@ -5017,26 +4929,30 @@ namespace OpenTween
                     {
                         if (last_url_invalid_match)
                         {
-                            pLen += lasturl.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
+                            yield return new Tuple<string, int>(lasturl, SettingDialog.TwitterConfiguration.ShortUrlLength);
                         }
-                        pLen += path.Length;
                     }
+                }
+                else if (protocol.Length > 7)
+                {
+                    yield return new Tuple<string, int>(url, SettingDialog.TwitterConfiguration.ShortUrlLengthHttps);
                 }
                 else
                 {
-                    pLen += url.Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
+                    yield return new Tuple<string, int>(url, SettingDialog.TwitterConfiguration.ShortUrlLength);
                 }
-                
+
                 //if (m.Result("${url}").Length > SettingDialog.TwitterConfiguration.ShortUrlLength)
                 //{
-                //    pLen += m.Result("${url}").Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
+                // pLen += m.Result("${url}").Length - SettingDialog.TwitterConfiguration.ShortUrlLength;
                 //}
             }
-            if (ImageSelectionPanel.Visible && ImageSelectedPicture.Tag != null && !string.IsNullOrEmpty(this.ImageService))
-            {
-                pLen -= SettingDialog.TwitterConfiguration.CharactersReservedPerMedia;
-            }
-            return pLen;
+        }
+
+        private int GetRestStatusCount(bool isRemoveFooter)
+        {
+            var text = GetPostStatusText(isRemoveFooter);
+            return text.Length - GetPostStatusTextUrls(text).Aggregate(0, (b, n) => b + n.Item1.Length - n.Item2);
         }
 
         private void MyList_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
@@ -7804,6 +7720,16 @@ namespace OpenTween
                         ToolStripFocusLockMenuItem.IsDisposed == false)
                 {
                     _cfgCommon.FocusLockToStatusText = this.ToolStripFocusLockMenuItem.Checked;
+                }
+                if (ToolStripSpaceToFocusTimelineMenuItem != null &&
+                        ToolStripSpaceToFocusTimelineMenuItem.IsDisposed == false)
+                {
+                    _cfgCommon.SpaceToFocusTimeline = this.ToolStripSpaceToFocusTimelineMenuItem.Checked;
+                }
+                if (ToolStripAutoCutTweetMenuItem != null &&
+                        ToolStripAutoCutTweetMenuItem.IsDisposed == false)
+                {
+                    _cfgCommon.AutoCutTweet = this.ToolStripAutoCutTweetMenuItem.Checked;
                 }
                 _cfgCommon.UseAdditionalCount = SettingDialog.UseAdditionalCount;
                 _cfgCommon.MoreCountApi = SettingDialog.MoreCountApi;
@@ -13326,6 +13252,16 @@ namespace OpenTween
                 CurrentAccountSelectDropDownButton.DropDownItems.Clear();
                 CurrentAccountSelectDropDownButton.DropDownItems.AddRange(items);
             }));
+        }
+
+        private void ToolStripSpaceToFocusTimelineMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            _modifySettingCommon = true;
+        }
+
+        private void ToolStripAutoCutTweetMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            _modifySettingCommon = true;
         }
     }
 }
