@@ -2126,6 +2126,25 @@ namespace OpenTween
 
             args.status.status = GetPostStatusText(isRemoveFooter);
 
+            if (ToolStripMenuItemApiCommandEvasion.Checked)
+            {
+                // APIコマンド回避
+                args.status.status = "\ufeff" + args.status.status;
+            }
+
+            if (ToolStripMenuItemUrlMultibyteSplit.Checked)
+            {
+                // URLと全角文字の切り離し
+                Match mc2 = Regex.Match(args.status.status, @"https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#^]+");
+                if (mc2.Success) args.status.status = Regex.Replace(args.status.status, @"https?:\/\/[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#^]+", "$& ");
+            }
+
+            if (IdeographicSpaceToSpaceToolStripMenuItem.Checked)
+            {
+                // 文中の全角スペースを半角スペース1個にする
+                args.status.status = args.status.status.Replace("　", " ");
+            }
+
             if (GetRestStatusCount(isRemoveFooter) > 140)
             {
                 args.status.status = args.status.status.Substring(0, 140);
@@ -13175,9 +13194,16 @@ namespace OpenTween
                 current = t;
                 current.TwitterApiInfo.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
                 current.TwitterApiInfo11.AccessLimitUpdated += TwitterApiStatus_AccessLimitUpdated;
-                if (!_initial && t.followerId.Count() == 0)
+                if (!_initial)
                 {
-                    doGetFollowersMenu();
+                    if (current.followerId.Count() == 0)
+                    {
+                        doGetFollowersMenu();
+                    }
+                    else
+                    {
+                        TabInformations.GetInstance().RefreshOwl(current.followerId);
+                    }
                 }
 
             }
@@ -13205,6 +13231,8 @@ namespace OpenTween
                 }
                 else
                 {
+                    f.UserAccount.Username = u.Username;
+                    f.UserAccount.ProfileImageUrl = u.ProfileImageUrl;
                     return f;
                 }
             });

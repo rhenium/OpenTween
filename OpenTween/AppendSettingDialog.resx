@@ -259,6 +259,30 @@
   <data name="&gt;&gt;SplitContainer1.Panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="UpdateAccountButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 129</value>
+  </data>
+  <data name="UpdateAccountButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="UpdateAccountButton.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="UpdateAccountButton.Text" xml:space="preserve">
+    <value>情報更新</value>
+  </data>
+  <data name="&gt;&gt;UpdateAccountButton.Name" xml:space="preserve">
+    <value>UpdateAccountButton</value>
+  </data>
+  <data name="&gt;&gt;UpdateAccountButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;UpdateAccountButton.Parent" xml:space="preserve">
+    <value>BasedPanel</value>
+  </data>
+  <data name="&gt;&gt;UpdateAccountButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="UserAccountsCheckedListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 42</value>
   </data>
@@ -278,31 +302,31 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;UserAccountsCheckedListBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 71</value>
+  <data name="AddAccountButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>432, 100</value>
   </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="AddAccountButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+  <data name="AddAccountButton.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="button1.Text" xml:space="preserve">
+  <data name="AddAccountButton.Text" xml:space="preserve">
     <value>追加</value>
   </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
+  <data name="&gt;&gt;AddAccountButton.Name" xml:space="preserve">
+    <value>AddAccountButton</value>
   </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+  <data name="&gt;&gt;AddAccountButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;AddAccountButton.Parent" xml:space="preserve">
     <value>BasedPanel</value>
   </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;AddAccountButton.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="StartAuthButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -329,13 +353,13 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;StartAuthButton.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="AuthClearButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="AuthClearButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>432, 100</value>
+    <value>432, 71</value>
   </data>
   <data name="AuthClearButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -356,7 +380,7 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;AuthClearButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -386,7 +410,7 @@
     <value>BasedPanel</value>
   </data>
   <data name="&gt;&gt;Label4.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="BasedPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

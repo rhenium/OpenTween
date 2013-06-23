@@ -34,7 +34,7 @@
             this.TreeViewSetting = new System.Windows.Forms.TreeView();
             this.BasedPanel = new System.Windows.Forms.Panel();
             this.UserAccountsCheckedListBox = new System.Windows.Forms.CheckedListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddAccountButton = new System.Windows.Forms.Button();
             this.StartAuthButton = new System.Windows.Forms.Button();
             this.AuthClearButton = new System.Windows.Forms.Button();
             this.Label4 = new System.Windows.Forms.Label();
@@ -281,6 +281,7 @@
             this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
             this.FontDialog1 = new System.Windows.Forms.FontDialog();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.UpdateAccountButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
@@ -354,8 +355,9 @@
             // 
             // BasedPanel
             // 
+            this.BasedPanel.Controls.Add(this.UpdateAccountButton);
             this.BasedPanel.Controls.Add(this.UserAccountsCheckedListBox);
-            this.BasedPanel.Controls.Add(this.button1);
+            this.BasedPanel.Controls.Add(this.AddAccountButton);
             this.BasedPanel.Controls.Add(this.StartAuthButton);
             this.BasedPanel.Controls.Add(this.AuthClearButton);
             this.BasedPanel.Controls.Add(this.Label4);
@@ -368,11 +370,12 @@
             resources.ApplyResources(this.UserAccountsCheckedListBox, "UserAccountsCheckedListBox");
             this.UserAccountsCheckedListBox.Name = "UserAccountsCheckedListBox";
             // 
-            // button1
+            // AddAccountButton
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.AddAccountButton, "AddAccountButton");
+            this.AddAccountButton.Name = "AddAccountButton";
+            this.AddAccountButton.UseVisualStyleBackColor = true;
+            this.AddAccountButton.Click += new System.EventHandler(this.AddAccountButton_Click);
             // 
             // StartAuthButton
             // 
@@ -2244,6 +2247,13 @@
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
+            // UpdateAccountButton
+            // 
+            resources.ApplyResources(this.UpdateAccountButton, "UpdateAccountButton");
+            this.UpdateAccountButton.Name = "UpdateAccountButton";
+            this.UpdateAccountButton.UseVisualStyleBackColor = true;
+            this.UpdateAccountButton.Click += new System.EventHandler(this.UpdateAccountButton_Click);
+            // 
             // AppendSettingDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -2556,7 +2566,8 @@
         private System.Windows.Forms.Label label48;
         internal System.Windows.Forms.CheckBox CheckViewTabBottom;
         private System.Windows.Forms.BindingSource UserAccountBindingSource;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddAccountButton;
         internal System.Windows.Forms.CheckedListBox UserAccountsCheckedListBox;
+        private System.Windows.Forms.Button UpdateAccountButton;
     }
 }

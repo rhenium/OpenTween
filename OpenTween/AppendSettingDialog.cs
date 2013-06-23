@@ -1591,7 +1591,22 @@ namespace OpenTween
 
         private void StartAuthButton_Click(object sender, EventArgs e)
         {
-            var auth = new Twitter(ApplicationSettings.TwitterConsumerKey, ApplicationSettings.TwitterConsumerSecret);
+            var consumerKey = ApplicationSettings.TwitterConsumerKey;
+            var consumerSecret = ApplicationSettings.TwitterConsumerSecret;
+
+            using (var d = new AddAccountDialog(true))
+            {
+                if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (!string.IsNullOrEmpty(d.ConsumerKey) && !string.IsNullOrEmpty(d.ConsumerSecret))
+                    {
+                        consumerKey = d.ConsumerKey;
+                        consumerSecret = d.ConsumerSecret;
+                    }
+                }
+            }
+
+            var auth = new Twitter(consumerKey, consumerSecret);
             var authUrl = PrepareAuth(auth);
             if (authUrl != null)
             {
@@ -2197,6 +2212,41 @@ namespace OpenTween
             InitializeComponent();
 
             this.Icon = Properties.Resources.MIcon;
+        }
+
+        private void AddAccountButton_Click(object sender, EventArgs e)
+        {
+            using (var d = new AddAccountDialog())
+            {
+                if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var a = new UserAccount(d.ConsumerKey, d.ConsumerSecret, d.AccessToken, d.AccessTokenSecret, 0, null, null);
+                    RefreshAccount(a);
+                    UserAccounts.Add(a);
+                }
+            }
+        }
+
+        private void RefreshAccount(UserAccount account)
+        {
+            using (var t = new Twitter(account))
+            {
+                t.VerifyCredentials();
+                account.UserId = t.UserId;
+                account.Username = t.Username;
+                account.ProfileImageUrl = t.ProfileImageUrl;
+            }
+
+            UserAccountsCheckedListBox.Refresh();
+        }
+
+        private void UpdateAccountButton_Click(object sender, EventArgs e)
+        {
+            var account = UserAccountsCheckedListBox.SelectedItem as UserAccount;
+            if (account != null)
+            {
+                RefreshAccount(account);
+            }
         }
     }
 }
